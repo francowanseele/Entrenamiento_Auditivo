@@ -1,0 +1,1 @@
+export { default as Graficar } from './Graficar.js';
