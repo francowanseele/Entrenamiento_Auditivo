@@ -20,10 +20,7 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            {/* <Button title="Hello Music" onPress={hello_music} />
-            <Button title="Music Player" onPress={music_player} />
-            <StatusBar style="auto" /> */}
-            <Graficar notasParam={'C#6/q, B5, B4, C4'} />
+            <Graficar notasParam={'C#6/q, B5, B4, C4'} numeradorParam={4} denominadorParam={4} />
         </View>
     );
 }

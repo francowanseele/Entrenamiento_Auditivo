@@ -3,11 +3,12 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-export default ( {notasParam,cantPulsosParam, denominadorParam} ) =>{
+export default ( {notasParam,cantPulsosParam,numeradorParam, denominadorParam} ) =>{
 
     const [notasPorCompas, setNotasPorCompas] = useState(notasParam);
     const [cantPulsosPorCompas, setCantPulsosPorCompas] = useState(cantPulsosParam);
     const [denominador, setDenominador] = useState(denominadorParam);
+    const [numerador, setNumerador] = useState(numeradorParam);
 
 
   return (    
@@ -60,7 +61,7 @@ export default ( {notasParam,cantPulsosParam, denominadorParam} ) =>{
                 
                     
                 ]
-                }).addClef('treble').addTimeSignature('4/4');
+                }).addClef('treble').addTimeSignature('`+numerador+`/`+denominador+`');
 
                 // Draw it!
                 vf.draw();
