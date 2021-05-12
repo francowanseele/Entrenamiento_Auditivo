@@ -3,12 +3,15 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-export default ( {notasParam,cantCompasesParam,numeradorParam, denominadorParam} ) =>{
+export default ( {notasParam,figurasParam,cantCompasesParam,numeradorParam, denominadorParam} ) =>{
 
     const [notasPorCompas, setNotasPorCompas] = useState(notasParam);
     const [cantCompases, setcantCompases] = useState(cantCompasesParam);
+    const [figuras, setfiguras] = useState(figurasParam); 
     const [denominador, setDenominador] = useState(denominadorParam);
     const [numerador, setNumerador] = useState(numeradorParam);
+
+    
 
 
   return (    
@@ -43,10 +46,10 @@ export default ( {notasParam,cantCompasesParam,numeradorParam, denominadorParam}
               staveMeasure1.addClef("treble").addTimeSignature('`+numerador+`/`+denominador+`').setContext(context).draw();
             
               var notesMeasure1 = [
-                new Vex.Flow.StaveNote({ keys: ["c/4"], duration: "q" }),
-                new Vex.Flow.StaveNote({ keys: ["d/4"], duration: "q" }),
-                new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "qr" }),
-                new Vex.Flow.StaveNote({ keys: ["c/4", "e/4", "g/4"], duration: "q" }),
+                new Vex.Flow.StaveNote({ keys: ["a/4"], duration: "1" }),
+                new Vex.Flow.StaveNote({ keys: ["a/4"], duration: "2" }),
+                new Vex.Flow.StaveNote({ keys: ["e/4"], duration: "4" }),
+                new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "8" }),
               ];
             
               // Helper function to justify and draw a 4/4 voice

@@ -11,7 +11,7 @@ export default function App() {
         <View style={styles.container}>
             <View style={styles.graficoContainer}>
                 <ScrollView horizontal={true} style={styles.scrollView}>
-                    <Graficar style={styles.grafico}  notasParam={'C#6/q, B5, B4, C4'} numeradorParam={4} denominadorParam={4} />
+                    <Graficar style={styles.grafico}  notasParam={'a/4, a/4, b/4, C4'} numeradorParam={4} denominadorParam={4} />
                 </ScrollView>
             </View>            
         </View>
