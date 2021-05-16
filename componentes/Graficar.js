@@ -134,7 +134,7 @@ export default ( {notasParam,figurasParam,cantCompasesParam,numeradorParam, deno
     }} 
     style={{ marginTop: 50,
               alignSelf:'center',
-              width:2500,
+              width:3500, // aumentando este ancho logro aumentar el taman;o de las figuras
               backgroundColor:'red'
      }}
  />

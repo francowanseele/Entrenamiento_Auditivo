@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     graficoContainer:{
-        height:'40%',
+        height:'35%',
     },
     scrollView:{
         height:100
