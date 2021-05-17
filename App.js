@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { playSoundApi } from './app/api/sound';
 import Soundfont from 'soundfont-player';
+import Navigation from './app/navigationsStudent/Navigation';
 
 export default function App() {
     const hello_music = () => {
@@ -17,13 +18,15 @@ export default function App() {
         );
     };
 
-    return (
-        <View style={styles.container}>
-            <Button title="Hello Music" onPress={hello_music} />
-            <Button title="Music Player" onPress={music_player} />
-            <StatusBar style="auto" />
-        </View>
-    );
+    // return (
+    //     <View style={styles.container}>
+    //         <Button title="Hello Music" onPress={hello_music} />
+    //         <Button title="Music Player" onPress={music_player} />
+    //         <StatusBar style="auto" />
+    //     </View>
+    // );
+
+    return <Navigation />;
 }
 
 const styles = StyleSheet.create({
