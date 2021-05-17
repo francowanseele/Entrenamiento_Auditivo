@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, ScrollView} from 'react-native';
 import { Audio } from 'expo-av';
 import { Overlay, Icon } from 'react-native-elements';
 import Toast from 'react-native-easy-toast';
 
 import { generateDictationFileApi, tramsitDictationApi } from './app/api/sound';
 import { melodicDictationApi, rhythmicDictationApi } from './app/api/dictation';
+import { Graficar } from './componentes'
 
 export default function App() {
     const [visible, setVisible] = useState(false);
@@ -19,14 +20,14 @@ export default function App() {
 
     const api_dictation = async () => {
         const dataRitmic = {
-            tarjetas: ['1', '2', '4', 'd4-8', '8-16-16'],
-            nroCompases: 5,
+            tarjetas: ["1", "2", "4", "d4-8", "8-16-16"],
+            nroCompases: 10,
             numerador: 3,
             denominador: 4,
         };
-        const figsDictadoRes = await rhythmicDictationApi(dataRitmic);
-
+        const figsDictadoRes = await rhythmicDictationApi(dataRitmic);        
         if (figsDictadoRes.ok) {
+            console.log(figsDictadoRes.figurasDictado);
             setFigurasDictado(figsDictadoRes.figurasDictado);
 
             const data = {
@@ -93,9 +94,52 @@ export default function App() {
         const { sound } = await Audio.Sound.createAsync({ uri: tran });
         await sound.playAsync();
     };
+    const generarGrafico = () => {
+        //["A/4","4"], 
+        
+        res = []
+        for ( figura in figurasDictado){
+            res = res.push([])
+        }
+    }
 
     return (
         <View style={styles.container}>
+             <View style={styles.graficoContainer}>
+                <ScrollView horizontal={true} style={styles.scrollView}>
+                    <Graficar 
+                        style={styles.grafico}  
+                        figurasParam={
+                            [                             
+                                ["A/4","4"], 
+                                ["B/4","4"],
+                                ["C/4","4"],
+                                ["B/4","1"],
+                                ["B/4","1"],
+                                ["NuevoCompas"],
+                                ["A/4","2"], 
+                                ["B/4","2"],
+                                ["C/4","2"],
+                                ["B/4","2"],
+                                ["B/4","2"],
+                                ["NuevoCompas"],
+                                ["A/4","2"], 
+                                ["B/4","2"],
+                                ["C/4","2"],
+                                ["B/4","2"],
+                                ["NuevoCompas"],
+                                ["B/4","2"],
+                                ["B/4","1"], 
+                                ["B/4","4"],
+                                ["C/4","4"]                                                     
+                                ]
+                        }
+                        numeradorParam={4}
+                        denominadorParam={4}
+                        claveParam={'treble'} 
+                    />
+                </ScrollView>
+            </View>            
             <Button title="Generar dictado" onPress={api_dictation} />
             <Button title="Reproducir dictado" onPress={playDictadoPopUp} />
 
@@ -124,6 +168,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    graficoContainer:{
+        paddingTop:30,
+        paddingHorizontal:5,
+        height:'40%',
+    },
+    scrollView:{
+        height:100,
+    },
+
+    grafcio:{
+        height:100,
+        width:2000,
     },
 
     popup: {

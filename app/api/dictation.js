@@ -10,7 +10,7 @@ export function melodicDictationApi(data) {
             'Content-Type': 'application/json',
         },
     };
-
+    console.log('entra al melodico')
     return fetch(url, params)
         .then((response) => {
             if (response.status === 501) {
@@ -57,9 +57,10 @@ export function rhythmicDictationApi(data) {
             'Content-Type': 'application/json',
         },
     };
-
+    console.log('entra al ritmico')
     return fetch(url, params)
         .then((response) => {
+            console.log(response)
             if (response.status === 501) {
                 return null;
             } else {
@@ -87,6 +88,7 @@ export function rhythmicDictationApi(data) {
             }
         })
         .catch((err) => {
+            console.log(err)
             return {
                 ok: false,
                 message: 'Error de servidor, vuelva a intentarlo más tarde',
