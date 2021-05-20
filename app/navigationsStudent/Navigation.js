@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import { Icon } from 'react-native-elements';
 
 import HomeStack from './HomeStack';
 import CalificationStack from './CalificationStack';
@@ -12,7 +11,7 @@ const Tab = createBottomTabNavigator();
 export default function Navigation() {
     return (
         <NavigationContainer>
-            <Tab.Navigator initialRouteName="profile" tabBarOptions={{}}>
+            <Tab.Navigator initialRouteName="home" tabBarOptions={{}}>
                 <Tab.Screen
                     name="home"
                     component={HomeStack}

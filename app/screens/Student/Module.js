@@ -1,12 +1,32 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Module() {
-    const navigation = useNavigation();
+import { generateDictationFileApi } from '../../api/sound';
 
-    const openDictado = () => {
-        console.log('open dictado');
+export default function Module({ route }) {
+    const navigation = useNavigation();
+    const { dictado, figurasDictado } = route.params;
+
+    const openDictado = async () => {
+        // Generar midi y mp3
+        if (dictado) {
+            const data = {
+                dictado: dictado,
+                figurasDictado: figurasDictado,
+            };
+            // TODO -> id del usuario
+            const id = 1;
+            var { ok, message } = await generateDictationFileApi(data, id);
+
+            if (ok) {
+                navigation.navigate('dictation');
+            } else {
+                console.log(message);
+            }
+        } else {
+            // toastRef.current.show('Dictado no creado.');
+        }
     };
 
     return (
