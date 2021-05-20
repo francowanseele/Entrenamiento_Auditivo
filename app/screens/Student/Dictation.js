@@ -6,7 +6,11 @@ import { Audio } from 'expo-av';
 
 import { tramsitDictationApi } from '../../api/sound';
 
-export default function Dictation() {
+export default function Dictation({ route }) {
+    // ---------------------
+    // DICTADO PARA GRAFICAR
+    // ---------------------
+    const { figurasConCompas } = route.params;
     const navigation = useNavigation();
 
     const playDictado = async () => {

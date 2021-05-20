@@ -57,6 +57,7 @@ export default function Home() {
                 navigation.navigate('module', {
                     dictado: dictadoRes.dictado,
                     figurasDictado: figsDictadoRes.figurasDictado,
+                    figurasConCompas: figsDictadoRes.figurasConCompas,
                 });
                 // toastRef.current.show('Dictado creado');
             } else {

@@ -77,6 +77,7 @@ export function rhythmicDictationApi(data) {
                     return {
                         ok: true,
                         figurasDictado: result.figuras,
+                        figurasConCompas: result.dictado,
                     };
                 } else {
                     return {
