@@ -1,1 +1,1 @@
-export { default as Graficar } from './Graficar.js';
+export { default as Graphic } from './Graphic.js';

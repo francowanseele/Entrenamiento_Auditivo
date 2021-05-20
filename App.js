@@ -6,12 +6,13 @@ import Toast from 'react-native-easy-toast';
 
 import { generateDictationFileApi, tramsitDictationApi } from './app/api/sound';
 import { melodicDictationApi, rhythmicDictationApi } from './app/api/dictation';
-import { Graficar } from './componentes'
+import { Graphic } from './componentes'
 
 export default function App() {
     const [visible, setVisible] = useState(false);
     const [dictado, setDictado] = useState(null);
     const [figurasDictado, setFigurasDictado] = useState(null);
+    const [FigurasDictadoConCompas,setFigurasDictadoConCompas] = useState(null);
     const toastRef = useRef();
 
     const toggleOverlay = () => {
@@ -27,7 +28,7 @@ export default function App() {
         };
         const figsDictadoRes = await rhythmicDictationApi(dataRitmic);        
         if (figsDictadoRes.ok) {
-            console.log(figsDictadoRes.figurasDictado);
+            setFigurasDictadoConCompas(figsDictadoRes.dictadoRitmico);
             setFigurasDictado(figsDictadoRes.figurasDictado);
 
             const data = {
@@ -56,8 +57,9 @@ export default function App() {
 
             if (dictadoRes.ok) {
                 setDictado(dictadoRes.dictado);
+                console.log(dictadoRes);
                 toastRef.current.show('Dictado creado');
-            } else {
+            } else {    
                 // TODO -> handle error (show in modal or popup)
                 console.log('error');
             }
@@ -78,9 +80,6 @@ export default function App() {
             const id = 1;
             var { ok, message } = await generateDictationFileApi(data, id);
             ok ? setVisible(true) : toastRef.current.show(message);
-
-            console.log(dictado);
-            console.log(figurasDictado);
         } else {
             toastRef.current.show('Dictado no creado.');
         }
@@ -94,46 +93,15 @@ export default function App() {
         const { sound } = await Audio.Sound.createAsync({ uri: tran });
         await sound.playAsync();
     };
-    const generarGrafico = () => {
-        //["A/4","4"], 
-        
-        res = []
-        for ( figura in figurasDictado){
-            res = res.push([])
-        }
-    }
+
 
     return (
         <View style={styles.container}>
              <View style={styles.graficoContainer}>
                 <ScrollView horizontal={true} style={styles.scrollView}>
-                    <Graficar 
+                    <Graphic 
                         style={styles.grafico}  
-                        figurasParam={
-                            [                             
-                                ["A/4","4"], 
-                                ["B/4","4"],
-                                ["C/4","4"],
-                                ["B/4","1"],
-                                ["B/4","1"],
-                                ["NuevoCompas"],
-                                ["A/4","2"], 
-                                ["B/4","2"],
-                                ["C/4","2"],
-                                ["B/4","2"],
-                                ["B/4","2"],
-                                ["NuevoCompas"],
-                                ["A/4","2"], 
-                                ["B/4","2"],
-                                ["C/4","2"],
-                                ["B/4","2"],
-                                ["NuevoCompas"],
-                                ["B/4","2"],
-                                ["B/4","1"], 
-                                ["B/4","4"],
-                                ["C/4","4"]                                                     
-                                ]
-                        }
+                        figurasParam={[]}
                         numeradorParam={4}
                         denominadorParam={4}
                         claveParam={'treble'} 
