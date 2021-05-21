@@ -6,7 +6,8 @@ import { generateDictationFileApi } from '../../api/sound';
 
 export default function Module({ route }) {
     const navigation = useNavigation();
-    const { dictado, figurasDictado, figurasConCompas } = route.params;
+    const { dictado, figurasDictado, figurasConCompas, notasTraducidas } =
+        route.params;
 
     const openDictado = async () => {
         // Generar midi y mp3
@@ -25,6 +26,7 @@ export default function Module({ route }) {
                 // ---------------------
                 navigation.navigate('dictation', {
                     figurasConCompas: figurasConCompas,
+                    notasTraducidas: notasTraducidas,
                 });
             } else {
                 console.log(message);

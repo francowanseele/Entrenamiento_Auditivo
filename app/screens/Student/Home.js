@@ -58,13 +58,16 @@ export default function Home() {
                     dictado: dictadoRes.dictado,
                     figurasDictado: figsDictadoRes.figurasDictado,
                     figurasConCompas: figsDictadoRes.figurasConCompas,
+                    notasTraducidas: dictadoRes.dictadoTraducido,
                 });
                 // toastRef.current.show('Dictado creado');
             } else {
                 // TODO -> handle error (show in modal or popup)
+                console.log('1');
                 console.log('error');
             }
         } else {
+            console.log('2');
             // TODO -> handle error (show in modal or popup)
             console.log('error');
         }

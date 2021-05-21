@@ -10,7 +10,7 @@ export default function Dictation({ route }) {
     // ---------------------
     // DICTADO PARA GRAFICAR
     // ---------------------
-    const { figurasConCompas } = route.params;
+    const { figurasConCompas, notasTraducidas } = route.params;
     const navigation = useNavigation();
 
     const playDictado = async () => {
@@ -23,7 +23,10 @@ export default function Dictation({ route }) {
     };
 
     const openSolution = () => {
-        navigation.navigate('solution');
+        navigation.navigate('solution', {
+            figurasConCompas: figurasConCompas,
+            notasTraducidas: notasTraducidas,
+        });
     };
 
     return (

@@ -30,6 +30,7 @@ export function melodicDictationApi(data) {
                     return {
                         ok: true,
                         dictado: result.dictado,
+                        dictadoTraducido: result.dictadoTraducido,
                     };
                 } else {
                     return {
