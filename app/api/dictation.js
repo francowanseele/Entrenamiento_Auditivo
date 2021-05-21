@@ -10,7 +10,6 @@ export function melodicDictationApi(data) {
             'Content-Type': 'application/json',
         },
     };
-    console.log('entra al melodico')
     return fetch(url, params)
         .then((response) => {
             if (response.status === 501) {
@@ -30,6 +29,7 @@ export function melodicDictationApi(data) {
                     return {
                         ok: true,
                         dictado: result.dictado,
+                        dictadoTraducido:result.dictadoTraducido,
                     };
                 } else {
                     return {
@@ -57,7 +57,6 @@ export function rhythmicDictationApi(data) {
             'Content-Type': 'application/json',
         },
     };
-    console.log('entra al ritmico')
     return fetch(url, params)
         .then((response) => {
             console.log(response)
@@ -78,6 +77,8 @@ export function rhythmicDictationApi(data) {
                     return {
                         ok: true,
                         figurasDictado: result.figuras,
+                        dictadoRitmico: result.dictado,
+                        dictadoGeneradoTraducido: result.dictadoGeneradoTraducido,
                     };
                 } else {
                     return {

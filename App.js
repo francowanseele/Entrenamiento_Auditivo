@@ -13,6 +13,8 @@ export default function App() {
     const [dictado, setDictado] = useState(null);
     const [figurasDictado, setFigurasDictado] = useState(null);
     const [FigurasDictadoConCompas,setFigurasDictadoConCompas] = useState(null);
+    const [dictadoGeneradoTraducido, setdictadoGeneradoTraducido] = useState(null);
+    const [verGrafico, setVerGrafico] = useState(false);
     const toastRef = useRef();
 
     const toggleOverlay = () => {
@@ -29,8 +31,7 @@ export default function App() {
         const figsDictadoRes = await rhythmicDictationApi(dataRitmic);        
         if (figsDictadoRes.ok) {
             setFigurasDictadoConCompas(figsDictadoRes.dictadoRitmico);
-            setFigurasDictado(figsDictadoRes.figurasDictado);
-
+            setFigurasDictado(figsDictadoRes.figurasDictado);   
             const data = {
                 notasRegla: [
                     ['Do4', 'Re4', 'Mi4', 'Fa4', 'Sol4', 'La4', 'Si4', 'Do5'],
@@ -57,8 +58,9 @@ export default function App() {
 
             if (dictadoRes.ok) {
                 setDictado(dictadoRes.dictado);
-                console.log(dictadoRes);
+                setdictadoGeneradoTraducido(dictadoRes.dictadoTraducido);
                 toastRef.current.show('Dictado creado');
+                setVerGrafico(true);
             } else {    
                 // TODO -> handle error (show in modal or popup)
                 console.log('error');
@@ -99,13 +101,15 @@ export default function App() {
         <View style={styles.container}>
              <View style={styles.graficoContainer}>
                 <ScrollView horizontal={true} style={styles.scrollView}>
-                    <Graphic 
+                    {verGrafico ? <Graphic 
                         style={styles.grafico}  
-                        figurasParam={[]}
+                        figurasParam={FigurasDictadoConCompas}
+                        dictadoGeneradoTraducidoParam={dictadoGeneradoTraducido}
                         numeradorParam={4}
                         denominadorParam={4}
                         claveParam={'treble'} 
-                    />
+                    /> : <View></View>
+                    }
                 </ScrollView>
             </View>            
             <Button title="Generar dictado" onPress={api_dictation} />
