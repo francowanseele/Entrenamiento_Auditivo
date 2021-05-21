@@ -6,7 +6,7 @@ import { WebView } from 'react-native-webview';
 export default ( {figurasParam,dictadoGeneradoTraducidoParam,numeradorParam, denominadorParam, claveParam} ) =>{
 
     
-    // const [figuras, setfiguras] = useState(figurasParam);
+    const [figuras, setfiguras] = useState(figurasParam);
     // const [tarjetas, setTarjetas] = useState({
     //   'd4-8':
     //   'd4-8-8':
@@ -21,30 +21,30 @@ export default ( {figurasParam,dictadoGeneradoTraducidoParam,numeradorParam, den
     const [denominador, setDenominador] = useState(denominadorParam);
     const [numerador, setNumerador] = useState(numeradorParam);
     const [clave,setclave] = useState(claveParam);
-    const [figuras, setfiguras] = useState(
-    [                             
-      ["E/4","d4"], 
-      ["Db/5","4"],
-      ["C/4","4"],
-      ["B/4","1"],
-      ["B/4","1"],
-      ["NuevoCompas"],
-      ["A/4","2"], 
-      ["B/4","2"],
-      ["C/4","2"],
-      ["B/4","2"],
-      ["B/4","2"],
-      ["NuevoCompas"],
-      ["A/4","2"], 
-      ["B/4","2"],
-      ["C/4","2"],
-      ["B/4","2"],
-      ["NuevoCompas"],
-      ["B/4","2"],
-      ["B/4","1"], 
-      ["B/4","4"],
-      ["C/4","4"]                                                     
-      ] );
+    // const [figuras, setfiguras] = useState(
+    // [                             
+    //   ["E/4","d4"], 
+    //   ["Db/5","4"],
+    //   ["C/4","4"],
+    //   ["B/4","1"],
+    //   ["B/4","1"],
+    //   ["NuevoCompas"],
+    //   ["A/4","2"], 
+    //   ["B/4","2"],
+    //   ["C/4","2"],
+    //   ["B/4","2"],
+    //   ["B/4","2"],
+    //   ["NuevoCompas"],
+    //   ["A/4","2"], 
+    //   ["B/4","2"],
+    //   ["C/4","2"],
+    //   ["B/4","2"],
+    //   ["NuevoCompas"],
+    //   ["B/4","2"],
+    //   ["B/4","1"], 
+    //   ["B/4","4"],
+    //   ["C/4","4"]                                                     
+    //   ] );
     const translateToGraphic = () =>{
       let ultimoChar;
       let resDictado = [];
@@ -53,23 +53,25 @@ export default ( {figurasParam,dictadoGeneradoTraducidoParam,numeradorParam, den
          actual = actual.slice(0,actual.length-1) + '/' + ultimoChar;
          resDictado.push(actual)
       }
-      let resFiguras = [];
       let compasActual;
-      let figuraActual;
+      let figuraActual; 
+      let res = [];
       for (compasActual in FigurasDictadoConCompas){
-        for (figuraActual in compasActual){          
-          resFiguras.push(FigurasDictadoConCompas[compasActual][figuraActual]);
+        for (figuraActual in FigurasDictadoConCompas[compasActual]){
+        res.push([resDictado[figuraActual],FigurasDictadoConCompas[compasActual][figuraActual]]);
         }
+        if (compasActual != FigurasDictadoConCompas.length-1 ){res.push(['NuevoCompas'])};
       }
       console.log(resDictado);
-      console.log(resFiguras);      
+      console.log(res);
+      return res;      
     }
    
  
     const getFigurasyDuracion = () =>{
       console.log('dictadoGeneradoTraducido===>'+dictadoGeneradoTraducido);
       console.log('FigurasDictadoConCompas===>'+FigurasDictadoConCompas);
-      console.log(translateToGraphic())
+      setfiguras(translateToGraphic());
       let res = '';
       let compasActual =1;
       let sostenido = false;

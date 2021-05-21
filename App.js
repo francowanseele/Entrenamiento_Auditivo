@@ -23,9 +23,9 @@ export default function App() {
 
     const api_dictation = async () => {
         const dataRitmic = {
-            tarjetas: ["1", "2", "4", "d4-8", "8-16-16"],
+            tarjetas: ["1", "2", "4","8"],
             nroCompases: 10,
-            numerador: 3,
+            numerador: 4,
             denominador: 4,
         };
         const figsDictadoRes = await rhythmicDictationApi(dataRitmic);        
