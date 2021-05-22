@@ -17,9 +17,9 @@ export default function Home() {
 
         // Dato de la configuración (BD)
         const dataRitmic = {
-            tarjetas: ['1', '2', '4', 'd4-8', '8-16-16'],
+            tarjetas: ['1', '2', '4','8'],
             nroCompases: 5,
-            numerador: 3,
+            numerador: 4,
             denominador: 4,
         };
         const figsDictadoRes = await rhythmicDictationApi(dataRitmic);

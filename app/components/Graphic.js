@@ -11,15 +11,14 @@ export default ({
     claveParam,
 }) => {
     const [figuras, setfiguras] = useState(figurasParam);
-    // const [tarjetas, setTarjetas] = useState({
-    //   'd4-8':
-    //   'd4-8-8':
-    //   'd2':
-    //   '4-4':
-    //   '16-16-16-16':
-    //   '8-16-16':
-    //   '16-8-16':
-    // })
+    const [tarjetas, setTarjetas] = useState({ 
+       '16-16-16-16':`var notes = [
+        new VF.StaveNote({ keys: ["b/4"], duration: "16" }),
+        new VF.StaveNote({ keys: ["b/4"], duration: "16" }),
+        new VF.StaveNote({ keys: ["b/4"], duration: "16" }),
+        new VF.StaveNote({ keys: ["b/4"], duration: "16" }),
+      ];`,
+    })
     const [FigurasDictadoConCompas, setFigurasDictadoConCompas] =
         useState(figurasParam);
     const [dictadoGeneradoTraducido, setdictadoGeneradoTraducido] = useState(
@@ -67,7 +66,7 @@ export default ({
             for (figuraActual in FigurasDictadoConCompas[compasActual]) {
                 res.push([
                     resDictado[figuraActual],
-                    FigurasDictadoConCompas[compasActual][figuraActual],
+                    FigurasDictadoConCompas[compasActual][figuraActual]
                 ]);
             }
             if (compasActual != FigurasDictadoConCompas.length - 1) {
@@ -88,8 +87,12 @@ export default ({
         let sostenido = false;
         let bemol = false;
         let punto = false;
+        let esTarjeta = false;
         for (let actual in figuras) {
             if (figuras[actual] != 'NuevoCompas') {
+                if (figuras[actual][1].includes('-')){
+                    esTarjeta = true;
+                }
                 if (figuras[actual][1].includes('d')) {
                     figuras[actual][1].replace('d', '');
                     punto = true;
@@ -102,7 +105,7 @@ export default ({
                     figuras[actual][0].replace('b', '');
                     bemol = true;
                 }
-                if (!sostenido && !bemol && !punto) {
+                if (!sostenido && !bemol && !punto && !esTarjeta) {
                     res = res.concat(
                         'new Vex.Flow.StaveNote({ keys: ["' +
                             figuras[actual][0] +
@@ -138,7 +141,18 @@ export default ({
                             '" }).addDotToAll(),' +
                             '\n'
                     );
-                }
+                } 
+                // else if(esTarjeta){
+                //     console.log('entro a tarjeta')
+                //     res = res.concat(                        
+                //         `var notes`+compasActual+` = [
+                //         new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),
+                //         new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),
+                //         new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),
+                //         new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),`+ '\n'
+                //         +'];'
+                //     )
+                // }
             } else if (figuras[actual] == 'NuevoCompas') {
                 compasActual = compasActual + 1;
                 res = res.concat(
@@ -174,6 +188,7 @@ export default ({
             sostenido = false;
             bemol = false;
             punto = false;
+            esTarjeta = false;
         }
         res = res.concat(
             `]; \n
@@ -211,7 +226,7 @@ export default ({
           var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
           
           // Size our SVG:
-          renderer.resize(2500, 100);
+          renderer.resize(2500, 300);
           
           // And get a drawing context:
           var context = renderer.getContext();
@@ -241,7 +256,7 @@ export default ({
   `
         );
         // console.log(Html)
-    }, []);
+    }, []); 
 
     return (
         <WebView
