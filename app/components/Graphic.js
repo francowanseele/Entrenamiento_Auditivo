@@ -10,9 +10,9 @@ export default ({
     denominadorParam,
     claveParam,
 }) => {
-    const [figuras, setfiguras] = useState(figurasParam);
+    // const [figuras, setfiguras] = useState(figurasParam);
     const [tarjetas, setTarjetas] = useState({ 
-       '16-16-16-16':`var notes = [
+       '16-16-16-16':`var notesTarjeta = [
         new VF.StaveNote({ keys: ["b/4"], duration: "16" }),
         new VF.StaveNote({ keys: ["b/4"], duration: "16" }),
         new VF.StaveNote({ keys: ["b/4"], duration: "16" }),
@@ -27,30 +27,34 @@ export default ({
     const [denominador, setDenominador] = useState(denominadorParam);
     const [numerador, setNumerador] = useState(numeradorParam);
     const [clave, setclave] = useState(claveParam);
-    // const [figuras, setfiguras] = useState(
-    // [
-    //   ["E/4","d4"],
-    //   ["Db/5","4"],
-    //   ["C/4","4"],
-    //   ["B/4","1"],
-    //   ["B/4","1"],
-    //   ["NuevoCompas"],
-    //   ["A/4","2"],
-    //   ["B/4","2"],
-    //   ["C/4","2"],
-    //   ["B/4","2"],
-    //   ["B/4","2"],
-    //   ["NuevoCompas"],
-    //   ["A/4","2"],
-    //   ["B/4","2"],
-    //   ["C/4","2"],
-    //   ["B/4","2"],
-    //   ["NuevoCompas"],
-    //   ["B/4","2"],
-    //   ["B/4","1"],
-    //   ["B/4","4"],
-    //   ["C/4","4"]
-    //   ] );
+    const [figuras, setfiguras] = useState(
+    [       
+      ["B/4","4"],      
+      ["B/4","4"],
+      ["B/4","4"],
+      ["B/4","4"],      
+      ["B/4","4"],
+      ["NuevoCompas"],
+      ["Bb/4","4"],
+      ["A/4","2"],
+      ["B/4","2"],
+      ["C/4","2"],
+      ["B/4","2"],
+      ["B/4","2"],
+      ["B/4","16-16-16-16"],
+      ["NuevoCompas"],
+      ["B/4","16-16-16-16"],
+      ["A/4","2"],
+      ["B/4","2"],
+      ["C/4","2"],
+      ["B/4","2"],
+      ["NuevoCompas"],
+      ["B/4","2"],
+      ["B/4","1"],
+      ["B/4","4"],
+      ["C/4","4"],
+      ["B/4","16-16-16-16"]
+      ] );
     const translateToGraphic = () => {
         let ultimoChar;
         let resDictado = [];
@@ -73,25 +77,28 @@ export default ({
                 res.push(['NuevoCompas']);
             }
         }
-        console.log(resDictado);
-        console.log(res);
+        // console.log(resDictado);
+        // console.log(res);
         return res;
     };
 
     const getFigurasyDuracion = () => {
-        console.log('dictadoGeneradoTraducido===>' + dictadoGeneradoTraducido);
-        console.log('FigurasDictadoConCompas===>' + FigurasDictadoConCompas);
-        setfiguras(translateToGraphic());
+        // console.log('dictadoGeneradoTraducido===>' + dictadoGeneradoTraducido);
+        // console.log('FigurasDictadoConCompas===>' + FigurasDictadoConCompas);
+        // setfiguras(translateToGraphic());
         let res = '';
         let compasActual = 1;
         let sostenido = false;
         let bemol = false;
         let punto = false;
         let esTarjeta = false;
+        let huboTarjeta = false;
         for (let actual in figuras) {
             if (figuras[actual] != 'NuevoCompas') {
                 if (figuras[actual][1].includes('-')){
+                    console.log('entro al iff tarjeta')
                     esTarjeta = true;
+                    huboTarjeta =true;
                 }
                 if (figuras[actual][1].includes('d')) {
                     figuras[actual][1].replace('d', '');
@@ -105,6 +112,7 @@ export default ({
                     figuras[actual][0].replace('b', '');
                     bemol = true;
                 }
+                console.log(esTarjeta)
                 if (!sostenido && !bemol && !punto && !esTarjeta) {
                     res = res.concat(
                         'new Vex.Flow.StaveNote({ keys: ["' +
@@ -142,56 +150,83 @@ export default ({
                             '\n'
                     );
                 } 
-                // else if(esTarjeta){
-                //     console.log('entro a tarjeta')
-                //     res = res.concat(                        
-                //         `var notes`+compasActual+` = [
-                //         new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),
-                //         new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),
-                //         new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),
-                //         new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),`+ '\n'
-                //         +'];'
-                //     )
-                // }
+                else if(esTarjeta){
+                    console.log('entro a tarjeta')
+                    res = res.concat( `]);`+ `\n` +`var notesTarjeta`+compasActual+` = [`);
+
+                    res = res.concat(                        
+                        `
+                        new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),
+                        new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),
+                        new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),
+                        new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),`+ '\n');
+
+                    res= res.concat('];'+ '\n'+
+                    `beams = [
+                        new Vex.Flow.Beam(notesTarjeta`+compasActual+`)
+                        ]`+ '\n'+
+                        `notesMeasure`+compasActual+` = notesMeasure`+compasActual+`.concat(notesTarjeta`+compasActual+`);`
+                        + '\n'+`notesMeasure`+compasActual+` = notesMeasure`+compasActual+`.concat([\n`
+                        );
+                }
             } else if (figuras[actual] == 'NuevoCompas') {
                 compasActual = compasActual + 1;
+                
                 res = res.concat(
                     `     
-            ]; \n
-            Vex.Flow.Formatter.FormatAndDraw(context, staveMeasure` +
+                ]); \n
+                Vex.Flow.Formatter.FormatAndDraw(context, staveMeasure` +
                         (compasActual - 1) +
                         `, notesMeasure` +
                         (compasActual - 1) +
-                        `);
-            var staveMeasure` +
+                        `);\n`);
+            
+                //si hubo tarjeta en este compas entra aqui 
+                if (huboTarjeta){
+                res = res.concat(` beams.forEach(function(b) {b.setContext(context).draw()})`+`\n`);
+                huboTarjeta = false;
+                
+                }
+                res = res.concat(`          
+                // Notas dentro del compas
+                var staveMeasure` +
                         compasActual +
                         ` = new Vex.Flow.Stave( \n
-              staveMeasure` +
+                staveMeasure` +
                         (compasActual - 1) +
                         `.width + staveMeasure` +
                         (compasActual - 1) +
-                        `.x, 
-              0,
-              400
-            );\n
-            staveMeasure` +
-                        compasActual +
-                        `.setContext(context).draw();\n
+                            `.x, 
+                0,
+                400
+                );\n
+                staveMeasure` +
+                            compasActual +
+                            `.setContext(context).draw();\n`);
+                    
             
-            // Notas dentro del compas
-            var notesMeasure` +
-                        compasActual +
-                        `= [
-            `
-                );
-            }
+                res = res.concat(` // Notas dentro del compas
+                notesMeasure`+compasActual+` = [];
+                notesMeasure`+compasActual+` = notesMeasure`+compasActual+`.concat([ `);
+            
+            }           
+
             sostenido = false;
             bemol = false;
             punto = false;
             esTarjeta = false;
-        }
+        }//endFOR
+
+        // //caso tarjetas
+        // if (esTarjeta){
+        //     res = res.concat( 
+        //         `]; \n beams = [
+        //             new Vex.Flow.Beam(notesMeasure`+compasActual+`)
+        //         `
+        //     )
+        // }
         res = res.concat(
-            `]; \n
+            `]); \n
         Vex.Flow.Formatter.FormatAndDraw(context, staveMeasure` +
                 compasActual.toString() +
                 `, notesMeasure` +
@@ -199,7 +234,13 @@ export default ({
                 `);\n
         `
         );
-
+         //si hubo tarjeta en este compas entra aqui 
+         if (huboTarjeta){
+            res = res.concat(` beams.forEach(function(b) {b.setContext(context).draw()})`+`\n`);
+            huboTarjeta = false;
+            
+            }
+       
         return res;
     };
 
@@ -241,8 +282,8 @@ export default ({
                 `/` +
                 denominador +
                 `').setContext(context).draw();
-          
-            var notesMeasure1 = [
+            notesMeasure1 = [];
+            notesMeasure1 = notesMeasure1.concat([
               ` +
                 getFigurasyDuracion() +
                 `
@@ -255,7 +296,7 @@ export default ({
           <script>writeNote();</script>
   `
         );
-        // console.log(Html)
+        console.log(Html)
     }, []); 
 
     return (
