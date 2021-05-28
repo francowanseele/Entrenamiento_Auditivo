@@ -10,14 +10,14 @@ export default ({
     denominadorParam,
     claveParam,
 }) => {
-    const [figuras, setfiguras] = useState(figurasParam);
+    const [figuras, setfiguras] = useState([]);
     const [tarjetas, setTarjetas] = useState({ 
-       '16-16-16-16':`var notesTarjeta = [
-        new VF.StaveNote({ keys: ["b/4"], duration: "16" }),
-        new VF.StaveNote({ keys: ["b/4"], duration: "16" }),
-        new VF.StaveNote({ keys: ["b/4"], duration: "16" }),
-        new VF.StaveNote({ keys: ["b/4"], duration: "16" }),
-      ];`,
+       '16-16-16-16':`
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" }),
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" }),
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" }),
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" }),
+      `,
     })
     const [FigurasDictadoConCompas, setFigurasDictadoConCompas] =
         useState(figurasParam);
@@ -55,6 +55,21 @@ export default ({
     //   ["C/4","4"],
     //   ["B/4","16-16-16-16"]
     //   ] );
+
+    const getTarjeta = (actual, tarjetaAArmar) =>{
+        let resTarjeta = tarjetaAArmar;
+        console.log('actualParam'+actual)
+        console.log('figuras'+figuras)
+        let hasta = actual+4;
+        for (var i = 0; i < hasta; i++) {
+        console.log('i= '+i);
+        console.log(figuras[i][0]);
+        resTarjeta = resTarjeta.replace('ParteMelodica',figuras[i][0]);
+        }
+        console.log('resTarjeta'+resTarjeta)
+        return resTarjeta
+    };
+
     const translateToGraphic = () => {
         let ultimoChar;
         let resDictado = [];
@@ -66,16 +81,17 @@ export default ({
         let compasActual;
         let figuraActual;
         let res = [];
-        for (compasActual in FigurasDictadoConCompas) {
-            for (figuraActual in FigurasDictadoConCompas[compasActual]) {
+        for ( compasActual = 0; compasActual < FigurasDictadoConCompas.length; compasActual++) {
+            for (figuraActual = 0; figuraActual< FigurasDictadoConCompas[compasActual].length; figuraActual++) {
                 res.push([
                     resDictado[figuraActual],
                     FigurasDictadoConCompas[compasActual][figuraActual]
                 ]);
             }
-            if (compasActual != FigurasDictadoConCompas.length - 1) {
-                res.push(['NuevoCompas']);
-            }
+            // if (compasActual != FigurasDictadoConCompas.length) {
+            //     res.push(['NuevoCompas']);
+            // }
+            res.push(['NuevoCompas']);
         }
         // console.log(resDictado);
         // console.log(res);
@@ -83,9 +99,10 @@ export default ({
     };
 
     const getFigurasyDuracion = () => {
+        setfiguras(translateToGraphic());
         console.log('dictadoGeneradoTraducido===>' + dictadoGeneradoTraducido);
         console.log('FigurasDictadoConCompas===>' + FigurasDictadoConCompas);
-        setfiguras(translateToGraphic());
+       
         let res = '';
         let compasActual = 1;
         let sostenido = false;
@@ -96,7 +113,7 @@ export default ({
         for (let actual in figuras) {
             if (figuras[actual] != 'NuevoCompas') {
                 if (figuras[actual][1].includes('-')){
-                    console.log('entro al iff tarjeta')
+                    // console.log('entro al iff tarjeta')
                     esTarjeta = true;
                 }
                 if (figuras[actual][1].includes('d')) {
@@ -121,7 +138,7 @@ export default ({
                             '" }),' +
                             '\n'
                     );
-                } else if (sostenido) {
+                } else if (sostenido && !esTarjeta) {
                     res = res.concat(
                         'new Vex.Flow.StaveNote({ keys: ["' +
                             figuras[actual][0] +
@@ -130,7 +147,7 @@ export default ({
                             '" }).addAccidental(0, new VF.Accidental("#")),' +
                             '\n'
                     );
-                } else if (bemol) {
+                } else if (bemol && !esTarjeta) {
                     res = res.concat(
                         'new Vex.Flow.StaveNote({ keys: ["' +
                             figuras[actual][0] +
@@ -139,7 +156,7 @@ export default ({
                             '" }).addAccidental(0, new VF.Accidental("b")),' +
                             '\n'
                     );
-                } else if (punto) {
+                } else if (punto && !esTarjeta ) {
                     res = res.concat(
                         'new Vex.Flow.StaveNote({ keys: ["' +
                             figuras[actual][0] +
@@ -151,16 +168,14 @@ export default ({
                 } 
                 else if(esTarjeta){
                    
-                    console.log('entro a tarjeta')
+                    // console.log('entro a tarjeta')
                     res = res.concat( `]);`+ `\n` +`var notesTarjeta`+compasActual+` = []`);
                     res = res.concat( `\n` +`var notesTarjeta`+compasActual+`= notesTarjeta`+compasActual+`.concat([`);
-
-                    res = res.concat(                        
-                        `
-                        new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),
-                        new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),
-                        new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),
-                        new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "16" }),`+ '\n');
+                    console.log('actual'+actual)
+                    console.log("tarjeta: "+tarjetas[figuras[actual][1]])
+                    res = res.concat(getTarjeta(actual,tarjetas[figuras[actual][1]]+ '\n')
+                    );
+                    // res = res.concat(tarjetas[figuras[actual][1]]);
 
                     res= res.concat(']);'+ '\n');
                     if (!huboTarjeta){
@@ -302,7 +317,7 @@ export default ({
           <script>writeNote();</script>
   `
         );
-        console.log(Html)
+        // console.log(Html)
     }, []); 
 
     return (

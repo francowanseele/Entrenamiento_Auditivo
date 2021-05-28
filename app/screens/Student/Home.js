@@ -17,7 +17,7 @@ export default function Home() {
 
         // Dato de la configuración (BD)
         const dataRitmic = {
-            tarjetas: ['1', '2', '4','8'],
+            tarjetas: ['1', '2', '4','16-16-16-16'],
             nroCompases: 5,
             numerador: 4,
             denominador: 4,
@@ -63,11 +63,11 @@ export default function Home() {
                 // toastRef.current.show('Dictado creado');
             } else {
                 // TODO -> handle error (show in modal or popup)
-                console.log('1');
+                // console.log('1');
                 console.log('error');
             }
         } else {
-            console.log('2');
+            // console.log('2');
             // TODO -> handle error (show in modal or popup)
             console.log('error');
         }

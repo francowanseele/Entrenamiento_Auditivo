@@ -3,7 +3,6 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import Graphic from '../../components/Graphic';
 
 export default function Solution({ route }) {
-    console.log(route);
     const { figurasConCompas, notasTraducidas } = route.params;
     const [visible, setVisible] = useState(false);
     const [dictado, setDictado] = useState(null);
