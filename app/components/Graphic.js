@@ -14,10 +14,10 @@ export default ({
     const [figuras, setfiguras] = useState([]);
     const [tarjetas, setTarjetas] = useState({ 
        '16-16-16-16':`
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" }),
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" }),
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" }),
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" }),
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
       `,
     })
     const [tarjetasNotas, setTarjetasNotas] = useState({ 
@@ -67,11 +67,20 @@ export default ({
         let resTarjeta = tarjetaAArmar;
         let hasta = actualPara + 4;
         for (var j = actualPara; j < hasta; j++) {
-            console.log(figuras[j][0]);
+            // console.log(figuras[j][0]);
             if (figuras[j][0] == 'NuevoCompas') { break; }
             resTarjeta = resTarjeta.replace('ParteMelodica',figuras[j][0]);
+            if ((figuras[actualPara][0].includes('b'))) {
+                resTarjeta = resTarjeta.replace('MODIFICACION','.addAccidental(0, new VF.Accidental("b")),')
+            }else if ((figuras[actualPara][0].includes('#'))) {
+                resTarjeta = resTarjeta.replace('MODIFICACION','.addAccidental(0, new VF.Accidental("#")),')
+            }else if ((figuras[actualPara][0].includes('d'))) {
+                resTarjeta = resTarjeta.replace('MODIFICACION','.addDotToAll(),')
+            }else {
+                resTarjeta = resTarjeta.replace('MODIFICACION',',')
+            }
         }
-        console.log('resTarjeta'+resTarjeta)
+        // console.log('resTarjeta'+resTarjeta)
         return resTarjeta
     };
 
@@ -186,9 +195,7 @@ export default ({
                     res = res.concat( `\n` +`var notesTarjeta`+compasActual+`= notesTarjeta`+compasActual+`.concat([`);
                    
                     res = res.concat(getTarjeta(actual));
-                    console.log('actual'+actual);
                     actual = actual + 4 -1;
-                    console.log('actual'+actual);
                     // res = res.concat(tarjetas[figuras[actual][1]]);
 
                     res= res.concat(']);'+ '\n');
@@ -331,7 +338,7 @@ export default ({
           <script>writeNote();</script>
   `
         );
-        console.log(Html)
+        // console.log(Html)
     }, []); 
 
     return (
