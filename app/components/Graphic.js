@@ -18,19 +18,43 @@ export default ({
         new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
         new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
         new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-      `,
+        `,
+        '8-16-16':`
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        `,
+        '16-16-8':`
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        `,
+        '16-8-16':`
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        `,
+        '8-8':`
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        `,
     })
     const [tarjetasNotas, setTarjetasNotas] = useState({ 
         '16-16-16-16':['16','16','16','16'],
+        '8-16-16':['8','16','16'],
+        '16-8-16':['16','8','16'],
+        '16-16-8':['16','16','8'],
+        '8-8':['4','4']
      })
     // const [FigurasDictadoConCompas, setFigurasDictadoConCompas] =
     //     useState(figurasConCompas);
     const [dictadoGeneradoTraducido, setdictadoGeneradoTraducido] = useState(
-        dictadoGeneradoTraducidoParam
+        dictadoGeneradoTraducidoParam 
     );
     const [denominador, setDenominador] = useState(denominadorParam);
     const [numerador, setNumerador] = useState(numeradorParam);
     const [clave, setclave] = useState(claveParam);
+    const [tarjetasActuales, setTarjetasActuales] = useState([]);
     // const [figuras, setfiguras] = useState(
     // [       
     //   ["B/4","4"],      
@@ -60,14 +84,11 @@ export default ({
     //   ["B/4","16-16-16-16"]
     //   ] );
 
-    const getTarjeta = (actualPara) =>{
+    const getTarjeta = (actualPara,tarjetaAArmar,largoTrj) =>{    
         
-        let tarjetaAArmar = tarjetas['16-16-16-16']
-
         let resTarjeta = tarjetaAArmar;
-        let hasta = actualPara + 4;
+        let hasta = actualPara + largoTrj;
         for (var j = actualPara; j < hasta; j++) {
-            // console.log(figuras[j][0]);
             if (figuras[j][0] == 'NuevoCompas') { break; }
             resTarjeta = resTarjeta.replace('ParteMelodica',figuras[j][0]);
             if ((figuras[actualPara][0].includes('b'))) {
@@ -80,7 +101,6 @@ export default ({
                 resTarjeta = resTarjeta.replace('MODIFICACION',',')
             }
         }
-        // console.log('resTarjeta'+resTarjeta)
         return resTarjeta
     };
 
@@ -104,6 +124,7 @@ export default ({
                         figurasConCompas[compasActual][figuraActual]                        
                     ]);
                 }else{
+                    tarjetasActuales.push(figurasConCompas[compasActual][figuraActual]);
                     let notasTrj = tarjetasNotas[figurasConCompas[compasActual][figuraActual]];
                     for (var h =0; h < notasTrj.length; h++ ){
                         aux.push([
@@ -188,15 +209,16 @@ export default ({
                             '\n'
                     );
                 } 
-                else if(esTarjeta){
-                   
+                else if(esTarjeta){                   
                     // console.log('entro a tarjeta')
                     res = res.concat( `]);`+ `\n` +`var notesTarjeta`+compasActual+` = []`);
                     res = res.concat( `\n` +`var notesTarjeta`+compasActual+`= notesTarjeta`+compasActual+`.concat([`);
-                   
-                    res = res.concat(getTarjeta(actual));
-                    actual = actual + 4 -1;
-                    // res = res.concat(tarjetas[figuras[actual][1]]);
+                    
+                    let trj = tarjetasActuales.shift()
+                    let largoTrj = tarjetasNotas[trj].length
+                    let tarjetaAArmar = tarjetas[trj]
+                    res = res.concat(getTarjeta(actual,tarjetaAArmar,largoTrj));
+                    actual = actual + largoTrj -1;
 
                     res= res.concat(']);'+ '\n');
                     if (!huboTarjeta){
@@ -316,7 +338,7 @@ export default ({
           
           
           // measure 1
-            var staveMeasure1 = new Vex.Flow.Stave(10, 0, 300);
+            var staveMeasure1 = new Vex.Flow.Stave(10, 0, 500);
             staveMeasure1.addClef("` +
                 clave +
                 `").addTimeSignature('` +
