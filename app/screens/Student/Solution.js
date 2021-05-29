@@ -3,14 +3,7 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import Graphic from '../../components/Graphic';
 
 export default function Solution({ route }) {
-    const { figurasConCompas, notasTraducidas } = route.params;
-    const [visible, setVisible] = useState(false);
-    const [dictado, setDictado] = useState(null);
-    const [figurasDictado, setFigurasDictado] = useState(null);
-    const [FigurasDictadoConCompas, setFigurasDictadoConCompas] =
-        useState(null);
-    const [dictadoGeneradoTraducido, setdictadoGeneradoTraducido] =
-        useState(null);
+    const { figurasConCompas, notasTraducidas, figurasDictado } = route.params;
 
     return (
         <View style={styles.container}>
@@ -18,7 +11,8 @@ export default function Solution({ route }) {
                 <ScrollView horizontal={true} style={styles.scrollView}>
                     <Graphic
                         style={styles.grafico}
-                        figurasParam={figurasConCompas}
+                        figurasConCompas={figurasConCompas}
+                        figurasSinCompas={figurasDictado}
                         dictadoGeneradoTraducidoParam={notasTraducidas}
                         numeradorParam={4}
                         denominadorParam={4}

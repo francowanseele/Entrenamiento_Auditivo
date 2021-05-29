@@ -4,7 +4,8 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 export default ({
-    figurasParam,
+    figurasConCompas,
+    figurasSinCompas,
     dictadoGeneradoTraducidoParam,
     numeradorParam,
     denominadorParam,
@@ -19,8 +20,11 @@ export default ({
         new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" }),
       `,
     })
-    const [FigurasDictadoConCompas, setFigurasDictadoConCompas] =
-        useState(figurasParam);
+    const [tarjetasNotas, setTarjetasNotas] = useState({ 
+        '16-16-16-16':['16','16','16','16'],
+     })
+    // const [FigurasDictadoConCompas, setFigurasDictadoConCompas] =
+    //     useState(figurasConCompas);
     const [dictadoGeneradoTraducido, setdictadoGeneradoTraducido] = useState(
         dictadoGeneradoTraducidoParam
     );
@@ -56,15 +60,16 @@ export default ({
     //   ["B/4","16-16-16-16"]
     //   ] );
 
-    const getTarjeta = (actual, tarjetaAArmar) =>{
+    const getTarjeta = (actualPara) =>{
+        
+        let tarjetaAArmar = tarjetas['16-16-16-16']
+
         let resTarjeta = tarjetaAArmar;
-        console.log('actualParam'+actual)
-        console.log('figuras'+figuras)
-        let hasta = actual+4;
-        for (var i = 0; i < hasta; i++) {
-        console.log('i= '+i);
-        console.log(figuras[i][0]);
-        resTarjeta = resTarjeta.replace('ParteMelodica',figuras[i][0]);
+        let hasta = actualPara + 4;
+        for (var j = actualPara; j < hasta; j++) {
+            console.log(figuras[j][0]);
+            if (figuras[j][0] == 'NuevoCompas') { break; }
+            resTarjeta = resTarjeta.replace('ParteMelodica',figuras[j][0]);
         }
         console.log('resTarjeta'+resTarjeta)
         return resTarjeta
@@ -80,28 +85,36 @@ export default ({
         }
         let compasActual;
         let figuraActual;
-        let res = [];
-        for ( compasActual = 0; compasActual < FigurasDictadoConCompas.length; compasActual++) {
-            for (figuraActual = 0; figuraActual< FigurasDictadoConCompas[compasActual].length; figuraActual++) {
-                res.push([
-                    resDictado[figuraActual],
-                    FigurasDictadoConCompas[compasActual][figuraActual]
-                ]);
+        let aux = [];
+        for ( compasActual = 0; compasActual < figurasConCompas.length; compasActual++) {
+            for (figuraActual = 0; figuraActual< figurasConCompas[compasActual].length; figuraActual++) {
+               
+                if ( typeof tarjetasNotas[figurasConCompas[compasActual][figuraActual]] == 'undefined' ){                                    
+                    aux.push([
+                        resDictado[compasActual],
+                        figurasConCompas[compasActual][figuraActual]                        
+                    ]);
+                }else{
+                    let notasTrj = tarjetasNotas[figurasConCompas[compasActual][figuraActual]];
+                    for (var h =0; h < notasTrj.length; h++ ){
+                        aux.push([
+                            resDictado[compasActual+h],
+                            '-'+notasTrj[h]                            
+                        ]);
+                    }
+                }                
             }
-            // if (compasActual != FigurasDictadoConCompas.length) {
-            //     res.push(['NuevoCompas']);
-            // }
-            res.push(['NuevoCompas']);
+            aux.push(['NuevoCompas']);
         }
-        // console.log(resDictado);
-        // console.log(res);
-        return res;
+        return aux;
     };
 
     const getFigurasyDuracion = () => {
         setfiguras(translateToGraphic());
-        console.log('dictadoGeneradoTraducido===>' + dictadoGeneradoTraducido);
-        console.log('FigurasDictadoConCompas===>' + FigurasDictadoConCompas);
+        // console.log('dictadoGeneradoTraducido===>' + dictadoGeneradoTraducido);
+        console.log('FigurasConCompas===>' + figurasConCompas);
+        // console.log('FigurasSinCompas===>' + figurasSinCompas);
+        console.log('Figuras'+figuras)
        
         let res = '';
         let compasActual = 1;
@@ -110,7 +123,7 @@ export default ({
         let punto = false;
         let esTarjeta = false;
         let huboTarjeta = false;
-        for (let actual in figuras) {
+        for (let actual=0; actual < figuras.length; actual++ ) {
             if (figuras[actual] != 'NuevoCompas') {
                 if (figuras[actual][1].includes('-')){
                     // console.log('entro al iff tarjeta')
@@ -171,10 +184,11 @@ export default ({
                     // console.log('entro a tarjeta')
                     res = res.concat( `]);`+ `\n` +`var notesTarjeta`+compasActual+` = []`);
                     res = res.concat( `\n` +`var notesTarjeta`+compasActual+`= notesTarjeta`+compasActual+`.concat([`);
-                    console.log('actual'+actual)
-                    console.log("tarjeta: "+tarjetas[figuras[actual][1]])
-                    res = res.concat(getTarjeta(actual,tarjetas[figuras[actual][1]]+ '\n')
-                    );
+                   
+                    res = res.concat(getTarjeta(actual));
+                    console.log('actual'+actual);
+                    actual = actual + 4 -1;
+                    console.log('actual'+actual);
                     // res = res.concat(tarjetas[figuras[actual][1]]);
 
                     res= res.concat(']);'+ '\n');
@@ -317,7 +331,7 @@ export default ({
           <script>writeNote();</script>
   `
         );
-        // console.log(Html)
+        console.log(Html)
     }, []); 
 
     return (

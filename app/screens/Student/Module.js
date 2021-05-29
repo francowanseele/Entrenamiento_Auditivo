@@ -27,6 +27,7 @@ export default function Module({ route }) {
                 navigation.navigate('dictation', {
                     figurasConCompas: figurasConCompas,
                     notasTraducidas: notasTraducidas,
+                    figurasDictado:figurasDictado
                 });
             } else {
                 console.log(message);
