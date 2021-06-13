@@ -3,13 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-export default ({
+export default ({    
     figurasConCompas,
     figurasSinCompas,
     dictadoGeneradoTraducidoParam,
     numeradorParam,
     denominadorParam,
     claveParam,
+    escalaDiatonica
 }) => {
     const [figuras, setfiguras] = useState([]);
     const [tarjetas, setTarjetas] = useState({ 
@@ -53,36 +54,68 @@ export default ({
     );
     const [denominador, setDenominador] = useState(denominadorParam);
     const [numerador, setNumerador] = useState(numeradorParam);
-    const [clave, setclave] = useState(claveParam);
+    const [clave, setclave] = useState('');
     const [tarjetasActuales, setTarjetasActuales] = useState([]);
-    // const [figuras, setfiguras] = useState(
-    // [       
-    //   ["B/4","4"],      
-    //   ["B/4","4"],
-    //   ["B/4","4"],
-    //   ["B/4","4"],      
-    //   ["B/4","4"],
-    //   ["NuevoCompas"],
-    //   ["Bb/4","4"],
-    //   ["A/4","2"],
-    //   ["B/4","2"],
-    //   ["C/4","2"],
-    //   ["B/4","2"],
-    //   ["B/4","2"],
-    //   ["B/4","16-16-16-16"],
-    //   ["NuevoCompas"],
-    //   ["B/4","16-16-16-16"],
-    //   ["A/4","2"],
-    //   ["B/4","2"],
-    //   ["C/4","2"],
-    //   ["B/4","2"],
-    //   ["NuevoCompas"],
-    //   ["B/4","2"],
-    //   ["B/4","1"],
-    //   ["B/4","4"],
-    //   ["C/4","4"],
-    //   ["B/4","16-16-16-16"]
-    //   ] );
+    const [escalaDiatonicaRes , setEscaladiatonicaRes] = useState('');
+
+    const traducirClave = (claveParamFunc) =>{
+
+        let claveTrans;
+        switch (claveParamFunc) {
+            case 'Fa':
+                claveTrans = 'bass';
+                break;
+            case 'Sol':
+                claveTrans = 'treble';
+                break;
+        } 
+        setclave(claveTrans);
+    }
+    
+    const traducirEscala = (escalaDiatonicaParam) => {
+        let nombreNota_Trans ='';
+        switch (escalaDiatonicaParam) {
+            case 'Do':
+                nombreNota_Trans = 'C';
+                break;
+            case 'Sol':
+                nombreNota_Trans = 'G';
+                break;
+            case 'Re':
+                nombreNota_Trans = 'D';
+                break;
+            case 'La':
+                nombreNota_Trans = 'A';
+                break;
+            case 'Mi':
+                nombreNota_Trans = 'E';
+            case 'Si':
+                nombreNota_Trans = 'B';
+                break;
+            case 'Fa#':
+                nombreNota_Trans = 'F#';
+                break;  
+            case 'Solb':
+                nombreNota_Trans = 'Gb';
+                break; 
+            case 'Reb':
+                nombreNota_Trans = 'Db';
+                break;
+            case 'Lab':
+                nombreNota_Trans = 'Ab';
+                break;
+            case 'Mib':
+                nombreNota_Trans = 'Eb';
+                break;
+            case 'Sib':
+                nombreNota_Trans = 'Bb';
+                break;
+            case 'Fa':
+                nombreNota_Trans = 'F';
+        }
+        setEscaladiatonicaRes(nombreNota_Trans);
+    
+    }
 
     const getTarjeta = (actualPara,tarjetaAArmar,largoTrj) =>{    
         
@@ -112,15 +145,18 @@ export default ({
             actual = actual.slice(0, actual.length - 1) + '/' + ultimoChar;
             resDictado.push(actual);
         }
+        console.log('resDictadoconBarrita==>'+resDictado)
         let compasActual;
         let figuraActual;
         let aux = [];
+        let index = -1;
         for ( compasActual = 0; compasActual < figurasConCompas.length; compasActual++) {
+            
             for (figuraActual = 0; figuraActual< figurasConCompas[compasActual].length; figuraActual++) {
-               
+                index = index + 1;
                 if ( typeof tarjetasNotas[figurasConCompas[compasActual][figuraActual]] == 'undefined' ){                                    
                     aux.push([
-                        resDictado[compasActual],
+                        resDictado[index],
                         figurasConCompas[compasActual][figuraActual]                        
                     ]);
                 }else{
@@ -128,23 +164,25 @@ export default ({
                     let notasTrj = tarjetasNotas[figurasConCompas[compasActual][figuraActual]];
                     for (var h =0; h < notasTrj.length; h++ ){
                         aux.push([
-                            resDictado[compasActual+h],
+                            resDictado[index+h],
                             '-'+notasTrj[h]                            
                         ]);
                     }
+                    index = index + notasTrj.length-1;
+                     
                 }                
             }
-            aux.push(['NuevoCompas']);
+            if ( compasActual != figurasConCompas.length-1 ) { aux.push(['NuevoCompas']) };
         }
-        return aux;
+        setfiguras(aux);
     };
 
     const getFigurasyDuracion = () => {
-        setfiguras(translateToGraphic());
+        translateToGraphic();
         // console.log('dictadoGeneradoTraducido===>' + dictadoGeneradoTraducido);
-        console.log('FigurasConCompas===>' + figurasConCompas);
+        // console.log('FigurasConCompas===>' + figurasConCompas);
         // console.log('FigurasSinCompas===>' + figurasSinCompas);
-        console.log('Figuras'+figuras)
+        console.log('FiguraspostFunc///>      '+figuras)
        
         let res = '';
         let compasActual = 1;
@@ -311,6 +349,8 @@ export default ({
     const [Html, setHtml] = useState('');
 
     useEffect(() => {
+        traducirEscala(escalaDiatonica);
+        traducirClave(claveParam);
         setHtml(
             `    
       <style>
@@ -345,15 +385,13 @@ export default ({
                 numerador +
                 `/` +
                 denominador +
-                `').setContext(context).draw();
+                `').addKeySignature("`+ escalaDiatonicaRes +`").
+                setContext(context).draw();
             notesMeasure1 = [];
             notesMeasure1 = notesMeasure1.concat([
               ` +
-                getFigurasyDuracion() +
-                `
-            
-          
-          
+                getFigurasyDuracion() +                `
+
       }
       </script>
           <div class="music-render" id="boo"/> 
@@ -368,9 +406,9 @@ export default ({
             source={{ html: Html }}
             style={{
                 alignSelf: 'center',
-                width: 3000, // aumentando este ancho logro aumentar el taman;o de las figuras
+                width: 2900, // aumentando este ancho logro aumentar el taman;o de las figuras
                 maxHeight: '100%',
-                backgroundColor: 'red',
+                backgroundColor: '#f8c471',
             }}
         />
     );
