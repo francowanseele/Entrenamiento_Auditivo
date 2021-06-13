@@ -29,6 +29,8 @@ export function melodicDictationApi(data) {
                 if (result.ok) {
                     return {
                         ok: true,
+                        clave:result.configuracion.clave,
+                        escalaDiatonica:result.configuracion.escalaDiatonica,
                         dictado: result.dictado,
                         dictadoTraducido: result.dictadoTraducido,
                     };
@@ -74,9 +76,9 @@ export function rhythmicDictationApi(data) {
                     message: 'Error interno del servidor.',
                 };
             } else {
-                if (result.ok) {
+                if (result.ok) {                   
                     return {
-                        ok: true,
+                        ok: true,                        
                         figurasDictado: result.figuras,
                         figurasConCompas: result.dictado,
                     };

@@ -69,6 +69,7 @@ export default ({
                 claveTrans = 'treble';
                 break;
         } 
+        
         setclave(claveTrans);
     }
     

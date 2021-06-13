@@ -6,7 +6,7 @@ import { generateDictationFileApi } from '../../api/sound';
 
 export default function Module({ route }) {
     const navigation = useNavigation();
-    const { dictado, figurasDictado, figurasConCompas, notasTraducidas } =
+    const {clave,escalaDiatonica , dictado, figurasDictado, figurasConCompas, notasTraducidas } =
         route.params;
 
     const openDictado = async () => {
@@ -25,6 +25,8 @@ export default function Module({ route }) {
                 // PASO EL DICTADO PARA GRAFICAR
                 // ---------------------
                 navigation.navigate('dictation', {
+                    clave:clave,
+                    escalaDiatonica:escalaDiatonica,
                     figurasConCompas: figurasConCompas,
                     notasTraducidas: notasTraducidas,
                     figurasDictado:figurasDictado

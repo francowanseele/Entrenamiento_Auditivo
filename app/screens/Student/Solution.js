@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import Graphic from '../../components/Graphic';
 
 export default function Solution({ route }) {
-    const { figurasConCompas, notasTraducidas, figurasDictado } = route.params;
+    const {clave,escalaDiatonica , figurasConCompas, notasTraducidas, figurasDictado } = route.params;
+
+    // useEffect(()=>{
+    //     console.log(escalaDiatonica)
+    // },[])
 
     return (
         <View style={styles.container}>
@@ -16,7 +20,9 @@ export default function Solution({ route }) {
                         dictadoGeneradoTraducidoParam={notasTraducidas}
                         numeradorParam={4}
                         denominadorParam={4}
-                        claveParam={'treble'}
+                        claveParam={clave}
+                        escalaDiatonica={escalaDiatonica}
+
                     />
                 </ScrollView>
             </View>

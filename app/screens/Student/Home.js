@@ -55,6 +55,8 @@ export default function Home() {
             if (dictadoRes.ok) {
                 setDictado(dictadoRes.dictado);
                 navigation.navigate('module', {
+                    clave:dictadoRes.clave,
+                    escalaDiatonica:dictadoRes.escalaDiatonica,
                     dictado: dictadoRes.dictado,
                     figurasDictado: figsDictadoRes.figurasDictado,
                     figurasConCompas: figsDictadoRes.figurasConCompas,
