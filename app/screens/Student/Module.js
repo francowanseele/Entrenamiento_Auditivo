@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { View, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -6,8 +6,10 @@ import { generateDictationFileApi } from '../../api/sound';
 
 export default function Module({ route }) {
     const navigation = useNavigation();
-    const {clave,escalaDiatonica , dictado, figurasDictado, figurasConCompas, notasTraducidas } =
+    const {denominador , numerador, clave,escalaDiatonica , dictado, figurasDictado, figurasConCompas, notasTraducidas } =
         route.params;
+
+
 
     const openDictado = async () => {
         // Generar midi y mp3
@@ -29,7 +31,9 @@ export default function Module({ route }) {
                     escalaDiatonica:escalaDiatonica,
                     figurasConCompas: figurasConCompas,
                     notasTraducidas: notasTraducidas,
-                    figurasDictado:figurasDictado
+                    figurasDictado:figurasDictado,
+                    denominador:denominador,
+                    numerador:numerador
                 });
             } else {
                 console.log(message);

@@ -17,11 +17,25 @@ export default function Home() {
 
         // Dato de la configuración (BD)
         const dataRitmic = {
-            tarjetas: ['1', '2', '4','16-16-16-16'],
+            tarjetas: [
+                {elem:'1',prioridad:1}, 
+                {elem:'2',prioridad:5}, 
+                {elem:'4',prioridad:4}, 
+                {elem:'16-16-16-16T',prioridad:1},
+                {elem:'8-8T',prioridad:1},
+                {elem:'8-16-16T',prioridad:1},
+                {elem:'16-8-16T',prioridad:1}       
+            
+            ],
             nroCompases: 5,
-            numerador: 4,
-            denominador: 4,
+            numeradorDenominador: [
+                                    {elem:'4/4', prioridad:1},
+                                    {elem:'3/4', prioridad:1},
+                                    {elem:'2/4', prioridad:1}
+                                ],
+            tipoCelulas:'simples'
         };
+        
         const figsDictadoRes = await rhythmicDictationApi(dataRitmic);
 
         if (figsDictadoRes.ok) {
@@ -45,7 +59,7 @@ export default function Home() {
                 notasFin: ['Do4', 'Sol4'],
                 nivelPrioridadClave: [
                     { elem: 'Sol', prioridad: 3 },
-                    { elem: 'Fa', prioridad: 1 },
+                    { elem: 'Fa', prioridad: 1},
                 ],
                 cantDictado: figsDictadoRes.figurasDictado.length,
             };
@@ -61,6 +75,8 @@ export default function Home() {
                     figurasDictado: figsDictadoRes.figurasDictado,
                     figurasConCompas: figsDictadoRes.figurasConCompas,
                     notasTraducidas: dictadoRes.dictadoTraducido,
+                    numerador: figsDictadoRes.numerador,
+                    denominador: figsDictadoRes.denominador
                 });
                 // toastRef.current.show('Dictado creado');
             } else {

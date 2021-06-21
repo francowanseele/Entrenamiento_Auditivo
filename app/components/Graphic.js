@@ -39,13 +39,17 @@ export default ({
         new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
         new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
         `,
+        '4-4-4':`
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        `,
     })
     const [tarjetasNotas, setTarjetasNotas] = useState({ 
         '16-16-16-16':['16','16','16','16'],
         '8-16-16':['8','16','16'],
-        '16-8-16':['16','8','16'],
+        '16-8-16':['16','8','16'],//arieugonl
         '16-16-8':['16','16','8'],
-        '8-8':['4','4']
+        '8-8':['8','8']
      })
     // const [FigurasDictadoConCompas, setFigurasDictadoConCompas] =
     //     useState(figurasConCompas);
@@ -178,6 +182,12 @@ export default ({
         setfiguras(aux);
     };
 
+    function removeItemFromArr( arr, item ) {
+        return arr.filter( function( e ) {
+            return e !== item;
+        } );
+    };
+
     const getFigurasyDuracion = () => {
         translateToGraphic();
         // console.log('dictadoGeneradoTraducido===>' + dictadoGeneradoTraducido);
@@ -194,8 +204,10 @@ export default ({
         let huboTarjeta = false;
         for (let actual=0; actual < figuras.length; actual++ ) {
             if (figuras[actual] != 'NuevoCompas') {
-                if (figuras[actual][1].includes('-')){
+                if (figuras[actual][1].includes('T')){
+                    
                     // console.log('entro al iff tarjeta')
+                    figuras[actual][1].includes('T')
                     esTarjeta = true;
                 }
                 if (figuras[actual][1].includes('d')) {
@@ -383,9 +395,9 @@ export default ({
             staveMeasure1.addClef("` +
                 clave +
                 `").addTimeSignature('` +
-                numerador +
+                numeradorParam +
                 `/` +
-                denominador +
+                denominadorParam +
                 `').addKeySignature("`+ escalaDiatonicaRes +`").
                 setContext(context).draw();
             notesMeasure1 = [];

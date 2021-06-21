@@ -10,7 +10,7 @@ export default function Dictation({ route }) {
     // ---------------------
     // DICTADO PARA GRAFICAR
     // ---------------------
-    const {clave, escalaDiatonica, figurasConCompas, notasTraducidas, figurasDictado } = route.params;
+    const {denominador , numerador, clave, escalaDiatonica, figurasConCompas, notasTraducidas, figurasDictado } = route.params;
     const navigation = useNavigation();
 
     const playDictado = async () => {
@@ -28,7 +28,9 @@ export default function Dictation({ route }) {
             escalaDiatonica:escalaDiatonica,
             figurasConCompas: figurasConCompas,
             notasTraducidas: notasTraducidas,
-            figurasDictado: figurasDictado
+            figurasDictado: figurasDictado,
+            numerador:numerador,
+            denominador:denominador
         });
     };
 

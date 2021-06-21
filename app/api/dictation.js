@@ -26,6 +26,7 @@ export function melodicDictationApi(data) {
                     message: 'Error interno del servidor.',
                 };
             } else {
+                
                 if (result.ok) {
                     return {
                         ok: true,
@@ -76,11 +77,14 @@ export function rhythmicDictationApi(data) {
                     message: 'Error interno del servidor.',
                 };
             } else {
+                // console.log(result)
                 if (result.ok) {                   
                     return {
                         ok: true,                        
                         figurasDictado: result.figuras,
                         figurasConCompas: result.dictado,
+                        numerador: result.numerador,
+                        denominador: result.denominador
                     };
                 } else {
                     return {
