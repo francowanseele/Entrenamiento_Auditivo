@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { WebView } from 'react-native-webview';
@@ -40,8 +39,9 @@ export default ({
         new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
         `,
         '4-4-4':`
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "4" })MODIFICACION
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "4" })MODIFICACION
+        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "4" })MODIFICACION
         `,
     })
     const [tarjetasNotas, setTarjetasNotas] = useState({ 
@@ -49,7 +49,8 @@ export default ({
         '8-16-16':['8','16','16'],
         '16-8-16':['16','8','16'],//arieugonl
         '16-16-8':['16','16','8'],
-        '8-8':['8','8']
+        '8-8':['8','8'],
+        '4-4-4':['4','4','4']
      })
     // const [FigurasDictadoConCompas, setFigurasDictadoConCompas] =
     //     useState(figurasConCompas);
@@ -160,17 +161,29 @@ export default ({
             for (figuraActual = 0; figuraActual< figurasConCompas[compasActual].length; figuraActual++) {
                 index = index + 1;
                 if ( typeof tarjetasNotas[figurasConCompas[compasActual][figuraActual]] == 'undefined' ){                                    
+                    if (!figurasConCompas[compasActual][figuraActual].includes('-')){
                     aux.push([
                         resDictado[index],
                         figurasConCompas[compasActual][figuraActual]                        
                     ]);
+                    }else{
+                        let notasSeparar = figurasConCompas[compasActual][figuraActual].split('-');
+
+                        for (var h =0; h < notasSeparar.length; h++ ){
+                            aux.push([
+                                resDictado[index + h],
+                                notasSeparar[h]
+                            ])
+                        }
+                        index = index + notasSeparar.length-1;
+                    } 
                 }else{
                     tarjetasActuales.push(figurasConCompas[compasActual][figuraActual]);
                     let notasTrj = tarjetasNotas[figurasConCompas[compasActual][figuraActual]];
                     for (var h =0; h < notasTrj.length; h++ ){
                         aux.push([
                             resDictado[index+h],
-                            '-'+notasTrj[h]                            
+                            '+'+notasTrj[h]                            
                         ]);
                     }
                     index = index + notasTrj.length-1;
@@ -204,10 +217,7 @@ export default ({
         let huboTarjeta = false;
         for (let actual=0; actual < figuras.length; actual++ ) {
             if (figuras[actual] != 'NuevoCompas') {
-                if (figuras[actual][1].includes('T')){
-                    
-                    // console.log('entro al iff tarjeta')
-                    figuras[actual][1].includes('T')
+                if (figuras[actual][1].includes('+')){
                     esTarjeta = true;
                 }
                 if (figuras[actual][1].includes('d')) {
