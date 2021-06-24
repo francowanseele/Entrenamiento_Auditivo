@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import Graphic from '../../components/Graphic';
 
 export default function Solution({ route }) {
-    console.log(route);
     const { figurasConCompas, notasTraducidas } = route.params;
     const [visible, setVisible] = useState(false);
     const [dictado, setDictado] = useState(null);
@@ -17,14 +16,15 @@ export default function Solution({ route }) {
         <View style={styles.container}>
             <View style={styles.graficoContainer}>
                 <ScrollView horizontal={true} style={styles.scrollView}>
-                    <Graphic
+                    {/* <Graphic
                         style={styles.grafico}
                         figurasParam={figurasConCompas}
                         dictadoGeneradoTraducidoParam={notasTraducidas}
                         numeradorParam={4}
                         denominadorParam={4}
                         claveParam={'treble'}
-                    />
+                    /> */}
+                    <Text>GRAFICA coming soon.. </Text>
                 </ScrollView>
             </View>
         </View>

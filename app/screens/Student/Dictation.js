@@ -5,17 +5,18 @@ import { Icon } from 'react-native-elements';
 import { Audio } from 'expo-av';
 
 import { tramsitDictationApi } from '../../api/sound';
+import { getStorageItem, ID_USER } from '../../../utils/asyncStorageManagement';
 
 export default function Dictation({ route }) {
     // ---------------------
     // DICTADO PARA GRAFICAR
     // ---------------------
-    const { figurasConCompas, notasTraducidas } = route.params;
+    const { dictation } = route.params;
     const navigation = useNavigation();
 
     const playDictado = async () => {
         // TODO -> id del usuario
-        const id = 1;
+        const id = await getStorageItem(ID_USER);
         const tran = await tramsitDictationApi(id);
 
         const { sound } = await Audio.Sound.createAsync({ uri: tran });
@@ -24,8 +25,7 @@ export default function Dictation({ route }) {
 
     const openSolution = () => {
         navigation.navigate('solution', {
-            figurasConCompas: figurasConCompas,
-            notasTraducidas: notasTraducidas,
+            dictation,
         });
     };
 

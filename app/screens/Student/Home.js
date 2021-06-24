@@ -1,83 +1,109 @@
-import React, { useState } from 'react';
-import { View, Text, Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, ScrollView, StyleSheet } from 'react-native';
+import { ListItem, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 
-import { melodicDictationApi, rhythmicDictationApi } from '../../api/dictation';
+import { getModulesApi } from '../../api/course';
+import {
+    getStorageItem,
+    ID_CURRENT_CURSE,
+} from '../../../utils/asyncStorageManagement';
+import Loading from '../../components/Loading';
 
 export default function Home() {
     const navigation = useNavigation();
+    const [modules, setModules] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [loadingText, setLoadingText] = useState('');
 
-    const [dictado, setDictado] = useState(null);
-    const [figurasDictado, setFigurasDictado] = useState(null);
-
-    const moduloIn = async () => {
-        // TODO
-        // Consultar si tiene dictados generados, si los tiene mostrarlos
-        // si no tiene ningun generar 5 dictados nuevos y listarlos en la screen Module.js
-
-        // Dato de la configuración (BD)
-        const dataRitmic = {
-            tarjetas: ['1', '2', '4', 'd4-8', '8-16-16'],
-            nroCompases: 5,
-            numerador: 3,
-            denominador: 4,
-        };
-        const figsDictadoRes = await rhythmicDictationApi(dataRitmic);
-
-        if (figsDictadoRes.ok) {
-            setFigurasDictado(figsDictadoRes.figurasDictado);
-
-            // Dato de la configuración (BD)
-            const data = {
-                notasRegla: [
-                    ['Do4', 'Re4', 'Mi4', 'Fa4', 'Sol4', 'La4', 'Si4', 'Do5'],
-                    ['Do4', 'Mi4', 'Sol4', 'Do5'],
-                ],
-                nivelPrioridadRegla: [
-                    { regla: 0, prioridad: 1 },
-                    { regla: 1, prioridad: 3 },
-                ],
-                intervaloNotas: [
-                    { clave: 'Sol', notaMenor: 'La3', notaMayor: 'Do6' },
-                    { clave: 'Fa', notaMenor: 'Do2', notaMayor: 'Mi4' },
-                ],
-                notasBase: ['Do4', 'Sol4'],
-                notasFin: ['Do4', 'Sol4'],
-                nivelPrioridadClave: [
-                    { elem: 'Sol', prioridad: 3 },
-                    { elem: 'Fa', prioridad: 1 },
-                ],
-                cantDictado: figsDictadoRes.figurasDictado.length,
-            };
-
-            const dictadoRes = await melodicDictationApi(data);
-
-            if (dictadoRes.ok) {
-                setDictado(dictadoRes.dictado);
-                navigation.navigate('module', {
-                    dictado: dictadoRes.dictado,
-                    figurasDictado: figsDictadoRes.figurasDictado,
-                    figurasConCompas: figsDictadoRes.figurasConCompas,
-                    notasTraducidas: dictadoRes.dictadoTraducido,
+    useEffect(() => {
+        getStorageItem(ID_CURRENT_CURSE).then((idCourse) => {
+            if (idCourse) {
+                getModulesApi(idCourse).then((dataModules) => {
+                    if (dataModules.ok) {
+                        var modulesRes = [];
+                        dataModules.modules.forEach(m => {
+                            modulesRes.push({module: m, open: false});
+                        });
+                        setModules(modulesRes);
+                    } else {
+                        setModules([]);
+                    }
                 });
-                // toastRef.current.show('Dictado creado');
-            } else {
-                // TODO -> handle error (show in modal or popup)
-                console.log('1');
-                console.log('error');
             }
-        } else {
-            console.log('2');
-            // TODO -> handle error (show in modal or popup)
-            console.log('error');
-        }
+        });
+    }, []); // TODO -> se va a ejecutar cuando seleccione otro curso (y cambie en el async storage)
+
+    const open_closeModulePress = (module) => {
+        var modRes = [];
+        modules.forEach(m => {
+            if(m.module._id == module.module._id){
+                modRes.push({module: m.module, open: !m.open})
+            } else {
+                modRes.push({module: m.module, open: m.open})
+            }
+        });
+
+        setModules(modRes);
     };
 
+    const configDictationIn = (config, module) => {
+        navigation.navigate('config_dictation', {
+            configDictation: config,
+            module: module,
+        });
+    }
+
+    if (modules === null) return <Loading isVisible={true} text="Cargando" />;
+
     return (
-        <View>
-            <Button title="Modulo 01" onPress={moduloIn} />
-            <Button title="Modulo 02" onPress={moduloIn} />
-            <Button title="Modulo 03" onPress={moduloIn} />
-        </View>
+        <ScrollView>
+            {modules.map((module, i) => (
+                <ListItem.Accordion
+                    content={
+                        <>
+                            <Icon
+                                type="material-community"
+                                name="playlist-music"
+                                iconStyle={styles.iconMenuLeft}
+                            />
+                            <ListItem.Content>
+                                <ListItem.Title>{module.module.nombre}</ListItem.Title>
+                            </ListItem.Content>
+                        </>
+                    }
+                    key={i}
+                    isExpanded={module.open}
+                    onPress={ () => {
+                        open_closeModulePress(module);
+                    }}
+                >
+                    {module.module.configuracion_dictado.map((config, j) => (
+                        <ListItem
+                            key={j}
+                            onPress={() => {
+                                configDictationIn(config, module.module);
+                            }}
+                            bottomDivider
+                        >
+                            <ListItem.Content>
+                                <ListItem.Title>{'    ' + config.nombre}</ListItem.Title>
+                                <ListItem.Subtitle>
+                                    {'    ' + config.descripcion}
+                                </ListItem.Subtitle>
+                            </ListItem.Content>
+                            <ListItem.Chevron />
+                        </ListItem>
+                    ))}
+                </ListItem.Accordion>
+            ))}
+            <Loading text={loadingText} isVisible={loading} />
+        </ScrollView>
     );
 }
+
+const styles = StyleSheet.create({
+    iconMenuLeft: {
+        color: 'lightgrey',
+    },
+});

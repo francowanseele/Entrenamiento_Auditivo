@@ -1,11 +1,9 @@
 import { basePath } from './config';
 
-export function melodicDictationApi(data) {
-    const url = `${basePath}/melodic-dictation`;
-
+export function getDictationApi(idUser, idConfigDictation) {
+    const url = `${basePath}/get-dictation/${idUser}?idConfigDictation=${idConfigDictation}`;
     const params = {
-        method: 'POST',
-        body: JSON.stringify(data),
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         },
@@ -29,8 +27,7 @@ export function melodicDictationApi(data) {
                 if (result.ok) {
                     return {
                         ok: true,
-                        dictado: result.dictado,
-                        dictadoTraducido: result.dictadoTraducido,
+                        dictations: result.dictations,
                     };
                 } else {
                     return {
@@ -48,15 +45,21 @@ export function melodicDictationApi(data) {
         });
 }
 
-export function rhythmicDictationApi(data) {
-    const url = `${basePath}/rhythmic-dictation`;
-
+export function generateDictationApi(
+    idUser,
+    idCourse,
+    idModule,
+    idConfigDictation,
+    cantDictation,
+    data
+) {
+    const url = `${basePath}/add-dictation-user/${idUser}?idCourse=${idCourse}&idModule=${idModule}&idConfigDictation=${idConfigDictation}&cantDictation=${cantDictation}`;
     const params = {
         method: 'POST',
-        body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json',
         },
+        body: JSON.stringify(data),
     };
 
     return fetch(url, params)
@@ -77,8 +80,7 @@ export function rhythmicDictationApi(data) {
                 if (result.ok) {
                     return {
                         ok: true,
-                        figurasDictado: result.figuras,
-                        figurasConCompas: result.dictado,
+                        dictations: result.dictations,
                     };
                 } else {
                     return {

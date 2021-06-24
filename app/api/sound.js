@@ -28,6 +28,7 @@ export function generateDictationFileApi(data, idUser) {
             } else {
                 return {
                     ok: result.ok,
+                    dictadoTransformado: result.dictadoTransformado,
                     message: result.message,
                 };
             }

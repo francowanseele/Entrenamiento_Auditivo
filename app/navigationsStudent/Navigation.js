@@ -8,7 +8,11 @@ import ProfileStack from './ProfileStack';
 
 const Tab = createBottomTabNavigator();
 
-export default function Navigation() {
+export default function Navigation(props) {
+    const { setLogin } = props;
+    // una posibilidad es hacer un useContext para tener la funcion setLogin ahí
+    // y accederla cuando se cierra sesión
+
     return (
         <NavigationContainer>
             <Tab.Navigator initialRouteName="home" tabBarOptions={{}}>
