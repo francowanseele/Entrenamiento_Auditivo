@@ -18,22 +18,29 @@ export default function Home() {
         // Dato de la configuración (BD)
         const dataRitmic = {
             tarjetas: [
-                {elem:'1',prioridad:1}, 
-                {elem:'2',prioridad:5}, 
-                {elem:'4',prioridad:4}, 
-                {elem:'16-16-16-16T',prioridad:1},
-                {elem:'8-8T',prioridad:1},
-                {elem:'8-16-16T',prioridad:1},
-                {elem:'16-8-16T',prioridad:1}       
+                {elem:'d4',prioridad:1}, 
+                {elem:'4-8',prioridad:1}, 
+                {elem:'8-4',prioridad:1},
+                {elem:'4-4-4',prioridad:1}
+                // {elem:'1',prioridad:1}, 
+                // {elem:'2',prioridad:1}, 
+                // {elem:'4',prioridad:1}, 
+                // {elem:'16-16-16-16T',prioridad:1},
+                // {elem:'8-8',prioridad:1},
+                // {elem:'8-16-16',prioridad:1},
+                // {elem:'16-8-16',prioridad:1}       
             
             ],
             nroCompases: 5,
             numeradorDenominador: [
-                                    {elem:'4/4', prioridad:1},
-                                    {elem:'3/4', prioridad:1},
-                                    {elem:'2/4', prioridad:1}
+                                    // {elem:'4/4', prioridad:1},
+                                    // {elem:'3/4', prioridad:1},
+                                    // {elem:'2/4', prioridad:1}
+                                    {elem:'6/8',prioridad:1},
+                                    {elem:'9/8',prioridad:1},
+                                    {elem:'12/8',prioridad:1}  
                                 ],
-            tipoCelulas:'simples'
+            tipoCelulas:'compuestas'
         };
         
         const figsDictadoRes = await rhythmicDictationApi(dataRitmic);
@@ -59,7 +66,7 @@ export default function Home() {
                 notasFin: ['Do4', 'Sol4'],
                 nivelPrioridadClave: [
                     { elem: 'Sol', prioridad: 3 },
-                    { elem: 'Fa', prioridad: 1},
+                    { elem: 'Fa', prioridad: 0},
                 ],
                 cantDictado: figsDictadoRes.figurasDictado.length,
             };
