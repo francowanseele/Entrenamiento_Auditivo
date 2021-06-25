@@ -12,36 +12,37 @@ export default ({
     escalaDiatonica
 }) => {
     const [figuras, setfiguras] = useState([]);
+    const [clave, setclave] = useState(claveParam);
     const [tarjetas, setTarjetas] = useState({ 
        '16-16-16-16':`
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
         `,
         '8-16-16':`
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
         `,
         '16-16-8':`
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
         `,
         '16-8-16':`
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
         `,
         '8-8':`
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
         `,
-        '4-4-4':`
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "4" })MODIFICACION
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "4" })MODIFICACION
-        new VF.StaveNote({ keys: ["ParteMelodica"], duration: "4" })MODIFICACION
+        '8-8-8':`
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
         `,
     })
     const [tarjetasNotas, setTarjetasNotas] = useState({ 
@@ -50,7 +51,7 @@ export default ({
         '16-8-16':['16','8','16'],//arieugonl
         '16-16-8':['16','16','8'],
         '8-8':['8','8'],
-        '4-4-4':['4','4','4']
+        '8-8-8':['8','8','8']
      })
     // const [FigurasDictadoConCompas, setFigurasDictadoConCompas] =
     //     useState(figurasConCompas);
@@ -59,24 +60,23 @@ export default ({
     );
     const [denominador, setDenominador] = useState(denominadorParam);
     const [numerador, setNumerador] = useState(numeradorParam);
-    const [clave, setclave] = useState('');
     const [tarjetasActuales, setTarjetasActuales] = useState([]);
     const [escalaDiatonicaRes , setEscaladiatonicaRes] = useState('');
 
-    const traducirClave = (claveParamFunc) =>{
+    // const traducirClave = (claveParamFunc) =>{
 
-        let claveTrans;
-        switch (claveParamFunc) {
-            case 'Fa':
-                claveTrans = 'bass';
-                break;
-            case 'Sol':
-                claveTrans = 'treble';
-                break;
-        } 
-        
-        setclave(claveTrans);
-    }
+    //     let claveTrans;
+    //     switch (claveParamFunc) {
+    //         case 'Fa':
+    //             claveTrans = 'bass';
+    //             break;
+    //         case 'Sol':
+    //             claveTrans = 'treble';
+    //             break;
+    //     }        
+    //     setclave(claveTrans);
+    //     return claveTrans
+    // }
     
     const traducirEscala = (escalaDiatonicaParam) => {
         let nombreNota_Trans ='';
@@ -206,7 +206,7 @@ export default ({
         // console.log('dictadoGeneradoTraducido===>' + dictadoGeneradoTraducido);
         // console.log('FigurasConCompas===>' + figurasConCompas);
         // console.log('FigurasSinCompas===>' + figurasSinCompas);
-        console.log('FiguraspostFunc///>      '+figuras)
+        // console.log('FiguraspostFunc///>      '+figuras)
        
         let res = '';
         let compasActual = 1;
@@ -235,7 +235,7 @@ export default ({
                 // console.log(esTarjeta)
                 if (!sostenido && !bemol && !punto && !esTarjeta) {
                     res = res.concat(
-                        'new Vex.Flow.StaveNote({ keys: ["' +
+                        'new Vex.Flow.StaveNote({clef: "'+clave+'", keys: ["' +
                             figuras[actual][0] +
                             '"], duration: "' +
                             figuras[actual][1] +
@@ -244,7 +244,7 @@ export default ({
                     );
                 } else if (sostenido && !esTarjeta) {
                     res = res.concat(
-                        'new Vex.Flow.StaveNote({ keys: ["' +
+                        'new Vex.Flow.StaveNote({clef: "'+clave+'", keys: ["' +
                             figuras[actual][0] +
                             '"], duration: "' +
                             figuras[actual][1] +
@@ -253,7 +253,7 @@ export default ({
                     );
                 } else if (bemol && !esTarjeta) {
                     res = res.concat(
-                        'new Vex.Flow.StaveNote({ keys: ["' +
+                        'new Vex.Flow.StaveNote({clef: "'+clave+'", keys: ["' +
                             figuras[actual][0] +
                             '"], duration: "' +
                             figuras[actual][1] +
@@ -262,7 +262,7 @@ export default ({
                     );
                 } else if (punto && !esTarjeta ) {
                     res = res.concat(
-                        'new Vex.Flow.StaveNote({ keys: ["' +
+                        'new Vex.Flow.StaveNote({clef: "'+clave+'", keys: ["' +
                             figuras[actual][0] +
                             '"], duration: "' +
                             figuras[actual][1] +
@@ -300,6 +300,7 @@ export default ({
                 res = res.concat(
                     `     
                 ]); \n
+                var beams = VF.Beam.generateBeams( notesMeasure`+(compasActual-1)+`);
                 Vex.Flow.Formatter.FormatAndDraw(context, staveMeasure` +
                         (compasActual - 1) +
                         `, notesMeasure` +
@@ -352,6 +353,7 @@ export default ({
         // }
         res = res.concat(
             `]); \n
+            var beams = VF.Beam.generateBeams( notesMeasure`+compasActual.toString()+`);
         Vex.Flow.Formatter.FormatAndDraw(context, staveMeasure` +
                 compasActual.toString() +
                 `, notesMeasure` +
@@ -373,7 +375,7 @@ export default ({
 
     useEffect(() => {
         traducirEscala(escalaDiatonica);
-        traducirClave(claveParam);
+        // traducirClave(claveParam);
         setHtml(
             `    
       <style>
@@ -421,7 +423,7 @@ export default ({
           <script>writeNote();</script>
   `
         );
-        // console.log(Html)
+        console.log(Html)
     }, []); 
 
     return (

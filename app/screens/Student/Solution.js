@@ -5,9 +5,19 @@ import Graphic from '../../components/Graphic';
 export default function Solution({ route }) {
     const {denominador , numerador, clave,escalaDiatonica , figurasConCompas, notasTraducidas, figurasDictado } = route.params;
 
-    // useEffect(()=>{
-    //     console.log(escalaDiatonica)
-    // },[])
+    const traducirClave = (claveParamFunc) =>{
+
+        let claveTrans;
+        switch (claveParamFunc) {
+            case 'Fa':
+                claveTrans = 'bass';
+                break;
+            case 'Sol':
+                claveTrans = 'treble';
+                break;
+        }        
+        return claveTrans
+    }
 
     return (
         <View style={styles.container}>
@@ -20,7 +30,7 @@ export default function Solution({ route }) {
                         dictadoGeneradoTraducidoParam={notasTraducidas}
                         numeradorParam={numerador}
                         denominadorParam={denominador}
-                        claveParam={clave}
+                        claveParam={traducirClave(clave)}
                         escalaDiatonica={escalaDiatonica}
                     />
                 </ScrollView>

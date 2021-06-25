@@ -26,7 +26,7 @@ export function melodicDictationApi(data) {
                     message: 'Error interno del servidor.',
                 };
             } else {
-                
+                // console.log(result)
                 if (result.ok) {
                     return {
                         ok: true,
