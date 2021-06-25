@@ -24,8 +24,8 @@ export default function Home() {
                 {elem:'8-8-8',prioridad:4}
                 // {elem:'1',prioridad:1}, 
                 // {elem:'2',prioridad:1}, 
-                // {elem:'4',prioridad:1}, 
-                // {elem:'16-16-16-16T',prioridad:1},
+                // {elem:'4',prioridad:1}
+                // {elem:'16-16-16-16',prioridad:1},
                 // {elem:'8-8',prioridad:1},
                 // {elem:'8-16-16',prioridad:1},
                 // {elem:'16-8-16',prioridad:1}       
@@ -65,8 +65,8 @@ export default function Home() {
                 notasBase: ['Do4', 'Sol4'],
                 notasFin: ['Do4', 'Sol4'],
                 nivelPrioridadClave: [
-                    { elem: 'Sol', prioridad: 0 },
-                    { elem: 'Fa', prioridad: 3},
+                    { elem: 'Sol', prioridad: 1 },
+                    { elem: 'Fa', prioridad: 1},
                 ],
                 cantDictado: figsDictadoRes.figurasDictado.length,
             };

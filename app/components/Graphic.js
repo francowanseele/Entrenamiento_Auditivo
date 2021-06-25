@@ -142,6 +142,18 @@ export default ({
         }
         return resTarjeta
     };
+    const convert4And2 = (auxParam) => {
+        let res = [];
+        for (let fig of auxParam){
+            if (fig[1] == '2'){
+                fig[1] = 'h'
+            }else if ( fig[1] == '4'){
+                fig[1] = 'q'
+            }
+            res.push(fig)
+        }
+        return res
+    }
 
     const translateToGraphic = () => {
         let ultimoChar;
@@ -192,7 +204,8 @@ export default ({
             }
             if ( compasActual != figurasConCompas.length-1 ) { aux.push(['NuevoCompas']) };
         }
-        setfiguras(aux);
+        let aux2 = convert4And2(aux);
+        setfiguras(aux2);
     };
 
     function removeItemFromArr( arr, item ) {
@@ -423,7 +436,7 @@ export default ({
           <script>writeNote();</script>
   `
         );
-        console.log(Html)
+        // console.log(Html)
     }, []); 
 
     return (

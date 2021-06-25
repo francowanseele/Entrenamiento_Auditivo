@@ -26,7 +26,7 @@ export function melodicDictationApi(data) {
                     message: 'Error interno del servidor.',
                 };
             } else {
-                // console.log(result)
+                console.log(result)
                 if (result.ok) {
                     return {
                         ok: true,
@@ -74,7 +74,7 @@ export function rhythmicDictationApi(data) {
             if (!result) {
                 return {
                     ok: false,
-                    message: 'Error interno del servidor.',
+                    message: 'Error interno del servidor (ritmico).',
                 };
             } else {
                 // console.log(result)
