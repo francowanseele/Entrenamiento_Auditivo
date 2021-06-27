@@ -12,7 +12,7 @@ import {
     ID_CURRENT_CURSE,
     ID_USER,
 } from '../../../utils/asyncStorageManagement';
-import { getNativeSourceAndFullInitialStatusForLoadAsync } from 'expo-av/build/AV';
+// import { getNativeSourceAndFullInitialStatusForLoadAsync } from 'expo-av/build/AV';
 
 export default function ConfigDictation({ route }) {
     const navigation = useNavigation();
@@ -22,7 +22,10 @@ export default function ConfigDictation({ route }) {
     const getTarjetas = (celulaRitmica) => {
         var res = [];
         celulaRitmica.forEach((celula) => {
-            res.push(celula.celula_ritmica);
+            res.push({
+                elem: celula.celula_ritmica,
+                prioridad: celula.prioridad,
+            });
         });
 
         return res;
@@ -81,6 +84,29 @@ export default function ConfigDictation({ route }) {
         return res;
     };
 
+    const getCompas = (compasRegla) => {
+        var res = [];
+        compasRegla.forEach((compas) => {
+            const numDenom =
+                compas.numerador.toString() +
+                '/' +
+                compas.denominador.toString();
+            res.push({
+                elem: numDenom,
+                prioridad: compas.prioridad,
+            });
+        });
+
+        return res;
+    };
+
+    const getSimple = (compasRegla) => {
+        var simple = false;
+        compasRegla.forEach((compas) => {
+            compas.simple;
+        });
+    };
+
     useEffect(() => {
         getParams().then((d) => {
             const idUser = d.id;
@@ -98,10 +124,12 @@ export default function ConfigDictation({ route }) {
                         const data = {
                             tarjetas: getTarjetas(
                                 configDictation.celula_ritmica_regla
-                            ), // despues seguramnete haya que pasarle la prioridad #PRIO
+                            ),
                             nroCompases: configDictation.nro_compases,
-                            numerador: 2, // #PRIO
-                            denominador: 4, // #PRIO
+                            compas: getCompas(configDictation.compas_regla),
+                            simple: configDictation.simple
+                                ? 'simples'
+                                : 'compuestas',
                             notasRegla: resGirosMelodicos[0],
                             nivelPrioridadRegla: resGirosMelodicos[1],
                             intervaloNotas: getTesitura(
@@ -115,7 +143,7 @@ export default function ConfigDictation({ route }) {
                             escalaDiatonicaRegla: getEscalasDiatonicas(
                                 configDictation.escala_diatonica_regla
                             ),
-                            date: null, // Se toma la fecha en el backend
+                            notaBase: configDictation.nota_base,
                         };
                         generateDictationApi(
                             idUser,

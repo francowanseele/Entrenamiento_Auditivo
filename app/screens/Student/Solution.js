@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import Graphic from '../../components/Graphic';
 
 export default function Solution({ route }) {
-    const { figurasConCompas, notasTraducidas } = route.params;
+    const { dictation } = route.params;
     const [visible, setVisible] = useState(false);
     const [dictado, setDictado] = useState(null);
     const [figurasDictado, setFigurasDictado] = useState(null);
@@ -12,19 +12,33 @@ export default function Solution({ route }) {
     const [dictadoGeneradoTraducido, setdictadoGeneradoTraducido] =
         useState(null);
 
+        const traducirClave = (claveParamFunc) => {
+            let claveTrans;
+            switch (claveParamFunc) {
+                case 'Fa':
+                    claveTrans = 'bass';
+                    break;
+                case 'Sol':
+                    claveTrans = 'treble';
+                    break;
+            }
+            return claveTrans;
+        };
+
     return (
         <View style={styles.container}>
             <View style={styles.graficoContainer}>
                 <ScrollView horizontal={true} style={styles.scrollView}>
-                    {/* <Graphic
+                    <Graphic
                         style={styles.grafico}
-                        figurasParam={figurasConCompas}
-                        dictadoGeneradoTraducidoParam={notasTraducidas}
-                        numeradorParam={4}
-                        denominadorParam={4}
-                        claveParam={'treble'}
-                    /> */}
-                    <Text>GRAFICA coming soon.. </Text>
+                        figurasConCompas={dictation.figuras}
+                        figurasSinCompas={null}
+                        dictadoGeneradoTraducidoParam={dictation.notas}
+                        numeradorParam={dictation.numerador}
+                        denominadorParam={dictation.denominador}
+                        claveParam={traducirClave(dictation.clave)}
+                        escalaDiatonica={dictation.escala_diatonica}
+                    />
                 </ScrollView>
             </View>
         </View>
