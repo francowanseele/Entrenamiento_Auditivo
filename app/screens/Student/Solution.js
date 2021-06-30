@@ -24,7 +24,7 @@ export default function Solution({ route }) {
             }
             return claveTrans;
         };
-
+            console.log(dictation)
     return (
         <View style={styles.container}>
             <View style={styles.graficoContainer}>
