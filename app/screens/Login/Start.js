@@ -18,14 +18,14 @@ export default function Start() {
             // setLogin(isLogged);
         });
         getStorageIsStudent().then((isStudent_storage) => {
-            // setIsStudent(isStudent_storage);
+            setIsStudent(isStudent_storage);
         });
 
     }, []);
 
-    // if (login === null) return <Loading isVisible={true} text="Cargando" />;
+    if (login === null) return <Loading isVisible={true} text="Cargando" />;
 
-    // return !login ? (
+  
     return !login? (
         <UserGuest setLogin={setLogin} setIsStudent={setIsStudent}  />
     ) : isStudent ? (

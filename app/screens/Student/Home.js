@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, ScrollView, StyleSheet } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-
+import {BACKGROUNDHOME} from '../../styles/styleValues';
 import { getModulesApi } from '../../api/course';
 import {
     getStorageItem,
@@ -57,7 +57,7 @@ export default function Home() {
     if (modules === null) return <Loading isVisible={true} text="Cargando" />;
 
     return (
-        <ScrollView>
+        <ScrollView style={styles.container}>
             {modules.map((module, i) => (
                 <ListItem.Accordion
                     content={
@@ -106,4 +106,7 @@ const styles = StyleSheet.create({
     iconMenuLeft: {
         color: 'lightgrey',
     },
+    container:{
+        backgroundColor:BACKGROUNDHOME,
+    }
 });

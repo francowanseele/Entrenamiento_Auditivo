@@ -34,20 +34,21 @@ export default function UserGuest(props) {
     };
     const loginFunc = async () =>{
         getUsuarioApi(Email,Password).then((res)=>{
-            console.log(res)
             if (res.ok){
                 if (res.esDocente){
+                   
                 }else{
                     setStorageUserLogged(
-                        'martin',
+                        res.email,
                         '1',
-                        '60dcb5af0a02b10148eaf0fe',
-                        '60c52937d3d56b2cd1671b31'
-                    );
+                        res.id_user,
+                        res.personal_course,
+                    )
                     setIsStudent(true);
                     setLogin(true);
                 }
             }else {
+                // console.log(res)
                 Alert.alert(
                     "                :(",
                     "Usuario y/o contraseña incorrectos"                

@@ -14,7 +14,7 @@ export default ({
     escalaDiatonica
 }) => {
     const [figuras, setfiguras] = useState([]);
-    const [clave, setclave] = useState(claveParam);
+    const [clave, setclave] = useState(claveParam); 
     const [tarjetas, setTarjetas] = useState({ 
        '16-16-16-16':`
         new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION

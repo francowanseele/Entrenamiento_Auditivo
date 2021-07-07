@@ -128,7 +128,9 @@ export const getUsuarioApi = (email,password) =>{
                     ok: true,
                     email: result.email,
                     password: result.password,
-                    esDocente: result.esDocente
+                    esDocente: result.esDocente,
+                    id_user:result.id_user,
+                    personal_course:result.personal_course
                 };
             } else {
                 return {
