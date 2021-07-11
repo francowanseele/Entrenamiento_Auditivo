@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
-import { Button, View, StyleSheet, Alert, Dimensions, TextInput } from 'react-native';
+import { Text, View, StyleSheet, Alert, Dimensions, TextInput,TouchableOpacity } from 'react-native';
 import { setStorageUserLogged } from '../../../utils/asyncStorageManagement';
 import { getUsuarioApi } from '../../api/user';
+import {BACKGROUNDHOME,BACKGROUNDHOME2,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
+import {LinearGradient} from 'expo-linear-gradient';
 
 
 export default function UserGuest(props) {
@@ -69,48 +71,91 @@ export default function UserGuest(props) {
       }
 
     return (
+        <LinearGradient 
+        style={styles.lineargradient}
+        // Background Linear Gradient
+        colors={[BACKGROUNDHOME,BACKGROUNDHOME,ITEMSHOME,ITEMSHOME,TOPSCREENHOME]}
+        >
         <View style={styles.container}>
+           
             {/* <Button title="boton que no hace nada" />
             <Button title="Entrar como estudiante" onPress={loginStudent} />
             <Button title="Entrar como docente" onPress={loginDoc} /> */}
             <View  style={styles.login}>  
                 <TextInput
                 style={styles.inputStyle}
-                placeholder="Email"
+                placeholder="Correo"
                 value={Email}
                 onChangeText={(val) => updateInputVal(val, 'Email')}
                 />
                 <TextInput
                 style={styles.inputStyle}
-                placeholder="Password"
+                placeholder="Contraseña"
                 value={Password}
                 onChangeText={(val) => updateInputVal(val, 'Password')}
                 maxLength={15}
                 secureTextEntry={true}
                 />
-                <Button title="Iniciar Sesion" onPress={loginFunc} />
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={loginFunc}
+                    >
+                        <Text style={styles.textLogin}>Iniciar Sesion</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
+            
         </View>
+        </LinearGradient>
     );
 }
 
 const styles = StyleSheet.create({
+    lineargradient:{
+        height:'100%'
+    },
     container: {
-      flex: 1,
-      display: "flex",
       flexDirection: "column",
       justifyContent: "center",
       padding: 35,
-      backgroundColor: '#fff',
       height: Dimensions.get('window').height,
       width: Dimensions.get('window').width,
     },
+    buttonContainer:{
+        flexDirection:'column',
+        padding:5,
+        height:'20%',
+        width:'50%',
+        alignItems:'center',
+        alignSelf:'center'
+    },
+    button:{
+        backgroundColor:ITEMSHOME,
+        borderRadius:4,
+        height:'100%',
+        width:'100%',
+        alignSelf:'center',
+        alignItems:'center'
+        
+    },
+    textLogin:{
+        fontSize:20,
+        fontWeight:'bold',
+        color: TOPSCREENHOME,
+        alignSelf:'center'
+    },
     login:{
+
         flexDirection: "column",
-        justifyContent:"center",
+        justifyContent:"space-evenly",
 
     },
     inputStyle:{
         padding:10,
+        backgroundColor:ITEMSHOME,
+        borderRadius:5,
+        borderWidth:0.4
+        
     }
 })

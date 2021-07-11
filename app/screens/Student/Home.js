@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, ScrollView, StyleSheet } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-import {BACKGROUNDHOME} from '../../styles/styleValues';
+import {BACKGROUNDHOME,BACKGROUNDHOME2,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
+import {LinearGradient} from 'expo-linear-gradient';
 import { getModulesApi } from '../../api/course';
 import {
     getStorageItem,
@@ -57,9 +58,15 @@ export default function Home() {
     if (modules === null) return <Loading isVisible={true} text="Cargando" />;
 
     return (
-        <ScrollView style={styles.container}>
+        <LinearGradient 
+                    style={styles.lineargradient}
+                    // Background Linear Gradient
+                    colors={[BACKGROUNDHOME,BACKGROUNDHOME,ITEMSHOME,ITEMSHOME]}
+                     >
+          <ScrollView style={styles.container}>          
+               
             {modules.map((module, i) => (
-                <ListItem.Accordion
+                <ListItem.Accordion containerStyle={styles.content}
                     content={
                         <>
                             <Icon
@@ -67,8 +74,10 @@ export default function Home() {
                                 name="playlist-music"
                                 iconStyle={styles.iconMenuLeft}
                             />
-                            <ListItem.Content>
-                                <ListItem.Title>{module.module.nombre}</ListItem.Title>
+                            <ListItem.Content >                                
+                                <ListItem.Title 
+                                style={styles.title}
+                                >{module.module.nombre}</ListItem.Title>
                             </ListItem.Content>
                         </>
                     }
@@ -79,34 +88,51 @@ export default function Home() {
                     }}
                 >
                     {module.module.configuracion_dictado.map((config, j) => (
-                        <ListItem
+                        <ListItem containerStyle={styles.subitems}
                             key={j}
                             onPress={() => {
                                 configDictationIn(config, module.module);
                             }}
                             bottomDivider
+                            
                         >
-                            <ListItem.Content>
-                                <ListItem.Title>{'    ' + config.nombre}</ListItem.Title>
-                                <ListItem.Subtitle>
+                            <ListItem.Content  >
+                                <ListItem.Title  style={styles.title}>{'      ' + config.nombre}</ListItem.Title>
+                                <ListItem.Subtitle >
                                     {'    ' + config.descripcion}
                                 </ListItem.Subtitle>
                             </ListItem.Content>
-                            <ListItem.Chevron />
+                            <ListItem.Chevron  />
                         </ListItem>
                     ))}
                 </ListItem.Accordion>
             ))}
             <Loading text={loadingText} isVisible={loading} />
-        </ScrollView>
+          
+          </ScrollView>
+         </LinearGradient>
     );
 }
 
 const styles = StyleSheet.create({
+    lineargradient:{
+        height:'100%'
+    },
     iconMenuLeft: {
-        color: 'lightgrey',
+        color: TOPSCREENHOME,
+        fontWeight:'bold'
     },
     container:{
+    },
+    content:{
+        backgroundColor:ITEMSHOME,
+    },
+    title:{
+        color: 'black',
+        fontWeight:'bold',
+        fontSize:20
+    },
+    subitems:{
         backgroundColor:BACKGROUNDHOME,
     }
 });

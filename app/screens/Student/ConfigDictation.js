@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Button, Text, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ListItem, Icon } from 'react-native-elements';
-
+import {BACKGROUNDHOME, ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
 import Loading from '../../components/Loading';
 import { generateDictationApi, getDictationApi } from '../../api/user';
 import { generateDictationFileApi } from '../../api/sound';
+import {LinearGradient} from 'expo-linear-gradient';
 import {
     getParams,
     getStorageItem,
@@ -216,9 +217,15 @@ export default function ConfigDictation({ route }) {
     if (!dictations) return <Loading isVisible={true} text="Cargando" />;
 
     return (
-        <ScrollView>
+        <LinearGradient 
+        style={styles.lineargradient}
+        // Background Linear Gradient
+        colors={[BACKGROUNDHOME,BACKGROUNDHOME,ITEMSHOME,ITEMSHOME]}
+         >
+        <ScrollView  style={styles.container} >
             {dictations.map((dict, i) => (
-                <ListItem
+                <ListItem 
+                    containerStyle={styles.content}
                     key={i}
                     bottomDivider
                     onPress={() => {
@@ -226,8 +233,8 @@ export default function ConfigDictation({ route }) {
                     }}
                 >
                     {/* <Icon name={item.icon} /> */}
-                    <ListItem.Content>
-                        <ListItem.Title>Dictado #{i}</ListItem.Title>
+                    <ListItem.Content  >
+                        <ListItem.Title style={styles.subtitle } >Dictado #{i}</ListItem.Title>
                         <ListItem.Subtitle>
                             Clave {dict.clave} | Escala diatónica{' '}
                             {dict.escala_diatonica}
@@ -237,5 +244,21 @@ export default function ConfigDictation({ route }) {
                 </ListItem>
             ))}
         </ScrollView>
+        </LinearGradient>
     );
 }
+
+const styles = StyleSheet.create({
+    lineargradient:{
+        height:'100%'
+    },
+    content:{
+        backgroundColor:'transparent'
+    },
+    subtitle:{
+        color: 'black',
+        fontWeight:'bold',
+        fontSize:20
+
+    }
+});

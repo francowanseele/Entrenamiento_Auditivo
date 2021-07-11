@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import Graphic from '../../components/Graphic';
+import {BACKGROUNDHOME,BACKGROUNDHOME2,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
+import {LinearGradient} from 'expo-linear-gradient';
+
 
 export default function Solution({ route }) {
     const { dictation } = route.params;
@@ -26,6 +29,11 @@ export default function Solution({ route }) {
         };
             console.log(dictation)
     return (
+        <LinearGradient 
+        style={styles.lineargradient}
+        // Background Linear Gradient
+        colors={[BACKGROUNDHOME,BACKGROUNDHOME,ITEMSHOME,ITEMSHOME]}
+         >
         <View style={styles.container}>
             <View style={styles.graficoContainer}>
                 <ScrollView horizontal={true} style={styles.scrollView}>
@@ -42,15 +50,19 @@ export default function Solution({ route }) {
                 </ScrollView>
             </View>
         </View>
+        </LinearGradient>
     );
 }
 
 const styles = StyleSheet.create({
+    lineargradient:{
+        height:'100%'
+    },
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: BACKGROUNDHOME,
         alignItems: 'center',
         justifyContent: 'center',
+        height:'100%'
     },
     graficoContainer: {
         paddingTop: 30,
@@ -62,7 +74,7 @@ const styles = StyleSheet.create({
     },
 
     grafcio: {
-        height: 100,
+        height: 200,
         width: 2000,
     },
 

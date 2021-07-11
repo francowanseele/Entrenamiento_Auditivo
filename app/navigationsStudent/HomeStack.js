@@ -36,6 +36,7 @@ export default function () {
                     headerTintColor: '#fff',
                     headerTitleStyle: {
                       fontWeight: 'bold',
+                      fontSize:20
                     },
                   }} 
             />
@@ -50,6 +51,7 @@ export default function () {
                     headerTintColor: '#fff',
                     headerTitleStyle: {
                       fontWeight: 'bold',
+                      fontSize:20
                     },
                   }} 
             />
@@ -64,6 +66,7 @@ export default function () {
                     headerTintColor: '#fff',
                     headerTitleStyle: {
                       fontWeight: 'bold',
+                      fontSize:20
                     },
                   }} 
             />
@@ -73,11 +76,12 @@ export default function () {
                 options={{
                     title: 'Solucion' ,
                     headerStyle: {
-                      backgroundColor: TOPSCREEN,
+                      backgroundColor: TOPSCREENHOME,
                     },
                     headerTintColor: '#fff',
                     headerTitleStyle: {
                       fontWeight: 'bold',
+                      fontSize:20
                     },
                   }} 
             />

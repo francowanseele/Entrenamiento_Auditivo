@@ -3,8 +3,11 @@
 //////////// Estudiante  /////////////////
  
 //Home
-export  const TOPSCREENHOME = '#faad30';
-export const BACKGROUNDHOME = '#faad30'
+export  const TOPSCREENHOME = '#6d5938';
+export const BACKGROUNDHOME = '#fdc94d';
+export const BACKGROUNDHOME2 = '#c9a148';
+export const ITEMSHOME =  '#f8c471';
+export const TABSCREENHOME = '#6d5938'
 
 //Clasification
 export  const TOPSCREENCLASIFICATION = '#daf7a6';
