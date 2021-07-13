@@ -1,10 +1,23 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import {BACKGROUNDHOME,BACKGROUNDHOME2,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
+import {LinearGradient} from 'expo-linear-gradient';
 
 export default function Calification() {
     return (
+        <LinearGradient 
+        style={styles.lineargradient}
+        // Background Linear Gradient
+        colors={[BACKGROUNDHOME,BACKGROUNDHOME,ITEMSHOME,ITEMSHOME]}
+         >
         <View>
             <Text>Calificaciones...</Text>
         </View>
+        </LinearGradient>
     );
 }
+const styles = StyleSheet.create({
+    lineargradient:{
+        height:'100%'
+    }  
+});

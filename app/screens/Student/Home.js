@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, ScrollView, StyleSheet } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-import {BACKGROUNDHOME,BACKGROUNDHOME2,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
-import {LinearGradient} from 'expo-linear-gradient';
+import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
 import { getModulesApi } from '../../api/course';
 import {
     getStorageItem,
@@ -58,15 +57,12 @@ export default function Home() {
     if (modules === null) return <Loading isVisible={true} text="Cargando" />;
 
     return (
-        <LinearGradient 
-                    style={styles.lineargradient}
-                    // Background Linear Gradient
-                    colors={[BACKGROUNDHOME,BACKGROUNDHOME,ITEMSHOME,ITEMSHOME]}
-                     >
+       
           <ScrollView style={styles.container}>          
                
             {modules.map((module, i) => (
-                <ListItem.Accordion containerStyle={styles.content}
+                <ListItem.Accordion containerStyle={styles.itemsContainer}
+                    pad={40}
                     content={
                         <>
                             <Icon
@@ -74,7 +70,7 @@ export default function Home() {
                                 name="playlist-music"
                                 iconStyle={styles.iconMenuLeft}
                             />
-                            <ListItem.Content >                                
+                            <ListItem.Content style={styles.items}>                                
                                 <ListItem.Title 
                                 style={styles.title}
                                 >{module.module.nombre}</ListItem.Title>
@@ -88,7 +84,7 @@ export default function Home() {
                     }}
                 >
                     {module.module.configuracion_dictado.map((config, j) => (
-                        <ListItem containerStyle={styles.subitems}
+                        <ListItem containerStyle={styles.subcontent}
                             key={j}
                             onPress={() => {
                                 configDictationIn(config, module.module);
@@ -96,9 +92,9 @@ export default function Home() {
                             bottomDivider
                             
                         >
-                            <ListItem.Content  >
+                            <ListItem.Content  style={styles.subitems}>
                                 <ListItem.Title  style={styles.title}>{'      ' + config.nombre}</ListItem.Title>
-                                <ListItem.Subtitle >
+                                <ListItem.Subtitle  style={{color:'black'}}>
                                     {'    ' + config.descripcion}
                                 </ListItem.Subtitle>
                             </ListItem.Content>
@@ -110,29 +106,49 @@ export default function Home() {
             <Loading text={loadingText} isVisible={loading} />
           
           </ScrollView>
-         </LinearGradient>
     );
 }
 
 const styles = StyleSheet.create({
-    lineargradient:{
-        height:'100%'
-    },
     iconMenuLeft: {
-        color: TOPSCREENHOME,
-        fontWeight:'bold'
+        color: TEXTHOME,
+        fontWeight:'bold',
+        paddingRight:5,
+        fontSize:32
     },
-    container:{
+    container:{        
+        flexDirection:'column',
+        backgroundColor:BACKGROUNDHOME,
+        marginTop:10     
     },
-    content:{
+    itemsContainer:{
+        marginTop:15,
         backgroundColor:ITEMSHOME,
+        flexDirection:'row',
+        width:'90%',
+        alignSelf:'center',
+        borderRadius:10,
+        shadowColor: '#470000',
+        shadowOffset: {width: 10, height: 10},
+        shadowOpacity: 0.2,
+        elevation:13,        
+    },
+    items:{        
+        alignSelf:'center'
+       
     },
     title:{
-        color: 'black',
+        color: TEXTHOME,
         fontWeight:'bold',
         fontSize:20
     },
-    subitems:{
+    subcontent:{
         backgroundColor:BACKGROUNDHOME,
+        width:'90%',
+        alignSelf:'center'
+    },
+    subitems:{
+        width:'90%',
+        alignSelf:'center'
     }
 });

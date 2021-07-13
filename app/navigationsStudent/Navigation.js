@@ -2,10 +2,12 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, StyleSheet, Button, Text, ScrollView } from 'react-native';
-import {TABSCREENHOME, TOPSCREENHOME} from '../styles/styleValues';
+import {TABSCREENHOME, TOPSCREENHOME,TEXTHOME} from '../styles/styleValues';
 import HomeStack from './HomeStack';
 import CalificationStack from './CalificationStack';
 import ProfileStack from './ProfileStack';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { MaterialIcons,FontAwesome   } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,31 +23,52 @@ export default function Navigation(props) {
                 <Tab.Navigator   initialRouteName="home" 
                     tabBarOptions={{
                         style:{ backgroundColor:TABSCREENHOME, 
-                                height:'7%'                               
+                                height:'8%',
+                                color: TOPSCREENHOME                                   
                             },
                         headerTintColor:{
                             fontSize:20,
                             fontWeight:'bold',
                             color: TOPSCREENHOME
-                        }
+                        },
+                        labelStyle: {
+                            fontSize: 20,
+                            color: TEXTHOME,
+                            fontWeight:'bold',
+                            paddingBottom: 10
+                            // fontFamily: 'bold',
+                          },
                     }}
                     >
-                    <Tab.Screen
-                        
+                    <Tab.Screen                        
                         name="home" 
                         component={HomeStack}
-                        options={{ title: 'Home' }}
+                        options={{
+                            tabBarLabel: 'Dictados',
+                            tabBarIcon: ({ color, size }) => (
+                              <MaterialCommunityIcons name="home" color={TEXTHOME} size={size} />
+                            ),
+                          }}    
                     />
                     <Tab.Screen
                         name="calification"
                         component={CalificationStack}
-                        options={{ title: 'Calificaciones' }}
+                        options={{
+                            tabBarLabel: 'Calificaciones',
+                            tabBarIcon: ({ color, size }) => (
+                                <FontAwesome name="pencil-square-o" size={24} color={TEXTHOME} />
+                            ),
+                          }}    
                     />
-                    <Tab.Screen
-                        
+                    <Tab.Screen                        
                         name="profile"
                         component={ProfileStack}
-                        options={{ title: 'Perfil' }}                    
+                        options={{ 
+                            tabBarLabel: 'Perfil',
+                            tabBarIcon: ({ color, size }) => (
+                                <MaterialIcons name="account-circle" size={24} color={TEXTHOME} />
+                            ),
+                          }}                    
                     />
                 </Tab.Navigator>
                 </View>
@@ -57,6 +80,5 @@ export default function Navigation(props) {
 const styles = StyleSheet.create({
     tabscreen:{
         backgroundColor:TABSCREENHOME,
-        height:'10%',
     }
 });

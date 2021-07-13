@@ -15,7 +15,7 @@ export default function Start() {
    
     useEffect(() => {
         getStorageIsLogged().then((isLogged) => {
-            // setLogin(isLogged);
+            setLogin(isLogged);
         });
         getStorageIsStudent().then((isStudent_storage) => {
             setIsStudent(isStudent_storage);
@@ -23,7 +23,7 @@ export default function Start() {
 
     }, []);
 
-    if (login === null) return <Loading isVisible={true} text="Cargando" />;
+    // if (login === null) return <Loading isVisible={true} text="Cargando" />;
 
   
     return !login? (

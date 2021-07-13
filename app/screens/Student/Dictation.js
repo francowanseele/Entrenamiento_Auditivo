@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 import { Audio } from 'expo-av';
-import {BACKGROUNDHOME,BACKGROUNDHOME2,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
+import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
 import { tramsitDictationApi } from '../../api/sound';
 import { getStorageItem, ID_USER } from '../../../utils/asyncStorageManagement';
 import {LinearGradient} from 'expo-linear-gradient';
@@ -37,10 +37,10 @@ export default function Dictation({ route }) {
         colors={[BACKGROUNDHOME,BACKGROUNDHOME,BACKGROUNDHOME,BACKGROUNDHOME,ITEMSHOME,ITEMSHOME,ITEMSHOME]}
          >
         <View style={styles.container}>
-            <Text>
+            {/* <Text>
                 Mostrar pentagrama con nota de referencia y opción para
                 reproducirla
-            </Text>
+            </Text> */}
             <Icon
                 type="material-community"
                 name="play-circle-outline"
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     textbutton:{
+        color:TEXTHOME,
         fontSize:25,
         fontWeight:'bold'
     },

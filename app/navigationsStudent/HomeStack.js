@@ -6,7 +6,7 @@ import Home from '../screens/Student/Home';
 import Dictation from '../screens/Student/Dictation';
 import Solution from '../screens/Student/Solution';
 import ConfigDictation from '../screens/Student/ConfigDictation';
-import {TOPSCREEN, BOTTOMSCREEN, TOPSCREENHOME } from '../styles/styleValues';
+import {TOPSCREEN, TEXTHOME, TOPSCREENHOME } from '../styles/styleValues';
 
 const Stack = createStackNavigator();
 
@@ -31,9 +31,9 @@ export default function () {
                 options={{
                     title: 'Curso XX',
                     headerStyle: {
-                      backgroundColor: TOPSCREENHOME,
+                      backgroundColor: TOPSCREENHOME
                     },
-                    headerTintColor: '#fff',
+                    headerTintColor: TEXTHOME,
                     headerTitleStyle: {
                       fontWeight: 'bold',
                       fontSize:20
@@ -48,7 +48,7 @@ export default function () {
                     headerStyle: {
                       backgroundColor: TOPSCREENHOME,
                     },
-                    headerTintColor: '#fff',
+                    headerTintColor: TEXTHOME,
                     headerTitleStyle: {
                       fontWeight: 'bold',
                       fontSize:20
@@ -63,7 +63,7 @@ export default function () {
                     headerStyle: {
                       backgroundColor: TOPSCREENHOME,
                     },
-                    headerTintColor: '#fff',
+                    headerTintColor: TEXTHOME,
                     headerTitleStyle: {
                       fontWeight: 'bold',
                       fontSize:20
@@ -78,7 +78,7 @@ export default function () {
                     headerStyle: {
                       backgroundColor: TOPSCREENHOME,
                     },
-                    headerTintColor: '#fff',
+                    headerTintColor: TEXTHOME,
                     headerTitleStyle: {
                       fontWeight: 'bold',
                       fontSize:20

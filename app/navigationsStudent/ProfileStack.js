@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Profile from '../screens/Student/Profile';
-import {TOPSCREENPROFILE} from  '../styles/styleValues';
+import {TOPSCREENHOME} from  '../styles/styleValues';
 
 const Stack = createStackNavigator();
 
@@ -12,9 +12,9 @@ export default function () {
                 name="profile"
                 component={Profile}
                 options={{
-                    title: 'Calificaciones' ,
+                    title: 'Perfil' ,
                     headerStyle: {
-                      backgroundColor: TOPSCREENPROFILE,
+                      backgroundColor: TOPSCREENHOME,
                     },
                     headerTintColor: '#fff',
                     headerTitleStyle: {

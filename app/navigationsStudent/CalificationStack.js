@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Calification from '../screens/Student/Calification';
-import {TOPSCREENCLASIFICATION} from  '../styles/styleValues';
+import {BACKGROUNDHOME, ITEMSHOME, TOPSCREENHOME} from '../styles/styleValues';
 const Stack = createStackNavigator();
 
 export default function () {
@@ -13,7 +13,7 @@ export default function () {
                 options={{
                     title: 'Calificaciones' ,
                     headerStyle: {
-                      backgroundColor: TOPSCREENCLASIFICATION,
+                      backgroundColor: TOPSCREENHOME,
                     },
                     headerTintColor: '#fff',
                     headerTitleStyle: {

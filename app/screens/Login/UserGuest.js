@@ -3,7 +3,6 @@ import { Text, View, StyleSheet, Alert, Dimensions, TextInput,TouchableOpacity }
 import { setStorageUserLogged } from '../../../utils/asyncStorageManagement';
 import { getUsuarioApi } from '../../api/user';
 import {BACKGROUNDHOME,BACKGROUNDHOME2,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
-import {LinearGradient} from 'expo-linear-gradient';
 
 
 export default function UserGuest(props) {
@@ -35,31 +34,40 @@ export default function UserGuest(props) {
         setLogin(true);
     };
     const loginFunc = async () =>{
-        getUsuarioApi(Email,Password).then((res)=>{
-            if (res.ok){
-                if (res.esDocente){
-                   
-                }else{
-                    setStorageUserLogged(
-                        res.email,
-                        '1',
-                        res.id_user,
-                        res.personal_course,
-                    )
-                    setIsStudent(true);
-                    setLogin(true);
+        if ( validate(Email) == true ){
+            getUsuarioApi(Email,Password).then((res)=>{
+                if (res.ok){
+                    if (res.esDocente){
+                    //AQUI VA USUARIO DOCENTE setStorage
+                    }else{
+                        setStorageUserLogged(
+                            res.email,
+                            '1',
+                            res.id_user,
+                            res.personal_course,
+                        )
+                        setIsStudent(true);
+                        setLogin(true);
+                    }
+                }else {
+                    // console.log(res)
+                    Alert.alert(
+                        "                :(",
+                        "Usuario y/o contraseña incorrectos"                
+                    );
+                    setEmail("");
+                    setPassword("");                
                 }
-            }else {
-                // console.log(res)
-                Alert.alert(
-                    "                :(",
-                    "Usuario y/o contraseña incorrectos"                
-                  );
-                setEmail("");
-                setPassword("");                
-            }
-        })
-       
+            })
+        }else {
+            // console.log(res)
+            Alert.alert(
+                "                :(",
+                "Correo invalido"                
+            );
+            setEmail("");
+            setPassword("");                
+        }    
     }
 
     const updateInputVal = (val, prop) => {
@@ -69,13 +77,19 @@ export default function UserGuest(props) {
             setPassword(val)
         }; 
       }
+    const validate = (text) => {
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+        if (reg.test(text) === false) {
+          console.log("Email is Not Correct");
+          return false;
+        }
+        else {
+          console.log("Email is Correct");
+          return true
+        }
+     }
 
     return (
-        <LinearGradient 
-        style={styles.lineargradient}
-        // Background Linear Gradient
-        colors={[BACKGROUNDHOME,BACKGROUNDHOME,ITEMSHOME,ITEMSHOME,TOPSCREENHOME]}
-        >
         <View style={styles.container}>
            
             {/* <Button title="boton que no hace nada" />
@@ -107,7 +121,6 @@ export default function UserGuest(props) {
             </View>
             
         </View>
-        </LinearGradient>
     );
 }
 
