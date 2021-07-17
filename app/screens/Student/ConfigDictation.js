@@ -19,6 +19,7 @@ export default function ConfigDictation({ route }) {
     const navigation = useNavigation();
     const { configDictation, module } = route.params;
     const [dictations, setDictations] = useState(null);
+    const [ stateDict, setStateDict ] = useState('nuevo');
 
     const getTarjetas = (celulaRitmica) => {
         var res = [];
@@ -188,7 +189,7 @@ export default function ConfigDictation({ route }) {
         const data = {
             dictado: dictation.notas,
             figurasDictado: dictation.figuras,
-            escalaDiatoica: dictation.escala_diatonica,
+            escalaDiatoica: dictation.escala_diatonica
         };
 
         const id = await getStorageItem(ID_USER);
@@ -213,6 +214,18 @@ export default function ConfigDictation({ route }) {
             console.log(message);
         }
     };
+    const  getStyleByState = (stateDict) => {
+        if (stateDict ){
+            if (stateDict.nota  <= 2){
+                return styles.notaRed
+            }else if( stateDict.nota >=3 && stateDict.nota <= 8){
+                return styles.contentNota
+            }else {
+                return styles.notaGreen
+            }
+        }
+        else return styles.content
+    }
 
     if (!dictations) return <Loading isVisible={true} text="Cargando" />;
 
@@ -228,12 +241,17 @@ export default function ConfigDictation({ route }) {
                     }}
                 >
                     {/* <Icon name={item.icon} /> */}
-                    <ListItem.Content  >
+                    <ListItem.Content >
                         <ListItem.Title style={styles.subtitle } >Dictado #{i}</ListItem.Title>
                         <ListItem.Subtitle style={{color:'black'}} >
                             Clave {dict.clave} | Escala diatónica{' '}
-                            {dict.escala_diatonica}
+                            {dict.escala_diatonica}                             
                         </ListItem.Subtitle>
+                        { dict.resuelto[0] ? 
+                          <View style={styles.contentNota}> 
+                            <Text><Text style={getStyleByState(dict.resuelto[0])}>Nota más reciente: {dict.resuelto[0].nota}</Text></Text>
+                          </View>:
+                         <Text></Text>  }
                     </ListItem.Content>
                     <ListItem.Chevron />
                 </ListItem>
@@ -257,6 +275,28 @@ const styles = StyleSheet.create({
         shadowOffset: {width: 10, height: 10},
         shadowOpacity: 0.2,
         elevation:13,    
+    },
+    contentNota:{
+        borderRadius:100,
+        alignSelf:'flex-start',
+        width:'60%'     
+    },
+    nota:{
+        alignSelf:'flex-start',
+        borderRadius:100,
+        fontWeight:'bold'
+    },
+    notaGreen:{
+        color:TEXTHOME,
+        alignSelf:'flex-start',
+        borderRadius:100,
+        fontWeight:'bold'
+    },
+    notaRed:{
+        color:'#f1503f',
+        alignSelf:'flex-start',
+        borderRadius:100,
+        fontWeight:'bold'
     },
     subtitle:{
         color: TEXTHOME,

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Text, View, StyleSheet, Alert, Dimensions, TextInput,TouchableOpacity } from 'react-native';
 import { setStorageUserLogged } from '../../../utils/asyncStorageManagement';
 import { getUsuarioApi } from '../../api/user';
-import {BACKGROUNDHOME,BACKGROUNDHOME2,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
+import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
 
 
 export default function UserGuest(props) {
@@ -125,10 +125,8 @@ export default function UserGuest(props) {
 }
 
 const styles = StyleSheet.create({
-    lineargradient:{
-        height:'100%'
-    },
     container: {
+      backgroundColor:BACKGROUNDHOME,
       flexDirection: "column",
       justifyContent: "center",
       padding: 35,
@@ -136,6 +134,12 @@ const styles = StyleSheet.create({
       width: Dimensions.get('window').width,
     },
     buttonContainer:{
+        borderRadius:10,
+        shadowColor: '#470000',
+        shadowOffset: {width: 10, height: 10},
+        shadowOpacity: 0.2,
+        elevation:13, 
+        backgroundColor:ITEMSHOME,
         flexDirection:'column',
         padding:5,
         height:'20%',
@@ -155,7 +159,7 @@ const styles = StyleSheet.create({
     textLogin:{
         fontSize:20,
         fontWeight:'bold',
-        color: TOPSCREENHOME,
+        color: TEXTHOME,
         alignSelf:'center'
     },
     login:{
@@ -165,6 +169,7 @@ const styles = StyleSheet.create({
 
     },
     inputStyle:{
+        color:TEXTHOME,
         padding:10,
         backgroundColor:ITEMSHOME,
         borderRadius:5,

@@ -62,7 +62,6 @@ export default function Home() {
                
             {modules.map((module, i) => (
                 <ListItem.Accordion containerStyle={styles.itemsContainer}
-                    pad={40}
                     content={
                         <>
                             <Icon
@@ -143,12 +142,14 @@ const styles = StyleSheet.create({
         fontSize:20
     },
     subcontent:{
-        backgroundColor:BACKGROUNDHOME,
-        width:'90%',
-        alignSelf:'center'
+        backgroundColor:ITEMSHOME,
+        width:'80%',
+        alignSelf:'center',
+        borderRadius:10,
     },
     subitems:{
         width:'90%',
         alignSelf:'center'
     }
 });
+ 

@@ -1,13 +1,15 @@
 
 
 //////////// Estudiante  /////////////////
- 
+// 06b0a0
+
+// 0fc5ca verde anterior
 //Home
 export  const TOPSCREENHOME = '#fff';
 export const BACKGROUNDHOME = '#f7f7f7';
 export const BACKGROUNDHOME2 = '#f7f7f7';
 export const ITEMSHOME =  '#fff';
-export const TEXTHOME = '#0fc5ca'
+export const TEXTHOME = '#06b0a0'
 export const TABSCREENHOME = '#fff'
 
 // export  const TOPSCREENHOME = '#6d5938';

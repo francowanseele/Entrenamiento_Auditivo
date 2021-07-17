@@ -438,16 +438,17 @@ export default ({
   `
         );
         // console.log(Html)
-    }, []); 
+    }, ['1','2']); 
 
+    
     return (
         <WebView
             source={{ html: Html }}
             style={{
                 alignSelf: 'center',
-                width: 2900, // aumentando este ancho logro aumentar el taman;o de las figuras
+                width: 2100, // aumentando este ancho logro aumentar el taman;o de las figuras
                 maxHeight: '100%',
-                backgroundColor: '#f8c471',
+                backgroundColor: '#fff',
             }}
         />
     );

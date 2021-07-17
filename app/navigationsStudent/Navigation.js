@@ -32,7 +32,7 @@ export default function Navigation(props) {
                             color: TOPSCREENHOME
                         },
                         labelStyle: {
-                            fontSize: 20,
+                            fontSize: 0.1,
                             color: TEXTHOME,
                             fontWeight:'bold',
                             paddingBottom: 10
@@ -41,30 +41,27 @@ export default function Navigation(props) {
                     }}
                     >
                     <Tab.Screen                        
-                        name="home" 
+                        name=" " 
                         component={HomeStack}
                         options={{
-                            tabBarLabel: 'Dictados',
                             tabBarIcon: ({ color, size }) => (
                               <MaterialCommunityIcons name="home" color={TEXTHOME} size={size} />
                             ),
                           }}    
                     />
                     <Tab.Screen
-                        name="calification"
+                        name="  "
                         component={CalificationStack}
                         options={{
-                            tabBarLabel: 'Calificaciones',
                             tabBarIcon: ({ color, size }) => (
                                 <FontAwesome name="pencil-square-o" size={24} color={TEXTHOME} />
                             ),
                           }}    
                     />
                     <Tab.Screen                        
-                        name="profile"
+                        name="   "
                         component={ProfileStack}
                         options={{ 
-                            tabBarLabel: 'Perfil',
                             tabBarIcon: ({ color, size }) => (
                                 <MaterialIcons name="account-circle" size={24} color={TEXTHOME} />
                             ),
