@@ -219,7 +219,7 @@ export default function ConfigDictation({ route }) {
             if (stateDict.nota  <= 2){
                 return styles.notaRed
             }else if( stateDict.nota >=3 && stateDict.nota <= 8){
-                return styles.contentNota
+                return styles.notaOrange
             }else {
                 return styles.notaGreen
             }
@@ -249,7 +249,7 @@ export default function ConfigDictation({ route }) {
                         </ListItem.Subtitle>
                         { dict.resuelto[0] ? 
                           <View style={styles.contentNota}> 
-                            <Text><Text style={getStyleByState(dict.resuelto[0])}>Nota más reciente: {dict.resuelto[0].nota}</Text></Text>
+                            <Text><Text style={getStyleByState(dict.resuelto[0])}>Última Calificación: {dict.resuelto[0].nota}</Text></Text>
                           </View>:
                          <Text></Text>  }
                     </ListItem.Content>
@@ -282,6 +282,12 @@ const styles = StyleSheet.create({
         width:'60%'     
     },
     nota:{
+        alignSelf:'flex-start',
+        borderRadius:100,
+        fontWeight:'bold'
+    },
+    notaOrange:{
+        color:'#f99856',
         alignSelf:'flex-start',
         borderRadius:100,
         fontWeight:'bold'

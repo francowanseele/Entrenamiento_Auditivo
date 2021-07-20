@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Profile from '../screens/Student/Profile';
-import {TOPSCREENHOME} from  '../styles/styleValues';
+import {TEXTHOME, TOPSCREENHOME} from  '../styles/styleValues';
 
 const Stack = createStackNavigator();
 
@@ -16,7 +16,7 @@ export default function () {
                     headerStyle: {
                       backgroundColor: TOPSCREENHOME,
                     },
-                    headerTintColor: '#fff',
+                    headerTintColor: TEXTHOME,
                     headerTitleStyle: {
                       fontWeight: 'bold',
                     },

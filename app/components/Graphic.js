@@ -438,7 +438,7 @@ export default ({
   `
         );
         // console.log(Html)
-    }, ['1','2']); 
+    }, [escalaDiatonicaRes]); 
 
     
     return (

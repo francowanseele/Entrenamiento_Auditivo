@@ -13,8 +13,8 @@ import Loading from '../../components/Loading';
 export default function Home() {
     const navigation = useNavigation();
     const [modules, setModules] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [loadingText, setLoadingText] = useState('');
+    const [loading, setLoading] = useState(true);
+    // const [loadingText, setLoadingText] = useState('');
 
     useEffect(() => {
         getStorageItem(ID_CURRENT_CURSE).then((idCourse) => {
@@ -26,6 +26,7 @@ export default function Home() {
                             modulesRes.push({module: m, open: false});
                         });
                         setModules(modulesRes);
+                        setLoading(false)
                     } else {
                         setModules([]);
                     }
@@ -54,7 +55,7 @@ export default function Home() {
         });
     }
 
-    if (modules === null) return <Loading isVisible={true} text="Cargando" />;
+    if (loading) return <Loading isVisible={true} text="Cargando" />;
 
     return (
        
@@ -102,7 +103,7 @@ export default function Home() {
                     ))}
                 </ListItem.Accordion>
             ))}
-            <Loading text={loadingText} isVisible={loading} />
+            {/* <Loading text={loadingText} isVisible={loading} /> */}
           
           </ScrollView>
     );

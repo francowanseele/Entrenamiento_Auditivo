@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Button, Text, TouchableOpacity } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
-import {BACKGROUNDHOME, ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
+import {BACKGROUNDHOME, ITEMSHOME, TEXTHOME, TOPSCREENHOME} from '../../styles/styleValues';
 import { setStorageUserLogout } from '../../../utils/asyncStorageManagement';
 
 export default function Profile() {
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     textLogin:{
         fontSize:20,
         fontWeight:'bold',
-        color: 'black',
+        color: TEXTHOME,
         alignSelf:'center'
     },  
 });
