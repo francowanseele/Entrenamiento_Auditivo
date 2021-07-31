@@ -21,7 +21,7 @@ export default function Start() {
             setIsStudent(isStudent_storage);
         });
 
-    }, []);
+    }, [login]);
 
     // if (login === null) return <Loading isVisible={true} text="Cargando" />;
 

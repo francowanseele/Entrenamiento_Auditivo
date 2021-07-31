@@ -35,12 +35,12 @@ export default function UserGuest(props) {
     };
     const loginFunc = async () =>{
         if ( validate(Email) == true ){
-            getUsuarioApi(Email,Password).then((res)=>{
+            getUsuarioApi(Email,Password).then( async (res)=>{
                 if (res.ok){
                     if (res.esDocente){
                     //AQUI VA USUARIO DOCENTE setStorage
                     }else{
-                        setStorageUserLogged(
+                        await setStorageUserLogged(
                             res.email,
                             '1',
                             res.id_user,

@@ -6,7 +6,7 @@ import { Audio } from 'expo-av';
 import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
 import { tramsitDictationApi } from '../../api/sound';
 import { getStorageItem, ID_USER } from '../../../utils/asyncStorageManagement';
-import {LinearGradient} from 'expo-linear-gradient';
+import Graphic from '../../components/Graphic';
 
 export default function Dictation({ route }) {
     // ---------------------
@@ -29,18 +29,38 @@ export default function Dictation({ route }) {
             dictation,
         });
     };
+    const traducirClave = (claveParamFunc) => {
+        let claveTrans;
+        switch (claveParamFunc) {
+            case 'Fa':
+                claveTrans = 'bass';
+                break;
+            case 'Sol':
+                claveTrans = 'treble';
+                break;
+        }
+        return claveTrans;
+    };
 
+    console.log(dictation)
     return (
-        <LinearGradient 
-        style={styles.lineargradient}
-        // Background Linear Gradient
-        colors={[BACKGROUNDHOME,BACKGROUNDHOME,BACKGROUNDHOME,BACKGROUNDHOME,ITEMSHOME,ITEMSHOME,ITEMSHOME]}
-         >
         <View style={styles.container}>
             {/* <Text>
                 Mostrar pentagrama con nota de referencia y opción para
                 reproducirla
             </Text> */}
+            <View style={styles.notaReferencia}>
+                <Graphic
+                    figurasConCompas={dictation.figuras}
+                    figurasSinCompas={null}
+                    dictadoGeneradoTraducidoParam={dictation.notas}
+                    numeradorParam={dictation.numerador}
+                    denominadorParam={dictation.denominador}
+                    claveParam={traducirClave(dictation.clave)}
+                    escalaDiatonica={dictation.escala_diatonica}                    
+                    />
+                <Text>nota de referencia</Text>
+            </View>
             <Icon
                 type="material-community"
                 name="play-circle-outline"
@@ -57,14 +77,10 @@ export default function Dictation({ route }) {
             </View>
            
         </View>
-        </LinearGradient>
     );
 }
 
 const styles = StyleSheet.create({
-    lineargradient:{
-        height:'100%'
-    },
     iconPlay: {
         fontSize: 150,
         marginTop: 100,
@@ -76,12 +92,24 @@ const styles = StyleSheet.create({
         backgroundColor:ITEMSHOME,
         alignItems:'center',
         height:'7%'
-
     },
     button:{     
         height:'100%',
         width:'100%',
         alignItems:'center'
+    },
+    notaReferencia:{
+        // height:'20%',
+        // width:'90%',
+        // alignSelf:'center',
+        // borderRadius:10
+        paddingTop: 30,
+        paddingHorizontal: 5,
+        height: '40%',
+    },
+    grafcio: {
+        height: 200,
+        width: 2000,
     },
     textbutton:{
         color:TEXTHOME,

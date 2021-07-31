@@ -29,28 +29,19 @@ export default function Solution({ route }) {
         };
             console.log(dictation)
     return (
-        <LinearGradient 
-        style={styles.lineargradient}
-        // Background Linear Gradient
-        colors={[BACKGROUNDHOME,BACKGROUNDHOME,ITEMSHOME,ITEMSHOME]}
-         >
         <View style={styles.container}>
             <View style={styles.graficoContainer}>
-                <ScrollView horizontal={true} style={styles.scrollView}>
                     <Graphic
-                        style={styles.grafico}
-                        figurasConCompas={dictation.figuras}
-                        figurasSinCompas={null}
-                        dictadoGeneradoTraducidoParam={dictation.notas}
-                        numeradorParam={dictation.numerador}
-                        denominadorParam={dictation.denominador}
-                        claveParam={traducirClave(dictation.clave)}
-                        escalaDiatonica={dictation.escala_diatonica}
+                       figurasConCompas={dictation.figuras}
+                       figurasSinCompas={null}
+                       dictadoGeneradoTraducidoParam={dictation.notas}
+                       numeradorParam={dictation.numerador}
+                       denominadorParam={dictation.denominador}
+                       claveParam={traducirClave(dictation.clave)}
+                       escalaDiatonica={dictation.escala_diatonica}
                     />
-                </ScrollView>
             </View>
         </View>
-        </LinearGradient>
     );
 }
 
@@ -69,14 +60,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
         height: '40%',
     },
-    scrollView: {
-        height: 100,
-    },
+    // scrollView: {
+    //     height: 1000,
+    // },
 
-    grafcio: {
-        height: 200,
-        width: 2000,
-    },
+    // grafcio: {
+    //     height: 200,
+    //     width: 200,
+    // },
 
     popup: {
         width: '75%',

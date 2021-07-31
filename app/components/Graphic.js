@@ -13,6 +13,8 @@ export default ({
     claveParam,
     escalaDiatonica
 }) => {
+    // console.log(figurasConCompas)
+    // console.log(dictadoGeneradoTraducidoParam)
     const [figuras, setfiguras] = useState([]);
     const [clave, setclave] = useState(claveParam); 
     const [tarjetas, setTarjetas] = useState({ 
@@ -411,7 +413,7 @@ export default ({
           var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
           
           // Size our SVG:
-          renderer.resize(2500, 300);
+          renderer.resize(10000, 300);
           
           // And get a drawing context:
           var context = renderer.getContext();
@@ -445,11 +447,10 @@ export default ({
         <WebView
             source={{ html: Html }}
             style={{
-                alignSelf: 'center',
-                width: 2100, // aumentando este ancho logro aumentar el taman;o de las figuras
-                maxHeight: '100%',
-                backgroundColor: '#fff',
+                marginLeft:1100,
+                width: 1500, // aumentando este ancho logro aumentar el taman;o de las figuras               
             }}
+            showsHorizontalScrollIndicator={false}            
         />
     );
 };

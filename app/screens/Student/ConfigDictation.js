@@ -196,14 +196,14 @@ export default function ConfigDictation({ route }) {
         var { ok, dictadoTransformado, message } =
             await generateDictationFileApi(data, id);
 
-        console.log('---> CONTROL ---------');
-        console.log('Dictado original (SIN alteraciones):');
-        console.log(dictation.notas);
-        console.log('Dictado graficado (CON alteraciones):');
-        console.log(dictadoTransformado);
-        console.log('Escala diatónica: ');
-        console.log(dictation.escala_diatonica);
-        console.log('------------------------');
+        // console.log('---> CONTROL ---------');
+        // console.log('Dictado original (SIN alteraciones):');
+        // console.log(dictation.notas);
+        // console.log('Dictado graficado (CON alteraciones):');
+        // console.log(dictadoTransformado);
+        // console.log('Escala diatónica: ');
+        // console.log(dictation.escala_diatonica);
+        // console.log('------------------------');
 
         if (ok) {
             navigation.navigate('dictation', {

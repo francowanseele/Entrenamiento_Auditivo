@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
         fontSize:20
     },
     subcontent:{
+        borderWidth:1,
         backgroundColor:ITEMSHOME,
         width:'80%',
         alignSelf:'center',
