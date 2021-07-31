@@ -1,7 +1,7 @@
 import { basePath } from './config';
 
-export function getDictationApi(idUser, idConfigDictation) {
-    const url = `${basePath}/get-dictation/${idUser}?idConfigDictation=${idConfigDictation}`;
+export function getInstituteApi() {
+    const url = `${basePath}/get-institute`;
     const params = {
         method: 'GET',
         headers: {
@@ -27,7 +27,8 @@ export function getDictationApi(idUser, idConfigDictation) {
                 if (result.ok) {
                     return {
                         ok: true,
-                        dictations: result.dictations,
+                        institutes: result.institutes,
+                        message: result.message,
                     };
                 } else {
                     return {
@@ -45,21 +46,13 @@ export function getDictationApi(idUser, idConfigDictation) {
         });
 }
 
-export function generateDictationApi(
-    idUser,
-    idCourse,
-    idModule,
-    idConfigDictation,
-    cantDictation,
-    data
-) {
-    const url = `${basePath}/add-dictation-user/${idUser}?idCourse=${idCourse}&idModule=${idModule}&idConfigDictation=${idConfigDictation}&cantDictation=${cantDictation}`;
+export function getCourseInstituteApi(idInstitute) {
+    const url = `${basePath}/get-course-institute/${idInstitute}`;
     const params = {
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
     };
 
     return fetch(url, params)
@@ -74,20 +67,18 @@ export function generateDictationApi(
             if (!result) {
                 return {
                     ok: false,
-                    issueConfig: result.issueConfig,
                     message: 'Error interno del servidor.',
                 };
             } else {
                 if (result.ok) {
                     return {
                         ok: true,
-                        issueConfig: result.issueConfig,
-                        dictations: result.dictations,
+                        courses: result.courses,
+                        message: result.message,
                     };
                 } else {
                     return {
                         ok: false,
-                        issueConfig: result.issueConfig,
                         message: result.message,
                     };
                 }

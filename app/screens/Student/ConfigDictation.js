@@ -144,6 +144,12 @@ export default function ConfigDictation({ route }) {
                                 configDictation.escala_diatonica_regla
                             ),
                             notaBase: configDictation.nota_base,
+                            bpm: configDictation.bpm
+                                ? configDictation.bpm
+                                : 128,
+                            dictado_ritmico: configDictation.dictado_ritmico
+                                ? configDictation.dictado_ritmico
+                                : false,
                         };
                         generateDictationApi(
                             idUser,
@@ -164,11 +170,21 @@ export default function ConfigDictation({ route }) {
                                         );
                                     } else {
                                         // TODO ERROR
+                                        setDictations([]);
                                     }
                                 });
                             } else {
                                 // TODO Error
                                 // Mostrar cartel de que no se pudo generar ningún dictado si viene error 400
+                                if (resultDictation.issueConfig) {
+                                    // Error de la configuración
+                                    console.log(
+                                        'Error de la configuración....'
+                                    );
+                                } else {
+                                    // Error del servidor
+                                    console.log('Error del servidor.');
+                                }
                                 console.log('ERROR');
                             }
                         });
@@ -177,6 +193,7 @@ export default function ConfigDictation({ route }) {
                     }
                 } else {
                     // TODO Error
+                    setDictations([]);
                 }
             });
         });
@@ -188,20 +205,21 @@ export default function ConfigDictation({ route }) {
             dictado: dictation.notas,
             figurasDictado: dictation.figuras,
             escalaDiatoica: dictation.escala_diatonica,
+            bpm: dictation.bpm ? dictation.bpm : 128,
         };
 
         const id = await getStorageItem(ID_USER);
         var { ok, dictadoTransformado, message } =
             await generateDictationFileApi(data, id);
 
-        console.log('---> CONTROL ---------');
-        console.log('Dictado original (SIN alteraciones):');
-        console.log(dictation.notas);
-        console.log('Dictado graficado (CON alteraciones):');
-        console.log(dictadoTransformado);
-        console.log('Escala diatónica: ');
-        console.log(dictation.escala_diatonica);
-        console.log('------------------------');
+        // console.log('---> CONTROL ---------');
+        // console.log('Dictado original (SIN alteraciones):');
+        // console.log(dictation.notas);
+        // console.log('Dictado graficado (CON alteraciones):');
+        // console.log(dictadoTransformado);
+        // console.log('Escala diatónica: ');
+        // console.log(dictation.escala_diatonica);
+        // console.log('------------------------');
 
         if (ok) {
             navigation.navigate('dictation', {

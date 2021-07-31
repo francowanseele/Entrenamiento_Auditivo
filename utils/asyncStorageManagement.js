@@ -6,6 +6,16 @@ export const ID_USER = '_id';
 export const IS_STUDENT = 'isStudent';
 export const ID_CURRENT_CURSE = '_idCurrentCourse';
 
+// Variables temporales estudiante
+export const STU_LAST_COURSE = 'stuLastCourse';
+export const STU_LAST_MODULE = 'stuLastModule';
+
+// Variables temporales docente
+export const DOC_LAST_INSTITUTE = 'docLastInstitute';
+export const DOC_LAST_COURSE = 'docLastCourse';
+export const DOC_LAST_MODULE = 'docLastModule';
+
+
 // Todos los parámetros se reciben como String
 export async function setStorageUserLogged(
     email,
@@ -56,5 +66,25 @@ export async function getParams() {
         id_course,
     };
 
+    return data;
+}
+
+// Manage var temp Teacher
+export async function setVarTemp_Teacher(_idInstitute, _idCourse, _idModule) {
+    await AsyncStorage.setItem(DOC_LAST_INSTITUTE, _idInstitute);
+    await AsyncStorage.setItem(DOC_LAST_COURSE, _idCourse);
+    await AsyncStorage.setItem(DOC_LAST_MODULE, _idModule);
+}
+
+export async function getVarTemp_Teacher() {
+    const lastInstitute = await AsyncStorage.getItem(DOC_LAST_INSTITUTE);
+    const lastCourse = await AsyncStorage.getItem(DOC_LAST_COURSE);
+    const lastModule = await AsyncStorage.getItem(DOC_LAST_MODULE);
+    
+    const data = {
+        lastInstitute,
+        lastCourse,
+        lastModule,
+    };
     return data;
 }

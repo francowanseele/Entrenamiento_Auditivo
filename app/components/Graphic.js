@@ -1,69 +1,109 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-export default ({    
+export default ({
     figurasConCompas,
     figurasSinCompas,
     dictadoGeneradoTraducidoParam,
     numeradorParam,
     denominadorParam,
     claveParam,
-    escalaDiatonica
+    escalaDiatonica,
 }) => {
     const [figuras, setfiguras] = useState([]);
     const [clave, setclave] = useState(claveParam);
-    const [tarjetas, setTarjetas] = useState({ 
-       '16-16-16-16':`
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+    const [tarjetas, setTarjetas] = useState({
+        '16-16-16-16':
+            `
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
         `,
-        '8-16-16':`
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        '8-16-16':
+            `
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
         `,
-        '16-16-8':`
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        '16-16-8':
+            `
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
         `,
-        '16-8-16':`
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        '16-8-16':
+            `
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
         `,
-        '8-8':`
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        '8-8':
+            `
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
         `,
-        '8-8-8':`
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        '8-8-8':
+            `
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
+        new VF.StaveNote({clef: "` +
+            claveParam +
+            `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
         `,
-    })
-    const [tarjetasNotas, setTarjetasNotas] = useState({ 
-        '16-16-16-16':['16','16','16','16'],
-        '8-16-16':['8','16','16'],
-        '16-8-16':['16','8','16'],//arieugonl
-        '16-16-8':['16','16','8'],
-        '8-8':['8','8'],
-        '8-8-8':['8','8','8']
-     })
+    });
+    const [tarjetasNotas, setTarjetasNotas] = useState({
+        '16-16-16-16': ['16', '16', '16', '16'],
+        '8-16-16': ['8', '16', '16'],
+        '16-8-16': ['16', '8', '16'], //arieugonl
+        '16-16-8': ['16', '16', '8'],
+        '8-8': ['8', '8'],
+        '8-8-8': ['8', '8', '8'],
+    });
     // const [FigurasDictadoConCompas, setFigurasDictadoConCompas] =
     //     useState(figurasConCompas);
     const [dictadoGeneradoTraducido, setdictadoGeneradoTraducido] = useState(
-        dictadoGeneradoTraducidoParam 
+        dictadoGeneradoTraducidoParam
     );
     const [denominador, setDenominador] = useState(denominadorParam);
     const [numerador, setNumerador] = useState(numeradorParam);
     const [tarjetasActuales, setTarjetasActuales] = useState([]);
-    const [escalaDiatonicaRes , setEscaladiatonicaRes] = useState('');
+    const [escalaDiatonicaRes, setEscaladiatonicaRes] = useState('');
 
     // const traducirClave = (claveParamFunc) =>{
 
@@ -75,13 +115,13 @@ export default ({
     //         case 'Sol':
     //             claveTrans = 'treble';
     //             break;
-    //     }        
+    //     }
     //     setclave(claveTrans);
     //     return claveTrans
     // }
-    
+
     const traducirEscala = (escalaDiatonicaParam) => {
-        let nombreNota_Trans ='';
+        let nombreNota_Trans = '';
         switch (escalaDiatonicaParam) {
             case 'Do':
                 nombreNota_Trans = 'C';
@@ -102,10 +142,10 @@ export default ({
                 break;
             case 'Fa#':
                 nombreNota_Trans = 'F#';
-                break;  
+                break;
             case 'Solb':
                 nombreNota_Trans = 'Gb';
-                break; 
+                break;
             case 'Reb':
                 nombreNota_Trans = 'Db';
                 break;
@@ -122,40 +162,49 @@ export default ({
                 nombreNota_Trans = 'F';
         }
         setEscaladiatonicaRes(nombreNota_Trans);
-    
-    }
+    };
 
-    const getTarjeta = (actualPara,tarjetaAArmar,largoTrj) =>{    
-        
+    const getTarjeta = (actualPara, tarjetaAArmar, largoTrj) => {
         let resTarjeta = tarjetaAArmar;
         let hasta = actualPara + largoTrj;
         for (var j = actualPara; j < hasta; j++) {
-            if (figuras[j][0] == 'NuevoCompas') { break; }
-            resTarjeta = resTarjeta.replace('ParteMelodica',figuras[j][0]);
-            if ((figuras[actualPara][0].includes('b'))) {
-                resTarjeta = resTarjeta.replace('MODIFICACION','.addAccidental(0, new VF.Accidental("b")),')
-            }else if ((figuras[actualPara][0].includes('#'))) {
-                resTarjeta = resTarjeta.replace('MODIFICACION','.addAccidental(0, new VF.Accidental("#")),')
-            }else if ((figuras[actualPara][0].includes('d'))) {
-                resTarjeta = resTarjeta.replace('MODIFICACION','.addDotToAll(),')
-            }else {
-                resTarjeta = resTarjeta.replace('MODIFICACION',',')
+            if (figuras[j][0] == 'NuevoCompas') {
+                break;
+            }
+            resTarjeta = resTarjeta.replace('ParteMelodica', figuras[j][0]);
+            if (figuras[actualPara][0].includes('b')) {
+                resTarjeta = resTarjeta.replace(
+                    'MODIFICACION',
+                    '.addAccidental(0, new VF.Accidental("b")),'
+                );
+            } else if (figuras[actualPara][0].includes('#')) {
+                resTarjeta = resTarjeta.replace(
+                    'MODIFICACION',
+                    '.addAccidental(0, new VF.Accidental("#")),'
+                );
+            } else if (figuras[actualPara][0].includes('d')) {
+                resTarjeta = resTarjeta.replace(
+                    'MODIFICACION',
+                    '.addDotToAll(),'
+                );
+            } else {
+                resTarjeta = resTarjeta.replace('MODIFICACION', ',');
             }
         }
-        return resTarjeta
+        return resTarjeta;
     };
     const convert4And2 = (auxParam) => {
         let res = [];
-        for (let fig of auxParam){
-            if (fig[1] == '2'){
-                fig[1] = 'h'
-            }else if ( fig[1] == '4'){
-                fig[1] = 'q'
+        for (let fig of auxParam) {
+            if (fig[1] == '2') {
+                fig[1] = 'h';
+            } else if (fig[1] == '4') {
+                fig[1] = 'q';
             }
-            res.push(fig)
+            res.push(fig);
         }
-        return res
-    }
+        return res;
+    };
 
     const translateToGraphic = () => {
         let ultimoChar;
@@ -170,51 +219,69 @@ export default ({
         let figuraActual;
         let aux = [];
         let index = -1;
-        for ( compasActual = 0; compasActual < figurasConCompas.length; compasActual++) {
-            
-            for (figuraActual = 0; figuraActual< figurasConCompas[compasActual].length; figuraActual++) {
+        for (
+            compasActual = 0;
+            compasActual < figurasConCompas.length;
+            compasActual++
+        ) {
+            for (
+                figuraActual = 0;
+                figuraActual < figurasConCompas[compasActual].length;
+                figuraActual++
+            ) {
                 index = index + 1;
-                if ( typeof tarjetasNotas[figurasConCompas[compasActual][figuraActual]] == 'undefined' ){                                    
-                    if (!figurasConCompas[compasActual][figuraActual].includes('-')){
-                    aux.push([
-                        resDictado[index],
-                        figurasConCompas[compasActual][figuraActual]                        
-                    ]);
-                    }else{
-                        let notasSeparar = figurasConCompas[compasActual][figuraActual].split('-');
-
-                        for (var h =0; h < notasSeparar.length; h++ ){
-                            aux.push([
-                                resDictado[index + h],
-                                notasSeparar[h]
-                            ])
-                        }
-                        index = index + notasSeparar.length-1;
-                    } 
-                }else{
-                    tarjetasActuales.push(figurasConCompas[compasActual][figuraActual]);
-                    let notasTrj = tarjetasNotas[figurasConCompas[compasActual][figuraActual]];
-                    for (var h =0; h < notasTrj.length; h++ ){
+                if (
+                    typeof tarjetasNotas[
+                        figurasConCompas[compasActual][figuraActual]
+                    ] == 'undefined'
+                ) {
+                    if (
+                        !figurasConCompas[compasActual][figuraActual].includes(
+                            '-'
+                        )
+                    ) {
                         aux.push([
-                            resDictado[index+h],
-                            '+'+notasTrj[h]                            
+                            resDictado[index],
+                            figurasConCompas[compasActual][figuraActual],
                         ]);
+                    } else {
+                        let notasSeparar =
+                            figurasConCompas[compasActual][figuraActual].split(
+                                '-'
+                            );
+
+                        for (var h = 0; h < notasSeparar.length; h++) {
+                            aux.push([resDictado[index + h], notasSeparar[h]]);
+                        }
+                        index = index + notasSeparar.length - 1;
                     }
-                    index = index + notasTrj.length-1;
-                     
-                }                
+                } else {
+                    tarjetasActuales.push(
+                        figurasConCompas[compasActual][figuraActual]
+                    );
+                    let notasTrj =
+                        tarjetasNotas[
+                            figurasConCompas[compasActual][figuraActual]
+                        ];
+                    for (var h = 0; h < notasTrj.length; h++) {
+                        aux.push([resDictado[index + h], '+' + notasTrj[h]]);
+                    }
+                    index = index + notasTrj.length - 1;
+                }
             }
-            if ( compasActual != figurasConCompas.length-1 ) { aux.push(['NuevoCompas']) };
+            if (compasActual != figurasConCompas.length - 1) {
+                aux.push(['NuevoCompas']);
+            }
         }
         let aux2 = convert4And2(aux);
         setfiguras(aux2);
     };
 
-    function removeItemFromArr( arr, item ) {
-        return arr.filter( function( e ) {
+    function removeItemFromArr(arr, item) {
+        return arr.filter(function (e) {
             return e !== item;
-        } );
-    };
+        });
+    }
 
     const getFigurasyDuracion = () => {
         translateToGraphic();
@@ -222,7 +289,7 @@ export default ({
         // console.log('FigurasConCompas===>' + figurasConCompas);
         // console.log('FigurasSinCompas===>' + figurasSinCompas);
         // console.log('FiguraspostFunc///>      '+figuras)
-       
+
         let res = '';
         let compasActual = 1;
         let sostenido = false;
@@ -230,9 +297,9 @@ export default ({
         let punto = false;
         let esTarjeta = false;
         let huboTarjeta = false;
-        for (let actual=0; actual < figuras.length; actual++ ) {
+        for (let actual = 0; actual < figuras.length; actual++) {
             if (figuras[actual] != 'NuevoCompas') {
-                if (figuras[actual][1].includes('+')){
+                if (figuras[actual][1].includes('+')) {
                     esTarjeta = true;
                 }
                 if (figuras[actual][1].includes('d')) {
@@ -250,7 +317,9 @@ export default ({
                 // console.log(esTarjeta)
                 if (!sostenido && !bemol && !punto && !esTarjeta) {
                     res = res.concat(
-                        'new Vex.Flow.StaveNote({clef: "'+clave+'", keys: ["' +
+                        'new Vex.Flow.StaveNote({clef: "' +
+                            clave +
+                            '", keys: ["' +
                             figuras[actual][0] +
                             '"], duration: "' +
                             figuras[actual][1] +
@@ -259,7 +328,9 @@ export default ({
                     );
                 } else if (sostenido && !esTarjeta) {
                     res = res.concat(
-                        'new Vex.Flow.StaveNote({clef: "'+clave+'", keys: ["' +
+                        'new Vex.Flow.StaveNote({clef: "' +
+                            clave +
+                            '", keys: ["' +
                             figuras[actual][0] +
                             '"], duration: "' +
                             figuras[actual][1] +
@@ -268,67 +339,105 @@ export default ({
                     );
                 } else if (bemol && !esTarjeta) {
                     res = res.concat(
-                        'new Vex.Flow.StaveNote({clef: "'+clave+'", keys: ["' +
+                        'new Vex.Flow.StaveNote({clef: "' +
+                            clave +
+                            '", keys: ["' +
                             figuras[actual][0] +
                             '"], duration: "' +
                             figuras[actual][1] +
                             '" }).addAccidental(0, new VF.Accidental("b")),' +
                             '\n'
                     );
-                } else if (punto && !esTarjeta ) {
+                } else if (punto && !esTarjeta) {
                     res = res.concat(
-                        'new Vex.Flow.StaveNote({clef: "'+clave+'", keys: ["' +
+                        'new Vex.Flow.StaveNote({clef: "' +
+                            clave +
+                            '", keys: ["' +
                             figuras[actual][0] +
                             '"], duration: "' +
                             figuras[actual][1] +
                             '" }).addDotToAll(),' +
                             '\n'
                     );
-                } 
-                else if(esTarjeta){                   
+                } else if (esTarjeta) {
                     // console.log('entro a tarjeta')
-                    res = res.concat( `]);`+ `\n` +`var notesTarjeta`+compasActual+` = []`);
-                    res = res.concat( `\n` +`var notesTarjeta`+compasActual+`= notesTarjeta`+compasActual+`.concat([`);
-                    
-                    let trj = tarjetasActuales.shift()
-                    let largoTrj = tarjetasNotas[trj].length
-                    let tarjetaAArmar = tarjetas[trj]
-                    res = res.concat(getTarjeta(actual,tarjetaAArmar,largoTrj));
-                    actual = actual + largoTrj -1;
+                    res = res.concat(
+                        `]);` +
+                            `\n` +
+                            `var notesTarjeta` +
+                            compasActual +
+                            ` = []`
+                    );
+                    res = res.concat(
+                        `\n` +
+                            `var notesTarjeta` +
+                            compasActual +
+                            `= notesTarjeta` +
+                            compasActual +
+                            `.concat([`
+                    );
 
-                    res= res.concat(']);'+ '\n');
-                    if (!huboTarjeta){
-                        res = res.concat(`beams = []; `+'\n')
+                    let trj = tarjetasActuales.shift();
+                    let largoTrj = tarjetasNotas[trj].length;
+                    let tarjetaAArmar = tarjetas[trj];
+                    res = res.concat(
+                        getTarjeta(actual, tarjetaAArmar, largoTrj)
+                    );
+                    actual = actual + largoTrj - 1;
+
+                    res = res.concat(']);' + '\n');
+                    if (!huboTarjeta) {
+                        res = res.concat(`beams = []; ` + '\n');
                     }
-                    huboTarjeta =true;
-                    res= res.concat(
-                    `beams = beams.concat([
-                        new Vex.Flow.Beam(notesTarjeta`+compasActual+`)
-                        ])`+ '\n'+
-                        `notesMeasure`+compasActual+` = notesMeasure`+compasActual+`.concat(notesTarjeta`+compasActual+`);`
-                        + '\n'+`notesMeasure`+compasActual+` = notesMeasure`+compasActual+`.concat([\n`
-                        );
+                    huboTarjeta = true;
+                    res = res.concat(
+                        `beams = beams.concat([
+                        new Vex.Flow.Beam(notesTarjeta` +
+                            compasActual +
+                            `)
+                        ])` +
+                            '\n' +
+                            `notesMeasure` +
+                            compasActual +
+                            ` = notesMeasure` +
+                            compasActual +
+                            `.concat(notesTarjeta` +
+                            compasActual +
+                            `);` +
+                            '\n' +
+                            `notesMeasure` +
+                            compasActual +
+                            ` = notesMeasure` +
+                            compasActual +
+                            `.concat([\n`
+                    );
                 }
             } else if (figuras[actual] == 'NuevoCompas') {
                 compasActual = compasActual + 1;
-                
+
                 res = res.concat(
                     `     
                 ]); \n
-                var beams = VF.Beam.generateBeams( notesMeasure`+(compasActual-1)+`);
+                var beams = VF.Beam.generateBeams( notesMeasure` +
+                        (compasActual - 1) +
+                        `);
                 Vex.Flow.Formatter.FormatAndDraw(context, staveMeasure` +
                         (compasActual - 1) +
                         `, notesMeasure` +
                         (compasActual - 1) +
-                        `);\n`);
-            
-                //si hubo tarjeta en este compas entra aqui 
-                if (huboTarjeta){
-                res = res.concat(` beams.forEach(function(b) {b.setContext(context).draw()})`+`\n`);
-                huboTarjeta = false;
-                
+                        `);\n`
+                );
+
+                //si hubo tarjeta en este compas entra aqui
+                if (huboTarjeta) {
+                    res = res.concat(
+                        ` beams.forEach(function(b) {b.setContext(context).draw()})` +
+                            `\n`
+                    );
+                    huboTarjeta = false;
                 }
-                res = res.concat(`          
+                res = res.concat(
+                    `          
                 // Notas dentro del compas
                 var staveMeasure` +
                         compasActual +
@@ -337,30 +446,37 @@ export default ({
                         (compasActual - 1) +
                         `.width + staveMeasure` +
                         (compasActual - 1) +
-                            `.x, 
+                        `.x, 
                 0,
                 400
                 );\n
                 staveMeasure` +
-                            compasActual +
-                            `.setContext(context).draw();\n`);
-                    
-            
-                res = res.concat(` // Notas dentro del compas
-                notesMeasure`+compasActual+` = [];
-                notesMeasure`+compasActual+` = notesMeasure`+compasActual+`.concat([ `);
-            
-            }           
+                        compasActual +
+                        `.setContext(context).draw();\n`
+                );
+
+                res = res.concat(
+                    ` // Notas dentro del compas
+                notesMeasure` +
+                        compasActual +
+                        ` = [];
+                notesMeasure` +
+                        compasActual +
+                        ` = notesMeasure` +
+                        compasActual +
+                        `.concat([ `
+                );
+            }
 
             sostenido = false;
             bemol = false;
             punto = false;
             esTarjeta = false;
-        }//endFOR
+        } //endFOR
 
         // //caso tarjetas
         // if (esTarjeta){
-        //     res = res.concat( 
+        //     res = res.concat(
         //         `]; \n beams = [
         //             new Vex.Flow.Beam(notesMeasure`+compasActual+`)
         //         `
@@ -368,7 +484,9 @@ export default ({
         // }
         res = res.concat(
             `]); \n
-            var beams = VF.Beam.generateBeams( notesMeasure`+compasActual.toString()+`);
+            var beams = VF.Beam.generateBeams( notesMeasure` +
+                compasActual.toString() +
+                `);
         Vex.Flow.Formatter.FormatAndDraw(context, staveMeasure` +
                 compasActual.toString() +
                 `, notesMeasure` +
@@ -376,13 +494,15 @@ export default ({
                 `);\n
         `
         );
-         //si hubo tarjeta en este compas entra aqui 
-         if (huboTarjeta){
-            res = res.concat(` beams.forEach(function(b) {b.setContext(context).draw()})`+`\n`);
+        //si hubo tarjeta en este compas entra aqui
+        if (huboTarjeta) {
+            res = res.concat(
+                ` beams.forEach(function(b) {b.setContext(context).draw()})` +
+                    `\n`
+            );
             huboTarjeta = false;
-            
-            }
-       
+        }
+
         return res;
     };
 
@@ -411,7 +531,7 @@ export default ({
           var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
           
           // Size our SVG:
-          renderer.resize(2500, 300);
+          renderer.resize(10000, 300);
           
           // And get a drawing context:
           var context = renderer.getContext();
@@ -425,12 +545,15 @@ export default ({
                 numeradorParam +
                 `/` +
                 denominadorParam +
-                `').addKeySignature("`+ escalaDiatonicaRes +`").
+                `').addKeySignature("` +
+                escalaDiatonicaRes +
+                `").
                 setContext(context).draw();
             notesMeasure1 = [];
             notesMeasure1 = notesMeasure1.concat([
               ` +
-                getFigurasyDuracion() +                `
+                getFigurasyDuracion() +
+                `
       }
       </script>
           <div class="music-render" id="boo"/> 
@@ -438,17 +561,21 @@ export default ({
   `
         );
         // console.log(Html)
-    }, []); 
+    }, [escalaDiatonicaRes]);
 
     return (
-        <WebView
-            source={{ html: Html }}
-            style={{
-                alignSelf: 'center',
-                width: 2900, // aumentando este ancho logro aumentar el taman;o de las figuras
-                maxHeight: '100%',
-                backgroundColor: '#f8c471',
-            }}
-        />
+        <View>
+            <WebView
+                showsHorizontalScrollIndicator={false}
+                source={{ html: Html }}
+                style={{
+                    marginLeft: 1100,
+                    //alignSelf: 'center',
+                    width: 1500, // aumentando este ancho logro aumentar el taman;o de las figuras
+                    // maxHeight: '100%',
+                    // backgroundColor: '#f8c471',
+                }}
+            />
+        </View>
     );
 };

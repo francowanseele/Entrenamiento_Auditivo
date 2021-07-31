@@ -2,9 +2,10 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import HomeStack from './HomeProfStack';
 import CalificationStack from './CalificationProfStack';
 import ProfileStack from './ProfileProfStack';
+import DictationStack from './DictationProfStack';
+import CreateDictationStack from './CreateDictationProfStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,9 +14,14 @@ export default function Navigation() {
         <NavigationContainer>
             <Tab.Navigator initialRouteName="home" tabBarOptions={{}}>
                 <Tab.Screen
-                    name="home"
-                    component={HomeStack}
-                    options={{ title: 'Home' }}
+                    name="dictation"
+                    component={DictationStack}
+                    options={{ title: 'Ver' }}
+                />
+                <Tab.Screen
+                    name="createDictation"
+                    component={CreateDictationStack}
+                    options={{ title: 'Crear' }}
                 />
                 <Tab.Screen
                     name="calification"

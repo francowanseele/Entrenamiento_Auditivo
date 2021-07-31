@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export default function FindConfigDictation() {
+export default function DictationProf() {
     return (
         <View>
-            <Text>Buscar una configuración existente...</Text>
+            <Text>Ver dictados...</Text>
         </View>
     );
 }

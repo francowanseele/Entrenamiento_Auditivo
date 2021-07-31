@@ -3,6 +3,13 @@ import { Button } from 'react-native';
 import { View, Text } from 'react-native';
 import { setStorageUserLogged } from '../../../utils/asyncStorageManagement';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import ConfigMelodic from '../../components/CreateDictationProf/ConfigMelodic';
+import ConfigRhythmic from '../../components/CreateDictationProf/ConfigRhythmic';
+
+const Tab = createMaterialTopTabNavigator();
+
 export default function UserGuest(props) {
     const { setLogin, setIsStudent } = props;
     const loginStudent = async () => {
@@ -34,6 +41,12 @@ export default function UserGuest(props) {
             <Button title="boton que no hace nada" />
             <Button title="Entrar como estudiante" onPress={loginStudent} />
             <Button title="Entrar como docente" onPress={loginDoc} />
+            {/* <NavigationContainer>
+                <Tab.Navigator>
+                    <Tab.Screen name="Home" component={ConfigMelodic} />
+                    <Tab.Screen name="Settings" component={ConfigRhythmic} />
+                </Tab.Navigator>
+            </NavigationContainer> */}
         </View>
     );
 }
