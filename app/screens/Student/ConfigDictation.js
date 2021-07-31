@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Button, Text, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ListItem, Icon } from 'react-native-elements';
-
+import {BACKGROUNDHOME, ITEMSHOME, TEXTHOME} from '../../styles/styleValues';
 import Loading from '../../components/Loading';
 import { generateDictationApi, getDictationApi } from '../../api/user';
 import { generateDictationFileApi } from '../../api/sound';
+import {LinearGradient} from 'expo-linear-gradient';
 import {
     getParams,
     getStorageItem,
@@ -18,6 +19,7 @@ export default function ConfigDictation({ route }) {
     const navigation = useNavigation();
     const { configDictation, module } = route.params;
     const [dictations, setDictations] = useState(null);
+    const [ stateDict, setStateDict ] = useState('nuevo');
 
     const getTarjetas = (celulaRitmica) => {
         var res = [];
@@ -230,13 +232,26 @@ export default function ConfigDictation({ route }) {
             console.log(message);
         }
     };
+    const  getStyleByState = (stateDict) => {
+        if (stateDict ){
+            if (stateDict.nota  <= 2){
+                return styles.notaRed
+            }else if( stateDict.nota >=3 && stateDict.nota <= 8){
+                return styles.notaOrange
+            }else {
+                return styles.notaGreen
+            }
+        }
+        else return styles.content
+    }
 
     if (!dictations) return <Loading isVisible={true} text="Cargando" />;
 
     return (
-        <ScrollView>
+        <ScrollView  style={styles.container} >
             {dictations.map((dict, i) => (
-                <ListItem
+                <ListItem 
+                    containerStyle={styles.content}
                     key={i}
                     bottomDivider
                     onPress={() => {
@@ -244,12 +259,17 @@ export default function ConfigDictation({ route }) {
                     }}
                 >
                     {/* <Icon name={item.icon} /> */}
-                    <ListItem.Content>
-                        <ListItem.Title>Dictado #{i}</ListItem.Title>
-                        <ListItem.Subtitle>
+                    <ListItem.Content >
+                        <ListItem.Title style={styles.subtitle } >Dictado #{i}</ListItem.Title>
+                        <ListItem.Subtitle style={{color:'black'}} >
                             Clave {dict.clave} | Escala diatónica{' '}
-                            {dict.escala_diatonica}
+                            {dict.escala_diatonica}                             
                         </ListItem.Subtitle>
+                        { dict.resuelto[0] ? 
+                          <View style={styles.contentNota}> 
+                            <Text><Text style={getStyleByState(dict.resuelto[0])}>Última Calificación: {dict.resuelto[0].nota}</Text></Text>
+                          </View>:
+                         <Text></Text>  }
                     </ListItem.Content>
                     <ListItem.Chevron />
                 </ListItem>
@@ -257,3 +277,54 @@ export default function ConfigDictation({ route }) {
         </ScrollView>
     );
 }
+
+const styles = StyleSheet.create({
+    container:{
+        height:'100%'
+    },
+    content:{
+        marginTop:10,
+        backgroundColor:ITEMSHOME,
+        flexDirection:'row',
+        width:'90%',
+        alignSelf:'center',
+        borderRadius:10,
+        shadowColor: '#470000',
+        shadowOffset: {width: 10, height: 10},
+        shadowOpacity: 0.2,
+        elevation:13,    
+    },
+    contentNota:{
+        borderRadius:100,
+        alignSelf:'flex-start',
+        width:'60%'     
+    },
+    nota:{
+        alignSelf:'flex-start',
+        borderRadius:100,
+        fontWeight:'bold'
+    },
+    notaOrange:{
+        color:'#f99856',
+        alignSelf:'flex-start',
+        borderRadius:100,
+        fontWeight:'bold'
+    },
+    notaGreen:{
+        color:TEXTHOME,
+        alignSelf:'flex-start',
+        borderRadius:100,
+        fontWeight:'bold'
+    },
+    notaRed:{
+        color:'#f1503f',
+        alignSelf:'flex-start',
+        borderRadius:100,
+        fontWeight:'bold'
+    },
+    subtitle:{
+        color: TEXTHOME,
+        fontWeight:'bold',
+        fontSize:20
+    }
+});

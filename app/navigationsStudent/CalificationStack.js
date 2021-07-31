@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Calification from '../screens/Student/Calification';
-
+import {BACKGROUNDHOME, ITEMSHOME, TOPSCREENHOME} from '../styles/styleValues';
 const Stack = createStackNavigator();
 
 export default function () {
@@ -10,7 +10,16 @@ export default function () {
             <Stack.Screen
                 name="calification"
                 component={Calification}
-                options={{ title: 'Calificaciones' }}
+                options={{
+                    title: 'Calificaciones' ,
+                    headerStyle: {
+                      backgroundColor: TOPSCREENHOME,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                      fontWeight: 'bold',
+                    },
+                  }} 
             />
         </Stack.Navigator>
     );

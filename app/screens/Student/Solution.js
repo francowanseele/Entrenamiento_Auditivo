@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import Graphic from '../../components/Graphic';
+import {BACKGROUNDHOME,BACKGROUNDHOME2,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
+import {LinearGradient} from 'expo-linear-gradient';
+
 
 export default function Solution({ route }) {
     const { dictation } = route.params;
@@ -12,59 +15,59 @@ export default function Solution({ route }) {
     const [dictadoGeneradoTraducido, setdictadoGeneradoTraducido] =
         useState(null);
 
-    const traducirClave = (claveParamFunc) => {
-        let claveTrans;
-        switch (claveParamFunc) {
-            case 'Fa':
-                claveTrans = 'bass';
-                break;
-            case 'Sol':
-                claveTrans = 'treble';
-                break;
-        }
-        return claveTrans;
-    };
-
+        const traducirClave = (claveParamFunc) => {
+            let claveTrans;
+            switch (claveParamFunc) {
+                case 'Fa':
+                    claveTrans = 'bass';
+                    break;
+                case 'Sol':
+                    claveTrans = 'treble';
+                    break;
+            }
+            return claveTrans;
+        };
+            console.log(dictation)
     return (
         <View style={styles.container}>
             <View style={styles.graficoContainer}>
-                {/* <ScrollView horizontal={true} style={styles.scrollView}> */}
-                <Graphic
-                    style={styles.grafico}
-                    figurasConCompas={dictation.figuras}
-                    figurasSinCompas={null}
-                    dictadoGeneradoTraducidoParam={dictation.notas}
-                    numeradorParam={dictation.numerador}
-                    denominadorParam={dictation.denominador}
-                    claveParam={traducirClave(dictation.clave)}
-                    escalaDiatonica={dictation.escala_diatonica}
-                />
-                {/* </ScrollView> */}
+                    <Graphic
+                       figurasConCompas={dictation.figuras}
+                       figurasSinCompas={null}
+                       dictadoGeneradoTraducidoParam={dictation.notas}
+                       numeradorParam={dictation.numerador}
+                       denominadorParam={dictation.denominador}
+                       claveParam={traducirClave(dictation.clave)}
+                       escalaDiatonica={dictation.escala_diatonica}
+                    />
             </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+    lineargradient:{
+        height:'100%'
+    },
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: BACKGROUNDHOME,
         alignItems: 'center',
         justifyContent: 'center',
+        height:'100%'
     },
     graficoContainer: {
         paddingTop: 30,
         paddingHorizontal: 5,
         height: '40%',
     },
-    scrollView: {
-        height: 100,
-    },
+    // scrollView: {
+    //     height: 1000,
+    // },
 
-    grafcio: {
-        height: 100,
-        width: 2000,
-    },
+    // grafcio: {
+    //     height: 200,
+    //     width: 200,
+    // },
 
     popup: {
         width: '75%',

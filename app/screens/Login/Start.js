@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import {
     getStorageIsLogged,
     getStorageIsStudent,
@@ -9,10 +8,11 @@ import Navigation from '../../navigationsStudent/Navigation';
 import NavigationProf from '../../navigationsProf/Navigation';
 import Loading from '../../components/Loading';
 
-export default function Start() {
-    const [login, setLogin] = useState(null);
-    const [isStudent, setIsStudent] = useState(null);
 
+export default function Start() {
+    const [login, setLogin] = useState(false);
+    const [isStudent, setIsStudent] = useState(null);
+   
     useEffect(() => {
         getStorageIsLogged().then((isLogged) => {
             setLogin(isLogged);
@@ -20,15 +20,18 @@ export default function Start() {
         getStorageIsStudent().then((isStudent_storage) => {
             setIsStudent(isStudent_storage);
         });
-    }, []);
 
-    if (login === null) return <Loading isVisible={true} text="Cargando" />;
+    }, [login]);
 
-    return !login ? (
-        <UserGuest setLogin={setLogin} setIsStudent={setIsStudent} />
+    // if (login === null) return <Loading isVisible={true} text="Cargando" />;
+
+  
+    return !login? (
+        <UserGuest setLogin={setLogin} setIsStudent={setIsStudent}  />
     ) : isStudent ? (
         <Navigation setLogin={setLogin} />
     ) : (
         <NavigationProf setLogin={setLogin} />
     );
+   
 }

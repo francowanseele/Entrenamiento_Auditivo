@@ -11,23 +11,16 @@ export default ({
     claveParam,
     escalaDiatonica,
 }) => {
+    // console.log(figurasConCompas)
+    // console.log(dictadoGeneradoTraducidoParam)
     const [figuras, setfiguras] = useState([]);
-    const [clave, setclave] = useState(claveParam);
-    const [tarjetas, setTarjetas] = useState({
-        '16-16-16-16':
-            `
-        new VF.StaveNote({clef: "` +
-            claveParam +
-            `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "` +
-            claveParam +
-            `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "` +
-            claveParam +
-            `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "` +
-            claveParam +
-            `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+    const [clave, setclave] = useState(claveParam); 
+    const [tarjetas, setTarjetas] = useState({ 
+       '16-16-16-16':`
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
         `,
         '8-16-16':
             `
@@ -561,21 +554,17 @@ export default ({
   `
         );
         // console.log(Html)
-    }, [escalaDiatonicaRes]);
+    }, [escalaDiatonicaRes]); 
 
+    
     return (
-        <View>
-            <WebView
-                showsHorizontalScrollIndicator={false}
-                source={{ html: Html }}
-                style={{
-                    marginLeft: 1100,
-                    //alignSelf: 'center',
-                    width: 1500, // aumentando este ancho logro aumentar el taman;o de las figuras
-                    // maxHeight: '100%',
-                    // backgroundColor: '#f8c471',
-                }}
-            />
-        </View>
+        <WebView
+            source={{ html: Html }}
+            style={{
+                marginLeft:1100,
+                width: 1500, // aumentando este ancho logro aumentar el taman;o de las figuras               
+            }}
+            showsHorizontalScrollIndicator={false}            
+        />
     );
 };

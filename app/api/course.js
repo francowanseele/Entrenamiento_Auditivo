@@ -9,7 +9,6 @@ export function getModulesApi(idCourse) {
             'Content-Type': 'application/json',
         },
     };
-
     return fetch(url, params)
         .then((response) => {
             if (response.status === 501) {

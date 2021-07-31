@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
-
+import { View, StyleSheet, Button, Text, TouchableOpacity } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { BACKGROUNDHOME, ITEMSHOME, TEXTHOME } from '../../styles/styleValues';
 import { setStorageUserLogout } from '../../../utils/asyncStorageManagement';
 
 export default function Profile() {
@@ -11,9 +12,45 @@ export default function Profile() {
     };
 
     return (
-        <View>
+        <LinearGradient
+            style={styles.lineargradient}
+            // Background Linear Gradient
+            colors={[BACKGROUNDHOME, BACKGROUNDHOME, ITEMSHOME, ITEMSHOME]}
+        >
             <Text>Perfil...</Text>
-            <Button title="Cerrar sesión" onPress={logout} />
-        </View>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.button} onPress={logout}>
+                    <Text style={styles.textLogin}>Cerrar Sesion</Text>
+                </TouchableOpacity>
+            </View>
+        </LinearGradient>
     );
 }
+const styles = StyleSheet.create({
+    lineargradient: {
+        height: '100%',
+    },
+    buttonContainer: {
+        flexDirection: 'column',
+        padding: 5,
+        height: '6%',
+        width: '50%',
+        alignItems: 'center',
+        alignSelf: 'center',
+        borderRadius: 10,
+    },
+    button: {
+        backgroundColor: ITEMSHOME,
+        borderRadius: 4,
+        height: '100%',
+        width: '100%',
+        alignSelf: 'center',
+        alignItems: 'center',
+    },
+    textLogin: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: TEXTHOME,
+        alignSelf: 'center',
+    },
+});

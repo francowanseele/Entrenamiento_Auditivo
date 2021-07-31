@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
 import CalificationStack from './CalificationProfStack';
 import ProfileStack from './ProfileProfStack';
 import DictationStack from './DictationProfStack';
@@ -17,16 +16,25 @@ export default function Navigation() {
                     name="dictation"
                     component={DictationStack}
                     options={{ title: 'Ver' }}
+                    // name="home"
+                    // component={HomeStack}
+                    // // options={{ title: 'Inicio' }}
+                    // options={{
+                    //     tabBarLabel: 'Home',
+                    //     tabBarIcon: ({ color, size }) => (
+                    //       <MaterialCommunityIcons name="home" color={color} size={size} />
+                    //     ),
+                    //   }}       
                 />
                 <Tab.Screen
                     name="createDictation"
                     component={CreateDictationStack}
-                    options={{ title: 'Crear' }}
+                    options={{ title: 'Crear' }}           
                 />
                 <Tab.Screen
                     name="calification"
                     component={CalificationStack}
-                    options={{ title: 'Calificaciones' }}
+                    options={{ title: 'clasi' }}
                 />
                 <Tab.Screen
                     name="profile"

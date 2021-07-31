@@ -1,7 +1,7 @@
 import { basePath } from './config';
 
 export function getDictationApi(idUser, idConfigDictation) {
-    const url = `${basePath}/get-dictation/${idUser}?idConfigDictation=${idConfigDictation}`;
+    const url = `${basePath}/get-dictation/${idUser}?idConfigDictation=${idConfigDictation}`;    
     const params = {
         method: 'GET',
         headers: {
@@ -99,4 +99,55 @@ export function generateDictationApi(
                 message: 'Error de servidor, vuelva a intentarlo más tarde',
             };
         });
+}
+
+export const getUsuarioApi = (email,password) =>{
+
+    const url = `${basePath}/get-user`;    
+    const params = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({"email":email, "password":password}) 
+    };
+    return fetch(url, params)
+    .then((response) => {
+        if (response.status === 501) {
+            return null;
+        } else {
+            return response.json();
+        }
+    })
+    .then((result) => {
+        if (!result) {
+            return {
+                ok: false,
+                message: 'Error interno del servidor.',
+            };
+        } else {
+            if (result.ok) {
+                return {
+                    ok: true,
+                    email: result.email,
+                    password: result.password,
+                    esDocente: result.esDocente,
+                    id_user:result.id_user,
+                    personal_course:result.personal_course
+                };
+            } else {
+                return {
+                    ok: false,
+                    message: result.message,
+                };
+            }
+        }
+    })
+    .catch((err) => {
+        return {
+            ok: false,
+            message: err,
+        };
+    });    
+
 }
