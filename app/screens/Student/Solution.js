@@ -27,7 +27,7 @@ export default function Solution({ route }) {
             }
             return claveTrans;
         };
-            console.log(dictation)
+          
     return (
         <View style={styles.container}>
             <View style={styles.graficoContainer}>
@@ -39,6 +39,7 @@ export default function Solution({ route }) {
                        denominadorParam={dictation.denominador}
                        claveParam={traducirClave(dictation.clave)}
                        escalaDiatonica={dictation.escala_diatonica}
+                       isNotaReferencia={false}
                     />
             </View>
         </View>
@@ -46,9 +47,7 @@ export default function Solution({ route }) {
 }
 
 const styles = StyleSheet.create({
-    lineargradient:{
-        height:'100%'
-    },
+ 
     container: {
         backgroundColor: BACKGROUNDHOME,
         alignItems: 'center',

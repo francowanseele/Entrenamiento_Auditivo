@@ -42,22 +42,19 @@ export default function Dictation({ route }) {
         return claveTrans;
     };
 
-    console.log(dictation)
+    // console.log(dictation)
     return (
         <View style={styles.container}>
-            {/* <Text>
-                Mostrar pentagrama con nota de referencia y opción para
-                reproducirla
-            </Text> */}
-            <View style={styles.notaReferencia}>
+            <View style={styles.graficoContainer}>
                 <Graphic
-                    figurasConCompas={dictation.figuras}
+                figurasConCompas={[["1"]]}
                     figurasSinCompas={null}
-                    dictadoGeneradoTraducidoParam={dictation.notas}
+                    dictadoGeneradoTraducidoParam={[dictation.nota_base]}
                     numeradorParam={dictation.numerador}
                     denominadorParam={dictation.denominador}
                     claveParam={traducirClave(dictation.clave)}
-                    escalaDiatonica={dictation.escala_diatonica}                    
+                    escalaDiatonica={dictation.escala_diatonica}
+                    isNotaReferencia={true}                    
                     />
                 <Text>nota de referencia</Text>
             </View>
@@ -86,10 +83,11 @@ const styles = StyleSheet.create({
         marginTop: 100,
     },
     container:{
-        height:'100%', 
+        alignItems: 'center',
+        height:'100%',
+        width:'100%'
     },
     buttonContainer:{
-        backgroundColor:ITEMSHOME,
         alignItems:'center',
         height:'7%'
     },
@@ -98,14 +96,12 @@ const styles = StyleSheet.create({
         width:'100%',
         alignItems:'center'
     },
-    notaReferencia:{
-        // height:'20%',
-        // width:'90%',
-        // alignSelf:'center',
-        // borderRadius:10
+    graficoContainer: {
         paddingTop: 30,
         paddingHorizontal: 5,
         height: '40%',
+        alignItems:'center',
+        width:'30%'
     },
     grafcio: {
         height: 200,
