@@ -4,20 +4,19 @@ import { Button } from 'react-native-elements';
 import { setStorageUserLogged } from '../../../utils/asyncStorageManagement';
 import { getUsuarioApi } from '../../api/user';
 import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
-
-
-import { NavigationContainer } from '@react-navigation/native';
+import { Entypo } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import ConfigMelodic from '../../components/CreateDictationProf/ConfigMelodic';
-import ConfigRhythmic from '../../components/CreateDictationProf/ConfigRhythmic';
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function UserGuest(props) {
+
+    const [isVisiblePass, setIsVisiblePass] = useState(true);
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
-
     const { setLogin, setIsStudent } = props;
+
+
     const loginStudent = async () => {
         await setStorageUserLogged(
             'franco.wanseele@gmail.com',
@@ -117,14 +116,19 @@ export default function UserGuest(props) {
                 value={Email}
                 onChangeText={(val) => updateInputVal(val, 'Email')}
                 />
-                <TextInput
-                style={styles.inputStyle}
-                placeholder="Contraseña"
-                value={Password}
-                onChangeText={(val) => updateInputVal(val, 'Password')}
-                maxLength={15}
-                secureTextEntry={true}
-                />
+                <View style={styles.inputStyle}>                    
+                    <TextInput
+                    style={styles.inputPass}
+                    placeholder="Contraseña"
+                    value={Password}
+                    onChangeText={(val) => updateInputVal(val, 'Password')}
+                    maxLength={15}
+                    secureTextEntry={isVisiblePass}
+                    />
+                    <TouchableOpacity style={{ alignSelf:'flex-end' }} onPress={()=>{setIsVisiblePass(!isVisiblePass)}} >
+                    <Entypo  name="eye" size={24} color={TEXTHOME} />
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         style={styles.button}
@@ -157,18 +161,18 @@ const styles = StyleSheet.create({
         backgroundColor:ITEMSHOME,
         flexDirection:'column',
         padding:5,
-        height:'20%',
+        height:'16%',
         width:'50%',
         alignItems:'center',
         alignSelf:'center'
     },
     button:{
+        flexDirection:'row',
+        justifyContent:'center',
         backgroundColor:ITEMSHOME,
         borderRadius:4,
         height:'100%',
         width:'100%',
-        alignSelf:'center',
-        alignItems:'center'
         
     },
     textLogin:{
@@ -184,11 +188,16 @@ const styles = StyleSheet.create({
 
     },
     inputStyle:{
+        flexDirection:'row',
+        width:'100%',
         color:TEXTHOME,
         padding:10,
         backgroundColor:ITEMSHOME,
         borderRadius:5,
-        borderWidth:0.4
-        
+        borderWidth:0.4        
+    },
+    inputPass:{
+        width:'92%'
     }
+
 })
