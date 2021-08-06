@@ -7,6 +7,7 @@ import { Button } from 'react-native-paper';
 
 export default function Solution({ route }) {
     const { dictation } = route.params;
+    const [cantNotas, setCantNotas ] = useState(100);
     const [ checkedTrue, setCheckedTrue] = useState(-1);
     const [ isChecked1, setIsChecked1 ] = useState(false);
     const [ isChecked2, setIsChecked2 ] = useState(false);
@@ -68,6 +69,10 @@ export default function Solution({ route }) {
             }
         }
         useEffect(()=>{checkeAll()},[checkedTrue])
+
+        const calcularPorcentaje= (porcentaje) =>{
+            return Math.trunc ( (cantNotas*porcentaje)/100 )
+        }
           
     return (
         <View style={styles.container}>
@@ -91,7 +96,7 @@ export default function Solution({ route }) {
                             if ((!isChecked1) == true) { setCheckedTrue(1) }  
                         }}
                     isChecked={isChecked1}
-                    leftText={"De 1 a (10% de la cantidad de notas totales) de errores"}
+                    leftText={"De 1 a "+calcularPorcentaje(10).toString()+" de errores"}
                     checkedCheckBoxColor={TEXTHOME}
                     checkBoxColor={"black"}
                 />
@@ -101,7 +106,7 @@ export default function Solution({ route }) {
                         if ((!isChecked2) == true) { setCheckedTrue(2) }
                     }}
                     isChecked={isChecked2}
-                    leftText={"De (10% de la cantidad de notas totales + 1) a (20% de la cantidad de notas totales) de errores"}
+                    leftText={"De "+(calcularPorcentaje(10)+1).toString()+" a "+(calcularPorcentaje(20)).toString()+" de errores"}
                     checkedCheckBoxColor={TEXTHOME}
                     checkBoxColor={"black"}
                 />
@@ -111,7 +116,7 @@ export default function Solution({ route }) {
                         if ((!isChecked3) == true) { setCheckedTrue(3) }
                     }}
                     isChecked={isChecked3}
-                    leftText={"De (20% de la cantidad de notas totales + 1) a (40% de la cantidad de notas totales) de errores"}
+                    leftText={"De "+(calcularPorcentaje(20)+1).toString()+" a "+(calcularPorcentaje(40)).toString()+" de errores"}
                     checkedCheckBoxColor={TEXTHOME}
                     checkBoxColor={"black"}
                 />
@@ -121,7 +126,7 @@ export default function Solution({ route }) {
                         if ((!isChecked4) == true) { setCheckedTrue(4) }
                     }}
                     isChecked={isChecked4}
-                    leftText={"De (40% de la cantidad de notas totales + 1) a (65% de la cantidad de notas totales) de errores"}
+                    leftText={"De "+(calcularPorcentaje(40)+1).toString()+" a "+(calcularPorcentaje(65)).toString()+" de errores"}
                     checkedCheckBoxColor={TEXTHOME}
                     checkBoxColor={"black"}
                 />
@@ -131,7 +136,7 @@ export default function Solution({ route }) {
                         if ((!isChecked5) == true) { setCheckedTrue(5) }
                     }}
                     isChecked={isChecked5}
-                    leftText={"Más de (65% de la cantidad de notas totales + 1) de errores"}
+                    leftText={"Más de "+(calcularPorcentaje(65)+1).toString()+" de errores"}
                     checkedCheckBoxColor={TEXTHOME}
                     checkBoxColor={"black"}
                 />
@@ -148,9 +153,10 @@ export default function Solution({ route }) {
                 <Button 
                     // icon="camera" 
                     mode="contained" 
-                    onPress={() =>{} }> // https://callstack.github.io/react-native-paper/button.html#mode
+                    onPress={() =>{} }>
                         Terminar
                 </Button>
+                 {/* https://callstack.github.io/react-native-paper/button.html#mode */}
             </View>       
         </View>
     );
@@ -177,9 +183,10 @@ const styles = StyleSheet.create({
         height:'40%'
     },
     checkbox:{
+        alignSelf:'center',
         marginVertical:10,
         marginHorizontal:10,
-        width:'90%'
+        width:'70%'
     },
 
     popup: {
