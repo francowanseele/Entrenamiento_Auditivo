@@ -7,7 +7,7 @@ import { Button } from 'react-native-paper';
 
 export default function Solution({ route }) {
     const { dictation } = route.params;
-    const [cantNotas, setCantNotas ] = useState(100);
+    const [cantNotas, setCantNotas ] = useState(dictation.notas.length);
     const [ checkedTrue, setCheckedTrue] = useState(-1);
     const [ isChecked1, setIsChecked1 ] = useState(false);
     const [ isChecked2, setIsChecked2 ] = useState(false);
@@ -55,7 +55,7 @@ export default function Solution({ route }) {
                setIsChecked5(false)
                setIsChecked6(false)
             }else if (checkedTrue == 5) {
-                setIsChecked2(false)
+               setIsChecked2(false)
                setIsChecked3(false)
                setIsChecked4(false)
                setIsChecked1(false)
@@ -68,7 +68,10 @@ export default function Solution({ route }) {
                setIsChecked1(false)
             }
         }
-        useEffect(()=>{checkeAll()},[checkedTrue])
+
+        useEffect(()=>{
+            checkeAll()
+        },[checkedTrue])
 
         const calcularPorcentaje= (porcentaje) =>{
             return Math.trunc ( (cantNotas*porcentaje)/100 )
@@ -152,11 +155,11 @@ export default function Solution({ route }) {
                 />
                 <Button 
                     // icon="camera" 
+                    contentStyle={styles.button}
                     mode="contained" 
                     onPress={() =>{} }>
                         Terminar
                 </Button>
-                 {/* https://callstack.github.io/react-native-paper/button.html#mode */}
             </View>       
         </View>
     );
@@ -171,7 +174,7 @@ const styles = StyleSheet.create({
         height:'100%'
     },
     button:{
-        backgroundColor:'red'
+        backgroundColor:TEXTHOME
     },
     graficoContainer: {
         // paddingTop: 30,
