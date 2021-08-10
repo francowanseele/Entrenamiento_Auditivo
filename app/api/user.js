@@ -151,3 +151,33 @@ export const getUsuarioApi = (email,password) =>{
     });    
 
 }
+
+
+// Enviar a la api ejemplo:
+// {
+//     "email":"martin@hotmail.com",
+//     "id_dictado":"60da1135017a8f1f875dd686",
+//     "resuelto": {"fecha": "2021-06-28T18:13:09.041+00:00", "nota":12 }
+// }
+export const setAutoevaluacion = (email,id_dictado,notaResultado) =>{
+    const url = `${basePath}/set-nuevo-resultado`;
+    // console.log(email+id_dictado+notaResultado)    
+    const fecha = new Date();
+    const fechaFinal = fecha.toUTCString(); // "14/6/2020"
+    const params = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({"email":email, "id_dictado":id_dictado,"resuelto":{"fecha":fechaFinal,"nota":notaResultado} }) 
+    };
+    return fetch(url, params)
+    .then((response) => {
+        console.log(response)
+        if (response.status === 501) {
+            return null;
+        } else {
+            return true
+        }
+    })
+}
