@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         marginTop:15,
         backgroundColor:ITEMSHOME,
         flexDirection:'row',
-        width:'90%',
+        width:'97%',
         alignSelf:'center',
         borderRadius:10,
         shadowColor: '#470000',
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     subcontent:{
         borderWidth:1,
         backgroundColor:ITEMSHOME,
-        width:'80%',
+        width:'90%',
         alignSelf:'center',
         borderRadius:10,
     },

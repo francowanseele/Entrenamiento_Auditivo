@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Button, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ListItem, Icon } from 'react-native-elements';
 import {BACKGROUNDHOME, ITEMSHOME, TEXTHOME} from '../../styles/styleValues';
 import Loading from '../../components/Loading';
 import { generateDictationApi, getDictationApi } from '../../api/user';
 import { generateDictationFileApi } from '../../api/sound';
-import {LinearGradient} from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 import {
     getParams,
     getStorageItem,
     ID_CURRENT_CURSE,
     ID_USER,
 } from '../../../utils/asyncStorageManagement';
+import { set } from 'react-native-reanimated';
 // import { getNativeSourceAndFullInitialStatusForLoadAsync } from 'expo-av/build/AV';
 
 export default function ConfigDictation({ route }) {
     const navigation = useNavigation();
     const { configDictation, module } = route.params;
-    const [dictations, setDictations] = useState(null);
+    const [dictations, setDictations] = useState([]);
     const [ stateDict, setStateDict ] = useState('nuevo');
 
     const getTarjetas = (celulaRitmica) => {
@@ -108,6 +109,88 @@ export default function ConfigDictation({ route }) {
             compas.simple;
         });
     };
+    
+    const generarDictadoNuevo = () => {
+        getParams().then((d) => {
+            const idUser = d.id;
+            const logged = d.logged;
+            const email = d.email;
+            const isStudent = d.isStudent;
+            const idCourse = d.id_course;
+            const resGirosMelodicos = getGirosMelodicos(
+                configDictation.giro_melodico_regla
+            );
+            const data = {
+                tarjetas: getTarjetas(
+                    configDictation.celula_ritmica_regla
+                ),
+                nroCompases: configDictation.nro_compases,
+                compas: getCompas(configDictation.compas_regla),
+                simple: configDictation.simple
+                    ? 'simples'
+                    : 'compuestas',
+                notasRegla: resGirosMelodicos[0],
+                nivelPrioridadRegla: resGirosMelodicos[1],
+                intervaloNotas: getTesitura(
+                    configDictation.tesitura
+                ),
+                notasBase: configDictation.notas_inicio,
+                notasFin: configDictation.notas_fin,
+                nivelPrioridadClave: getPrioridadClave(
+                    configDictation.clave_prioridad
+                ),
+                escalaDiatonicaRegla: getEscalasDiatonicas(
+                    configDictation.escala_diatonica_regla
+                ),
+                notaBase: configDictation.nota_base,
+                bpm: configDictation.bpm
+                    ? configDictation.bpm
+                    : 128,
+                dictado_ritmico: configDictation.dictado_ritmico
+                    ? configDictation.dictado_ritmico
+                    : false,
+            };                      
+            generateDictationApi(
+                idUser,
+                idCourse,
+                module._id,
+                configDictation._id,
+                1,
+                data
+            ).then((resultDictation) => {
+                if (resultDictation.ok) {
+                    getDictationApi(
+                        idUser,
+                        configDictation._id
+                    ).then((resultNewDictation) => {
+                        if (resultNewDictation.ok) {
+                            setDictations(
+                                resultNewDictation.dictations
+                            );
+                            // dictations.push(resultNewDictation.dictations)
+                        } else {
+                            // TODO ERROR
+                            setDictations([]);
+                        }
+                    });
+                } else {
+                    // TODO Error
+                    // Mostrar cartel de que no se pudo generar ningún dictado si viene error 400
+                    if (resultDictation.issueConfig) {
+                        // Error de la configuración
+                        console.log(
+                            'Error de la configuración....'
+                        );
+                    } else {
+                        // Error del servidor
+                        console.log('Error del servidor.');
+                    }
+                    console.log('ERROR');
+                }
+            });
+        })
+    }
+        
 
     useEffect(() => {
         getParams().then((d) => {
@@ -152,7 +235,7 @@ export default function ConfigDictation({ route }) {
                             dictado_ritmico: configDictation.dictado_ritmico
                                 ? configDictation.dictado_ritmico
                                 : false,
-                        };
+                        };                      
                         generateDictationApi(
                             idUser,
                             idCourse,
@@ -190,15 +273,15 @@ export default function ConfigDictation({ route }) {
                                 console.log('ERROR');
                             }
                         });
-                    } else {
-                        setDictations(result.dictations);
+                    } else {        
+                        setDictations(result.dictations)
                     }
                 } else {
                     // TODO Error
                     setDictations([]);
                 }
             });
-        });
+        })
     }, []);
 
     const dictationIn = async (dictation) => {
@@ -248,33 +331,41 @@ export default function ConfigDictation({ route }) {
     if (!dictations) return <Loading isVisible={true} text="Cargando" />;
 
     return (
-        <ScrollView  style={styles.container} >
-            {dictations.map((dict, i) => (
-                <ListItem 
-                    containerStyle={styles.content}
-                    key={i}
-                    bottomDivider
-                    onPress={() => {
-                        dictationIn(dict);
-                    }}
-                >
-                    {/* <Icon name={item.icon} /> */}
-                    <ListItem.Content >
-                        <ListItem.Title style={styles.subtitle } >Dictado #{i}</ListItem.Title>
-                        <ListItem.Subtitle style={{color:'black'}} >
-                            Clave {dict.clave} | Escala diatónica{' '}
-                            {dict.escala_diatonica}                             
-                        </ListItem.Subtitle>
-                        { dict.resuelto[0] ? 
-                          <View style={styles.contentNota}> 
-                            <Text><Text style={getStyleByState(dict.resuelto[0])}>Última Calificación: {dict.resuelto[0].nota}</Text></Text>
-                          </View>:
-                         <Text></Text>  }
-                    </ListItem.Content>
-                    <ListItem.Chevron />
-                </ListItem>
-            ))}
-        </ScrollView>
+        <View style={styles.container}>
+            <ScrollView   >
+                {dictations.map((dict, i) => (
+                    <ListItem 
+                        containerStyle={styles.content}
+                        key={i}
+                        bottomDivider
+                        onPress={() => {
+                            dictationIn(dict);
+                        }}
+                    >
+                        {/* <Icon name={item.icon} /> */}
+                        <ListItem.Content >
+                            <ListItem.Title style={styles.subtitle } >Dictado #{i}</ListItem.Title>
+                            <ListItem.Subtitle style={{color:'black'}} >
+                                Clave {dict.clave} | Escala diatónica{' '}
+                                {dict.escala_diatonica}                             
+                            </ListItem.Subtitle>
+                            { dict.resuelto[0] ? 
+                            <View style={styles.contentNota}> 
+                                <Text><Text style={getStyleByState(dict.resuelto[dict.resuelto.length-1])}>Última Calificación: {dict.resuelto[dict.resuelto.length-1].nota}</Text></Text>
+                            </View>:
+                            <Text></Text>  }
+                        </ListItem.Content>
+                        <ListItem.Chevron />
+                    </ListItem>
+                ))}
+            </ScrollView>
+            <TouchableOpacity 
+                        style={styles.buttonContainer}                     
+                        onPress={()=>{ generarDictadoNuevo() }}
+                    >
+                        <Ionicons style={styles.button} name="md-add-circle-sharp" size={50} />
+            </TouchableOpacity>            
+        </View>
     );
 }
 
@@ -282,11 +373,19 @@ const styles = StyleSheet.create({
     container:{
         height:'100%'
     },
+    buttonContainer:{
+        alignItems:'center',
+        width:'100%',
+        margin:15
+    },
+    button:{        
+        color:TEXTHOME
+    },  
     content:{
         marginTop:10,
         backgroundColor:ITEMSHOME,
         flexDirection:'row',
-        width:'90%',
+        width:'96%',
         alignSelf:'center',
         borderRadius:10,
         shadowColor: '#470000',
@@ -311,7 +410,7 @@ const styles = StyleSheet.create({
         fontWeight:'bold'
     },
     notaGreen:{
-        color:TEXTHOME,
+        color:'#008000',
         alignSelf:'flex-start',
         borderRadius:100,
         fontWeight:'bold'

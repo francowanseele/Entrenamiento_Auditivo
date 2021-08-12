@@ -108,7 +108,7 @@ export default function UserGuest(props) {
                     <Tab.Screen name="Settings" component={ConfigRhythmic} />
                 </Tab.Navigator>
             </NavigationContainer> */}
-            <Button title="Entrar como docente" onPress={loginDoc} />
+            {/* <Button title="Entrar como docente" onPress={loginDoc} /> */}
             <View  style={styles.login}>  
                 <TextInput
                 style={styles.inputStyle}

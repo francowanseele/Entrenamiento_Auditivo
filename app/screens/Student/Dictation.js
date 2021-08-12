@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
@@ -7,6 +7,7 @@ import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/sty
 import { tramsitDictationApi } from '../../api/sound';
 import { getStorageItem, ID_USER } from '../../../utils/asyncStorageManagement';
 import Graphic from '../../components/Graphic';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function Dictation({ route }) {
     // ---------------------
@@ -14,14 +15,16 @@ export default function Dictation({ route }) {
     // ---------------------
     const { dictation } = route.params;
     const navigation = useNavigation();
+    const [ reproduciendo, setReproduciendo ] = useState(true)
 
-    const playDictado = async () => {
+    const playDictado = async () => {        
         // TODO -> id del usuario
         const id = await getStorageItem(ID_USER);
         const tran = await tramsitDictationApi(id);
 
         const { sound } = await Audio.Sound.createAsync({ uri: tran });
         await sound.playAsync();
+        setReproduciendo(false)
     };
 
     const openSolution = () => {
@@ -41,6 +44,7 @@ export default function Dictation({ route }) {
         }
         return claveTrans;
     };
+
 
     // console.log(dictation)
     return (
@@ -64,12 +68,27 @@ export default function Dictation({ route }) {
                 iconStyle={styles.iconPlay}
                 onPress={playDictado}
             />
+            {/* { reproduciendo == true ? <Ionicons 
+                name="md-stop-outline" 
+                size={styles.iconPlay} 
+                color="black" 
+                onPress={setReproduciendo(false)}
+                /> :  <Ionicons 
+                // name="play-outline" 
+                name="md-stop-outline"
+                style={styles.iconPlay} 
+                color="black" 
+                onPress={()=>{
+                    setReproduciendo(true);
+                    // playDictado();
+                }} />             
+            } */}
             <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={openSolution}
                     >
-                        <Text style={styles.textbutton}>Ver Solucion</Text>
+                        <Text style={styles.textbutton}>Ver Solución</Text>
                     </TouchableOpacity>
             </View>
            
@@ -80,7 +99,8 @@ export default function Dictation({ route }) {
 const styles = StyleSheet.create({
     iconPlay: {
         fontSize: 150,
-        marginTop: 100,
+        marginTop: 90,
+        
     },
     container:{
         alignItems: 'center',
@@ -101,11 +121,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
         height: '40%',
         alignItems:'center',
-        width:'30%'
+        width:'40%'
     },
     grafcio: {
         height: 200,
-        width: 2000,
+        width: 900,
     },
     textbutton:{
         color:TEXTHOME,

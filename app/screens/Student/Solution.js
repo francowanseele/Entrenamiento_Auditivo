@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Graphic from '../../components/Graphic';
 import { setAutoevaluacion } from '../../api/user';
 import {BACKGROUNDHOME,BACKGROUNDHOME2,ITEMSHOME, TEXTHOME, TOPSCREENHOME} from '../../styles/styleValues';
@@ -109,13 +109,13 @@ export default function Solution({ route }) {
                 setAutoevaluacion(currentUserMail,dictation._id,10)                
             }else if (checkedTrue == 2){
                 setAutoevaluacion(currentUserMail,dictation._id,8)
-            }else if (checkedTrue == 2){
-                setAutoevaluacion(currentUserMail,dictation._id,6)
             }else if (checkedTrue == 3){
-                setAutoevaluacion(currentUserMail,dictation._id,2)
+                setAutoevaluacion(currentUserMail,dictation._id,6)
             }else if (checkedTrue == 4){
-                setAutoevaluacion(currentUserMail,dictation._id,1)
+                setAutoevaluacion(currentUserMail,dictation._id,2)
             }else if (checkedTrue == 5){
+                setAutoevaluacion(currentUserMail,dictation._id,1)
+            }else if (checkedTrue == 6){
                 setAutoevaluacion(currentUserMail,dictation._id,0)
             }
         }

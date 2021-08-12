@@ -173,7 +173,7 @@ export const setAutoevaluacion = (email,id_dictado,notaResultado) =>{
     };
     return fetch(url, params)
     .then((response) => {
-        console.log(response)
+        // console.log(response)
         if (response.status === 501) {
             return null;
         } else {

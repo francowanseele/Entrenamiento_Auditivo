@@ -6,7 +6,7 @@ import Home from '../screens/Student/Home';
 import Dictation from '../screens/Student/Dictation';
 import Solution from '../screens/Student/Solution';
 import ConfigDictation from '../screens/Student/ConfigDictation';
-import {TOPSCREEN, TEXTHOME, TOPSCREENHOME } from '../styles/styleValues';
+import {TOPSCREEN, TEXTHOME,TABSCREENHOMETEXT, TOPSCREENHOME } from '../styles/styleValues';
 
 const Stack = createStackNavigator();
 
@@ -29,7 +29,7 @@ export default function () {
                 name="home"
                 component={Home}
                 options={{
-                    title: 'Curso XX',
+                    title: 'Curso',
                     headerStyle: {
                       backgroundColor: TOPSCREENHOME
                     },
@@ -44,7 +44,7 @@ export default function () {
                 name="config_dictation"
                 component={ConfigDictation}
                 options={{
-                    title: 'Configuración dictado XX' ,
+                    title: 'Dictados' ,
                     headerStyle: {
                       backgroundColor: TOPSCREENHOME,
                     },
@@ -59,7 +59,7 @@ export default function () {
                 name="dictation"
                 component={Dictation}
                 options={{
-                    title: 'Dictado XX' ,
+                    title: 'Dictado' ,
                     headerStyle: {
                       backgroundColor: TOPSCREENHOME,
                     },
