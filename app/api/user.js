@@ -159,9 +159,9 @@ export const getUsuarioApi = (email,password) =>{
 //     "id_dictado":"60da1135017a8f1f875dd686",
 //     "resuelto": {"fecha": "2021-06-28T18:13:09.041+00:00", "nota":12 }
 // }
-export const setAutoevaluacion = (email,id_dictado,notaResultado) =>{
+export const setAutoevaluacion = (email,id_dictado,notaResultado,tipoError) =>{
     const url = `${basePath}/set-nuevo-resultado`;
-    // console.log(email+id_dictado+notaResultado)    
+    // console.log(email+id_dictado+notaResultado+tipoError)    
     const fecha = new Date();
     const fechaFinal = fecha.toUTCString(); // "14/6/2020"
     const params = {
@@ -169,7 +169,7 @@ export const setAutoevaluacion = (email,id_dictado,notaResultado) =>{
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({"email":email, "id_dictado":id_dictado,"resuelto":{"fecha":fechaFinal,"nota":notaResultado} }) 
+        body: JSON.stringify({"email":email, "id_dictado":id_dictado,"resuelto":{"fecha":fechaFinal,"nota":notaResultado, "tipoError":tipoError} }) 
     };
     return fetch(url, params)
     .then((response) => {

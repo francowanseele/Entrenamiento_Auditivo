@@ -1,27 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Modal, Text } from 'react-native';
 import Graphic from '../../components/Graphic';
 import { setAutoevaluacion } from '../../api/user';
 import {BACKGROUNDHOME,BACKGROUNDHOME2,ITEMSHOME, TEXTHOME, TOPSCREENHOME} from '../../styles/styleValues';
 import CheckBox from 'react-native-check-box';
-import { Button } from 'react-native-paper';
+// import { Button } from 'react-native-paper';
+import { Button } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { getStorageItem } from '../../../utils/asyncStorageManagement';
-import { registerCustomIconType } from 'react-native-elements';
 
 
 export default function Solution({ route }) {
     const { dictation } = route.params;
     const [cantNotas, setCantNotas ] = useState(dictation.notas.length);
-    const [ checkedTrue, setCheckedTrue] = useState(-1);
-    const [ isChecked0, setIsChecked0 ] = useState(false);
-    const [ isChecked1, setIsChecked1 ] = useState(false);
-    const [ isChecked2, setIsChecked2 ] = useState(false);
-    const [ isChecked3, setIsChecked3 ] = useState(false);
-    const [ isChecked4, setIsChecked4 ] = useState(false);
-    const [ isChecked5, setIsChecked5 ] = useState(false);
-    const [ isChecked6, setIsChecked6 ] = useState(false);
+    const [ evaluacionNota, setevaluacionNota] = useState(-1);
     const [ currentUserMail, setCurrentUserEmail] = useState();
+    const [modalVisible, setModalVisible ] = useState(false);
 
     const navigation = useNavigation();
 
@@ -37,87 +31,21 @@ export default function Solution({ route }) {
         }
         return claveTrans;
     };
-        
-        const checkeAll = () => {
-            if (checkedTrue == 0){
-                setIsChecked1(false)
-                setIsChecked2(false)
-                setIsChecked3(false)
-                setIsChecked4(false)
-                setIsChecked5(false)
-                setIsChecked6(false)     
-            }else if (checkedTrue == 1){
-               setIsChecked0(false)
-               setIsChecked2(false)
-               setIsChecked3(false)
-               setIsChecked4(false)
-               setIsChecked5(false)
-               setIsChecked6(false)
-            }else if (checkedTrue == 2) {
-                setIsChecked0(false)
-                setIsChecked1(false)
-               setIsChecked3(false)
-               setIsChecked4(false)
-               setIsChecked5(false)
-               setIsChecked6(false)
-            }else if (checkedTrue == 3) {
-                setIsChecked0(false)
-                setIsChecked2(false)
-               setIsChecked1(false)
-               setIsChecked4(false)
-               setIsChecked5(false)
-               setIsChecked6(false)
-            }else if (checkedTrue == 4) {
-                setIsChecked0(false)
-                setIsChecked2(false)
-               setIsChecked3(false)
-               setIsChecked1(false)
-               setIsChecked5(false)
-               setIsChecked6(false)
-            }else if (checkedTrue == 5) {
-                setIsChecked0(false)
-               setIsChecked2(false)
-               setIsChecked3(false)
-               setIsChecked4(false)
-               setIsChecked1(false)
-               setIsChecked6(false)
-            }else if (checkedTrue == 6) {
-                setIsChecked0(false)
-                setIsChecked2(false)
-               setIsChecked3(false)
-               setIsChecked4(false)
-               setIsChecked5(false)
-               setIsChecked1(false)
-            }
-        }
 
         useEffect(()=>{
             getStorageItem('email').then((email)=>{
                 setCurrentUserEmail(email);
             });            
-            checkeAll()
-        },[checkedTrue])
+        },[])
 
         const calcularPorcentaje= (porcentaje) =>{
             return Math.trunc ( (cantNotas*porcentaje)/100 )
         }
-        const calcularResultado = () =>{            
-            if ( checkedTrue == 0 ){
-                setAutoevaluacion(currentUserMail,dictation._id,12)
-            }
-            else if (checkedTrue == 1){
-                setAutoevaluacion(currentUserMail,dictation._id,10)                
-            }else if (checkedTrue == 2){
-                setAutoevaluacion(currentUserMail,dictation._id,8)
-            }else if (checkedTrue == 3){
-                setAutoevaluacion(currentUserMail,dictation._id,6)
-            }else if (checkedTrue == 4){
-                setAutoevaluacion(currentUserMail,dictation._id,2)
-            }else if (checkedTrue == 5){
-                setAutoevaluacion(currentUserMail,dictation._id,1)
-            }else if (checkedTrue == 6){
-                setAutoevaluacion(currentUserMail,dictation._id,0)
-            }
+        const calcularResultado = (tipoError) =>{            
+            setAutoevaluacion(currentUserMail,dictation._id,evaluacionNota,tipoError).then(()=>{
+                navigation.goBack();
+            })
+            
         }
           
     return (
@@ -134,98 +62,119 @@ export default function Solution({ route }) {
                        isNotaReferencia={false}
                     />
             </View>
-            <View style={styles.checkboxContainer}>
-                <CheckBox
-                        style={styles.checkbox}
-                        onClick={()=>{
-                                setIsChecked0(!isChecked0)
-                                if ((!isChecked0) == true) { setCheckedTrue(0) }
-                                else { setCheckedTrue(-1) }  
-                            }}
-                        isChecked={isChecked0}
-                        leftText={"No tuviste errores"}
-                        checkedCheckBoxColor={TEXTHOME}
-                        checkBoxColor={"black"}
-                    />              
-                 <CheckBox
-                    style={styles.checkbox}
-                    onClick={()=>{
-                            setIsChecked1(!isChecked1)
-                            if ((!isChecked1) == true) { setCheckedTrue(1) }
-                            else { setCheckedTrue(-1) }  
-                        }}
-                    isChecked={isChecked1}
-                    leftText={"De 1 a "+calcularPorcentaje(10).toString()+" de errores"}
-                    checkedCheckBoxColor={TEXTHOME}
-                    checkBoxColor={"black"}
-                />
-                 <CheckBox
-                    style={styles.checkbox}
-                    onClick={()=>{setIsChecked2(!isChecked2)
-                        if ((!isChecked2) == true) { setCheckedTrue(2) }
-                        else { setCheckedTrue(-1) }  
+            <View style={styles.checkboxContainer}>              
+                <Button
+                    title={"No tuviste errores"}
+                    type="outline"
+                    titleStyle={{color:TEXTHOME}}
+                    containerStyle={styles.button}
+                    onPress={()=>{
+                        setevaluacionNota(12)
+                        setModalVisible(true)                       
                     }}
-                    isChecked={isChecked2}
-                    leftText={"De "+(calcularPorcentaje(10)+1).toString()+" a "+(calcularPorcentaje(20)).toString()+" de errores"}
-                    checkedCheckBoxColor={TEXTHOME}
-                    checkBoxColor={"black"}
-                />
-                 <CheckBox
-                    style={styles.checkbox}
-                    onClick={()=>{setIsChecked3(!isChecked3)
-                        if ((!isChecked3) == true) { setCheckedTrue(3) }
-                        else { setCheckedTrue(-1) }  
+                />  
+                <Button
+                    title={"De 1 a "+calcularPorcentaje(10).toString()+" de errores"}
+                    type="outline"
+                    titleStyle={{color:TEXTHOME}}
+                    containerStyle={styles.button}
+                    onPress={()=>{
+                        setevaluacionNota(10)
+                        setModalVisible(true)
                     }}
-                    isChecked={isChecked3}
-                    leftText={"De "+(calcularPorcentaje(20)+1).toString()+" a "+(calcularPorcentaje(40)).toString()+" de errores"}
-                    checkedCheckBoxColor={TEXTHOME}
-                    checkBoxColor={"black"}
-                />
-                 <CheckBox
-                    style={styles.checkbox}
-                    onClick={()=>{setIsChecked4(!isChecked4)
-                        if ((!isChecked4) == true) { setCheckedTrue(4) }
-                        else { setCheckedTrue(-1) }  
+                />  
+                <Button
+                    title={"De "+(calcularPorcentaje(10)+1).toString()+" a "+(calcularPorcentaje(20)).toString()+" de errores"}
+                    type="outline"
+                    titleStyle={{color:TEXTHOME}}
+                    containerStyle={styles.button}
+                    onPress={()=>{
+                        setevaluacionNota(8)
+                        setModalVisible(true)
                     }}
-                    isChecked={isChecked4}
-                    leftText={"De "+(calcularPorcentaje(40)+1).toString()+" a "+(calcularPorcentaje(65)).toString()+" de errores"}
-                    checkedCheckBoxColor={TEXTHOME}
-                    checkBoxColor={"black"}
-                />
-                 <CheckBox
-                    style={styles.checkbox}
-                    onClick={()=>{setIsChecked5(!isChecked5)
-                        if ((!isChecked5) == true) { setCheckedTrue(5) }
-                        else { setCheckedTrue(-1) }  
+                />  
+                <Button
+                    title={"De "+(calcularPorcentaje(20)+1).toString()+" a "+(calcularPorcentaje(40)).toString()+" de errores"}
+                    type="outline"
+                    titleStyle={{color:TEXTHOME}}
+                    containerStyle={styles.button}
+                    onPress={()=>{
+                        setevaluacionNota(6)
+                        setModalVisible(true)
                     }}
-                    isChecked={isChecked5}
-                    leftText={"Más de "+(calcularPorcentaje(65)+1).toString()+" de errores"}
-                    checkedCheckBoxColor={TEXTHOME}
-                    checkBoxColor={"black"}
-                />
-                  <CheckBox
-                    style={styles.checkbox}
-                    onClick={()=>{setIsChecked6(!isChecked6)
-                        if ((!isChecked6) == true) { setCheckedTrue(6) }
-                        else { setCheckedTrue(-1) }  
+                />  
+                <Button
+                    title={"De "+(calcularPorcentaje(40)+1).toString()+" a "+(calcularPorcentaje(65)).toString()+" de errores"}
+                    type="outline"
+                    titleStyle={{color:TEXTHOME}}
+                    containerStyle={styles.button}
+                    onPress={()=>{
+                        setevaluacionNota(2)
+                        setModalVisible(true)
                     }}
-                    isChecked={isChecked6}
-                    leftText={"Todas Incorrectas"}
-                    checkedCheckBoxColor={TEXTHOME}
-                    checkBoxColor={"black"}
-                />
-                <Button 
-                    // icon="camera" 
-                    disabled={(checkedTrue == -1)}
-                    contentStyle={styles.button}
-                    mode="contained" 
-                    onPress={() =>{
-                       calcularResultado()
-                       navigation.goBack()
-                    } 
-                }>
-                        Terminar
-                </Button>
+                />  
+                <Button
+                    title={"Más de "+(calcularPorcentaje(65)+1).toString()+" de errores"}
+                    titleStyle={{color:TEXTHOME}}
+                    type="outline"
+                    containerStyle={styles.button}
+                    onPress={()=>{
+                        setevaluacionNota(1)
+                        setModalVisible(true)
+                    }               
+                    }
+                />  
+                <Button
+                    title={"Todas incorrectas"}
+                    titleStyle={{color:TEXTHOME}}
+                    type="outline"
+                    containerStyle={styles.button}
+                    onPress={()=>{
+                        setevaluacionNota(0)
+                        setModalVisible(true)
+                    }} 
+                 />             
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                    }}
+                >
+                    <View style={styles.modalView}> 
+                        <Text style={{marginBottom:10}}>Qué tipos de errores tuviste?</Text>
+                        <View style={{flexDirection:'row'}}>                        
+                            <Button
+                                title={"Ritmicos"}
+                                titleStyle={{color:TEXTHOME}}
+                                type="outline"
+                                containerStyle={styles.buttonModal}
+                                onPress={()=>{
+                                    calcularResultado('ritmico')
+                                }} 
+                                />
+                            <Button
+                                title={"Melodicos"}
+                                titleStyle={{color:TEXTHOME}}
+                                type="outline"
+                                containerStyle={styles.buttonModal}
+                                onPress={()=>{
+                                    calcularResultado('melodico')
+                                }} 
+                            />
+                            <Button
+                                title={"Ambos"}
+                                titleStyle={{color:TEXTHOME}}
+                                type="outline"
+                                containerStyle={styles.buttonModal}
+                                onPress={()=>{
+                                    calcularResultado('ambos')
+                            }} 
+                            />    
+                        </View>
+                    </View>
+                </Modal>
             </View>       
         </View>
     );
@@ -239,11 +188,34 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height:'100%'
     },
+    modalView: {
+        flexDirection:'column',
+        marginTop:'95%',
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+      },
     button:{
-        backgroundColor:TEXTHOME
+        margin:3,
+        width:'90%',
+        alignSelf:'center',
+    },
+    buttonModal:{
+        margin:3,
+        width:'35%',
+        alignSelf:'center',
     },
     graficoContainer: {
-        // paddingTop: 30,
         paddingHorizontal: 5,
         height: '30%',
     },
@@ -257,7 +229,6 @@ const styles = StyleSheet.create({
         marginHorizontal:10,
         width:'70%'
     },
-
     popup: {
         width: '75%',
         height: '70%',
