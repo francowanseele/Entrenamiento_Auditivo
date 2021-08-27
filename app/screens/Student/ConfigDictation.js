@@ -146,9 +146,11 @@ export default function ConfigDictation({ route }) {
                                 configDictation.escala_diatonica_regla
                             ),
                             notaBase: configDictation.nota_base,
-                            bpm: configDictation.bpm
-                                ? configDictation.bpm
-                                : 128,
+                            bpm:
+                                configDictation.bpm.menor &&
+                                configDictation.bpm.mayor
+                                    ? configDictation.bpm
+                                    : { menor: 128, mayor: 128 },
                             dictado_ritmico: configDictation.dictado_ritmico
                                 ? configDictation.dictado_ritmico
                                 : false,
@@ -159,7 +161,8 @@ export default function ConfigDictation({ route }) {
                             module._id,
                             configDictation._id,
                             5,
-                            data
+                            data,
+                            false
                         ).then((resultDictation) => {
                             if (resultDictation.ok) {
                                 getDictationApi(

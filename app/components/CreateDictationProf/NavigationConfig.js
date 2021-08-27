@@ -31,6 +31,8 @@ export default function NavigationConfig(props) {
         setAddCompas,
         setEditCompas_regla,
         setEditCelula_ritmica,
+        setMayor,
+        mayor,
         refRBSheet_Clave,
         refRBSheet_Tonalidad,
         refRBSheet_NotesStartEnd,
@@ -38,6 +40,11 @@ export default function NavigationConfig(props) {
         refRBSheet_Compas,
         refRBSheet_CelulaRitmica,
         refRBSheet_BPM,
+        okStartNotes,
+        okEndNotes,
+        okClefs,
+        okTonality,
+        okReferenceNote,
     } = props;
 
     return (
@@ -55,11 +62,18 @@ export default function NavigationConfig(props) {
                         setNotesStart={setNotesStart}
                         setGiro_melodico_reglaEdit={setGiro_melodico_reglaEdit}
                         setClaveEdit={setClaveEdit}
+                        setMayor={setMayor}
+                        mayor={mayor}
                         refRBSheet_GiroMelodico={refRBSheet_GiroMelodico}
                         refRBSheet_NotesStartEnd={refRBSheet_NotesStartEnd}
                         refRBSheet_Clave={refRBSheet_Clave}
                         refRBSheet_Tonalidad={refRBSheet_Tonalidad}
                         refRBSheet_Reference={refRBSheet_Reference}
+                        okStartNotes={okStartNotes}
+                        okEndNotes={okEndNotes}
+                        okClefs={okClefs}
+                        okTonality={okTonality}
+                        okReferenceNote={okReferenceNote}
                     />
                 )}
             />

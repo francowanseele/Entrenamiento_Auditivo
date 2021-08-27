@@ -10,9 +10,13 @@ import {
 } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {
+    BACKGROUND_COLOR_RIGHT,
     BACKGROUND_COLOR_WRONG,
+    BORDER_COLOR_RIGHT,
     BORDER_COLOR_WRONG,
+    FIFTH_COLOR,
     PRIMARY_COLOR,
+    TEXT_COLOR_RIGHT,
     TEXT_COLOR_WORNING,
     TEXT_COLOR_WRONG,
 } from '../../../utils/colorPalette';
@@ -103,7 +107,7 @@ export default function BottomSheetCelulaRitmica(props) {
                         checked: index != -1,
                         prioridad:
                             index == -1
-                                ? 1
+                                ? 0
                                 : celula_ritmica_regla[index].prioridad,
                     });
                 });
@@ -127,7 +131,10 @@ export default function BottomSheetCelulaRitmica(props) {
         var index = listAllCR.findIndex((x) => x.figuras == cr.figuras);
 
         let g = listAllCR[index];
+
         g['prioridad'] = prio;
+        g['prioridad'] == 0 ? (g['checked'] = false) : (g['checked'] = true);
+
         if (index === -1) {
             // TODO: handle error
             console.log('no match');
@@ -140,23 +147,85 @@ export default function BottomSheetCelulaRitmica(props) {
         }
     };
 
-    const checkedCelulaRitmica = (cr) => {
+    const checkedCelulaRitmica = async (cr) => {
         var index = listAllCR.findIndex(
             (x) => x.figuras == cr.figuras && x.simple == cr.simple
         );
 
         let g = listAllCR[index];
+
         g['checked'] = !g['checked'];
+        g['checked'] ? (g['prioridad'] = 1) : (g['prioridad'] = 0);
+        setRenderSlider(false);
         if (index === -1) {
             // TODO: handle error
             console.log('no match');
         } else {
-            setListAllCR([
+            await setListAllCR([
                 ...listAllCR.slice(0, index),
                 g,
                 ...listAllCR.slice(index + 1),
             ]);
         }
+        setRenderSlider(true);
+    };
+
+    const getFigure = (figs) => {
+        const arrFigs = figs.split('-');
+        var arr = [];
+        arrFigs.forEach((f) => {
+            switch (f) {
+                case '1':
+                    arr.push('music-note-whole');
+                    break;
+                case '2':
+                    arr.push('music-note-half');
+                    break;
+                case 'd2':
+                    arr.push('music-note-half-dotted');
+                    break;
+                case '4':
+                    arr.push('music-note-quarter');
+                    break;
+                case 'd4':
+                    arr.push('music-note-quarter-dotted');
+                    break;
+                case '8':
+                    arr.push('music-note-eighth');
+                    break;
+                case 'd8':
+                    arr.push('music-note-eighth-dotted');
+                    break;
+                case '16':
+                    arr.push('music-note-sixteenth');
+                    break;
+                case 'd16':
+                    arr.push('music-note-sixteenth-dotted');
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        return (
+            <View
+                style={{
+                    flexDirection: 'row',
+                    borderStyle: 'solid',
+                    borderWidth: 1,
+                    borderRadius: 5,
+                }}
+            >
+                {arr.map((icon, i) => (
+                    <Icon
+                        key={i}
+                        name={icon}
+                        type="material-community"
+                        iconStyle={{ fontSize: 30 }}
+                    />
+                ))}
+            </View>
+        );
     };
 
     return (
@@ -227,7 +296,7 @@ export default function BottomSheetCelulaRitmica(props) {
                                     <View>
                                         {add ? (
                                             <CheckBox
-                                                title={`Célula rítmica ${cr.figuras}`}
+                                                title={getFigure(cr.figuras)}
                                                 checkedIcon="dot-circle-o"
                                                 uncheckedIcon="circle-o"
                                                 checked={cr.checked}
@@ -235,15 +304,50 @@ export default function BottomSheetCelulaRitmica(props) {
                                                     styles.containerCheckbox
                                                 }
                                                 textStyle={styles.textCheckbox}
+                                                iconRight
                                                 onPress={() =>
                                                     checkedCelulaRitmica(cr)
                                                 }
+                                                checkedIcon={
+                                                    <Icon
+                                                        name="check-circle"
+                                                        type="material-community"
+                                                        color={TEXT_COLOR_RIGHT}
+                                                        containerStyle={
+                                                            styles.containerCheckChecked
+                                                        }
+                                                    />
+                                                }
+                                                uncheckedIcon={
+                                                    <Icon
+                                                        name="check-circle"
+                                                        type="material-community"
+                                                        color={'grey'}
+                                                        containerStyle={
+                                                            styles.containerCheckUnchecked
+                                                        }
+                                                    />
+                                                }
                                             />
                                         ) : (
+                                            // <CheckBox
+                                            //     title={`Célula rítmica ${cr.figuras}`}
+                                            //     checkedIcon="dot-circle-o"
+                                            //     uncheckedIcon="circle-o"
+                                            //     checked={cr.checked}
+                                            //     containerStyle={
+                                            //         styles.containerCheckbox
+                                            //     }
+                                            //     textStyle={styles.textCheckbox}
+                                            //     onPress={() =>
+                                            //         checkedCelulaRitmica(cr)
+                                            //     }
+                                            // />
                                             <View
                                                 style={{
                                                     flexDirection: 'row',
                                                     paddingRight: 20,
+                                                    marginTop: 10,
                                                 }}
                                             >
                                                 <Text
@@ -253,7 +357,9 @@ export default function BottomSheetCelulaRitmica(props) {
                                                         marginLeft: 20,
                                                         width: '70%',
                                                     }}
-                                                >{`Célula rítmica ${cr.figuras}`}</Text>
+                                                >
+                                                    {getFigure(cr.figuras)}
+                                                </Text>
                                                 <Button
                                                     icon={
                                                         <Icon
@@ -416,5 +522,23 @@ const styles = StyleSheet.create({
     textCheckbox: {
         fontSize: 18,
         fontWeight: 'bold',
+    },
+    containerCheckChecked: {
+        backgroundColor: BACKGROUND_COLOR_RIGHT,
+        padding: 5,
+        marginHorizontal: 10,
+        borderStyle: 'solid',
+        borderColor: BORDER_COLOR_RIGHT,
+        borderWidth: 3,
+        borderRadius: 5,
+    },
+    containerCheckUnchecked: {
+        backgroundColor: FIFTH_COLOR,
+        padding: 5,
+        marginHorizontal: 10,
+        borderStyle: 'solid',
+        borderColor: 'lightgrey',
+        borderWidth: 3,
+        borderRadius: 5,
     },
 });

@@ -11,15 +11,15 @@ export default function () {
             <Stack.Screen
                 name="profileprof"
                 component={ProfileProf}
-                options={{ 
-                title: 'Perfil Docente',
-                headerStyle: {
-                    backgroundColor: TOPSCREENHOME,
-                  },
-                  headerTintColor: '#fff',
-                  headerTitleStyle: {
-                    fontWeight: 'bold',
-                  }, 
+                options={{
+                    title: 'Perfil Docente',
+                    headerStyle: {
+                        backgroundColor: TOPSCREENHOME,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
                 }}
             />
         </Stack.Navigator>

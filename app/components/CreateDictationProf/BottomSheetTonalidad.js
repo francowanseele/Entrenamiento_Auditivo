@@ -1,8 +1,22 @@
 import React, { useState } from 'react';
 import { StyleSheet, ScrollView, View, Text, Animated } from 'react-native';
-import { ListItem, Icon, Slider, Button, Divider } from 'react-native-elements';
+import {
+    ListItem,
+    Icon,
+    Slider,
+    Button,
+    Divider,
+    CheckBox,
+} from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { set } from 'react-native-reanimated';
+import {
+    BACKGROUND_COLOR_RIGHT,
+    BORDER_COLOR_RIGHT,
+    FIFTH_COLOR,
+    PRIMARY_COLOR,
+    TEXT_COLOR_RIGHT,
+} from '../../../utils/colorPalette';
 
 import Keyboard from './Keyboard';
 
@@ -13,73 +27,73 @@ export default function BottomSheetTonalidad(props) {
     const [renderSlider, setRenderSlider] = useState(false);
 
     // states -> escalas diatonicas
-    const [Do, setDo] = useState(1);
-    const [Sol, setSol] = useState(1);
-    const [Re, setRe] = useState(1);
-    const [La, setLa] = useState(1);
-    const [Mi, setMi] = useState(1);
-    const [Si, setSi] = useState(1);
-    const [FaS, setFaS] = useState(1);
-    const [Solb, setSolb] = useState(1);
-    const [Reb, setReb] = useState(1);
-    const [Lab, setLab] = useState(1);
-    const [Mib, setMib] = useState(1);
-    const [Sib, setSib] = useState(1);
-    const [Fa, setFa] = useState(1);
+    const [Do, setDo] = useState({ prioridad: 1, checked: true });
+    const [Sol, setSol] = useState({ prioridad: 1, checked: true });
+    const [Re, setRe] = useState({ prioridad: 1, checked: true });
+    const [La, setLa] = useState({ prioridad: 1, checked: true });
+    const [Mi, setMi] = useState({ prioridad: 1, checked: true });
+    const [Si, setSi] = useState({ prioridad: 1, checked: true });
+    const [FaS, setFaS] = useState({ prioridad: 1, checked: true });
+    const [Solb, setSolb] = useState({ prioridad: 1, checked: true });
+    const [Reb, setReb] = useState({ prioridad: 1, checked: true });
+    const [Lab, setLab] = useState({ prioridad: 1, checked: true });
+    const [Mib, setMib] = useState({ prioridad: 1, checked: true });
+    const [Sib, setSib] = useState({ prioridad: 1, checked: true });
+    const [Fa, setFa] = useState({ prioridad: 1, checked: true });
 
     const confirmation = () => {
         var escalaDiatonicaRes = [
             {
                 escala_diatonica: 'Do',
-                prioridad: Do,
+                prioridad: Do.prioridad,
             },
             {
                 escala_diatonica: 'Sol',
-                prioridad: Sol,
+                prioridad: Sol.prioridad,
             },
             {
                 escala_diatonica: 'Re',
-                prioridad: Re,
+                prioridad: Re.prioridad,
             },
             {
                 escala_diatonica: 'La',
-                prioridad: La,
+                prioridad: La.prioridad,
             },
             {
                 escala_diatonica: 'Mi',
-                prioridad: Mi,
+                prioridad: Mi.prioridad,
             },
             {
                 escala_diatonica: 'Si',
-                prioridad: Si,
+                prioridad: Si.prioridad,
             },
             {
                 escala_diatonica: 'Fa#',
-                prioridad: FaS,
+                prioridad: FaS.prioridad,
             },
             {
                 escala_diatonica: 'Solb',
-                prioridad: Solb,
+                prioridad: Solb.prioridad,
             },
             {
                 escala_diatonica: 'Reb',
-                prioridad: Reb,
+                prioridad: Reb.prioridad,
             },
             {
                 escala_diatonica: 'Lab',
-                prioridad: Lab,
+                prioridad: Lab.prioridad,
             },
             {
                 escala_diatonica: 'Mib',
-                prioridad: Mib,
+                prioridad: Mib.prioridad,
             },
             {
                 escala_diatonica: 'Sib',
-                prioridad: Sib,
+                prioridad: Sib.prioridad,
             },
             {
                 escala_diatonica: 'Fa',
-                prioridad: Fa,
+                prioridad: Fa.prioridad,
             },
         ];
 
@@ -93,43 +107,82 @@ export default function BottomSheetTonalidad(props) {
         escala_diatonica_regla.forEach((escala) => {
             switch (escala.escala_diatonica) {
                 case 'Do':
-                    setDo(escala.prioridad);
+                    setDo({
+                        prioridad: escala.prioridad,
+                        checked: escala.prioridad != 0,
+                    });
                     break;
                 case 'Sol':
-                    setSol(escala.prioridad);
+                    setSol({
+                        prioridad: escala.prioridad,
+                        checked: escala.prioridad != 0,
+                    });
                     break;
                 case 'Re':
-                    setRe(escala.prioridad);
+                    setRe({
+                        prioridad: escala.prioridad,
+                        checked: escala.prioridad != 0,
+                    });
                     break;
                 case 'La':
-                    setLa(escala.prioridad);
+                    setLa({
+                        prioridad: escala.prioridad,
+                        checked: escala.prioridad != 0,
+                    });
                     break;
                 case 'Mi':
-                    setMi(escala.prioridad);
+                    setMi({
+                        prioridad: escala.prioridad,
+                        checked: escala.prioridad != 0,
+                    });
                     break;
                 case 'Si':
-                    setSi(escala.prioridad);
+                    setSi({
+                        prioridad: escala.prioridad,
+                        checked: escala.prioridad != 0,
+                    });
                     break;
                 case 'Fa#':
-                    setFaS(escala.prioridad);
+                    setFaS({
+                        prioridad: escala.prioridad,
+                        checked: escala.prioridad != 0,
+                    });
                     break;
                 case 'Solb':
-                    setSolb(escala.prioridad);
+                    setSolb({
+                        prioridad: escala.prioridad,
+                        checked: escala.prioridad != 0,
+                    });
                     break;
                 case 'Reb':
-                    setReb(escala.prioridad);
+                    setReb({
+                        prioridad: escala.prioridad,
+                        checked: escala.prioridad != 0,
+                    });
                     break;
                 case 'Lab':
-                    setLab(escala.prioridad);
+                    setLab({
+                        prioridad: escala.prioridad,
+                        checked: escala.prioridad != 0,
+                    });
                     break;
                 case 'Mib':
-                    setMib(escala.prioridad);
+                    setMib({
+                        prioridad: escala.prioridad,
+                        checked: escala.prioridad != 0,
+                    });
                     break;
                 case 'Sib':
-                    setSib(escala.prioridad);
+                    setSib({
+                        prioridad: escala.prioridad,
+                        checked: escala.prioridad != 0,
+                    });
                     break;
                 case 'Fa':
-                    setFa(escala.prioridad);
+                    setFa({
+                        prioridad: escala.prioridad,
+                        checked: escala.prioridad != 0,
+                    });
                     break;
 
                 default:
@@ -143,43 +196,43 @@ export default function BottomSheetTonalidad(props) {
     const setPriority = (escala, prio) => {
         switch (escala) {
             case 'Do':
-                setDo(prio);
+                setDo({ prioridad: prio, checked: prio != 0 });
                 break;
             case 'Sol':
-                setSol(prio);
+                setSol({ prioridad: prio, checked: prio != 0 });
                 break;
             case 'Re':
-                setRe(prio);
+                setRe({ prioridad: prio, checked: prio != 0 });
                 break;
             case 'La':
-                setLa(prio);
+                setLa({ prioridad: prio, checked: prio != 0 });
                 break;
             case 'Mi':
-                setMi(prio);
+                setMi({ prioridad: prio, checked: prio != 0 });
                 break;
             case 'Si':
-                setSi(prio);
+                setSi({ prioridad: prio, checked: prio != 0 });
                 break;
             case 'Fa#':
-                setFaS(prio);
+                setFaS({ prioridad: prio, checked: prio != 0 });
                 break;
             case 'Solb':
-                setSolb(prio);
+                setSolb({ prioridad: prio, checked: prio != 0 });
                 break;
             case 'Reb':
-                setReb(prio);
+                setReb({ prioridad: prio, checked: prio != 0 });
                 break;
             case 'Lab':
-                setLab(prio);
+                setLab({ prioridad: prio, checked: prio != 0 });
                 break;
             case 'Mib':
-                setMib(prio);
+                setMib({ prioridad: prio, checked: prio != 0 });
                 break;
             case 'Sib':
-                setSib(prio);
+                setSib({ prioridad: prio, checked: prio != 0 });
                 break;
             case 'Fa':
-                setFa(prio);
+                setFa({ prioridad: prio, checked: prio != 0 });
                 break;
 
             default:
@@ -190,34 +243,121 @@ export default function BottomSheetTonalidad(props) {
     const getPriority = (escala) => {
         switch (escala) {
             case 'Do':
-                return Do;
+                return Do.prioridad;
             case 'Sol':
-                return Sol;
+                return Sol.prioridad;
             case 'Re':
-                return Re;
+                return Re.prioridad;
             case 'La':
-                return La;
+                return La.prioridad;
             case 'Mi':
-                return Mi;
+                return Mi.prioridad;
             case 'Si':
-                return Si;
+                return Si.prioridad;
             case 'Fa#':
-                return FaS;
+                return FaS.prioridad;
             case 'Solb':
-                return Solb;
+                return Solb.prioridad;
             case 'Reb':
-                return Reb;
+                return Reb.prioridad;
             case 'Lab':
-                return Lab;
+                return Lab.prioridad;
             case 'Mib':
-                return Mib;
+                return Mib.prioridad;
             case 'Sib':
-                return Sib;
+                return Sib.prioridad;
             case 'Fa':
-                return Fa;
+                return Fa.prioridad;
 
             default:
-                return 0;
+                break;
+        }
+    };
+
+    const checkedEscala = async (escala) => {
+        var chck;
+        switch (escala) {
+            case 'Do':
+                chck = !Do.checked;
+                setRenderSlider(false);
+                await setDo({ prioridad: chck ? 1 : 0, checked: chck });
+                setRenderSlider(true);
+                break;
+            case 'Sol':
+                chck = !Sol.checked;
+                setRenderSlider(false);
+                await setSol({ prioridad: chck ? 1 : 0, checked: chck });
+                setRenderSlider(true);
+                break;
+            case 'Re':
+                chck = !Re.checked;
+                setRenderSlider(false);
+                await setRe({ prioridad: chck ? 1 : 0, checked: chck });
+                setRenderSlider(true);
+                break;
+            case 'La':
+                chck = !La.checked;
+                setRenderSlider(false);
+                await setLa({ prioridad: chck ? 1 : 0, checked: chck });
+                setRenderSlider(true);
+                break;
+            case 'Mi':
+                chck = !Mi.checked;
+                setRenderSlider(false);
+                await setMi({ prioridad: chck ? 1 : 0, checked: chck });
+                setRenderSlider(true);
+                break;
+            case 'Si':
+                chck = !Si.checked;
+                setRenderSlider(false);
+                await setSi({ prioridad: chck ? 1 : 0, checked: chck });
+                setRenderSlider(true);
+                break;
+            case 'Fa#':
+                chck = !FaS.checked;
+                setRenderSlider(false);
+                await setFaS({ prioridad: chck ? 1 : 0, checked: chck });
+                setRenderSlider(true);
+                break;
+            case 'Solb':
+                chck = !Solb.checked;
+                setRenderSlider(false);
+                await setSolb({ prioridad: chck ? 1 : 0, checked: chck });
+                setRenderSlider(true);
+                break;
+            case 'Reb':
+                chck = !Reb.checked;
+                setRenderSlider(false);
+                await setReb({ prioridad: chck ? 1 : 0, checked: chck });
+                setRenderSlider(true);
+                break;
+            case 'Lab':
+                chck = !Lab.checked;
+                setRenderSlider(false);
+                await setLab({ prioridad: chck ? 1 : 0, checked: chck });
+                setRenderSlider(true);
+                break;
+            case 'Mib':
+                chck = !Mib.checked;
+                setRenderSlider(false);
+                await setMib({ prioridad: chck ? 1 : 0, checked: chck });
+                setRenderSlider(true);
+                break;
+            case 'Sib':
+                chck = !Sib.checked;
+                setRenderSlider(false);
+                await setSib({ prioridad: chck ? 1 : 0, checked: chck });
+                setRenderSlider(true);
+                break;
+            case 'Fa':
+                chck = !Fa.checked;
+                setRenderSlider(false);
+                await setFa({ prioridad: chck ? 1 : 0, checked: chck });
+                setRenderSlider(true);
+                break;
+
+            default:
+                break;
         }
     };
 
@@ -240,74 +380,136 @@ export default function BottomSheetTonalidad(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    height: '60%',
+                    height: '75%',
                 },
             }}
         >
-            <ScrollView>
-                <Text style={styles.titleBottom}>
-                    Prioridad a cada tonalidad
-                </Text>
-                {escala_diatonica_regla.map((escala, i) => (
-                    <ListItem key={i} bottomDivider>
-                        <ListItem.Content>
-                            <View style={{ width: '100%' }}>
-                                <ListItem.Title>
-                                    {escala.escala_diatonica}
-                                </ListItem.Title>
-                                <ListItem.Subtitle>
-                                    Prioridad{' '}
-                                    {getPriority(escala.escala_diatonica)}
-                                </ListItem.Subtitle>
-                                {renderSlider ? (
-                                    <Slider
-                                        value={getPriority(
-                                            escala.escala_diatonica
-                                        )}
-                                        onValueChange={(value) =>
-                                            setPriority(
-                                                escala.escala_diatonica,
-                                                value
+            <View>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        paddingRight: 15,
+                    }}
+                >
+                    <Text style={styles.titleBottom}>
+                        Prioridad a cada tonalidad
+                    </Text>
+                    <Button
+                        style={styles.okGiroMelodico}
+                        buttonStyle={styles.okGiroMelodicoButton}
+                        title="Confirmar"
+                        title="Ok"
+                        containerStyle={styles.okGiroMelodicoContainer}
+                        onPress={() => confirmation()}
+                    />
+                </View>
+                <ScrollView>
+                    {renderSlider ? (
+                        <View style={{ marginBottom: 120 }}>
+                            {escala_diatonica_regla.map((escala, i) => (
+                                // <ListItem key={i} bottomDivider>
+                                //     <ListItem.Content>
+                                <View key={i}>
+                                    {/* <ListItem.Title> */}
+                                    <CheckBox
+                                        title={escala.escala_diatonica}
+                                        checkedIcon="dot-circle-o"
+                                        uncheckedIcon="circle-o"
+                                        checked={
+                                            getPriority(
+                                                escala.escala_diatonica
+                                            ) != 0
+                                        }
+                                        containerStyle={
+                                            styles.containerCheckbox
+                                        }
+                                        textStyle={styles.textCheckbox}
+                                        iconRight
+                                        onPress={() =>
+                                            checkedEscala(
+                                                escala.escala_diatonica
                                             )
                                         }
-                                        minimumValue={0}
-                                        maximumValue={5}
-                                        step={1}
-                                        thumbStyle={{
-                                            height: 20,
-                                            width: 20,
-                                            backgroundColor: 'transparent',
-                                        }}
-                                        thumbProps={{
-                                            children: (
-                                                <Icon
-                                                    name="circle-small"
-                                                    type="material-community"
-                                                    size={15}
-                                                    reverse
-                                                    containerStyle={{
-                                                        bottom: 15,
-                                                        right: 15,
-                                                    }}
-                                                    color="black"
-                                                />
-                                            ),
-                                        }}
+                                        checkedIcon={
+                                            <Icon
+                                                name="check-circle"
+                                                type="material-community"
+                                                color={TEXT_COLOR_RIGHT}
+                                                containerStyle={
+                                                    styles.containerCheckChecked
+                                                }
+                                            />
+                                        }
+                                        uncheckedIcon={
+                                            <Icon
+                                                name="check-circle"
+                                                type="material-community"
+                                                color={'grey'}
+                                                containerStyle={
+                                                    styles.containerCheckUnchecked
+                                                }
+                                            />
+                                        }
                                     />
-                                ) : (
-                                    <></>
-                                )}
-                            </View>
-                        </ListItem.Content>
-                    </ListItem>
-                ))}
-
-                <Button
-                    style={styles.okGiroMelodico}
-                    title="Ok"
-                    onPress={() => confirmation()}
-                />
-            </ScrollView>
+                                    <Text style={styles.textPrioridad}>
+                                        Prioridad:{' '}
+                                        {getPriority(escala.escala_diatonica)}
+                                    </Text>
+                                    {/* </ListItem.Title>
+                                    <ListItem.Subtitle>
+                                        Prioridad{' '}
+                                        {getPriority(escala.escala_diatonica)}
+                                    </ListItem.Subtitle> */}
+                                    <View style={styles.contentSlider}>
+                                        <Slider
+                                            value={getPriority(
+                                                escala.escala_diatonica
+                                            )}
+                                            onValueChange={(value) =>
+                                                setPriority(
+                                                    escala.escala_diatonica,
+                                                    value
+                                                )
+                                            }
+                                            minimumValue={0}
+                                            maximumValue={5}
+                                            step={1}
+                                            thumbStyle={{
+                                                height: 20,
+                                                width: 20,
+                                                backgroundColor: 'transparent',
+                                            }}
+                                            thumbProps={{
+                                                children: (
+                                                    <Icon
+                                                        name="circle-small"
+                                                        type="material-community"
+                                                        size={15}
+                                                        reverse
+                                                        containerStyle={{
+                                                            bottom: 15,
+                                                            right: 15,
+                                                        }}
+                                                        color="black"
+                                                    />
+                                                ),
+                                            }}
+                                        />
+                                    </View>
+                                    <Divider
+                                        style={styles.divider}
+                                        orientation="horizontal"
+                                    />
+                                </View>
+                                //     </ListItem.Content>
+                                // </ListItem>
+                            ))}
+                        </View>
+                    ) : (
+                        <></>
+                    )}
+                </ScrollView>
+            </View>
         </RBSheet>
     );
 }
@@ -324,15 +526,22 @@ const styles = StyleSheet.create({
         width: 60,
     },
     okGiroMelodico: {
-        marginTop: 20,
-        marginBottom: 40,
+        marginTop: 10,
+    },
+    okGiroMelodicoContainer: {
+        width: '30%',
+    },
+    okGiroMelodicoButton: {
+        backgroundColor: PRIMARY_COLOR,
     },
     titleBottom: {
-        fontSize: 17,
+        fontSize: 20,
+        color: PRIMARY_COLOR,
         fontWeight: 'bold',
         marginTop: 20,
         marginBottom: 20,
         marginLeft: 10,
+        width: '70%',
     },
     buttonNotes: {
         width: 60,
@@ -355,7 +564,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     textPrioridad: {
-        marginLeft: 20,
+        marginLeft: 30,
         textAlign: 'left',
         fontSize: 17,
     },
@@ -363,5 +572,34 @@ const styles = StyleSheet.create({
         paddingLeft: 25,
         paddingRight: 25,
         margin: 10,
+    },
+    containerCheckChecked: {
+        backgroundColor: BACKGROUND_COLOR_RIGHT,
+        padding: 5,
+        marginHorizontal: 10,
+        borderStyle: 'solid',
+        borderColor: BORDER_COLOR_RIGHT,
+        borderWidth: 3,
+        borderRadius: 5,
+    },
+    containerCheckUnchecked: {
+        backgroundColor: FIFTH_COLOR,
+        padding: 5,
+        marginHorizontal: 10,
+        borderStyle: 'solid',
+        borderColor: 'lightgrey',
+        borderWidth: 3,
+        borderRadius: 5,
+    },
+    containerCheckbox: {
+        backgroundColor: 'transparent',
+        borderWidth: 0,
+    },
+    textCheckbox: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    divider: {
+        marginBottom: 15,
     },
 });

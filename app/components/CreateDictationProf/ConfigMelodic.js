@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import { ListItem, Icon, Button } from 'react-native-elements';
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
+import SwitchSelector from 'react-native-switch-selector';
 
+import AlertValidator from './AlertValidator';
 import ListEmpty from './ListEmpty';
+import OverlayInfo from './OverlayInfo';
 
 export default function ConfigMelodic(props) {
     const {
@@ -20,7 +24,43 @@ export default function ConfigMelodic(props) {
         refRBSheet_Tonalidad,
         refRBSheet_NotesStartEnd,
         refRBSheet_Reference,
+        okStartNotes,
+        okEndNotes,
+        okClefs,
+        okTonality,
+        okReferenceNote,
+        setMayor,
+        mayor,
     } = props;
+
+    const [visibleInfo, setVisibleInfo] = useState(false);
+    const [textInfo, setTextInfo] = useState('');
+    const [titleInfo, setTitleInfo] = useState('');
+
+    const TEXT_INFO_START_NOTES =
+        'Para solucionarlo quitar las notas de inicio que no pertenezcan a ningún giro melódico o agregar un giro melódico que contenga a dichas notas.';
+    const TITLE_INFO_START_NOTES =
+        'Alguna/s nota/s de Inicio no coincide/n con las notas establecidas en los Giros Melódicos';
+
+    const TEXT_INFO_END_NOTES =
+        'Para solucionarlo quitar las notas de fin que no pertenezcan a ningún giro melódico o agregar un giro melódico que contenga a dichas notas.';
+    const TITLE_INFO_END_NOTES =
+        'Alguna/s nota/s de Fin no coincide/n con las notas establecidas en los Giros Melódicos';
+
+    const TEXT_INFO_CLEF =
+        'Asigne una probabilidad de al menos valor 1 a una o ambas Claves.';
+    const TITLE_INFO_CLEF =
+        'Tanto la clave de Sol como Fa tienen probabilidad cero de aparecer en un dictado';
+
+    const TEXT_INFO_TONALITY =
+        'Asigne una probabilidad de al menos valor 1 a una o más tonalidades.';
+    const TITLE_INFO_TONALITY =
+        'Todas las Tonalidades tienen probabilidad cero de aparecer en un dictado';
+
+    const TEXT_INFO_REFERENCE_NOTE =
+        'Para solucionarlo setear una nota de referencia que pertenezca a algún giro melódico.';
+    const TITLE_INFO_REFERENCE_NOTE =
+        'La nota de referencia no coincide con ninguna nota establecida en los Giros Melódicos';
 
     const printArray = (arr) => {
         var res = '';
@@ -83,20 +123,51 @@ export default function ConfigMelodic(props) {
     };
 
     return (
-        <ScrollView>
+        <View>
+            <View style={styles.contentSimpleCompuesto}>
+                <SwitchSelector
+                    initial={0}
+                    onPress={(value) => setMayor(value == 'mayor')}
+                    textColor={'black'}
+                    selectedColor={'white'}
+                    buttonColor={SECONDARY_COLOR}
+                    borderColor={PRIMARY_COLOR}
+                    hasPadding
+                    options={[
+                        {
+                            label: 'Intervalos en mayor',
+                            value: 'mayor',
+                        },
+                        {
+                            label: 'Intervalos en menor',
+                            value: 'menor',
+                        },
+                    ]}
+                    testID="gender-switch-selector"
+                    accessibilityLabel="gender-switch-selector"
+                    style={{
+                        width: '80%',
+                    }}
+                />
+            </View>
             {/* Giros melódicos */}
             <View style={styles.contentTitle}>
                 <Text style={styles.title}>Giros melódicos</Text>
                 <Button
+                    icon={
+                        <Icon
+                            type="material-community"
+                            name="plus-thick"
+                            color="white"
+                        />
+                    }
                     style={styles.buttonRight}
-                    title="Agregar"
+                    buttonStyle={styles.buttonAdd}
                     onPress={addGiroMelodicoRegla}
                 />
             </View>
             {giro_melodico_regla.length == 0 && (
-                <ListEmpty
-                    text={'Agregue Giros Melódicos presionando "Agregar"'}
-                />
+                <ListEmpty text={'Agregue Giros Melódicos presionando "+"'} />
             )}
             {giro_melodico_regla.map((giro, i) => (
                 <ListItem key={i} bottomDivider>
@@ -109,6 +180,7 @@ export default function ConfigMelodic(props) {
                                 Prioridad {giro.prioridad}
                             </ListItem.Subtitle>
                         </View>
+                        <View style={styles.contentAlert}></View>
                         <View style={styles.contentListRight}>
                             <Icon
                                 type="material-community"
@@ -127,6 +199,20 @@ export default function ConfigMelodic(props) {
                 bottomDivider
             >
                 <ListItem.Content style={styles.content}>
+                    {!okStartNotes ? (
+                        <View style={styles.contentAlert}>
+                            <AlertValidator
+                                setVisibleInfo={setVisibleInfo}
+                                setTitleInfo={setTitleInfo}
+                                setTextInfo={setTextInfo}
+                                textInfo={TEXT_INFO_START_NOTES}
+                                titleInfo={TITLE_INFO_START_NOTES}
+                            />
+                        </View>
+                    ) : (
+                        <View style={styles.contentAlert}></View>
+                    )}
+
                     <View style={styles.contentListLeft}>
                         <ListItem.Title style={styles.titleSingle}>
                             Notas Inicio
@@ -146,6 +232,19 @@ export default function ConfigMelodic(props) {
             </ListItem>
             <ListItem key={giro_melodico_regla.length + 1} bottomDivider>
                 <ListItem.Content style={styles.content}>
+                    {!okEndNotes ? (
+                        <View style={styles.contentAlert}>
+                            <AlertValidator
+                                setVisibleInfo={setVisibleInfo}
+                                setTitleInfo={setTitleInfo}
+                                setTextInfo={setTextInfo}
+                                textInfo={TEXT_INFO_END_NOTES}
+                                titleInfo={TITLE_INFO_END_NOTES}
+                            />
+                        </View>
+                    ) : (
+                        <View style={styles.contentAlert}></View>
+                    )}
                     <View style={styles.contentListLeft}>
                         <ListItem.Title style={styles.titleSingle}>
                             Notas Fin
@@ -171,6 +270,19 @@ export default function ConfigMelodic(props) {
                 bottomDivider
             >
                 <ListItem.Content style={styles.content}>
+                    {!okClefs ? (
+                        <View style={styles.contentAlert}>
+                            <AlertValidator
+                                setVisibleInfo={setVisibleInfo}
+                                setTitleInfo={setTitleInfo}
+                                setTextInfo={setTextInfo}
+                                textInfo={TEXT_INFO_CLEF}
+                                titleInfo={TITLE_INFO_CLEF}
+                            />
+                        </View>
+                    ) : (
+                        <View style={styles.contentAlert}></View>
+                    )}
                     <View style={styles.contentListLeft}>
                         <ListItem.Title style={styles.titleSingle}>
                             Clave de Sol
@@ -191,6 +303,19 @@ export default function ConfigMelodic(props) {
             </ListItem>
             <ListItem key={giro_melodico_regla.length + 3} bottomDivider>
                 <ListItem.Content style={styles.content}>
+                    {!okClefs ? (
+                        <View style={styles.contentAlert}>
+                            <AlertValidator
+                                setVisibleInfo={setVisibleInfo}
+                                setTitleInfo={setTitleInfo}
+                                setTextInfo={setTextInfo}
+                                textInfo={TEXT_INFO_CLEF}
+                                titleInfo={TITLE_INFO_CLEF}
+                            />
+                        </View>
+                    ) : (
+                        <View style={styles.contentAlert}></View>
+                    )}
                     <View style={styles.contentListLeft}>
                         <ListItem.Title style={styles.titleSingle}>
                             Clave de Fa
@@ -217,6 +342,19 @@ export default function ConfigMelodic(props) {
                 bottomDivider
             >
                 <ListItem.Content style={styles.content}>
+                    {!okTonality ? (
+                        <View style={styles.contentAlert}>
+                            <AlertValidator
+                                setVisibleInfo={setVisibleInfo}
+                                setTitleInfo={setTitleInfo}
+                                setTextInfo={setTextInfo}
+                                textInfo={TEXT_INFO_TONALITY}
+                                titleInfo={TITLE_INFO_TONALITY}
+                            />
+                        </View>
+                    ) : (
+                        <View style={styles.contentAlert}></View>
+                    )}
                     <View style={styles.contentListLeft}>
                         <ListItem.Title style={styles.titleSingle}>
                             Tonalidades
@@ -239,6 +377,19 @@ export default function ConfigMelodic(props) {
                 bottomDivider
             >
                 <ListItem.Content style={styles.content}>
+                    {!okReferenceNote ? (
+                        <View style={styles.contentAlert}>
+                            <AlertValidator
+                                setVisibleInfo={setVisibleInfo}
+                                setTitleInfo={setTitleInfo}
+                                setTextInfo={setTextInfo}
+                                textInfo={TEXT_INFO_REFERENCE_NOTE}
+                                titleInfo={TITLE_INFO_REFERENCE_NOTE}
+                            />
+                        </View>
+                    ) : (
+                        <View style={styles.contentAlert}></View>
+                    )}
                     <View style={styles.contentListLeft}>
                         <ListItem.Title style={styles.titleSingle}>
                             Nota de Referencia
@@ -256,7 +407,14 @@ export default function ConfigMelodic(props) {
                     </View>
                 </ListItem.Content>
             </ListItem>
-        </ScrollView>
+
+            <OverlayInfo
+                visible={visibleInfo}
+                setVisible={setVisibleInfo}
+                title={titleInfo}
+                text={textInfo}
+            />
+        </View>
     );
 }
 
@@ -280,16 +438,29 @@ const styles = StyleSheet.create({
     content: {
         flexDirection: 'row',
     },
+    contentAlert: {
+        width: '10%',
+    },
     contentTitle: {
         flexDirection: 'row',
         margin: 10,
     },
     contentListLeft: {
         textAlign: 'left',
-        width: '80%',
+        width: '70%',
     },
     contentListRight: {
         textAlign: 'right',
         width: '20%',
+    },
+    buttonAdd: {
+        backgroundColor: SECONDARY_COLOR,
+        borderRadius: 15,
+        paddingHorizontal: 15,
+    },
+    contentSimpleCompuesto: {
+        flexDirection: 'row',
+        marginVertical: 10,
+        marginHorizontal: 15,
     },
 });

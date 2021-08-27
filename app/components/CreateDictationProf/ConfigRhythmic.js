@@ -9,9 +9,11 @@ import {
 } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
 import RNPickerSelect, { defaultStyles } from 'react-native-picker-select';
+import SwitchSelector from 'react-native-switch-selector';
 
 import BottomSheetPicker from './BottomSheetPicker';
 import ListEmpty from './ListEmpty';
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 
 export default function ConfigRhythmic(props) {
     const {
@@ -84,25 +86,31 @@ export default function ConfigRhythmic(props) {
     };
 
     return (
-        <ScrollView>
+        <View>
             <View style={styles.contentSimpleCompuesto}>
-                <CheckBox
-                    center
-                    title="Dictado simple"
-                    checkedIcon="dot-circle-o"
-                    uncheckedIcon="circle-o"
-                    checked={simple}
-                    containerStyle={styles.containerSimplecompuesto}
-                    onPress={() => setSimple(true)}
-                />
-                <CheckBox
-                    center
-                    title="Dictado compuesto"
-                    checkedIcon="dot-circle-o"
-                    uncheckedIcon="circle-o"
-                    checked={!simple}
-                    containerStyle={styles.containerSimplecompuesto}
-                    onPress={() => setSimple(false)}
+                <SwitchSelector
+                    initial={0}
+                    onPress={(value) => setSimple(value == 's')}
+                    textColor={'black'}
+                    selectedColor={'white'}
+                    buttonColor={SECONDARY_COLOR}
+                    borderColor={PRIMARY_COLOR}
+                    hasPadding
+                    options={[
+                        {
+                            label: 'Dictado Simple',
+                            value: 's',
+                        },
+                        {
+                            label: 'Dictado Compuesto',
+                            value: 'c',
+                        },
+                    ]}
+                    testID="gender-switch-selector"
+                    accessibilityLabel="gender-switch-selector"
+                    style={{
+                        width: '80%',
+                    }}
                 />
             </View>
 
@@ -110,15 +118,22 @@ export default function ConfigRhythmic(props) {
             <View style={styles.contentTitle}>
                 <Text style={styles.title}>Compás</Text>
                 <Button
+                    icon={
+                        <Icon
+                            type="material-community"
+                            name="plus-thick"
+                            color="white"
+                        />
+                    }
                     style={styles.buttonRight}
-                    title="Agregar"
+                    buttonStyle={styles.buttonAdd}
                     onPress={() => {
                         addCompas();
                     }}
                 />
             </View>
             {cantCompasRegla(compas_regla, simple) == 0 && (
-                <ListEmpty text={'Agregue Compases presionando "Agregar"'} />
+                <ListEmpty text={'Agregue Compases presionando "+"'} />
             )}
             {compas_regla
                 .filter((compasSinFilter) => compasSinFilter.simple == simple)
@@ -158,17 +173,22 @@ export default function ConfigRhythmic(props) {
             <View style={styles.contentTitle}>
                 <Text style={styles.title}>Células Rítmicas</Text>
                 <Button
+                    icon={
+                        <Icon
+                            type="material-community"
+                            name="plus-thick"
+                            color="white"
+                        />
+                    }
                     style={styles.buttonRight}
-                    title="Agregar"
+                    buttonStyle={styles.buttonAdd}
                     onPress={() => {
                         addCelulaRitmica();
                     }}
                 />
             </View>
             {cantCelulaRitmica(celula_ritmica_regla, simple) == 0 && (
-                <ListEmpty
-                    text={'Agregue Células Rítmicas presionando "Agregar"'}
-                />
+                <ListEmpty text={'Agregue Células Rítmicas presionando "+"'} />
             )}
             {celula_ritmica_regla
                 .filter(
@@ -202,10 +222,16 @@ export default function ConfigRhythmic(props) {
                 <ListItem.Content style={styles.content}>
                     <View style={styles.contentListLeft}>
                         <ListItem.Title style={styles.titleSingle}>
-                            BPM
+                            BPM nota{' '}
+                            {
+                                <Icon
+                                    name="music-note-quarter"
+                                    type="material-community"
+                                />
+                            }
                         </ListItem.Title>
                         <ListItem.Subtitle>
-                            Nota negra {BPM} bpm
+                            Rango: [ {BPM.menor} bpm - {BPM.mayor} bpm ]
                         </ListItem.Subtitle>
                     </View>
                     <View style={styles.contentListRight}>
@@ -217,13 +243,15 @@ export default function ConfigRhythmic(props) {
                     </View>
                 </ListItem.Content>
             </ListItem>
-        </ScrollView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     contentSimpleCompuesto: {
         flexDirection: 'row',
+        marginVertical: 10,
+        marginHorizontal: 15,
     },
     containerSimplecompuesto: {
         backgroundColor: 'transparent',
@@ -258,5 +286,10 @@ const styles = StyleSheet.create({
     contentListRight: {
         textAlign: 'right',
         width: '20%',
+    },
+    buttonAdd: {
+        backgroundColor: SECONDARY_COLOR,
+        borderRadius: 15,
+        paddingHorizontal: 15,
     },
 });

@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { StyleSheet, ScrollView, View, Text, Animated } from 'react-native';
 import { ListItem, Icon, Slider, Button, Divider } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { PRIMARY_COLOR, TEXT_COLOR_WRONG } from '../../../utils/colorPalette';
 
-import Keyboard from './Keyboard';
+import KeyboardIntervals from './KeyboardIntervals';
 
 export default function BottomSheetGiroMelodico(props) {
     const {
@@ -12,10 +13,12 @@ export default function BottomSheetGiroMelodico(props) {
         add,
         giro_melodico_reglaEdit,
         refRBSheet,
+        mayor,
     } = props;
     const [prio, setPrio] = useState(1);
     const [giro, setGiro] = useState([]);
     const [renderSlider, setRenderSlider] = useState(false);
+    const [title, setTitle] = useState('Nuevo giro melódico');
 
     const confirmation = () => {
         const newGiro = {
@@ -60,9 +63,11 @@ export default function BottomSheetGiroMelodico(props) {
         if (add) {
             setGiro([]);
             setPrio(1);
+            setTitle('Nuevo giro melódico');
         } else {
             setGiro(giro_melodico_reglaEdit.giros_melodicos);
             setPrio(giro_melodico_reglaEdit.prioridad);
+            setTitle('Editar giro melódico');
         }
 
         setRenderSlider(true);
@@ -91,72 +96,92 @@ export default function BottomSheetGiroMelodico(props) {
                 },
             }}
         >
-            <ScrollView>
-                {add ? (
-                    <Text style={styles.titleBottom}>Nuevo giro melódico</Text>
-                ) : (
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={styles.titleBottom}>
-                            Editar giro melódico
-                        </Text>
-                        <Button
-                            icon={
-                                <Icon
-                                    name="delete-circle-outline"
-                                    type="material-community"
-                                    color="white"
-                                />
-                            }
-                            buttonStyle={styles.buttonDelete}
-                            onPress={() => deleteGiro()}
-                        />
-                    </View>
-                )}
-                <Text style={styles.textPrioridad}>Prioridad: {prio}</Text>
-                <View style={styles.contentSlider}>
-                    {renderSlider ? (
-                        <Slider
-                            value={prio}
-                            onValueChange={(value) => setPrio(value)}
-                            minimumValue={0}
-                            maximumValue={5}
-                            step={1}
-                            thumbStyle={{
-                                height: 20,
-                                width: 20,
-                                backgroundColor: 'transparent',
-                            }}
-                            thumbProps={{
-                                children: (
-                                    <Icon
-                                        name="circle-small"
-                                        type="material-community"
-                                        size={15}
-                                        reverse
-                                        containerStyle={{
-                                            bottom: 15,
-                                            right: 15,
-                                        }}
-                                        color="black"
-                                    />
-                                ),
-                            }}
-                        />
-                    ) : (
-                        <></>
-                    )}
+            <View>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        paddingRight: 15,
+                    }}
+                >
+                    <Text style={styles.titleBottom}>{title}</Text>
+                    <Button
+                        style={styles.okGiroMelodico}
+                        buttonStyle={styles.okGiroMelodicoButton}
+                        title="Confirmar"
+                        onPress={() => confirmation()}
+                        containerStyle={styles.okGiroMelodicoContainer}
+                    />
                 </View>
+                <ScrollView>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            paddingRight: 20,
+                        }}
+                    >
+                        <Text style={styles.textPrioridad}>
+                            Prioridad: {prio}
+                        </Text>
+                        {!add ? (
+                            <Button
+                                icon={
+                                    <Icon
+                                        name="delete-circle-outline"
+                                        type="material-community"
+                                        color={TEXT_COLOR_WRONG}
+                                    />
+                                }
+                                titleStyle={styles.buttonDeleteTitle}
+                                title="Eliminar"
+                                containerStyle={styles.buttonDeleteContainer}
+                                buttonStyle={styles.buttonDelete}
+                                type="clear"
+                                onPress={() => deleteGiro()}
+                            />
+                        ) : (
+                            <></>
+                        )}
+                    </View>
 
-                <Divider orientation="horizontal" />
+                    <View style={styles.contentSlider}>
+                        {renderSlider ? (
+                            <Slider
+                                value={prio}
+                                onValueChange={(value) => setPrio(value)}
+                                minimumValue={0}
+                                maximumValue={5}
+                                step={1}
+                                thumbStyle={{
+                                    height: 20,
+                                    width: 20,
+                                    backgroundColor: 'transparent',
+                                }}
+                                thumbProps={{
+                                    children: (
+                                        <Icon
+                                            name="circle-small"
+                                            type="material-community"
+                                            size={15}
+                                            reverse
+                                            containerStyle={{
+                                                bottom: 15,
+                                                right: 15,
+                                            }}
+                                            color="black"
+                                        />
+                                    ),
+                                }}
+                            />
+                        ) : (
+                            <></>
+                        )}
+                    </View>
 
-                <Keyboard notes={giro} setNotes={setGiro} />
+                    <Divider orientation="horizontal" />
 
-                <Button
-                    style={styles.okGiroMelodico}
-                    title="Ok"
-                    onPress={() => confirmation()}
-                />
-            </ScrollView>
+                    <KeyboardIntervals notes={giro} setNotes={setGiro} mayor={mayor} />
+                </ScrollView>
+            </View>
         </RBSheet>
     );
 }
@@ -170,20 +195,32 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     buttonDelete: {
-        marginTop: 10,
-        borderRadius: 30,
-        backgroundColor: 'red',
+        borderStyle: 'solid',
+    },
+    buttonDeleteContainer: {
+        width: '30%',
+    },
+    buttonDeleteTitle: {
+        color: TEXT_COLOR_WRONG,
+        textDecorationLine: 'underline',
     },
     okGiroMelodico: {
-        marginTop: 20,
+        marginTop: 10,
+    },
+    okGiroMelodicoContainer: {
+        width: '30%',
+    },
+    okGiroMelodicoButton: {
+        backgroundColor: PRIMARY_COLOR,
     },
     titleBottom: {
-        fontSize: 17,
+        fontSize: 20,
+        color: PRIMARY_COLOR,
         fontWeight: 'bold',
         marginTop: 20,
         marginBottom: 20,
         marginLeft: 10,
-        width: '80%',
+        width: '70%',
     },
     buttonNotes: {
         width: 60,
@@ -206,9 +243,11 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     textPrioridad: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginTop: 5,
         marginLeft: 20,
-        textAlign: 'left',
-        fontSize: 17,
+        width: '70%',
     },
     contentSlider: {
         paddingLeft: 25,

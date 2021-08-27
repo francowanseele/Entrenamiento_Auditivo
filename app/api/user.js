@@ -51,9 +51,10 @@ export function generateDictationApi(
     idModule,
     idConfigDictation,
     cantDictation,
-    data
+    data,
+    onlyValidation
 ) {
-    const url = `${basePath}/add-dictation-user/${idUser}?idCourse=${idCourse}&idModule=${idModule}&idConfigDictation=${idConfigDictation}&cantDictation=${cantDictation}`;
+    const url = `${basePath}/add-dictation-user/${idUser}?idCourse=${idCourse}&idModule=${idModule}&idConfigDictation=${idConfigDictation}&cantDictation=${cantDictation}&onlyValidation=${onlyValidation}`;
     const params = {
         method: 'POST',
         headers: {

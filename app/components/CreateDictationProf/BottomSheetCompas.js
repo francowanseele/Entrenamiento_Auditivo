@@ -9,7 +9,15 @@ import {
     CheckBox,
 } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { PRIMARY_COLOR, TEXT_COLOR_WRONG } from '../../../utils/colorPalette';
+import {
+    BACKGROUND_COLOR_RIGHT,
+    BORDER_COLOR_RIGHT,
+    FIFTH_COLOR,
+    PRIMARY_COLOR,
+    QUARTER_COLOR,
+    TEXT_COLOR_RIGHT,
+    TEXT_COLOR_WRONG,
+} from '../../../utils/colorPalette';
 
 import { getCompasesApi } from '../../api/compas';
 
@@ -103,7 +111,7 @@ export default function BottomSheetCompas(props) {
                         simple: compasRes.simple,
                         checked: index != -1,
                         prioridad:
-                            index == -1 ? 1 : compas_regla[index].prioridad,
+                            index == -1 ? 0 : compas_regla[index].prioridad,
                     });
                 });
                 setListAllCompases(listAllCompasesRes);
@@ -131,7 +139,10 @@ export default function BottomSheetCompas(props) {
         );
 
         let g = listAllCompases[index];
+
         g['prioridad'] = prio;
+        g['prioridad'] == 0 ? (g['checked'] = false) : (g['checked'] = true);
+
         if (index === -1) {
             // handle error
             console.log('no match');
@@ -144,7 +155,7 @@ export default function BottomSheetCompas(props) {
         }
     };
 
-    const checkedCompas = (compas) => {
+    const checkedCompas = async (compas) => {
         var index = listAllCompases.findIndex(
             (x) =>
                 x.numerador == compas.numerador &&
@@ -152,17 +163,21 @@ export default function BottomSheetCompas(props) {
         );
 
         let g = listAllCompases[index];
+
         g['checked'] = !g['checked'];
+        g['checked'] ? (g['prioridad'] = 1) : (g['prioridad'] = 0);
+        setRenderSlider(false);
         if (index === -1) {
             // handle error
             console.log('no match');
         } else {
-            setListAllCompases([
+            await setListAllCompases([
                 ...listAllCompases.slice(0, index),
                 g,
                 ...listAllCompases.slice(index + 1),
             ]);
         }
+        setRenderSlider(true);
     };
 
     return (
@@ -184,7 +199,7 @@ export default function BottomSheetCompas(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    height: '60%',
+                    height: '75%',
                 },
             }}
         >
@@ -233,8 +248,29 @@ export default function BottomSheetCompas(props) {
                                                     styles.containerCheckbox
                                                 }
                                                 textStyle={styles.textCheckbox}
+                                                iconRight
                                                 onPress={() =>
                                                     checkedCompas(compas)
+                                                }
+                                                checkedIcon={
+                                                    <Icon
+                                                        name="check-circle"
+                                                        type="material-community"
+                                                        color={TEXT_COLOR_RIGHT}
+                                                        containerStyle={
+                                                            styles.containerCheckChecked
+                                                        }
+                                                    />
+                                                }
+                                                uncheckedIcon={
+                                                    <Icon
+                                                        name="check-circle"
+                                                        type="material-community"
+                                                        color={'grey'}
+                                                        containerStyle={
+                                                            styles.containerCheckUnchecked
+                                                        }
+                                                    />
                                                 }
                                             />
                                         ) : (
@@ -411,5 +447,23 @@ const styles = StyleSheet.create({
     textCheckbox: {
         fontSize: 18,
         fontWeight: 'bold',
+    },
+    containerCheckChecked: {
+        backgroundColor: BACKGROUND_COLOR_RIGHT,
+        padding: 5,
+        marginHorizontal: 10,
+        borderStyle: 'solid',
+        borderColor: BORDER_COLOR_RIGHT,
+        borderWidth: 3,
+        borderRadius: 5,
+    },
+    containerCheckUnchecked: {
+        backgroundColor: FIFTH_COLOR,
+        padding: 5,
+        marginHorizontal: 10,
+        borderStyle: 'solid',
+        borderColor: 'lightgrey',
+        borderWidth: 3,
+        borderRadius: 5,
     },
 });

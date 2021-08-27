@@ -5,6 +5,8 @@ import CalificationStack from './CalificationProfStack';
 import ProfileStack from './ProfileProfStack';
 import DictationStack from './DictationProfStack';
 import CreateDictationStack from './CreateDictationProfStack';
+import { Icon } from 'react-native-elements';
+import { PRIMARY_COLOR } from '../../utils/colorPalette';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,32 +16,68 @@ export default function Navigation() {
             <Tab.Navigator initialRouteName="home" tabBarOptions={{}}>
                 <Tab.Screen
                     name="dictation"
+                    tabBarOptions={{}}
                     component={DictationStack}
-                    options={{ title: 'Ver' }}
-                    // name="home"
-                    // component={HomeStack}
-                    // // options={{ title: 'Inicio' }}
-                    // options={{
-                    //     tabBarLabel: 'Home',
-                    //     tabBarIcon: ({ color, size }) => (
-                    //       <MaterialCommunityIcons name="home" color={color} size={size} />
-                    //     ),
-                    //   }}       
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <Icon
+                                name="book-music"
+                                type="material-community"
+                                color={PRIMARY_COLOR}
+                            />
+                        ),
+                        tabBarLabel: () => {
+                            return null;
+                        },
+                    }}
                 />
                 <Tab.Screen
                     name="createDictation"
                     component={CreateDictationStack}
-                    options={{ title: 'Crear' }}           
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <Icon
+                                name="music-note-plus"
+                                type="material-community"
+                                color={PRIMARY_COLOR}
+                            />
+                        ),
+                        tabBarLabel: () => {
+                            return null;
+                        },
+                    }}
                 />
                 <Tab.Screen
                     name="calification"
                     component={CalificationStack}
-                    options={{ title: 'clasi' }}
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <Icon
+                                name="school"
+                                type="material-community"
+                                color={PRIMARY_COLOR}
+                            />
+                        ),
+                        tabBarLabel: () => {
+                            return null;
+                        },
+                    }}
                 />
                 <Tab.Screen
                     name="profile"
                     component={ProfileStack}
-                    options={{ title: 'Perfil' }}
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <Icon
+                                name="account-circle"
+                                type="material-community"
+                                color={PRIMARY_COLOR}
+                            />
+                        ),
+                        tabBarLabel: () => {
+                            return null;
+                        },
+                    }}
                 />
             </Tab.Navigator>
         </NavigationContainer>

@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { StyleSheet, ScrollView, View, Text, Animated } from 'react-native';
 import { ListItem, Icon, Slider, Button, Divider } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { PRIMARY_COLOR } from '../../../utils/colorPalette';
 
-import Keyboard from './Keyboard';
+import KeyboardIntervals from './KeyboardIntervals';
 
 export default function BottomSheetNoteStartEnd(props) {
     const {
@@ -15,6 +16,7 @@ export default function BottomSheetNoteStartEnd(props) {
         refRBSheet,
     } = props;
     const [notes, setNotes] = useState([]);
+    const [title, setTitle] = useState('Notas de Inicio');
 
     const confirmation = () => {
         if (start) {
@@ -28,8 +30,10 @@ export default function BottomSheetNoteStartEnd(props) {
     const initialStateOpen = async () => {
         if (start) {
             setNotes(notas_inicio);
+            setTitle('Notas de Inicio');
         } else {
             setNotes(notas_fin);
+            setTitle('Notas de Fin');
         }
     };
 
@@ -56,20 +60,26 @@ export default function BottomSheetNoteStartEnd(props) {
                 },
             }}
         >
-            <ScrollView>
-                {start ? (
-                    <Text style={styles.titleBottom}>Notas de Inicio</Text>
-                ) : (
-                    <Text style={styles.titleBottom}>Notas de Fin</Text>
-                )}
-                <Keyboard notes={notes} setNotes={setNotes} />
-
-                <Button
-                    style={styles.okGiroMelodico}
-                    title="Ok"
-                    onPress={() => confirmation()}
-                />
-            </ScrollView>
+            <View>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        paddingRight: 15,
+                    }}
+                >
+                    <Text style={styles.titleBottom}>{title}</Text>
+                    <Button
+                        style={styles.okGiroMelodico}
+                        buttonStyle={styles.okGiroMelodicoButton}
+                        title="Confirmar"
+                        onPress={() => confirmation()}
+                        containerStyle={styles.okGiroMelodicoContainer}
+                    />
+                </View>
+                <ScrollView>
+                    <KeyboardIntervals notes={notes} setNotes={setNotes} />
+                </ScrollView>
+            </View>
         </RBSheet>
     );
 }
@@ -86,14 +96,22 @@ const styles = StyleSheet.create({
         width: 60,
     },
     okGiroMelodico: {
-        marginTop: 20,
+        marginTop: 10,
+    },
+    okGiroMelodicoContainer: {
+        width: '30%',
+    },
+    okGiroMelodicoButton: {
+        backgroundColor: PRIMARY_COLOR,
     },
     titleBottom: {
-        fontSize: 17,
+        fontSize: 20,
+        color: PRIMARY_COLOR,
         fontWeight: 'bold',
         marginTop: 20,
         marginBottom: 20,
         marginLeft: 10,
+        width: '70%',
     },
     buttonNotes: {
         width: 60,

@@ -4,7 +4,8 @@ import { ListItem, Icon, Slider, Button, Divider } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Toast from 'react-native-easy-toast';
 
-import Keyboard from './Keyboard';
+import KeyboardIntervals from './KeyboardIntervals';
+import { PRIMARY_COLOR } from '../../../utils/colorPalette';
 
 export default function BottomSheetReference(props) {
     const { nota_base, setNota_base, refRBSheet, toastRef } = props;
@@ -57,17 +58,32 @@ export default function BottomSheetReference(props) {
                 },
             }}
         >
-            <ScrollView>
-                <Text style={styles.titleBottom}>Nota de referencia</Text>
-
-                <Keyboard notes={notes} setNotes={setNotes} />
-
-                <Button
-                    style={styles.okGiroMelodico}
-                    title="Ok"
-                    onPress={() => confirmation()}
-                />
-            </ScrollView>
+            <View>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        paddingRight: 15,
+                    }}
+                >
+                    <Text style={styles.titleBottom}>Nota de referencia</Text>
+                    <Button
+                        style={styles.okGiroMelodico}
+                        buttonStyle={styles.okGiroMelodicoButton}
+                        title="Confirmar"
+                        onPress={() => confirmation()}
+                        containerStyle={styles.okGiroMelodicoContainer}
+                    />
+                </View>
+                <ScrollView>
+                    <KeyboardIntervals
+                        notes={notes}
+                        setNotes={setNotes}
+                        max={1}
+                        toastMax={toastRef}
+                        textAlertMax={'Solo UNA nota de referencia'}
+                    />
+                </ScrollView>
+            </View>
 
             <Toast ref={toastRef} position="top" opacity={0.9} />
         </RBSheet>
@@ -88,12 +104,23 @@ const styles = StyleSheet.create({
     okGiroMelodico: {
         marginTop: 20,
     },
+    okGiroMelodico: {
+        marginTop: 10,
+    },
+    okGiroMelodicoContainer: {
+        width: '30%',
+    },
+    okGiroMelodicoButton: {
+        backgroundColor: PRIMARY_COLOR,
+    },
     titleBottom: {
-        fontSize: 17,
+        fontSize: 20,
+        color: PRIMARY_COLOR,
         fontWeight: 'bold',
         marginTop: 20,
         marginBottom: 20,
         marginLeft: 10,
+        width: '70%',
     },
     buttonNotes: {
         width: 60,

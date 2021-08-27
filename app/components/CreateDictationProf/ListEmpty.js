@@ -16,7 +16,7 @@ export default function ListEmpty(props) {
                 <Text style={styles.textStyle}>{text}</Text>
                 <Icon
                     //name="chat-alert-outline"
-                    name="chat-processing-outline"
+                    name="information-outline"
                     type="material-community"
                     color="black"
                     containerStyle={styles.iconContainerStyle}

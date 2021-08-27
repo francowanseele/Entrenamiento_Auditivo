@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { FIFTH_COLOR, PRIMARY_COLOR } from '../../../utils/colorPalette';
 
 export default function BottomSheetBPM(props) {
     const { refRBSheet, BPM, setBPM } = props;
@@ -12,8 +13,18 @@ export default function BottomSheetBPM(props) {
         setBPMLocal(BPM);
     };
 
-    const onChange = (event) => {
-        setBPMLocal(parseInt(event.nativeEvent.text));
+    const onChangeMenor = (event) => {
+        setBPMLocal({
+            menor: parseInt(event.nativeEvent.text),
+            mayor: BPMLocal.mayor,
+        });
+    };
+
+    const onChangeMayor = (event) => {
+        setBPMLocal({
+            menor: BPMLocal.menor,
+            mayor: parseInt(event.nativeEvent.text),
+        });
     };
 
     const confirmation = () => {
@@ -40,24 +51,54 @@ export default function BottomSheetBPM(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    height: '50%',
+                    height: '75%',
                 },
             }}
         >
-            <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.titleBottom}>
-                    Establecer bpm para la nota negra
-                </Text>
-                <Button title="Confirmar" onPress={() => confirmation()} />
+            <View
+                style={{
+                    flexDirection: 'row',
+                    paddingRight: 15,
+                }}
+            >
+                <Text style={styles.titleBottom}>Establecer BPM</Text>
+                <Button
+                    style={styles.okGiroMelodico}
+                    buttonStyle={styles.okGiroMelodicoButton}
+                    title="Confirmar"
+                    onPress={() => confirmation()}
+                    containerStyle={styles.okGiroMelodicoContainer}
+                />
+            </View>
+            <View
+                style={{
+                    paddingRight: 15,
+                }}
+            >
+                <View style={styles.contentTextPrioridad}>
+                    <Text style={styles.textPrioridad}>
+                        El rango establecido corresponde al valor de BPM que
+                        puede tomar la nota negra
+                    </Text>
+                </View>
             </View>
             <ScrollView>
                 <Input
                     keyboardType="numeric"
                     placeholder="Nombre"
                     containerStyle={styles.inputForm}
-                    onChange={(e) => onChange(e)}
-                    label="bpm - Nota negra"
-                    value={BPMLocal ? BPMLocal.toString() : ''}
+                    onChange={(e) => onChangeMenor(e)}
+                    label="BPM Menor"
+                    value={BPMLocal ? BPMLocal.menor.toString() : ''}
+                />
+
+                <Input
+                    keyboardType="numeric"
+                    placeholder="Nombre"
+                    containerStyle={styles.inputForm}
+                    onChange={(e) => onChangeMayor(e)}
+                    label="BPM Mayor"
+                    value={BPMLocal ? BPMLocal.mayor.toString() : ''}
                 />
             </ScrollView>
         </RBSheet>
@@ -70,11 +111,34 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     titleBottom: {
-        fontSize: 17,
+        fontSize: 20,
+        color: PRIMARY_COLOR,
         fontWeight: 'bold',
         marginTop: 20,
         marginBottom: 20,
         marginLeft: 10,
         width: '70%',
+    },
+    okGiroMelodico: {
+        marginTop: 10,
+    },
+    okGiroMelodicoContainer: {
+        width: '30%',
+    },
+    okGiroMelodicoButton: {
+        backgroundColor: PRIMARY_COLOR,
+    },
+    contentTextPrioridad: {
+        marginHorizontal: 20,
+        marginVertical: 5,
+        borderLeftWidth: 2,
+        borderStyle: 'solid',
+        borderColor: PRIMARY_COLOR,
+        backgroundColor: FIFTH_COLOR,
+        padding: 10,
+        borderRadius: 5,
+    },
+    textPrioridad: {
+        fontSize: 17,
     },
 });

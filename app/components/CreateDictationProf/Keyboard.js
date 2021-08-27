@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView, View, Text, Animated } from 'react-native';
 import { ListItem, Icon, Slider, Button, Divider } from 'react-native-elements';
 
 export default function Keyboard(props) {
-    const { notes, setNotes } = props;
+    const { notes, setNotes, max, toastMax, textAlertMax } = props;
     const notas = [
         'A1',
         'B1',
@@ -69,12 +69,16 @@ export default function Keyboard(props) {
     };
 
     const writeNote = (nota) => {
-        var newGiro = [];
-        notes.forEach((g) => {
-            newGiro.push(g);
-        });
-        newGiro.push(nota);
-        setNotes(newGiro);
+        if (max && notes.length >= max) {
+            toastMax.current.show(textAlertMax);
+        } else {
+            var newGiro = [];
+            notes.forEach((g) => {
+                newGiro.push(g);
+            });
+            newGiro.push(nota);
+            setNotes(newGiro);
+        }
     };
 
     const deleteNote = () => {

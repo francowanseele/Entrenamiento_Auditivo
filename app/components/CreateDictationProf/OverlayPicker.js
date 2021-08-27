@@ -62,6 +62,7 @@ export default function OverlayPicker(props) {
                         onValueChange={(itemValue, itemIndex) =>
                             setValuesPicker(itemValue, itemIndex)
                         }
+                        style={{ height: 65 }}
                     >
                         {values.map((val, i) => (
                             <Picker.Item
