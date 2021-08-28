@@ -14,6 +14,7 @@ export default function BottomSheetNoteStartEnd(props) {
         setNotas_inicio,
         setNotas_fin,
         refRBSheet,
+        mayor,
     } = props;
     const [notes, setNotes] = useState([]);
     const [title, setTitle] = useState('Notas de Inicio');
@@ -77,7 +78,11 @@ export default function BottomSheetNoteStartEnd(props) {
                     />
                 </View>
                 <ScrollView>
-                    <KeyboardIntervals notes={notes} setNotes={setNotes} />
+                    <KeyboardIntervals
+                        notes={notes}
+                        setNotes={setNotes}
+                        mayor={mayor}
+                    />
                 </ScrollView>
             </View>
         </RBSheet>

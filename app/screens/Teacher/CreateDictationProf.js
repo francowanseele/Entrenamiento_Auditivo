@@ -290,144 +290,139 @@ export default function CreateDictationProf({ route }) {
             tesitura,
         });
 
-        // // TODO: verificar que están todos los datos correctos
-        // var allOk = true;
+        // TODO: verificar que están todos los datos correctos
+        var allOk = true;
 
-        // // Verify empty fields
-        // const okConfigGral =
-        //     institute.id != null &&
-        //     course.id != null &&
-        //     module.id != null &&
-        //     nameConfig != '' &&
-        //     descriptionConfig != '';
-        // const okGiroMelodico = giro_melodico_regla.length > 0;
-        // const okStartEndNotes = notas_inicio.length > 0 && notas_fin.length > 0;
+        // Verify empty fields
+        const okConfigGral =
+            institute.id != null &&
+            course.id != null &&
+            module.id != null &&
+            nameConfig != '' &&
+            descriptionConfig != '';
+        const okGiroMelodico = giro_melodico_regla.length > 0;
+        const okStartEndNotes = notas_inicio.length > 0 && notas_fin.length > 0;
         // const okRefNote = nota_base != null || nota_base != '';
-        // var okCompas = false;
-        // compas_regla.forEach((cr) => {
-        //     okCompas = okCompas || cr.simple == simple;
-        // });
-        // var okCelula = false;
-        // celula_ritmica_regla.forEach((crr) => {
-        //     okCelula = okCelula || crr.simple == simple;
-        // });
-        // const okBPM = BPM.menor > 0 && BPM.mayor > 0;
+        var okCompas = false;
+        compas_regla.forEach((cr) => {
+            okCompas = okCompas || cr.simple == simple;
+        });
+        var okCelula = false;
+        celula_ritmica_regla.forEach((crr) => {
+            okCelula = okCelula || crr.simple == simple;
+        });
+        const okBPM = BPM.menor > 0 && BPM.mayor > 0;
 
-        // if (
-        //     allOk &&
-        //     (!okConfigGral ||
-        //         !okGiroMelodico ||
-        //         !okStartEndNotes ||
-        //         !okRefNote ||
-        //         !okCompas ||
-        //         !okCelula ||
-        //         !okBPM)
-        // ) {
-        //     allOk = false;
+        if (
+            allOk &&
+            (!okConfigGral ||
+                !okGiroMelodico ||
+                !okStartEndNotes ||
+                !okCompas ||
+                !okCelula ||
+                !okBPM)
+        ) {
+            allOk = false;
 
-        //     setTitleErrorConfig(
-        //         'Existen inconsistencias en la configuración del dictado. Tenga en consideración los siguientes puntos:'
-        //     );
-        //     setTextErrorConfig(
-        //         `${
-        //             !okConfigGral
-        //                 ? '\n- Asignar un Instituto, Curso, Módulo, Nombre y Descripción a la configuración'
-        //                 : ''
-        //         }${!okGiroMelodico ? '\n- Asignar giros melódicos' : ''}${
-        //             !okStartEndNotes
-        //                 ? '\n- Asignar notas de inicio y notas de fin, que estén contenidas dentro de los giros melódicos'
-        //                 : ''
-        //         }${
-        //             !okRefNote
-        //                 ? '\n- Asignar nota de referencia contenida dentro de los giros melódicos'
-        //                 : ''
-        //         }${!okCompas ? '\n- Asignar compáses' : ''}${
-        //             !okCelula ? '\n- Asignar células rítmicas' : ''
-        //         }${!okBPM ? '\n- Asignar rango de bpm' : ''}
-        //         `
-        //     );
-        //     setVisibleErrorConfig(true);
-        // }
+            setTitleErrorConfig(
+                'Existen inconsistencias en la configuración del dictado. Tenga en consideración los siguientes puntos:'
+            );
+            setTextErrorConfig(
+                `${
+                    !okConfigGral
+                        ? '\n- Asignar un Instituto, Curso, Módulo, Nombre y Descripción a la configuración'
+                        : ''
+                }${!okGiroMelodico ? '\n- Asignar giros melódicos' : ''}${
+                    !okStartEndNotes
+                        ? '\n- Asignar notas de inicio y notas de fin, que estén contenidas dentro de los giros melódicos'
+                        : ''
+                }${!okCompas ? '\n- Asignar compáses' : ''}${
+                    !okCelula ? '\n- Asignar células rítmicas' : ''
+                }${!okBPM ? '\n- Asignar rango de bpm' : ''}
+                `
+            );
+            setVisibleErrorConfig(true);
+        }
 
-        // // Verify Validations (useEffect)
-        // // Start notes
-        // setOkStartNotes(notesInNoteRule(notas_inicio, giro_melodico_regla));
-        // // End notes
-        // setOkEndNotes(notesInNoteRule(notas_fin, giro_melodico_regla));
-        // // At least one clef
-        // setOkClefs(atLeastOneClef(clave_prioridad));
-        // // At least one tonality
-        // setOkTonality(atLeastOneTonality(escala_diatonica_regla));
+        // Verify Validations (useEffect)
+        // Start notes
+        setOkStartNotes(notesInNoteRule(notas_inicio, giro_melodico_regla));
+        // End notes
+        setOkEndNotes(notesInNoteRule(notas_fin, giro_melodico_regla));
+        // At least one clef
+        setOkClefs(atLeastOneClef(clave_prioridad));
+        // At least one tonality
+        setOkTonality(atLeastOneTonality(escala_diatonica_regla));
 
-        // if (
-        //     allOk &&
-        //     (!okStartNotes || !okEndNotes || !okClefs || !okTonality)
-        // ) {
-        //     allOk = false;
-        //     setTitleErrorConfig(
-        //         'Existen algunas advertencias que debe revisar.'
-        //     );
-        //     setTextErrorConfig(
-        //         `Revise sobe la izquierda de cada configuración si aparece alguna alerta. Para más información puede presionar sobre dicha alerta.`
-        //     );
-        //     setVisibleErrorConfig(true);
-        // }
+        if (
+            allOk &&
+            (!okStartNotes || !okEndNotes || !okClefs || !okTonality)
+        ) {
+            allOk = false;
+            setTitleErrorConfig(
+                'Existen algunas advertencias que debe revisar.'
+            );
+            setTextErrorConfig(
+                `Revise sobe la izquierda de cada configuración si aparece alguna alerta. Para más información puede presionar sobre dicha alerta.`
+            );
+            setVisibleErrorConfig(true);
+        }
 
-        // // try to create dictation
-        // if (allOk) {
-        //     const resGirosMelodicos = getGirosMelodicos(giro_melodico_regla);
+        // try to create dictation
+        if (allOk) {
+            const resGirosMelodicos = getGirosMelodicos(giro_melodico_regla);
 
-        //     const data = {
-        //         tarjetas: getTarjetas(celula_ritmica_regla),
-        //         nroCompases: nro_compases,
-        //         compas: getCompas(compas_regla),
-        //         simple: simple ? 'simples' : 'compuestas',
-        //         notasRegla: resGirosMelodicos[0],
-        //         nivelPrioridadRegla: resGirosMelodicos[1],
-        //         intervaloNotas: getTesitura(tesitura),
-        //         notasBase: notas_inicio,
-        //         notasFin: notas_fin,
-        //         nivelPrioridadClave: getPrioridadClave(clave_prioridad),
-        //         escalaDiatonicaRegla: getEscalasDiatonicas(
-        //             escala_diatonica_regla
-        //         ),
-        //         notaBase: nota_base ? nota_base[0] : null,
-        //         bpm: BPM,
-        //         dictado_ritmico: dictationRhythmic,
-        //     };
-        //     const resGenerate = await generateDictationApi(
-        //         null,
-        //         null,
-        //         null,
-        //         null,
-        //         1,
-        //         data,
-        //         true
-        //     );
+            const data = {
+                tarjetas: getTarjetas(celula_ritmica_regla),
+                nroCompases: nro_compases,
+                compas: getCompas(compas_regla),
+                simple: simple ? 'simples' : 'compuestas',
+                notasRegla: resGirosMelodicos[0],
+                nivelPrioridadRegla: resGirosMelodicos[1],
+                intervaloNotas: getTesitura(tesitura),
+                notasBase: notas_inicio,
+                notasFin: notas_fin,
+                nivelPrioridadClave: getPrioridadClave(clave_prioridad),
+                escalaDiatonicaRegla: getEscalasDiatonicas(
+                    escala_diatonica_regla
+                ),
+                notaBase: nota_base ? nota_base[0] : null,
+                bpm: BPM,
+                dictado_ritmico: dictationRhythmic,
+            };
+            const resGenerate = await generateDictationApi(
+                null,
+                null,
+                null,
+                null,
+                1,
+                data,
+                true
+            );
 
-        //     if (resGenerate.ok) {
-        //         navigation.navigate('summaryCreateDictation', {
-        //             dictationRhythmic,
-        //             institute,
-        //             course,
-        //             module,
-        //             nameConfig,
-        //             descriptionConfig,
-        //             giro_melodico_regla,
-        //             notas_inicio,
-        //             notas_fin,
-        //             clave_prioridad,
-        //             escala_diatonica_regla,
-        //             nota_base,
-        //             nro_compases,
-        //             simple,
-        //             compas_regla,
-        //             celula_ritmica_regla,
-        //             BPM,
-        //             tesitura,
-        //         });
-        //     }
-        // }
+            if (resGenerate.ok) {
+                navigation.navigate('summaryCreateDictation', {
+                    dictationRhythmic,
+                    institute,
+                    course,
+                    module,
+                    nameConfig,
+                    descriptionConfig,
+                    giro_melodico_regla,
+                    notas_inicio,
+                    notas_fin,
+                    clave_prioridad,
+                    escala_diatonica_regla,
+                    nota_base,
+                    nro_compases,
+                    simple,
+                    compas_regla,
+                    celula_ritmica_regla,
+                    BPM,
+                    tesitura,
+                });
+            }
+        }
     };
 
     // if (lastInstitute === null || lastCourse === null || lastModule === null)
@@ -557,6 +552,7 @@ export default function CreateDictationProf({ route }) {
                 setNotas_inicio={setNotas_inicio}
                 setNotas_fin={setNotas_fin}
                 refRBSheet={refRBSheet_NotesStartEnd}
+                mayor={mayor}
             />
             <BottomSheetClave
                 clave_prioridad={clave_prioridad}
@@ -574,6 +570,7 @@ export default function CreateDictationProf({ route }) {
                 setNota_base={setNota_base}
                 refRBSheet={refRBSheet_Reference}
                 toastRef={toastRef}
+                mayor={mayor}
             />
             <BottomSheetPicker
                 values={[

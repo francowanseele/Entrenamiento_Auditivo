@@ -82,48 +82,48 @@ export default function SummaryCreateDictation({ route }) {
         setTextEndCreate('Su configuración fue creada con éxito.');
         setVisibleEndCreate(true);
 
-        // const dataStorage = await getParams();
-        // const logged = await getStorageIsLogged();
+        const dataStorage = await getParams();
+        const logged = await getStorageIsLogged();
 
-        // if (logged) {
-        //     const data = {
-        //         name: nameConfig,
-        //         description: descriptionConfig,
-        //         giroMelodicoRegla: giro_melodico_regla,
-        //         tesitura: tesitura,
-        //         startNotes: notas_inicio,
-        //         endNotes: notas_fin,
-        //         clefPriority: clave_prioridad,
-        //         escalaDiatonicaRegla: escala_diatonica_regla,
-        //         celulaRitmicaRegla: celula_ritmica_regla,
-        //         nroCompases: nro_compases,
-        //         compasRegla: compas_regla,
-        //         simple: simple,
-        //         notaBase: nota_base[0],
-        //         bpm: BPM,
-        //         dictado_ritmico: dictationRhythmic,
-        //     };
+        if (logged) {
+            const data = {
+                name: nameConfig,
+                description: descriptionConfig,
+                giroMelodicoRegla: giro_melodico_regla,
+                tesitura: tesitura,
+                startNotes: notas_inicio,
+                endNotes: notas_fin,
+                clefPriority: clave_prioridad,
+                escalaDiatonicaRegla: escala_diatonica_regla,
+                celulaRitmicaRegla: celula_ritmica_regla,
+                nroCompases: nro_compases,
+                compasRegla: compas_regla,
+                simple: simple,
+                notaBase: nota_base[0],
+                bpm: BPM,
+                dictado_ritmico: dictationRhythmic,
+            };
 
-        //     const resultNewConfig = await addConfigDictationApi(
-        //         course.id,
-        //         module.id,
-        //         dataStorage.id,
-        //         data
-        //     );
+            const resultNewConfig = await addConfigDictationApi(
+                course.id,
+                module.id,
+                dataStorage.id,
+                data
+            );
 
-        //     if (resultNewConfig.ok) {
-        //         setTitleEndCreate('Configuración exitosa!!');
-        //         setTextEndCreate('Su configuración fue creada con éxito.');
-        //         setVisibleEndCreate(true);
-        //     } else {
-        //         setTitleEndCreate('Lo sentimos, algo salio mal..');
-        //         setTextEndCreate('Por favor intentelo más tarde.');
-        //         setVisibleEndCreate(true);
-        //         console.log('Error al crear la configuración');
-        //     }
-        // } else {
-        //     // TODO: user no logged
-        // }
+            if (resultNewConfig.ok) {
+                setTitleEndCreate('Configuración exitosa!!');
+                setTextEndCreate('Su configuración fue creada con éxito.');
+                setVisibleEndCreate(true);
+            } else {
+                setTitleEndCreate('Lo sentimos, algo salio mal..');
+                setTextEndCreate('Por favor intentelo más tarde.');
+                setVisibleEndCreate(true);
+                console.log('Error al crear la configuración');
+            }
+        } else {
+            // TODO: user no logged
+        }
     };
 
     return (

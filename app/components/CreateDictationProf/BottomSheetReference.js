@@ -8,7 +8,7 @@ import KeyboardIntervals from './KeyboardIntervals';
 import { PRIMARY_COLOR } from '../../../utils/colorPalette';
 
 export default function BottomSheetReference(props) {
-    const { nota_base, setNota_base, refRBSheet, toastRef } = props;
+    const { nota_base, setNota_base, refRBSheet, toastRef, mayor } = props;
     const [notes, setNotes] = useState([]);
 
     useEffect(() => {
@@ -81,6 +81,7 @@ export default function BottomSheetReference(props) {
                         max={1}
                         toastMax={toastRef}
                         textAlertMax={'Solo UNA nota de referencia'}
+                        mayor={mayor}
                     />
                 </ScrollView>
             </View>
