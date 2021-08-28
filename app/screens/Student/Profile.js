@@ -4,11 +4,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { BACKGROUNDHOME, ITEMSHOME, TEXTHOME } from '../../styles/styleValues';
 import { setStorageUserLogout } from '../../../utils/asyncStorageManagement';
 
-export default function Profile() {
+export default function Profile(props) {
+    const setLogin = props.setLogin;
     const logout = async () => {
-        // Si se toca el botton se tiene que recargar el emulador para que cierre sesión
-        // para hacerlo bien tendría que llegar la función setLogin (de la pantalla Start.js)
         await setStorageUserLogout();
+        await setLogin(false);
     };
 
     return (

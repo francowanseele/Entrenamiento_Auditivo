@@ -5,12 +5,14 @@ import { TOPSCREENHOME } from '../styles/styleValues';
 
 const Stack = createStackNavigator();
 
-export default function () {
+export default function (props) {
+    const { setLogin } = props;
+
     return (
         <Stack.Navigator>
             <Stack.Screen
                 name="profileprof"
-                component={ProfileProf}
+                // component={ProfileProf}
                 options={{
                     title: 'Perfil Docente',
                     headerStyle: {
@@ -21,6 +23,7 @@ export default function () {
                         fontWeight: 'bold',
                     },
                 }}
+                children={() => <ProfileProf setLogin={setLogin} />}
             />
         </Stack.Navigator>
     );

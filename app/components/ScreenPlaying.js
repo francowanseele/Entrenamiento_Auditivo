@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, Image } from 'react-native';
 import { Overlay } from 'react-native-elements';
-import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../utils/colorPalette';
+import { PRIMARY_COLOR } from '../../utils/colorPalette';
 
-export default function Loading(props) {
+export default function ScreenPlaying(props) {
     const { isVisible, text } = props;
     return (
         <Overlay
@@ -13,7 +13,11 @@ export default function Loading(props) {
             overlayStyle={style.overlay}
         >
             <View style={style.view}>
-                <ActivityIndicator size="large" color={PRIMARY_COLOR} />
+                <Image
+                    style={{ width: 300, height: 200 }}
+                    source={require('../../assets/playing_dictation.gif')}
+                />
+                {/* <ActivityIndicator size="large" color={'#000'} /> */}
                 {text && <Text style={style.text}>{text}</Text>}
             </View>
         </Overlay>
@@ -22,11 +26,11 @@ export default function Loading(props) {
 
 const style = StyleSheet.create({
     overlay: {
-        height: 100,
-        width: 200,
+        height: '50%',
+        width: '95%',
         backgroundColor: '#fff',
         borderColor: '#000',
-        borderWidth: 2,
+        borderWidth: 3,
         borderRadius: 10,
         borderColor: PRIMARY_COLOR,
     },

@@ -59,3 +59,22 @@ export function tramsitDictationApi(idUser) {
             return err.message;
         });
 }
+
+export function tramsitNoteReferenceApi(idUser) {
+    const url = `${basePath}/get-note-reference-sound/${idUser}`;
+
+    const params = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+    return fetch(url, params)
+        .then((response) => {
+            return response.url;
+        })
+        .catch((err) => {
+            return err.message;
+        });
+}

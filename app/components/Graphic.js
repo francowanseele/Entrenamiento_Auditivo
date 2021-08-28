@@ -10,6 +10,7 @@ export default ({
     denominadorParam,
     claveParam,
     escalaDiatonica,
+    isNotaReferencia
 }) => {
     // console.log(figurasConCompas)
     // console.log(dictadoGeneradoTraducidoParam)
@@ -498,6 +499,13 @@ export default ({
 
         return res;
     };
+    const largoPentagrama = () =>{
+        if (isNotaReferencia) {
+            return '930'
+        } else {
+            return '10000'
+        }
+    }
 
     const [Html, setHtml] = useState('');
 
@@ -524,7 +532,7 @@ export default ({
           var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
           
           // Size our SVG:
-          renderer.resize(10000, 300);
+          renderer.resize(`+largoPentagrama() +`, 300);
           
           // And get a drawing context:
           var context = renderer.getContext();

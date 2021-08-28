@@ -5,22 +5,25 @@ import {TEXTHOME, TOPSCREENHOME} from  '../styles/styleValues';
 
 const Stack = createStackNavigator();
 
-export default function () {
+export default function (props) {
+    const { setLogin } = props;
+
     return (
         <Stack.Navigator>
             <Stack.Screen
                 name="profile"
-                component={Profile}
+                // component={Profile}
                 options={{
-                    title: 'Perfil' ,
+                    title: 'Perfil',
                     headerStyle: {
-                      backgroundColor: TOPSCREENHOME,
+                        backgroundColor: TOPSCREENHOME,
                     },
                     headerTintColor: TEXTHOME,
                     headerTitleStyle: {
-                      fontWeight: 'bold',
+                        fontWeight: 'bold',
                     },
-                  }} 
+                }}
+                children={() => <Profile setLogin={setLogin} />}
             />
         </Stack.Navigator>
     );

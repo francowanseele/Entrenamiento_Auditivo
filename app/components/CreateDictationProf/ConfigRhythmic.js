@@ -8,7 +8,6 @@ import {
     Button,
 } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
-import RNPickerSelect, { defaultStyles } from 'react-native-picker-select';
 import SwitchSelector from 'react-native-switch-selector';
 
 import BottomSheetPicker from './BottomSheetPicker';

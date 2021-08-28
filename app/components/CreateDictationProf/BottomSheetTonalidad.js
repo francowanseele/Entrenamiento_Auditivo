@@ -18,7 +18,7 @@ import {
     TEXT_COLOR_RIGHT,
 } from '../../../utils/colorPalette';
 
-import Keyboard from './Keyboard';
+import KeyboardIntervals from './KeyboardIntervals';
 
 export default function BottomSheetTonalidad(props) {
     const { escala_diatonica_regla, setEscala_diatonica_regla, refRBSheet } =

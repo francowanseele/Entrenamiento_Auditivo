@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Calification from '../screens/Student/Calification';
-import {BACKGROUNDHOME, ITEMSHOME, TOPSCREENHOME} from '../styles/styleValues';
+import { TOPSCREENHOME } from '../styles/styleValues';
 const Stack = createStackNavigator();
 
 export default function () {

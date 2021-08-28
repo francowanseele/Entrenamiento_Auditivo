@@ -10,7 +10,9 @@ import { PRIMARY_COLOR } from '../../utils/colorPalette';
 
 const Tab = createBottomTabNavigator();
 
-export default function Navigation() {
+export default function Navigation(props) {
+    const { setLogin } = props;
+
     return (
         <NavigationContainer>
             <Tab.Navigator initialRouteName="home" tabBarOptions={{}}>
@@ -65,7 +67,7 @@ export default function Navigation() {
                 />
                 <Tab.Screen
                     name="profile"
-                    component={ProfileStack}
+                    // component={ProfileStack}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <Icon
@@ -78,6 +80,7 @@ export default function Navigation() {
                             return null;
                         },
                     }}
+                    children={() => <ProfileStack setLogin={setLogin} />}
                 />
             </Tab.Navigator>
         </NavigationContainer>
