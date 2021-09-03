@@ -7,10 +7,8 @@ import {
     CheckBox,
     Button,
 } from 'react-native-elements';
-import { Picker } from '@react-native-picker/picker';
 import SwitchSelector from 'react-native-switch-selector';
 
-import BottomSheetPicker from './BottomSheetPicker';
 import ListEmpty from './ListEmpty';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 

@@ -7,20 +7,25 @@ import {
     Dimensions,
     TextInput,
     TouchableOpacity,
+    Image,
+    KeyboardAvoidingView,
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import { setStorageUserLogged } from '../../../utils/asyncStorageManagement';
-import { getUsuarioApi } from '../../api/user';
-
+import SwitchSelector from 'react-native-switch-selector';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import { Entypo } from '@expo/vector-icons';
+
 import {
     BACKGROUNDHOME,
     TEXTHOME,
     ITEMSHOME,
     TOPSCREENHOME,
 } from '../../styles/styleValues';
-import { Entypo } from '@expo/vector-icons';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { setStorageUserLogged } from '../../../utils/asyncStorageManagement';
+import { getUsuarioApi } from '../../api/user';
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -29,6 +34,7 @@ export default function UserGuest(props) {
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
     const { setLogin, setIsStudent } = props;
+    const [student, setStudent] = useState(true);
 
     const loginStudent = async () => {
         await setStorageUserLogged(
@@ -55,10 +61,23 @@ export default function UserGuest(props) {
     };
     const loginFunc = async () => {
         if (validate(Email) == true) {
-            getUsuarioApi(Email, Password).then(async (res) => {
+            const data = {
+                email: Email,
+                password: Password,
+                isTeacher: !student,
+            };
+
+            getUsuarioApi(data).then(async (res) => {
                 if (res.ok) {
                     if (res.esDocente) {
-                        //AQUI VA USUARIO DOCENTE setStorage
+                        await setStorageUserLogged(
+                            res.email,
+                            '0',
+                            res.id_user,
+                            res.personal_course
+                        );
+                        setIsStudent(false);
+                        setLogin(true);
                     } else {
                         await setStorageUserLogged(
                             res.email,
@@ -94,10 +113,10 @@ export default function UserGuest(props) {
             setPassword(val);
         }
     };
+
     const validate = (text) => {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
         if (reg.test(text) === false) {
-            console.log('Email is Not Correct');
             return false;
         } else {
             return true;
@@ -105,58 +124,93 @@ export default function UserGuest(props) {
     };
 
     return (
-        <View style={styles.container}>
-            {/* <Button title="boton que no hace nada" />
-            <Button title="Entrar como estudiante" onPress={loginStudent} />
-            <Button title="Entrar como docente" onPress={loginDoc} />
-            {/* <NavigationContainer>
-                <Tab.Navigator>
-                    <Tab.Screen name="Home" component={ConfigMelodic} />
-                    <Tab.Screen name="Settings" component={ConfigRhythmic} />
-                </Tab.Navigator>
-            </NavigationContainer> */}
-            <Button title="Entrar como docente" onPress={loginDoc} />
-            <View style={styles.login}>
+        <KeyboardAvoidingView style={styles.container} behavior="padding">
+            {/* <Button title="Entrar como docente" onPress={loginDoc} /> */}
+            <Image
+                source={require('../../../assets/ADA_logo.png')}
+                style={styles.imgLogo}
+            />
+            <TextInput
+                style={styles.inputStyle}
+                placeholder="Correo"
+                value={Email}
+                onChangeText={(val) => updateInputVal(val, 'Email')}
+            />
+            <View style={styles.inputStyle}>
                 <TextInput
-                    style={styles.inputStyle}
-                    placeholder="Correo"
-                    value={Email}
-                    onChangeText={(val) => updateInputVal(val, 'Email')}
+                    style={styles.inputPass}
+                    placeholder="Contraseña"
+                    value={Password}
+                    onChangeText={(val) => updateInputVal(val, 'Password')}
+                    maxLength={15}
+                    secureTextEntry={isVisiblePass}
                 />
-                <View style={styles.inputStyle}>
-                    <TextInput
-                        style={styles.inputPass}
-                        placeholder="Contraseña"
-                        value={Password}
-                        onChangeText={(val) => updateInputVal(val, 'Password')}
-                        maxLength={15}
-                        secureTextEntry={isVisiblePass}
-                    />
-                    <TouchableOpacity
-                        style={{ alignSelf: 'flex-end' }}
-                        onPress={() => {
-                            setIsVisiblePass(!isVisiblePass);
-                        }}
-                    >
-                        <Entypo name="eye" size={24} color={TEXTHOME} />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button} onPress={loginFunc}>
-                        <Text style={styles.textLogin}>Iniciar Sesion</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity
+                    style={{ alignSelf: 'flex-end' }}
+                    onPress={() => {
+                        setIsVisiblePass(!isVisiblePass);
+                    }}
+                >
+                    <Entypo name="eye" size={24} color={TEXTHOME} />
+                </TouchableOpacity>
             </View>
-        </View>
+            <SwitchSelector
+                initial={0}
+                onPress={(value) => setStudent(value == 'e')}
+                textColor={'black'}
+                selectedColor={'white'}
+                buttonColor={SECONDARY_COLOR}
+                borderColor={PRIMARY_COLOR}
+                hasPadding
+                options={[
+                    {
+                        label: 'Estudiante',
+                        value: 'e',
+                    },
+                    {
+                        label: 'Docente',
+                        value: 'd',
+                    },
+                ]}
+                testID="gender-switch-selector"
+                accessibilityLabel="gender-switch-selector"
+                style={{
+                    width: '100%',
+                    marginBottom: 10,
+                }}
+            />
+            <Button
+                title="Iniciar sesión"
+                buttonStyle={styles.btnLogIn}
+                onPress={loginFunc}
+            />
+        </KeyboardAvoidingView>
     );
 }
 
 const styles = StyleSheet.create({
+    textLogo: {
+        fontSize: 70,
+        color: PRIMARY_COLOR,
+        alignSelf: 'center',
+        fontWeight: 'bold',
+    },
+    imgLogo: {
+        marginTop: 50,
+        width: '60%',
+        height: '40%',
+        resizeMode: 'contain',
+        alignSelf: 'center',
+        marginBottom: 30,
+    },
+    btnLogIn: {
+        backgroundColor: PRIMARY_COLOR,
+    },
     container: {
         backgroundColor: BACKGROUNDHOME,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        padding: 35,
+        // flexDirection: 'column',
+        // justifyContent: 'center',
+        paddingHorizontal: 20,
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width,
     },
@@ -189,15 +243,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     login: {
-        flexDirection: 'column',
-        justifyContent: 'space-evenly',
-    },
-    inputStyle: {
-        color: TEXTHOME,
-        padding: 10,
-        backgroundColor: ITEMSHOME,
-        borderRadius: 5,
-        borderWidth: 0.4,
+        // flexDirection: 'column',
+        // justifyContent: 'space-evenly',
     },
     inputStyle: {
         flexDirection: 'row',
@@ -207,6 +254,7 @@ const styles = StyleSheet.create({
         backgroundColor: ITEMSHOME,
         borderRadius: 5,
         borderWidth: 0.4,
+        marginBottom: 10,
     },
     inputPass: {
         width: '92%',

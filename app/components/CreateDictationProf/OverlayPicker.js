@@ -1,5 +1,12 @@
-import React, { useRef, useState } from 'react';
-import { StyleSheet, ScrollView, View, Text, Animated } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import {
+    StyleSheet,
+    ScrollView,
+    View,
+    Text,
+    Animated,
+    Platform,
+} from 'react-native';
 import {
     ListItem,
     Icon,
@@ -9,6 +16,7 @@ import {
     Overlay,
 } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
+import SwipePicker from 'react-native-swipe-picker';
 
 export default function OverlayPicker(props) {
     const {
@@ -22,6 +30,19 @@ export default function OverlayPicker(props) {
 
     const pickerRef = useRef();
     const [valueLocal, setValueLocal] = useState({ id: null, name: '' });
+    const [valuesToPicker, setValuesToPicker] = useState([]);
+
+    useEffect(() => {
+        var arr = [];
+        values.forEach((v) => {
+            arr.push({
+                value: v.name,
+                label: v.name,
+            });
+        });
+
+        setValuesToPicker(arr);
+    }, [values]);
 
     const toggleOverlay = () => {
         setVisible(!visible);
@@ -56,22 +77,39 @@ export default function OverlayPicker(props) {
                             onPress={() => confirmation()}
                         />
                     </View>
-                    <Picker
-                        ref={pickerRef}
-                        selectedValue={valueLocal.name}
-                        onValueChange={(itemValue, itemIndex) =>
-                            setValuesPicker(itemValue, itemIndex)
-                        }
-                        style={{ height: 65 }}
-                    >
-                        {values.map((val, i) => (
-                            <Picker.Item
-                                key={i}
-                                label={val.name}
-                                value={val.name}
-                            />
-                        ))}
-                    </Picker>
+                    {Platform.OS == 'ios' ? (
+                        <>
+                            <Picker
+                                ref={pickerRef}
+                                selectedValue={valueLocal.name}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    setValuesPicker(itemValue, itemIndex)
+                                }
+                                style={{ height: 65 }}
+                            >
+                                {values.map((val, i) => (
+                                    <Picker.Item
+                                        key={i}
+                                        label={val.name}
+                                        value={val.name}
+                                    />
+                                ))}
+                            </Picker>
+                        </>
+                    ) : (
+                        <>
+                            {valuesToPicker.length > 0 ? (
+                                <SwipePicker
+                                    items={valuesToPicker}
+                                    onChange={({ index, item }) => {
+                                        setValuesPicker(valuesToPicker, index);
+                                    }}
+                                />
+                            ) : (
+                                <></>
+                            )}
+                        </>
+                    )}
                 </>
             ) : (
                 <View style={styles.containerError}>

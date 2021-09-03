@@ -102,14 +102,14 @@ export function generateDictationApi(
         });
 }
 
-export const getUsuarioApi = (email, password) => {
+export const getUsuarioApi = (data) => {
     const url = `${basePath}/get-user`;
     const params = {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: email, password: password }),
+        body: JSON.stringify(data),
     };
     return fetch(url, params)
         .then((response) => {

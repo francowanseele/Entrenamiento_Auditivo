@@ -290,7 +290,7 @@ export default function BottomSheetCelulaRitmica(props) {
                 )}
                 <ScrollView>
                     {renderSlider ? (
-                        <View style={{ marginBottom: 120 }}>
+                        <View style={{ marginBottom: 140 }}>
                             {listAllCR.map((cr, i) => (
                                 <View key={i}>
                                     <View>
