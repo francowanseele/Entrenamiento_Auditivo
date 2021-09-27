@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { BACKGROUNDHOME,TOPSCREENHOME, ITEMSHOME } from '../../styles/styleValues';
+import { TEXTHOME,TOPSCREENHOME, ITEMSHOME } from '../../styles/styleValues';
 import {getClasificaciones} from '../../api/user';
 import Loading from '../../components/Loading';
 import { ID_USER } from '../../../utils/asyncStorageManagement';
@@ -19,9 +19,9 @@ export default function Calification() {
                 getClasificaciones(idUser).then((response)=>{
                     console.log(response.ok)
                     if (response.ok){
-                        // console.log(response.calificaciones)
+                        console.log(response.calificaciones)
                         setCalificaciones(response.calificaciones)
-                        console.log(calificaciones)
+                        // console.log(calificaciones)
                         setLoading(false);
                     }else { 
                         setCalificaciones([])
@@ -52,7 +52,7 @@ export default function Calification() {
                     </>
                 }
                 key={i}
-                isExpanded={true}
+                isExpanded={'true'}
                 onPress={ () => {
                     open_closeModulePress();
                 }}
@@ -64,7 +64,6 @@ export default function Calification() {
                         //     configDictationIn(config, module.module);
                         // }}
                         bottomDivider
-                        
                     >
                         <ListItem.Content  style={styles.subitems}>
                             <ListItem.Title  style={styles.title}>{'      ' + notaActual.nota}</ListItem.Title>
