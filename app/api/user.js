@@ -189,3 +189,51 @@ export const setAutoevaluacion = (
         }
     });
 };
+
+// { "idUser":"60dcb5af0a02b10148eaf0fe"}
+export const getClasificaciones = (idUser) => {
+    const url = `${basePath}/get_califications`;
+    const params = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+           idUser:idUser
+        }),
+    };
+    return fetch(url, params).then((response) => {
+            if (response.status === 501) {
+                return null;
+            } else {
+                return response.json();
+            }
+        })
+        .then((result) => {
+            if (!result) {
+                return {
+                    ok: false,
+                    message: 'Error interno del servidor.',
+                };
+            } else {
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        calificaciones: result.calificaciones,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        message: result.message,
+                    };
+                }
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+            return {
+                ok: false,
+                message: 'Error de servidor, vuelva a intentarlo más tarde',
+            };
+        });
+};
