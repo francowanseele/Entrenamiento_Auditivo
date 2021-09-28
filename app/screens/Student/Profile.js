@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, StyleSheet, Button, Text, TouchableOpacity } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { BACKGROUNDHOME, ITEMSHOME, TEXTHOME } from '../../styles/styleValues';
 import { setStorageUserLogout } from '../../../utils/asyncStorageManagement';
 
