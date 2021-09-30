@@ -10,7 +10,6 @@ export default function Calification() {
  
     const [loading, setLoading] = useState(true);
     const [calificaciones, setCalificaciones] = useState([]);
-    const [isPressExpand, setIsPressExpand] = useState([]);
 
     useEffect(() => {
         getStorageItem(ID_USER).then((idUser) => { 
@@ -33,21 +32,31 @@ export default function Calification() {
     }, []);
     const open_closeCalificacionesPress = (calificationCurrent) => {
         var califRes = [];
-        calificaciones.calificaciones.forEach(c => {
-            if(c.calificaciones._id == calificationCurrent._id){
+        calificaciones.forEach(calif => {
+            if(calif.calificaciones.idDictado == calificationCurrent.idDictado){
                 califRes.push({
-                    calificaciones:c.calificaciones,
-                    calificaciones:!c.openItem 
+                    calificaciones:calif.calificaciones,
+                    openItem:!calif.openItem 
                     })
             } else {
                 califRes.push({
-                    calificaciones:c.calificaciones,
-                    calificaciones:c.openItem 
+                    calificaciones:calif.calificaciones,
+                    openItem:calif.openItem 
                     })
             }
         });
-
         setCalificaciones(califRes);
+    };
+    const getStyleByState = (nota) => {
+        if (nota) {
+            if (nota == 0 || nota <= 2) {
+                return styles.notaRed;
+            } else if (nota >= 3 && nota <= 8) {
+                return styles.notaOrange;
+            } else {
+                return styles.notaGreen;
+            }
+        } else return styles.notaRed;
     };
 
 
@@ -58,7 +67,6 @@ export default function Calification() {
                
         {calificaciones.map((califCurrent, i) => (
             <ListItem.Accordion containerStyle={styles.calificacionesStyle}
-            // onEndReached={}
                 content={
                     <>
                         <ListItem.Content style={styles.calificacionesLine}>                                
@@ -66,18 +74,20 @@ export default function Calification() {
                             style={styles.title}
                             >{califCurrent.calificaciones.nombreCurso}</ListItem.Title>
                             <ListItem.Title
-                            style={styles.title}
-                            > <Text>Promedio: </Text>{califCurrent.calificaciones.promedio}</ListItem.Title>
+                            style={{ color:TEXTHOME }}
+                            > <Text>Promedio: </Text>
+                            <Text style={getStyleByState(califCurrent.calificaciones.promedio)}>{(califCurrent.calificaciones.promedio).toFixed(1)}</Text>
+                            </ListItem.Title>
                         </ListItem.Content>
                     </>
                 }
                 key={i}
-                isExpanded={califCurrent.calificaciones.openItem}
+                isExpanded={califCurrent.openItem}
                 onPress={ () => {
-                    open_closeCalificacionesPress(califCurrent)
+                    open_closeCalificacionesPress(califCurrent.calificaciones)
                 }}
             >
-                {califCurrent.calificaciones.notas.map((notaActual, j) => (
+                {califCurrent.calificaciones.notas ? califCurrent.calificaciones.notas.map((notaActual, j) => (
                     <ListItem containerStyle={styles.subcontent}
                         key={j}
                         onPress={() => {
@@ -85,14 +95,20 @@ export default function Calification() {
                         bottomDivider
                     >
                         <ListItem.Content  style={styles.subitems}>
-                            <ListItem.Title  style={styles.title}>{'      ' + notaActual.nota}</ListItem.Title>
+                            <ListItem.Title  style={styles.title}>{'nota  '}
+                                <Text style={getStyleByState(notaActual.nota)} >{ notaActual.nota}</Text>
+                            </ListItem.Title>
                             <ListItem.Subtitle  style={{color:'black'}}>
-                                {'    ' + notaActual.fecha}
+                                {'Fecha realizado:  ' + notaActual.fecha}
                             </ListItem.Subtitle>
+                            {notaActual.tipoError? 
+                            <ListItem.Subtitle  style={{color:'black'}}>
+                            {'Tipo de error:  ' + notaActual.tipoError}
+                        </ListItem.Subtitle>: <></>}
                         </ListItem.Content>
                         <ListItem.Chevron  />
                     </ListItem>
-                ))}
+                )) : <Text>No tiene notas para mostrar</Text>}
             </ListItem.Accordion>
         ))}
       </ScrollView>
@@ -136,6 +152,24 @@ const styles = StyleSheet.create({
     subitems:{
         width:'90%',
         alignSelf:'center'
-    }
+    },
+    notaOrange: {
+        color: '#f99856',
+        alignSelf: 'flex-start',
+        borderRadius: 100,
+        fontWeight: 'bold',
+    },
+    notaGreen: {
+        color: '#008000',
+        alignSelf: 'flex-start',
+        borderRadius: 100,
+        fontWeight: 'bold',
+    },
+    notaRed: {
+        color: '#f1503f',
+        alignSelf: 'flex-start',
+        borderRadius: 100,
+        fontWeight: 'bold',
+    },
 
 });
