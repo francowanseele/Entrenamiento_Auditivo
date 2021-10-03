@@ -6,22 +6,31 @@ import { ListItem, Icon } from 'react-native-elements';
 import Loading from '../../components/Loading';
 import {getStorageItem,ID_USER} from '../../../utils/asyncStorageManagement';
 
-export default function Calification() {
+export default function Calification({route}) {
  
     const [loading, setLoading] = useState(true);
-    const [calificaciones, setCalificaciones] = useState([]);
+    const [modulos, setModulos] = useState([]);
+    const [configuraciones , setConfiguraciones] = useState([])
+    const { idCourse } = route.params;
+
 
     useEffect(() => {
         getStorageItem(ID_USER).then((idUser) => { 
             if (idUser) {
+                let modRes = [];
                 getClasificaciones(idUser).then((response)=>{
                     if (response.ok){
-                        response.calificaciones.forEach(calif =>{
-                            calificaciones.push({
-                                calificaciones:calif,
-                                openItem:false
-                            })
-                        })
+                        for (let calif in  response.calificaciones){
+                            if ( calif == idCourse ){ 
+                                for (let modulo in  response.calificaciones[calif].modulos ){
+                                modRes.push({
+                                    modulo:response.calificaciones[calif].modulos[modulo],
+                                    openItem:false
+                                })
+                                }
+                            }
+                        }
+                        setModulos(modRes)
                         setLoading(false);
                     }else { 
                         setCalificaciones([])
@@ -30,22 +39,22 @@ export default function Calification() {
             }
         });
     }, []);
-    const open_closeCalificacionesPress = (calificationCurrent) => {
-        var califRes = [];
-        calificaciones.forEach(calif => {
-            if(calif.calificaciones.idDictado == calificationCurrent.idDictado){
-                califRes.push({
-                    calificaciones:calif.calificaciones,
-                    openItem:!calif.openItem 
+    const open_closeConfiguracionesPress = (modulo) => {
+        var modRes = [];
+        modulos.forEach(mod => {
+            if(mod == modulo){
+                modRes.push({
+                    modulo:mod.modulo,
+                    openItem:!mod.openItem 
                     })
             } else {
-                califRes.push({
-                    calificaciones:calif.calificaciones,
-                    openItem:calif.openItem 
-                    })
+                modRes.push({
+                    modulo:mod.modulo,
+                    openItem:mod.openItem 
+                })
             }
         });
-        setCalificaciones(califRes);
+        setModulos(modRes);
     };
     const getStyleByState = (nota) => {
         if (nota) {
@@ -58,6 +67,26 @@ export default function Calification() {
             }
         } else return styles.notaRed;
     };
+    // const getItemsModule=(configs)=>{
+            
+    //         for ( let config in  configs){
+    //             <ListItem containerStyle={styles.subcontent}
+    //             key={config}
+    //             onPress={() => {
+    //             }}
+    //             bottomDivider
+    //         >
+    //             <ListItem.Content  style={styles.subitems}>
+    //                 <ListItem.Title  style={styles.title}>{'nombre configuracion: '}
+    //                     <Text style={styles.subitems} >{configs[config].nombre_configuracion}</Text>
+    //                 </ListItem.Title>
+                    
+    //             </ListItem.Content>
+    //             <ListItem.Chevron/>
+    //         </ListItem>
+    //             )
+    //         } 
+    // }
 
 
     if (loading) return <Loading isVisible={true} text="Cargando" />;
@@ -65,50 +94,48 @@ export default function Calification() {
     return (
         <ScrollView style={styles.container}>          
                
-        {calificaciones.map((califCurrent, i) => (
+        {modulos.map((moduloCurrent, i) => (
             <ListItem.Accordion containerStyle={styles.calificacionesStyle}
                 content={
-                    <>
+                    <>  
+                        {/* {console.log(JSON.stringify(moduloCurrent))}
+                        {console.log(JSON.stringify(moduloCurrent.modulo.nombre_modulo))} */}
                         <ListItem.Content style={styles.calificacionesLine}>                                
                             <ListItem.Title 
                             style={styles.title}
-                            >{califCurrent.calificaciones.nombreCurso}</ListItem.Title>
+                            >{moduloCurrent.modulo.nombre_modulo}</ListItem.Title>
                             <ListItem.Title
                             style={{ color:TEXTHOME }}
                             > <Text>Promedio: </Text>
-                            <Text style={getStyleByState(califCurrent.calificaciones.promedio)}>{(califCurrent.calificaciones.promedio).toFixed(1)}</Text>
+                            {/* <Text style={getStyleByState(califCurrent.calificaciones.promedio)}>{(califCurrent.calificaciones.promedio).toFixed(1)}</Text> */}
                             </ListItem.Title>
                         </ListItem.Content>
                     </>
                 }
                 key={i}
-                isExpanded={califCurrent.openItem}
+                isExpanded={moduloCurrent.openItem}
                 onPress={ () => {
-                    open_closeCalificacionesPress(califCurrent.calificaciones)
+                    open_closeConfiguracionesPress(moduloCurrent)
                 }}
-            >
-                {califCurrent.calificaciones.notas ? califCurrent.calificaciones.notas.map((notaActual, j) => (
-                    <ListItem containerStyle={styles.subcontent}
-                        key={j}
+            >   
+                {moduloCurrent.modulo.configuraciones? 
+                    Object.values(moduloCurrent.modulo.configuraciones).map((configs)=>(
+                        <ListItem containerStyle={styles.subcontent}
+                        key={configs}
                         onPress={() => {
                         }}
                         bottomDivider
                     >
                         <ListItem.Content  style={styles.subitems}>
-                            <ListItem.Title  style={styles.title}>{'nota  '}
-                                <Text style={getStyleByState(notaActual.nota)} >{ notaActual.nota}</Text>
+                            <ListItem.Title  style={styles.title}>{'nombre configuracion: '}
+                                <Text style={styles.subitems} >{configs.nombre_configuracion}</Text>
                             </ListItem.Title>
-                            <ListItem.Subtitle  style={{color:'black'}}>
-                                {'Fecha realizado:  ' + notaActual.fecha}
-                            </ListItem.Subtitle>
-                            {notaActual.tipoError? 
-                            <ListItem.Subtitle  style={{color:'black'}}>
-                            {'Tipo de error:  ' + notaActual.tipoError}
-                        </ListItem.Subtitle>: <></>}
+                            
                         </ListItem.Content>
-                        <ListItem.Chevron  />
+                        <ListItem.Chevron/>
                     </ListItem>
-                )) : <Text>No tiene notas para mostrar</Text>}
+                    ))
+                    : <Text>No tiene notas para mostrar</Text>}
             </ListItem.Accordion>
         ))}
       </ScrollView>
