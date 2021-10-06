@@ -5,6 +5,7 @@ import {getClasificaciones} from '../../api/user';
 import { ListItem, Icon } from 'react-native-elements';
 import Loading from '../../components/Loading';
 import {getStorageItem,ID_USER} from '../../../utils/asyncStorageManagement';
+import { Modal, Portal,Provider } from 'react-native-paper';
 
 export default function Calification({route}) {
  
@@ -12,6 +13,9 @@ export default function Calification({route}) {
     const [modulos, setModulos] = useState([]);
     const [configuraciones , setConfiguraciones] = useState([])
     const { idCourse } = route.params;
+    const [visible, setVisible] = useState(false);
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
 
 
     useEffect(() => {
@@ -119,31 +123,51 @@ export default function Calification({route}) {
                 }}
             >   
                 {moduloCurrent.modulo.configuraciones? 
-                    Object.values(moduloCurrent.modulo.configuraciones).map((configs)=>(
+                    Object.values(moduloCurrent.modulo.configuraciones).map((configs,j)=>(
                         <ListItem containerStyle={styles.subcontent}
-                        key={configs}
-                        onPress={() => {
-                        }}
+                        key={j}
+                        onPress={showModal}
                         bottomDivider
+
                     >
-                        <ListItem.Content  style={styles.subitems}>
-                            <ListItem.Title  style={styles.title}>{'nombre configuracion: '}
+                        <ListItem.Content  >
+                            <ListItem.Title style={styles.title}>
                                 <Text style={styles.subitems} >{configs.nombre_configuracion}</Text>
+                               
                             </ListItem.Title>
-                            
-                        </ListItem.Content>
+                            <ListItem.Subtitle>
+                            <Text style={styles.subitems} >Promedio: <Text style={getStyleByState(configs.promedio)}>
+                                        {(configs.promedio).toFixed(1)}</Text>
+                            </Text>
+                            </ListItem.Subtitle>
+                        </ListItem.Content> 
                         <ListItem.Chevron/>
                     </ListItem>
                     ))
                     : <Text>No tiene notas para mostrar</Text>}
             </ListItem.Accordion>
         ))}
+
+        <Provider>
+            <Portal>
+                <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.containerModal}>
+                <Text>Example Modal.  Click outside this area to dismiss.</Text>
+                </Modal>
+            </Portal>
+        </Provider>
       </ScrollView>
     );
 }
 const styles = StyleSheet.create({
     container:{
         flex:1
+    },
+    containerModal:{
+        flex:0.9,
+        backgroundColor:'white',
+        width:'90%',
+        borderRadius:10,
+        alignSelf:'center'
     },
     calificacionesStyle:{
         flex:1,

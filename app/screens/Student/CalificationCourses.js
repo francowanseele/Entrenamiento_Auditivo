@@ -26,7 +26,6 @@ export default function CalificationCourses() {
                                 calificaciones:response.calificaciones[current]
                             })
                         }
-                        console.log('llegaron calificaciones')
                         setCalificaciones(newArray)
                         setLoading(false)
                     }else { 
@@ -57,8 +56,8 @@ export default function CalificationCourses() {
                 }}
                 bottomDivider 
                 style={{flex:1}}>
-                             <ListItem.Content style={styles.calificacionesLine}>
-                               <ListItem.Title style={styles.calificacionesLine} >{j.calificaciones.nombre_curso}</ListItem.Title>
+                             <ListItem.Content style={styles.container}>
+                               <ListItem.Title style={styles.title} >{j.calificaciones.nombre_curso}</ListItem.Title>
                                <ListItem.Subtitle style={styles.calificacionesLine} >Promedio : </ListItem.Subtitle>
                              </ListItem.Content>
                  </ListItem>
