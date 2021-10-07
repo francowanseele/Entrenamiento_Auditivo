@@ -43,6 +43,17 @@ export default function CalificationCourses() {
             idCourse: idCourse
         });
     }
+    const getStyleByState = (nota) => {
+        if (nota) {
+            if (nota == 0 || nota <= 2) {
+                return styles.notaRed;
+            } else if (nota >= 3 && nota <= 8) {
+                return styles.notaOrange;
+            } else {
+                return styles.notaGreen;
+            }
+        } else return styles.notaRed;
+    };
     
 
     if (loading) return <Loading isVisible={true} text="Cargando" />;
@@ -58,7 +69,9 @@ export default function CalificationCourses() {
                 style={{flex:1}}>
                              <ListItem.Content style={styles.container}>
                                <ListItem.Title style={styles.title} >{j.calificaciones.nombre_curso}</ListItem.Title>
-                               <ListItem.Subtitle style={styles.calificacionesLine} >Promedio : </ListItem.Subtitle>
+                               <ListItem.Subtitle style={styles.calificacionesLine} >Promedio :
+                               <Text style={getStyleByState(j.calificaciones.promedio)}> {j.calificaciones.promedio.toFixed(1)}
+                               </Text></ListItem.Subtitle>
                              </ListItem.Content>
                  </ListItem>
             ) 

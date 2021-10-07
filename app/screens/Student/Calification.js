@@ -16,6 +16,7 @@ export default function Calification({route}) {
     const [visible, setVisible] = useState(false);
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
+    const [ currentNotes, setCurrentNotes ] = useState([]);
 
 
     useEffect(() => {
@@ -110,7 +111,10 @@ export default function Calification({route}) {
                             >{moduloCurrent.modulo.nombre_modulo}</ListItem.Title>
                             <ListItem.Title
                             style={{ color:TEXTHOME }}
-                            > <Text>Promedio: </Text>
+                            > <Text>Promedio: 
+                                <Text style={getStyleByState(moduloCurrent.modulo.promedio)}>
+                                    {moduloCurrent.modulo.promedio.toFixed(1)}
+                                </Text></Text>
                             {/* <Text style={getStyleByState(califCurrent.calificaciones.promedio)}>{(califCurrent.calificaciones.promedio).toFixed(1)}</Text> */}
                             </ListItem.Title>
                         </ListItem.Content>
@@ -126,11 +130,15 @@ export default function Calification({route}) {
                     Object.values(moduloCurrent.modulo.configuraciones).map((configs,j)=>(
                         <ListItem containerStyle={styles.subcontent}
                         key={j}
-                        onPress={showModal}
+                        onPress={()=>{
+                            showModal();
+                            setCurrentNotes(configs.notas)
+                            }
+                        }
                         bottomDivider
 
                     >
-                        <ListItem.Content  >
+                        <ListItem.Content>
                             <ListItem.Title style={styles.title}>
                                 <Text style={styles.subitems} >{configs.nombre_configuracion}</Text>
                                
@@ -148,10 +156,18 @@ export default function Calification({route}) {
             </ListItem.Accordion>
         ))}
 
-        <Provider>
-            <Portal>
+        <Provider styles={{flex:1}}>
+            <Portal styles={{flex:1}}>
                 <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.containerModal}>
-                <Text>Example Modal.  Click outside this area to dismiss.</Text>
+                        <ScrollView styles={{flex:1}}>
+                        {currentNotes.map((e,index)=>( 
+                            <View style={styles.modalListNotas}>
+                                <Text style={styles.notasLines}>Nota:<Text style={getStyleByState(e.nota)}>{e.nota}</Text></Text>
+                                <Text style={styles.notasLines}>Tipo de error: <Text style={{color:'black'}}>{e.tipoError}</Text></Text>
+                                <Text style={styles.notasLines}>Fecha intento:<Text style={{color:'black'}}>{(new Date(e.fecha).toString())}</Text></Text>
+                            </View> 
+                         ) )}
+                        </ScrollView>
                 </Modal>
             </Portal>
         </Provider>
@@ -169,6 +185,12 @@ const styles = StyleSheet.create({
         borderRadius:10,
         alignSelf:'center'
     },
+    modalListNotas:{
+        flex:1,
+        margin:15,
+        marginBottom:5,
+        alignItems:'flex-start'
+    },
     calificacionesStyle:{
         flex:1,
         backgroundColor:TOPSCREENHOME,
@@ -183,6 +205,14 @@ const styles = StyleSheet.create({
     calificacionesLine:{
         flex:1,
         backgroundColor:TOPSCREENHOME,
+        flexDirection:'row',
+        alignContent:'space-between',
+        alignItems:'center'
+    },
+    notasLines:{
+        flex:1,
+        backgroundColor:TOPSCREENHOME,
+        color:TEXTHOME,
         flexDirection:'row',
         alignContent:'space-between',
         alignItems:'center'
