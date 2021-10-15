@@ -11,23 +11,19 @@ export default function Profile(props) {
     };
 
     return (
-        <LinearGradient
-            style={styles.lineargradient}
-            // Background Linear Gradient
-            colors={[BACKGROUNDHOME, BACKGROUNDHOME, ITEMSHOME, ITEMSHOME]}
-        >
-            <Text>Perfil...</Text>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button} onPress={logout}>
-                    <Text style={styles.textLogin}>Cerrar Sesion</Text>
-                </TouchableOpacity>
+            <View style={styles.container} >
+                <Text>Perfil...</Text>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.button} onPress={logout}>
+                        <Text style={styles.textLogin}>Cerrar Sesion</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </LinearGradient>
     );
 }
 const styles = StyleSheet.create({
-    lineargradient: {
-        height: '100%',
+    container:{
+        flex:1
     },
     buttonContainer: {
         flexDirection: 'column',

@@ -72,26 +72,7 @@ export default function Calification({route}) {
             }
         } else return styles.notaRed;
     };
-    // const getItemsModule=(configs)=>{
-            
-    //         for ( let config in  configs){
-    //             <ListItem containerStyle={styles.subcontent}
-    //             key={config}
-    //             onPress={() => {
-    //             }}
-    //             bottomDivider
-    //         >
-    //             <ListItem.Content  style={styles.subitems}>
-    //                 <ListItem.Title  style={styles.title}>{'nombre configuracion: '}
-    //                     <Text style={styles.subitems} >{configs[config].nombre_configuracion}</Text>
-    //                 </ListItem.Title>
-                    
-    //             </ListItem.Content>
-    //             <ListItem.Chevron/>
-    //         </ListItem>
-    //             )
-    //         } 
-    // }
+  
 
 
     if (loading) return <Loading isVisible={true} text="Cargando" />;
@@ -103,8 +84,6 @@ export default function Calification({route}) {
             <ListItem.Accordion containerStyle={styles.calificacionesStyle}
                 content={
                     <>  
-                        {/* {console.log(JSON.stringify(moduloCurrent))}
-                        {console.log(JSON.stringify(moduloCurrent.modulo.nombre_modulo))} */}
                         <ListItem.Content style={styles.calificacionesLine}>                                
                             <ListItem.Title 
                             style={styles.title}
@@ -115,7 +94,6 @@ export default function Calification({route}) {
                                 <Text style={getStyleByState(moduloCurrent.modulo.promedio)}>
                                     {moduloCurrent.modulo.promedio.toFixed(1)}
                                 </Text></Text>
-                            {/* <Text style={getStyleByState(califCurrent.calificaciones.promedio)}>{(califCurrent.calificaciones.promedio).toFixed(1)}</Text> */}
                             </ListItem.Title>
                         </ListItem.Content>
                     </>
@@ -161,7 +139,7 @@ export default function Calification({route}) {
                 <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.containerModal}>
                         <ScrollView styles={{flex:1}}>
                         {currentNotes.map((e,index)=>( 
-                            <View style={styles.modalListNotas}>
+                            <View key={index} style={styles.modalListNotas}>
                                 <Text style={styles.notasLines}>Nota:<Text style={getStyleByState(e.nota)}>{e.nota}</Text></Text>
                                 <Text style={styles.notasLines}>Tipo de error: <Text style={{color:'black'}}>{e.tipoError}</Text></Text>
                                 <Text style={styles.notasLines}>Fecha intento:<Text style={{color:'black'}}>{(new Date(e.fecha).toString())}</Text></Text>
