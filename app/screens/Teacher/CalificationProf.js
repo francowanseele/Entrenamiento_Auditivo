@@ -11,43 +11,50 @@ import {getTeacherCourses,getStudentsByIdCourse} from '../../api/course';
 
 export default function CalificationProf() {
         const [loading, setLoading] = useState(true);
-        const [calificaciones, setCalificaciones] = useState([]);
+        const [ userCalificaciones, setUserCalificaciones ] = useState([]);
         const navigation = useNavigation();
     
         useEffect( () => {
              getStorageItem(ID_USER).then((idUser) => { 
                 if (idUser) {
-                    let currentCursoPromedio;
-                    let cantNotas;
-                    let arrayCalif = [];
                     getTeacherCourses(idUser).then((result1)=>{
                         let cursos = result1.cursos;
+                        let newPromCurso;
                         for (let i in cursos){
-                            currentCursoPromedio = 0;
-                            cantNotas = 0;
-                            // console.log("cursos[course]==>"+i+"  "+cursos[i].curso)
-                            getStudentsByIdCourse(cursos[i].curso).then((result2)=>{
-                                // console.log(result2.estudiantes)
-                                let currentStudents = result2.estudiantes
+                            let sumaPromedios = 0;
+                            let cantPromedios = 0;
+                            getStudentsByIdCourse(cursos[i].curso).then((result2)=>{ // curso actual
+                                let currentStudents = result2.estudiantes 
+                                let nombreCurso;
+                                let finish = false;
                                 for (let j in currentStudents){
                                     getClasificaciones(currentStudents[j].id).then((result3)=>{
-                                        // console.log(result3)
-                                        let notas = result3.calificaciones;
-                                        for (let nota in notas){
-                                            currentCursoPromedio = currentCursoPromedio + notas[nota].promedio
-                                            cantNotas = cantNotas + 1;
-                                            console.log("currentCursoPromedio "+currentCursoPromedio)
+                                        // console.log(result3.calificaciones)
+                                        for (let calif in result3.calificaciones ){
+                                            // me quedo con los promedios solo del curso actual iterado
+                                            if (calif == cursos[i].curso){
+                                                // console.log(result3.calificaciones[calif].nombre_curso)
+                                                // console.log(result3.calificaciones[calif].promedio)
+                                                console.log('entro')
+                                                nombreCurso = result3.calificaciones[calif].nombre_curso;
+                                                cantPromedios = cantPromedios + 1;
+                                                sumaPromedios = sumaPromedios + result3.calificaciones[calif].promedio;
+                                                console.log(sumaPromedios)
+
+                                                newPromCurso = {
+                                                    nombre_curso:nombreCurso,
+                                                    promedio:(sumaPromedios/cantPromedios)
+                                                }
+                                                userCalificaciones.push(newPromCurso);
+                                            }
                                         }
                                     })
                                 }
                             })
-                            
                         }
-                        
-
                     })
                 }
-            }).then(()=>{ setLoading(true) });
+            })
         }, []);
     
         // const calificationIn = (idCourse) => {
@@ -72,22 +79,21 @@ export default function CalificationProf() {
     
         return (
             <ScrollView style={styles.container}>
-            {calificaciones.map((j,i) =>(
+                {/* {console.log(userCalificaciones)} */}
+            {userCalificaciones != []? userCalificaciones.map((j,i) =>(
                     <ListItem key={i} 
-                    // onPress={() => {
-                    //     calificationIn(j.id);
-                    // }}
                     bottomDivider 
                     style={{flex:1}}>
-                                 <ListItem.Content style={styles.container}>
-                                   <ListItem.Title style={styles.title} >{j.calificaciones.nombre_curso}</ListItem.Title>
-                                   <ListItem.Subtitle style={styles.calificacionesLine} >Promedio :
-                                   <Text style={getStyleByState(j.calificaciones.promedio)}> {j.calificaciones.promedio.toFixed(1)}
-                                   </Text></ListItem.Subtitle>
-                                 </ListItem.Content>
+                                 {/* <ListItem.Content style={styles.container}>
+                                  
+                                    {(Object.keys(j.calificaciones)).forEach((e)=>{
+                                          {console.log('entro')}
+                                        {console.log(j.calificaciones[e].promedio)}
+                                    })}
+                                 </ListItem.Content> */}
                      </ListItem>
-                ) 
-            )}
+            ))
+            :<Text>No tiene calificaciones para mostrar</Text>}
             </ScrollView>
         );
     }
