@@ -3,7 +3,7 @@ import { View, Text, Button, ScrollView, StyleSheet } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
-import { getModulesApi } from '../../api/course';
+import { getModulesApi, getAllCourse } from '../../api/course';
 import {
     getStorageItem,
     ID_CURRENT_CURSE,
@@ -34,6 +34,15 @@ export default function Home() {
             }
         });
     }, []); // TODO -> se va a ejecutar cuando seleccione otro curso (y cambie en el async storage)
+
+    useEffect(() => {
+        getAllCourse().then((result)=>{
+            console.log(result)
+        })
+    },[])
+
+
+
 
     const open_closeModulePress = (module) => {
         var modRes = [];
