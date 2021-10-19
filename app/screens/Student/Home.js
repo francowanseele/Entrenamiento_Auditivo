@@ -4,6 +4,7 @@ import { ListItem, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
 import { getModulesApi, getAllCourse } from '../../api/course';
+import InstaStory from 'react-native-insta-story';
 import {
     getStorageItem,
     ID_CURRENT_CURSE,
@@ -66,10 +67,52 @@ export default function Home() {
 
     if (loading) return <Loading isVisible={true} text="Cargando" />;
 
+    const data = [
+        {
+            user_id: 1,
+            user_image: 'https://pbs.twimg.com/profile_images/1222140802475773952/61OmyINj.jpg',
+            user_name: "Ahmet Çağlar Durmuş",
+            stories: [
+                {
+                    story_id: 1,
+                    story_image: "https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg",
+                    onPress: () => console.log('story 1 swiped'),
+                },
+                {
+                    story_id: 2,
+                    story_image: "https://image.freepik.com/free-vector/mobile-wallpaper-with-fluid-shapes_79603-601.jpg",
+                }]
+        },
+        {
+            user_id: 2,
+            user_image: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
+            user_name: "Test User",
+            stories: [
+                {
+                    story_id: 1,
+                    story_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjORKvjcbMRGYPR3QIs3MofoWkD4wHzRd_eg&usqp=CAU",
+                    onPress: () => console.log('story 1 swiped'),
+                },
+                {
+                    story_id: 2,
+                    story_image: "https://files.oyebesmartest.com/uploads/preview/vivo-u20-mobile-wallpaper-full-hd-(1)qm6qyz9v60.jpg",
+                    onPress: () => console.log('story 2 swiped'),
+                }]
+        }];
+
     return (
-       
-          <ScrollView style={styles.container}>          
-               
+        <View  style={styles.container}>
+            {/* <View> */}
+                {/* <InstaStory data={data}
+                duration={10}
+                onStart={item => console.log(item)}
+                onClose={item => console.log('close: ', item)}
+                customSwipeUpComponent={<View>
+                                    <Text>Swipe</Text>
+                                </View>}
+                style={{marginTop: 30}}/> */}
+            {/* </View> */}
+          <ScrollView>          
             {modules.map((module, i) => (
                 <ListItem.Accordion containerStyle={styles.itemsContainer}
                     content={
@@ -115,6 +158,7 @@ export default function Home() {
             {/* <Loading text={loadingText} isVisible={loading} /> */}
           
           </ScrollView>
+        </View>
     );
 }
 
