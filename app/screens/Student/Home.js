@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, ScrollView, StyleSheet } from 'react-native';
+import { View, TouchableHighlight, Image, ScrollView, StyleSheet } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
 import { getModulesApi, getAllCourse } from '../../api/course';
-import InstaStory from 'react-native-insta-story';
+
+
 import {
     getStorageItem,
     ID_CURRENT_CURSE,
@@ -15,6 +16,7 @@ export default function Home() {
     const navigation = useNavigation();
     const [modules, setModules] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [courses, setCourses] = useState([])
     // const [loadingText, setLoadingText] = useState('');
 
     useEffect(() => {
@@ -38,13 +40,10 @@ export default function Home() {
 
     useEffect(() => {
         getAllCourse().then((result)=>{
-            console.log(result)
+            setCourses(result.cursos)
         })
     },[])
-
-
-
-
+    
     const open_closeModulePress = (module) => {
         var modRes = [];
         modules.forEach(m => {
@@ -67,52 +66,27 @@ export default function Home() {
 
     if (loading) return <Loading isVisible={true} text="Cargando" />;
 
-    const data = [
-        {
-            user_id: 1,
-            user_image: 'https://pbs.twimg.com/profile_images/1222140802475773952/61OmyINj.jpg',
-            user_name: "Ahmet Çağlar Durmuş",
-            stories: [
-                {
-                    story_id: 1,
-                    story_image: "https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg",
-                    onPress: () => console.log('story 1 swiped'),
-                },
-                {
-                    story_id: 2,
-                    story_image: "https://image.freepik.com/free-vector/mobile-wallpaper-with-fluid-shapes_79603-601.jpg",
-                }]
-        },
-        {
-            user_id: 2,
-            user_image: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
-            user_name: "Test User",
-            stories: [
-                {
-                    story_id: 1,
-                    story_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjORKvjcbMRGYPR3QIs3MofoWkD4wHzRd_eg&usqp=CAU",
-                    onPress: () => console.log('story 1 swiped'),
-                },
-                {
-                    story_id: 2,
-                    story_image: "https://files.oyebesmartest.com/uploads/preview/vivo-u20-mobile-wallpaper-full-hd-(1)qm6qyz9v60.jpg",
-                    onPress: () => console.log('story 2 swiped'),
-                }]
-        }];
-
     return (
-        <View  style={styles.container}>
-            {/* <View> */}
-                {/* <InstaStory data={data}
-                duration={10}
-                onStart={item => console.log(item)}
-                onClose={item => console.log('close: ', item)}
-                customSwipeUpComponent={<View>
-                                    <Text>Swipe</Text>
-                                </View>}
-                style={{marginTop: 30}}/> */}
-            {/* </View> */}
+       <View  style={styles.container}>
+            {console.log(courses)}
+           <View style={styles.cursoStories}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    <TouchableHighlight
+                       style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:2 }]}
+                            >
+                                <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&?name=+" }} style={styles.profileImg} />
+                    </TouchableHighlight>
+                    {courses.map((j,index)=>(
+                       <TouchableHighlight
+                       style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:2 }]}
+                            >
+                                <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name="+j.nombre }} style={styles.profileImg} />
+                        </TouchableHighlight>
+                    ))}
+                </ScrollView>
+           </View>
           <ScrollView>          
+               
             {modules.map((module, i) => (
                 <ListItem.Accordion containerStyle={styles.itemsContainer}
                     content={
@@ -155,8 +129,6 @@ export default function Home() {
                     ))}
                 </ListItem.Accordion>
             ))}
-            {/* <Loading text={loadingText} isVisible={loading} /> */}
-          
           </ScrollView>
         </View>
     );
@@ -169,10 +141,24 @@ const styles = StyleSheet.create({
         paddingRight:5,
         fontSize:32
     },
-    container:{        
+    profileImgContainer: {
+        marginLeft: 8,
+        height: 80,
+        width: 80,
+        borderRadius: 40,
+      },
+      profileImg: {
+        height: 80,
+        width: 80,
+        borderRadius: 40,
+      },
+    container:{      
         flexDirection:'column',
         backgroundColor:BACKGROUNDHOME,
         marginTop:10     
+    },
+    cursoStories:{
+        height:"11%"
     },
     itemsContainer:{
         marginTop:15,
