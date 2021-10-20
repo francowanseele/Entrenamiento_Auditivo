@@ -80,6 +80,7 @@ export default function Home() {
                     </TouchableHighlight>
                     <TouchableHighlight
                        style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:2 }]}
+                            
                             >
                                 <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name=Personal" }} style={styles.profileImg} />
                     </TouchableHighlight>
