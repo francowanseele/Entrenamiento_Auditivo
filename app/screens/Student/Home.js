@@ -9,6 +9,7 @@ import { getModulesApi, getAllCourse } from '../../api/course';
 import {
     getStorageItem,
     ID_CURRENT_CURSE,
+    setStorageCurrentCourse,
 } from '../../../utils/asyncStorageManagement';
 import Loading from '../../components/Loading';
 
@@ -17,6 +18,7 @@ export default function Home() {
     const [modules, setModules] = useState(null);
     const [loading, setLoading] = useState(true);
     const [courses, setCourses] = useState([])
+    const [currentCourse, setCurrentCourse] = useState('')
     // const [loadingText, setLoadingText] = useState('');
 
     useEffect(() => {
@@ -36,7 +38,7 @@ export default function Home() {
                 });
             }
         });
-    }, []); // TODO -> se va a ejecutar cuando seleccione otro curso (y cambie en el async storage)
+    }, [currentCourse]); // TODO -> se va a ejecutar cuando seleccione otro curso (y cambie en el async storage)
 
     useEffect(() => {
         getAllCourse().then((result)=>{
@@ -74,11 +76,22 @@ export default function Home() {
                     <TouchableHighlight
                        style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:2 }]}
                             >
-                                <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&?name=+" }} style={styles.profileImg} />
+                                <Image source={{uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name=Nuevo" }} style={styles.profileImg} />
+                    </TouchableHighlight>
+                    <TouchableHighlight
+                       style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:2 }]}
+                            >
+                                <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name=Personal" }} style={styles.profileImg} />
                     </TouchableHighlight>
                     {courses.map((j,index)=>(
-                       <TouchableHighlight
-                       style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:2 }]}
+                       <TouchableHighlight key={index}
+                       style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:5 }]}
+                            onPress={()=>{
+                                if (j._id) {
+                                    setStorageCurrentCourse(j._id)
+                                    setCurrentCourse(j._id)
+                                }
+                            }}
                             >
                                 <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name="+j.nombre }} style={styles.profileImg} />
                         </TouchableHighlight>
@@ -152,7 +165,8 @@ const styles = StyleSheet.create({
         width: 80,
         borderRadius: 40,
       },
-    container:{      
+    container:{   
+        flex:1,   
         flexDirection:'column',
         backgroundColor:BACKGROUNDHOME,
         marginTop:10     
