@@ -24,66 +24,63 @@ const config = {
 
 export default function () {
     return (
-        <Stack.Navigator >
+        <Stack.Navigator>
             <Stack.Screen
                 name="home"
                 component={Home}
                 options={{
                     title: 'Curso',
-                    headerStyle: {
-                      backgroundColor: TOPSCREENHOME
-                    },
-                    headerTintColor: TEXTHOME,
+                    //headerTintColor: TEXTHOME,
                     headerTitleStyle: {
-                      fontWeight: 'bold',
-                      fontSize:20
+                        fontWeight: 'bold',
+                        fontSize: 20,
                     },
-                  }} 
+                }}
             />
             <Stack.Screen
                 name="config_dictation"
                 component={ConfigDictation}
                 options={{
-                    title: 'Dictados' ,
-                    headerStyle: {
-                      backgroundColor: TOPSCREENHOME,
-                    },
-                    headerTintColor: TEXTHOME,
+                    title: 'Dictados',
+                    // headerStyle: {
+                    //     backgroundColor: TOPSCREENHOME,
+                    // },
+                    // headerTintColor: TEXTHOME,
                     headerTitleStyle: {
-                      fontWeight: 'bold',
-                      fontSize:20
+                        fontWeight: 'bold',
+                        fontSize: 20,
                     },
-                  }} 
+                }}
             />
             <Stack.Screen
                 name="dictation"
                 component={Dictation}
                 options={{
-                    title: 'Dictado' ,
-                    headerStyle: {
-                      backgroundColor: TOPSCREENHOME,
-                    },
-                    headerTintColor: TEXTHOME,
+                    title: 'Dictado',
+                    // headerStyle: {
+                    //     backgroundColor: TOPSCREENHOME,
+                    // },
+                    // headerTintColor: TEXTHOME,
                     headerTitleStyle: {
-                      fontWeight: 'bold',
-                      fontSize:20
+                        fontWeight: 'bold',
+                        fontSize: 20,
                     },
-                  }} 
+                }}
             />
             <Stack.Screen
                 name="solution"
                 component={Solution}
                 options={{
-                    title: 'Solucion' ,
-                    headerStyle: {
-                      backgroundColor: TOPSCREENHOME,
-                    },
-                    headerTintColor: TEXTHOME,
+                    title: 'Solucion',
+                    // headerStyle: {
+                    //     backgroundColor: TOPSCREENHOME,
+                    // },
+                    // headerTintColor: TEXTHOME,
                     headerTitleStyle: {
-                      fontWeight: 'bold',
-                      fontSize:20
+                        fontWeight: 'bold',
+                        fontSize: 20,
                     },
-                  }} 
+                }}
             />
         </Stack.Navigator>
     );

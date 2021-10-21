@@ -9,6 +9,7 @@ import { Button, Overlay } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { getStorageItem } from '../../../utils/asyncStorageManagement';
 import { ScrollView } from 'react-native-gesture-handler';
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 
 export default function Solution({ route }) {
     const { dictation } = route.params;
@@ -68,14 +69,15 @@ export default function Solution({ route }) {
             </View>
             <ScrollView style={styles.checkboxContainer}>
                 <Button
-                    title={'No tuviste errores'}
+                    title={'Ningún error'}
                     type="outline"
-                    titleStyle={{ color: TEXTHOME }}
+                    titleStyle={{ color: SECONDARY_COLOR }}
                     containerStyle={styles.button}
                     onPress={() => {
                         setevaluacionNota(12);
                         setModalVisible(true);
                     }}
+                    buttonStyle={{ borderColor: PRIMARY_COLOR, borderWidth: 1 }}
                 />
                 <Button
                     title={
@@ -90,6 +92,7 @@ export default function Solution({ route }) {
                         setevaluacionNota(10);
                         setModalVisible(true);
                     }}
+                    buttonStyle={{ borderColor: PRIMARY_COLOR, borderWidth: 1 }}
                 />
                 <Button
                     title={
@@ -106,6 +109,7 @@ export default function Solution({ route }) {
                         setevaluacionNota(8);
                         setModalVisible(true);
                     }}
+                    buttonStyle={{ borderColor: PRIMARY_COLOR, borderWidth: 1 }}
                 />
                 <Button
                     title={
@@ -122,6 +126,7 @@ export default function Solution({ route }) {
                         setevaluacionNota(6);
                         setModalVisible(true);
                     }}
+                    buttonStyle={{ borderColor: PRIMARY_COLOR, borderWidth: 1 }}
                 />
                 <Button
                     title={
@@ -138,6 +143,7 @@ export default function Solution({ route }) {
                         setevaluacionNota(2);
                         setModalVisible(true);
                     }}
+                    buttonStyle={{ borderColor: PRIMARY_COLOR, borderWidth: 1 }}
                 />
                 <Button
                     title={
@@ -152,6 +158,7 @@ export default function Solution({ route }) {
                         setevaluacionNota(1);
                         setModalVisible(true);
                     }}
+                    buttonStyle={{ borderColor: PRIMARY_COLOR, borderWidth: 1 }}
                 />
                 {/* Queda redundante: más de x incorrectas y todas incorrectas aplican ambas */}
                 {/* <Button
@@ -243,6 +250,7 @@ const styles = StyleSheet.create({
         margin: 3,
         width: '90%',
         alignSelf: 'center',
+        backgroundColor: 'white',
     },
     buttonModal: {
         margin: 3,
@@ -254,8 +262,9 @@ const styles = StyleSheet.create({
         height: '30%',
     },
     checkboxContainer: {
+        paddingTop: 70,
         width: '100%',
-        height: '40%',
+        //height: '40%',
     },
     checkbox: {
         alignSelf: 'center',

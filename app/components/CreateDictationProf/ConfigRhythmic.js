@@ -82,6 +82,64 @@ export default function ConfigRhythmic(props) {
         return cant;
     };
 
+    const getFigure = (figs) => {
+        const arrFigs = figs.split('-');
+        var arr = [];
+        arrFigs.forEach((f) => {
+            switch (f) {
+                case '1':
+                    arr.push('music-note-whole');
+                    break;
+                case '2':
+                    arr.push('music-note-half');
+                    break;
+                case 'd2':
+                    arr.push('music-note-half-dotted');
+                    break;
+                case '4':
+                    arr.push('music-note-quarter');
+                    break;
+                case 'd4':
+                    arr.push('music-note-quarter-dotted');
+                    break;
+                case '8':
+                    arr.push('music-note-eighth');
+                    break;
+                case 'd8':
+                    arr.push('music-note-eighth-dotted');
+                    break;
+                case '16':
+                    arr.push('music-note-sixteenth');
+                    break;
+                case 'd16':
+                    arr.push('music-note-sixteenth-dotted');
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        return (
+            <View
+                style={{
+                    flexDirection: 'row',
+                    borderStyle: 'solid',
+                    borderWidth: 1,
+                    borderRadius: 5,
+                }}
+            >
+                {arr.map((icon, i) => (
+                    <Icon
+                        key={i}
+                        name={icon}
+                        type="material-community"
+                        iconStyle={{ fontSize: 30 }}
+                    />
+                ))}
+            </View>
+        );
+    };
+
     return (
         <View>
             <View style={styles.contentSimpleCompuesto}>
@@ -95,11 +153,11 @@ export default function ConfigRhythmic(props) {
                     hasPadding
                     options={[
                         {
-                            label: 'Dictado Simple',
+                            label: 'Compás Simple',
                             value: 's',
                         },
                         {
-                            label: 'Dictado Compuesto',
+                            label: 'Compás Compuesto',
                             value: 'c',
                         },
                     ]}
@@ -163,6 +221,11 @@ export default function ConfigRhythmic(props) {
                     style={styles.buttonRight}
                     title={nro_compases}
                     onPress={openSetNroCompas}
+                    buttonStyle={{
+                        backgroundColor: PRIMARY_COLOR,
+                        width: 55,
+                        borderRadius: 15,
+                    }}
                 />
             </View>
 
@@ -197,7 +260,7 @@ export default function ConfigRhythmic(props) {
                         <ListItem.Content style={styles.content}>
                             <View style={styles.contentListLeft}>
                                 <ListItem.Title>
-                                    {celula.celula_ritmica}
+                                    {getFigure(celula.celula_ritmica)}
                                 </ListItem.Title>
                                 <ListItem.Subtitle>
                                     Prioridad {celula.prioridad}

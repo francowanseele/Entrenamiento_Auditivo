@@ -184,6 +184,11 @@ export default function UserGuest(props) {
                 buttonStyle={styles.btnLogIn}
                 onPress={loginFunc}
             />
+            <Button
+                type="clear"
+                title="Registrarse"
+                titleStyle={{ color: PRIMARY_COLOR }}
+            />
         </KeyboardAvoidingView>
     );
 }
