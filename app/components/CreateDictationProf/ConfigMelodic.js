@@ -135,11 +135,11 @@ export default function ConfigMelodic(props) {
                     hasPadding
                     options={[
                         {
-                            label: 'Intervalos en mayor',
+                            label: 'Mayor',
                             value: 'mayor',
                         },
                         {
-                            label: 'Intervalos en menor',
+                            label: 'Menor',
                             value: 'menor',
                         },
                     ]}

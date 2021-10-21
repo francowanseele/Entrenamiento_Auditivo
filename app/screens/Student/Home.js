@@ -2,13 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, ScrollView, StyleSheet } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
+import {
+    BACKGROUNDHOME,
+    TEXTHOME,
+    ITEMSHOME,
+    TOPSCREENHOME,
+} from '../../styles/styleValues';
 import { getModulesApi } from '../../api/course';
 import {
     getStorageItem,
     ID_CURRENT_CURSE,
 } from '../../../utils/asyncStorageManagement';
 import Loading from '../../components/Loading';
+import {
+    PRIMARY_COLOR,
+    SECONDARY_COLOR,
+    TERTIARY_COLOR,
+} from '../../../utils/colorPalette';
 
 export default function Home() {
     const navigation = useNavigation();
@@ -22,11 +32,11 @@ export default function Home() {
                 getModulesApi(idCourse).then((dataModules) => {
                     if (dataModules.ok) {
                         var modulesRes = [];
-                        dataModules.modules.forEach(m => {
-                            modulesRes.push({module: m, open: false});
+                        dataModules.modules.forEach((m) => {
+                            modulesRes.push({ module: m, open: false });
                         });
                         setModules(modulesRes);
-                        setLoading(false)
+                        setLoading(false);
                     } else {
                         setModules([]);
                     }
@@ -37,11 +47,11 @@ export default function Home() {
 
     const open_closeModulePress = (module) => {
         var modRes = [];
-        modules.forEach(m => {
-            if(m.module._id == module.module._id){
-                modRes.push({module: m.module, open: !m.open})
+        modules.forEach((m) => {
+            if (m.module._id == module.module._id) {
+                modRes.push({ module: m.module, open: !m.open });
             } else {
-                modRes.push({module: m.module, open: m.open})
+                modRes.push({ module: m.module, open: m.open });
             }
         });
 
@@ -53,16 +63,15 @@ export default function Home() {
             configDictation: config,
             module: module,
         });
-    }
+    };
 
     if (loading) return <Loading isVisible={true} text="Cargando" />;
 
     return (
-       
-          <ScrollView style={styles.container}>          
-               
+        <ScrollView style={styles.container}>
             {modules.map((module, i) => (
-                <ListItem.Accordion containerStyle={styles.itemsContainer}
+                <ListItem.Accordion
+                    containerStyle={styles.itemsContainer}
                     content={
                         <>
                             <Icon
@@ -70,88 +79,87 @@ export default function Home() {
                                 name="playlist-music"
                                 iconStyle={styles.iconMenuLeft}
                             />
-                            <ListItem.Content style={styles.items}>                                
-                                <ListItem.Title 
-                                style={styles.title}
-                                >{module.module.nombre}</ListItem.Title>
+                            <ListItem.Content style={styles.items}>
+                                <ListItem.Title style={styles.title}>
+                                    {module.module.nombre}
+                                </ListItem.Title>
                             </ListItem.Content>
                         </>
                     }
                     key={i}
                     isExpanded={module.open}
-                    onPress={ () => {
+                    onPress={() => {
                         open_closeModulePress(module);
                     }}
                 >
                     {module.module.configuracion_dictado.map((config, j) => (
-                        <ListItem containerStyle={styles.subcontent}
+                        <ListItem
+                            containerStyle={styles.subcontent}
                             key={j}
                             onPress={() => {
                                 configDictationIn(config, module.module);
                             }}
                             bottomDivider
-                            
                         >
-                            <ListItem.Content  style={styles.subitems}>
-                                <ListItem.Title  style={styles.title}>{'      ' + config.nombre}</ListItem.Title>
-                                <ListItem.Subtitle  style={{color:'black'}}>
+                            <ListItem.Content style={styles.subitems}>
+                                <ListItem.Title style={styles.title}>
+                                    {'      ' + config.nombre}
+                                </ListItem.Title>
+                                <ListItem.Subtitle style={{ color: 'black' }}>
                                     {'    ' + config.descripcion}
                                 </ListItem.Subtitle>
                             </ListItem.Content>
-                            <ListItem.Chevron  />
+                            <ListItem.Chevron />
                         </ListItem>
                     ))}
                 </ListItem.Accordion>
             ))}
             {/* <Loading text={loadingText} isVisible={loading} /> */}
-          
-          </ScrollView>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     iconMenuLeft: {
-        color: TEXTHOME,
-        fontWeight:'bold',
-        paddingRight:5,
-        fontSize:32
+        color: PRIMARY_COLOR,
+        paddingRight: 5,
+        fontSize: 32,
     },
-    container:{        
-        flexDirection:'column',
-        backgroundColor:BACKGROUNDHOME,
-        marginTop:10     
+    container: {
+        flexDirection: 'column',
+        backgroundColor: BACKGROUNDHOME,
+        marginTop: 10,
     },
-    itemsContainer:{
-        marginTop:15,
-        backgroundColor:ITEMSHOME,
-        flexDirection:'row',
-        width:'97%',
-        alignSelf:'center',
-        borderRadius:10,
-        shadowColor: '#470000',
-        shadowOffset: {width: 10, height: 10},
-        shadowOpacity: 0.2,
-        elevation:13,        
+    itemsContainer: {
+        // marginTop: 15,
+        // backgroundColor: ITEMSHOME,
+        flexDirection: 'row',
+        //width: '97%',
+        alignSelf: 'center',
+        //borderRadius: 10,
+        // shadowColor: '#470000',
+        // shadowOffset: { width: 10, height: 10 },
+        // shadowOpacity: 0.2,
+        // elevation: 13,
     },
-    items:{        
-        alignSelf:'center'
-       
+    items: {
+        alignSelf: 'center',
     },
-    title:{
-        color: TEXTHOME,
-        fontWeight:'bold',
-        fontSize:20
+    title: {
+        color: PRIMARY_COLOR,
+        fontWeight: 'bold',
+        fontSize: 20,
     },
-    subcontent:{
-        borderWidth:1,
-        backgroundColor:ITEMSHOME,
-        width:'90%',
-        alignSelf:'center',
-        borderRadius:10,
+    subcontent: {
+        borderLeftWidth: 2,
+        borderLeftColor: SECONDARY_COLOR,
+        //backgroundColor: ITEMSHOME,
+        width: '90%',
+        alignSelf: 'center',
+        //borderRadius: 10,
     },
-    subitems:{
-        width:'90%',
-        alignSelf:'center'
-    }
+    subitems: {
+        //width: '90%',
+        //alignSelf: 'center',
+    },
 });
- 

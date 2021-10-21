@@ -15,11 +15,12 @@ export default function (props) {
                 // component={Profile}
                 options={{
                     title: 'Perfil',
-                    headerStyle: {
-                        backgroundColor: TOPSCREENHOME,
-                    },
-                    headerTintColor: TEXTHOME,
+                    // headerStyle: {
+                    //     backgroundColor: TOPSCREENHOME,
+                    // },
+                    // headerTintColor: TEXTHOME,
                     headerTitleStyle: {
+                        fontSize: 20,
                         fontWeight: 'bold',
                     },
                 }}

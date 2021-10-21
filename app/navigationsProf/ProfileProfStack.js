@@ -15,11 +15,12 @@ export default function (props) {
                 // component={ProfileProf}
                 options={{
                     title: 'Perfil Docente',
-                    headerStyle: {
-                        backgroundColor: TOPSCREENHOME,
-                    },
-                    headerTintColor: '#fff',
+                    // headerStyle: {
+                    //     backgroundColor: TOPSCREENHOME,
+                    // },
+                    // headerTintColor: '#fff',
                     headerTitleStyle: {
+                        fontSize: 20,
                         fontWeight: 'bold',
                     },
                 }}

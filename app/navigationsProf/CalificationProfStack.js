@@ -10,7 +10,17 @@ export default function () {
             <Stack.Screen
                 name="calificationprof"
                 component={CalificationProf}
-                options={{ title: 'Calificaciones - Estudiantes' }}
+                options={{
+                    title: 'Calificaciones - Estudiantes',
+                    // headerStyle: {
+                    //   backgroundColor: TOPSCREENHOME,
+                    // },
+                    // headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                    },
+                }}
             />
         </Stack.Navigator>
     );

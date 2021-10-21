@@ -296,6 +296,7 @@ const styles = StyleSheet.create({
         padding: 15,
         borderColor: 'lightgrey',
         marginBottom: 20,
+        backgroundColor: 'white',
     },
     contentTitleSection: {
         borderBottomWidth: 2,

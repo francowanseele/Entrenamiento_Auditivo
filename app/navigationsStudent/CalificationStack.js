@@ -11,15 +11,16 @@ export default function () {
                 name="calification"
                 component={Calification}
                 options={{
-                    title: 'Calificaciones' ,
-                    headerStyle: {
-                      backgroundColor: TOPSCREENHOME,
-                    },
-                    headerTintColor: '#fff',
+                    title: 'Calificaciones',
+                    // headerStyle: {
+                    //   backgroundColor: TOPSCREENHOME,
+                    // },
+                    // headerTintColor: '#fff',
                     headerTitleStyle: {
-                      fontWeight: 'bold',
+                        fontSize: 20,
+                        fontWeight: 'bold',
                     },
-                  }} 
+                }}
             />
         </Stack.Navigator>
     );
