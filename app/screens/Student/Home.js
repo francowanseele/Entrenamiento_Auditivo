@@ -9,7 +9,9 @@ import { getModulesApi, getAllCourse } from '../../api/course';
 import {
     getStorageItem,
     ID_CURRENT_CURSE,
+    ID_USER,
     setStorageCurrentCourse,
+    getCursaCoursesStudent
 } from '../../../utils/asyncStorageManagement';
 import Loading from '../../components/Loading';
 
@@ -18,6 +20,7 @@ export default function Home() {
     const [modules, setModules] = useState(null);
     const [loading, setLoading] = useState(true);
     const [courses, setCourses] = useState([])
+    const [allCourses, setAllCourses] = useState([])
     const [currentCourse, setCurrentCourse] = useState('')
     // const [loadingText, setLoadingText] = useState('');
 
@@ -42,10 +45,22 @@ export default function Home() {
 
     useEffect(() => {
         getAllCourse().then((result)=>{
-            setCourses(result.cursos)
+            setAllCourses(result.cursos)
         })
+       
     },[])
     
+    useEffect(()=>{
+        getStorageItem(ID_USER).then((idUser) => {
+            console.log(idUser)
+            getCursaCoursesStudent(idUser).then((result)=>{
+                setCourses(result.cursos)
+                console.log(result)
+            })
+        })
+        
+    },[]);
+
     const open_closeModulePress = (module) => {
         var modRes = [];
         modules.forEach(m => {
@@ -70,7 +85,6 @@ export default function Home() {
 
     return (
        <View  style={styles.container}>
-            {console.log(courses)}
            <View style={styles.cursoStories}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     <TouchableHighlight
