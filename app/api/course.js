@@ -144,12 +144,12 @@ export function getAllCourse(){
 export function getCursaCoursesStudent(idUser){
     const url = `${basePath}/get-cursa-student`;
     const params = {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            idUser:idUser,
+            idUser:idUser
          })
     };
     return fetch(url, params)
@@ -182,6 +182,7 @@ export function getCursaCoursesStudent(idUser){
             }
         })
         .catch((err) => {
+            console.log(err)
             return {
                 ok: false,
                 message: 'Error de servidor, vuelva a intentarlo más tarde',

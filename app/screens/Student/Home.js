@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableHighlight, Image, ScrollView, StyleSheet } from 'react-native';
+import { View, TouchableHighlight, Image, ScrollView, StyleSheet,Text } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
-import { getModulesApi, getAllCourse } from '../../api/course';
-
-
+import { getModulesApi, getAllCourse,getCursaCoursesStudent } from '../../api/course';
+import { Modal, Portal,Provider } from 'react-native-paper';
 import {
     getStorageItem,
     ID_CURRENT_CURSE,
     ID_USER,
-    setStorageCurrentCourse,
-    getCursaCoursesStudent
+    setStorageCurrentCourse
 } from '../../../utils/asyncStorageManagement';
 import Loading from '../../components/Loading';
 
@@ -19,10 +17,12 @@ export default function Home() {
     const navigation = useNavigation();
     const [modules, setModules] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [courses, setCourses] = useState([])
-    const [allCourses, setAllCourses] = useState([])
-    const [currentCourse, setCurrentCourse] = useState('')
-    // const [loadingText, setLoadingText] = useState('');
+    const [courses, setCourses] = useState([]);
+    const [allCourses, setAllCourses] = useState([]);
+    const [currentCourse, setCurrentCourse] = useState('');
+    const [modalVisible, setModalVisible] = useState(false)
+    const showModal = () => setModalVisible(true);
+    const hideModal = () => setModalVisible(false);
 
     useEffect(() => {
         getStorageItem(ID_CURRENT_CURSE).then((idCourse) => {
@@ -45,18 +45,22 @@ export default function Home() {
 
     useEffect(() => {
         getAllCourse().then((result)=>{
-            setAllCourses(result.cursos)
+            if (result.ok) setAllCourses(result.cursos)
         })
        
     },[])
     
     useEffect(()=>{
         getStorageItem(ID_USER).then((idUser) => {
-            console.log(idUser)
-            getCursaCoursesStudent(idUser).then((result)=>{
-                setCourses(result.cursos)
-                console.log(result)
-            })
+            if (idUser) {
+                getCursaCoursesStudent(idUser).then((result)=>{
+                    if (result.ok){ 
+                        setCourses(result.cursos)
+                        setCurrentCourse(result.cursos[0].curso_cursado)
+                        setStorageCurrentCourse(result.cursos[0].curso_cursado)
+                    }
+                })
+            }
         })
         
     },[]);
@@ -85,10 +89,27 @@ export default function Home() {
 
     return (
        <View  style={styles.container}>
+        
            <View style={styles.cursoStories}>
+                <Provider styles={{flex:1}}>
+                    <Portal styles={{flex:1}}>
+                        <Modal visible={modalVisible} onDismiss={hideModal} contentContainerStyle={styles.containerModal}>
+                                <ScrollView styles={{flex:1}}>
+                                    <View>
+                                    {allCourses? allCourses.map((j,index)=>(
+                                        <TouchableHighlight key={index} >
+                                            <Text >{j.nombre}</Text>
+                                        </TouchableHighlight>
+                                        )):<></>}
+                                    </View>
+                                </ScrollView>
+                        </Modal>
+                    </Portal>
+                </Provider>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     <TouchableHighlight
                        style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:2 }]}
+                       onPress={showModal}
                             >
                                 <Image source={{uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name=Nuevo" }} style={styles.profileImg} />
                     </TouchableHighlight>
@@ -98,19 +119,19 @@ export default function Home() {
                             >
                                 <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name=Personal" }} style={styles.profileImg} />
                     </TouchableHighlight>
-                    {courses.map((j,index)=>(
+                    {courses ? courses.map((j,index)=>(
                        <TouchableHighlight key={index}
                        style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:5 }]}
                             onPress={()=>{
                                 if (j._id) {
-                                    setStorageCurrentCourse(j._id)
-                                    setCurrentCourse(j._id)
+                                    setStorageCurrentCourse(j.curso_cursado)
+                                    setCurrentCourse(j.curso_cursado)
                                 }
                             }}
                             >
                                 <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name="+j.nombre }} style={styles.profileImg} />
                         </TouchableHighlight>
-                    ))}
+                    )) : <></>}
                 </ScrollView>
            </View>
           <ScrollView>          
@@ -168,6 +189,13 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         paddingRight:5,
         fontSize:32
+    },
+    containerModal:{
+        flex:0.2,
+        backgroundColor:'white',
+        width:'50%',
+        borderRadius:10,
+        alignSelf:'center'
     },
     profileImgContainer: {
         marginLeft: 8,
