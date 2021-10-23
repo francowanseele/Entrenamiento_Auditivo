@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableHighlight, Image, ScrollView, StyleSheet,Text } from 'react-native';
+import { View, TouchableHighlight, Image, ScrollView, StyleSheet,Text, Alert,TouchableOpacity } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
-import { getModulesApi, getAllCourse,getCursaCoursesStudent } from '../../api/course';
+import { getModulesApi, getAllCourse,getCursaCoursesStudent,addStudentCourse } from '../../api/course';
 import { Modal, Portal,Provider } from 'react-native-paper';
 import {
     getStorageItem,
@@ -23,6 +23,7 @@ export default function Home() {
     const [modalVisible, setModalVisible] = useState(false)
     const showModal = () => setModalVisible(true);
     const hideModal = () => setModalVisible(false);
+    const [updateCoursesStudent, setUpdateCoursesStudent ] = useState(false)
 
     useEffect(() => {
         getStorageItem(ID_CURRENT_CURSE).then((idCourse) => {
@@ -41,7 +42,7 @@ export default function Home() {
                 });
             }
         });
-    }, [currentCourse]); // TODO -> se va a ejecutar cuando seleccione otro curso (y cambie en el async storage)
+    }, [currentCourse]);
 
     useEffect(() => {
         getAllCourse().then((result)=>{
@@ -63,7 +64,7 @@ export default function Home() {
             }
         })
         
-    },[]);
+    },[updateCoursesStudent]);
 
     const open_closeModulePress = (module) => {
         var modRes = [];
@@ -84,29 +85,31 @@ export default function Home() {
             module: module,
         });
     }
+    const addStudentToCourse = (idCourse) =>{
+        hideModal()
+        getStorageItem(ID_USER).then((idUser) => {
+            if (idCourse) {
+                addStudentCourse(idCourse,idUser).then((result)=>{
+                    if (result.ok){
+                        Alert.alert('Te has inscripto en un nuevo curso exitosamente')
+                        setUpdateCoursesStudent(!updateCoursesStudent);
+                    }else {
+                        Alert.alert('No te has podido inscribir al curso')
+                    }
+                })
+            }else{
+                Alert.alert('No te has podido inscribir al curso')
+            }
+        })
+    }
 
     if (loading) return <Loading isVisible={true} text="Cargando" />;
 
     return (
        <View  style={styles.container}>
-        
+          
            <View style={styles.cursoStories}>
-                <Provider styles={{flex:1}}>
-                    <Portal styles={{flex:1}}>
-                        <Modal visible={modalVisible} onDismiss={hideModal} contentContainerStyle={styles.containerModal}>
-                                <ScrollView styles={{flex:1}}>
-                                    <View>
-                                    {allCourses? allCourses.map((j,index)=>(
-                                        <TouchableHighlight key={index} >
-                                            <Text >{j.nombre}</Text>
-                                        </TouchableHighlight>
-                                        )):<></>}
-                                    </View>
-                                </ScrollView>
-                        </Modal>
-                    </Portal>
-                </Provider>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <ScrollView style={{flex:0.2}} horizontal showsHorizontalScrollIndicator={false}>
                     <TouchableHighlight
                        style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:2 }]}
                        onPress={showModal}
@@ -115,7 +118,6 @@ export default function Home() {
                     </TouchableHighlight>
                     <TouchableHighlight
                        style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:2 }]}
-                            
                             >
                                 <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name=Personal" }} style={styles.profileImg} />
                     </TouchableHighlight>
@@ -134,8 +136,8 @@ export default function Home() {
                     )) : <></>}
                 </ScrollView>
            </View>
-          <ScrollView>          
-               
+        <View style={{flex:1, backgroundColor:BACKGROUNDHOME}}>
+          <ScrollView>     
             {modules.map((module, i) => (
                 <ListItem.Accordion containerStyle={styles.itemsContainer}
                     content={
@@ -179,6 +181,23 @@ export default function Home() {
                 </ListItem.Accordion>
             ))}
           </ScrollView>
+      
+          <Provider style={{flex:0.1}}>
+            <Portal style={{flex:0.2}}>
+                <Modal visible={modalVisible} onDismiss={hideModal} contentContainerStyle={styles.containerModal}>
+                        <View style={styles.containerModal}>
+                            <ScrollView styles={{flex:1}}>
+                            {allCourses.map((e,index)=>( 
+                                <TouchableOpacity onPress={()=>{addStudentToCourse(e._id)}} key={index} style={styles.coursesToAdd}>
+                                    <Text key={index} style={styles.textCourseModal}>{e.nombre}</Text>
+                                </TouchableOpacity> 
+                            ) )}
+                            </ScrollView>
+                        </View>
+                </Modal>
+            </Portal>
+        </Provider>
+        </View>
         </View>
     );
 }
@@ -190,12 +209,25 @@ const styles = StyleSheet.create({
         paddingRight:5,
         fontSize:32
     },
+    coursesToAdd:{
+        padding:5,
+        height:'6%',
+        alignItems:'center',
+        backgroundColor:BACKGROUNDHOME,
+    },
+    textCourseModal:{
+        alignSelf:'center',
+        color: TEXTHOME,
+        fontWeight:'bold',
+        fontSize:20,
+    },
     containerModal:{
-        flex:0.2,
-        backgroundColor:'white',
-        width:'50%',
+        backgroundColor:BACKGROUNDHOME,
+        flex:0.9,
+        width:'90%',
+        height:'90%',
         borderRadius:10,
-        alignSelf:'center'
+        alignSelf:'center',
     },
     profileImgContainer: {
         marginLeft: 8,
@@ -215,9 +247,12 @@ const styles = StyleSheet.create({
         marginTop:10     
     },
     cursoStories:{
+        backgroundColor:BACKGROUNDHOME,
+        flex:0.15,
         height:"11%"
     },
     itemsContainer:{
+        flex:1,
         marginTop:15,
         backgroundColor:ITEMSHOME,
         flexDirection:'row',

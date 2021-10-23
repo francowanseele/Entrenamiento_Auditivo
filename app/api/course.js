@@ -46,6 +46,57 @@ export function getModulesApi(idCourse) {
         });
 }
 
+export function addStudentCourse(idCourse, idUser) {
+    const url = `${basePath}/add-student-course`;
+
+    const params = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            idUser:idUser,
+            idCourse:idCourse,
+        }),
+    };
+
+    return fetch(url, params)
+        .then((response) => {
+            if (response.status === 501) {
+                return null;
+            } else {
+                return response.json();
+            }
+        })
+        .then((result) => {
+            if (!result) {
+                return {
+                    ok: false,
+                    message: 'Error interno del servidor.',
+                };
+            } else {
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        course: result.course,
+                        message: result.message,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        message: result.message,
+                    };
+                }
+            }
+        })
+        .catch((err) => {
+            return {
+                ok: false,
+                message: 'Error de servidor, vuelva a intentarlo más tarde',
+            };
+        });
+}
+
 export function addModulesApi(idCourse, data) {
     const url = `${basePath}/update-module/${idCourse}`;
 
