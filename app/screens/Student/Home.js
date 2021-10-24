@@ -50,6 +50,14 @@ export default function Home() {
         })
        
     },[])
+
+    const getNombreCurso = (idCourse) =>{
+        for (let e in allCourses){
+            if (idCourse ==  allCourses[e]._id){
+                return allCourses[e].nombre
+            }
+        }
+    }
     
     useEffect(()=>{
         getStorageItem(ID_USER).then((idUser) => {
@@ -63,7 +71,6 @@ export default function Home() {
                 })
             }
         })
-        
     },[updateCoursesStudent]);
 
     const open_closeModulePress = (module) => {
@@ -121,8 +128,8 @@ export default function Home() {
                             >
                                 <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name=Personal" }} style={styles.profileImg} />
                     </TouchableHighlight>
-                    {courses ? courses.map((j,index)=>(
-                       <TouchableHighlight key={index}
+                    {courses ?courses.map((j,index)=>(
+                        <TouchableHighlight key={index}
                        style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:5 }]}
                             onPress={()=>{
                                 if (j._id) {
@@ -131,8 +138,9 @@ export default function Home() {
                                 }
                             }}
                             >
-                                <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name="+j.nombre }} style={styles.profileImg} />
-                        </TouchableHighlight>
+                                <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name="+getNombreCurso(j.curso_cursado) }} style={styles.profileImg} />
+                        </TouchableHighlight> 
+                        
                     )) : <></>}
                 </ScrollView>
            </View>
