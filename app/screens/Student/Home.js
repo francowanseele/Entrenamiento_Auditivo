@@ -3,7 +3,7 @@ import { View, TouchableHighlight, Image, ScrollView, StyleSheet,Text, Alert,Tou
 import { ListItem, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
-import { getModulesApi, getAllCourse,getCursaCoursesStudent,addStudentCourse } from '../../api/course';
+import { getModulesApi, getAllCourse,getCursaCoursesStudent,addStudentCourse,getCursoPersonal } from '../../api/course';
 import { Modal, Portal,Provider } from 'react-native-paper';
 import {
     getStorageItem,
@@ -24,6 +24,7 @@ export default function Home() {
     const showModal = () => setModalVisible(true);
     const hideModal = () => setModalVisible(false);
     const [updateCoursesStudent, setUpdateCoursesStudent ] = useState(false)
+    const [personalCourse,setPersonalCourse] = useState('')
 
     useEffect(() => {
         getStorageItem(ID_CURRENT_CURSE).then((idCourse) => {
@@ -67,6 +68,11 @@ export default function Home() {
                         setCourses(result.cursos)
                         setCurrentCourse(result.cursos[0].curso_cursado)
                         setStorageCurrentCourse(result.cursos[0].curso_cursado)
+                    }
+                })
+                getCursoPersonal(idUser).then((result)=>{
+                    if (result.ok){
+                        setPersonalCourse(result.curso_personal)
                     }
                 })
             }
@@ -125,6 +131,12 @@ export default function Home() {
                     </TouchableHighlight>
                     <TouchableHighlight
                        style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:2 }]}
+                       onPress={()=>{
+                        if (personalCourse) {
+                            setStorageCurrentCourse(personalCourse)
+                            setCurrentCourse(personalCourse)
+                        }
+                    }}
                             >
                                 <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name=Personal" }} style={styles.profileImg} />
                     </TouchableHighlight>
