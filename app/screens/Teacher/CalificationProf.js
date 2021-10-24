@@ -80,12 +80,12 @@ export default function CalificationProf() {
         return (
             <ScrollView style={styles.container}>
             {userCalificaciones != []? userCalificaciones.map((j,i) =>(
-                     Object.keys(j).length>0 ? <ListItem key={i} 
+                     Object.keys(j).length>0 ? <ListItem key={i}
                     bottomDivider 
                     style={{flex:1}}>
-                                 <ListItem.Content key={i+"jj"} style={styles.container}>
-                                        <Text key={i} style={styles.title}>{j.nombre_curso}</Text>
-                                        <Text key={i+'asd'} style={getStyleByState(j.promedio/j.cants)} >{(j.promedio/j.cants).toFixed(2)}</Text>
+                                 <ListItem.Content key={i*2} style={styles.container}>
+                                        <Text key={i*3} style={styles.title}>{j.nombre_curso}</Text>
+                                        <Text key={i*4} style={getStyleByState(j.promedio/j.cants)} >{(j.promedio/j.cants).toFixed(2)}</Text>
                                  </ListItem.Content>
                      </ListItem>  
                      : <></>

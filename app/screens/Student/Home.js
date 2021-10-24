@@ -23,8 +23,9 @@ export default function Home() {
     const [modalVisible, setModalVisible] = useState(false)
     const showModal = () => setModalVisible(true);
     const hideModal = () => setModalVisible(false);
-    const [updateCoursesStudent, setUpdateCoursesStudent ] = useState(false)
-    const [personalCourse,setPersonalCourse] = useState('')
+    const [updateCoursesStudent, setUpdateCoursesStudent ] = useState(false);
+    const [personalCourse,setPersonalCourse] = useState('');
+    const [pressed, setPressed ] = useState(-3)
 
     useEffect(() => {
         getStorageItem(ID_CURRENT_CURSE).then((idCourse) => {
@@ -115,12 +116,19 @@ export default function Home() {
             }
         })
     }
+    const getColor = (index) =>{
+        
+        if ( index == pressed){
+            return "#21BF2F"
+        }else{
+        return TEXTHOME
+        }
+    }
 
     if (loading) return <Loading isVisible={true} text="Cargando" />;
 
     return (
        <View  style={styles.container}>
-          
            <View style={styles.cursoStories}>
                 <ScrollView style={{flex:0.2}} horizontal showsHorizontalScrollIndicator={false}>
                     <TouchableHighlight
@@ -130,8 +138,9 @@ export default function Home() {
                                 <Image source={{uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name=Nuevo" }} style={styles.profileImg} />
                     </TouchableHighlight>
                     <TouchableHighlight
-                       style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:2 }]}
+                       style={[styles.profileImgContainer, { borderColor:getColor(-2), borderWidth:2 }]}
                        onPress={()=>{
+                        setPressed(-2)
                         if (personalCourse) {
                             setStorageCurrentCourse(personalCourse)
                             setCurrentCourse(personalCourse)
@@ -142,8 +151,9 @@ export default function Home() {
                     </TouchableHighlight>
                     {courses ?courses.map((j,index)=>(
                         <TouchableHighlight key={index}
-                       style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:5 }]}
+                       style={[styles.profileImgContainer, { borderColor:getColor(index), borderWidth:5 }]}
                             onPress={()=>{
+                                setPressed(index)
                                 if (j._id) {
                                     setStorageCurrentCourse(j.curso_cursado)
                                     setCurrentCourse(j.curso_cursado)
@@ -151,7 +161,7 @@ export default function Home() {
                             }}
                             >
                                 <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name="+getNombreCurso(j.curso_cursado) }} style={styles.profileImg} />
-                        </TouchableHighlight> 
+                    </TouchableHighlight> 
                         
                     )) : <></>}
                 </ScrollView>
@@ -260,6 +270,12 @@ const styles = StyleSheet.create({
         width: 80,
         borderRadius: 40,
       },
+    //   profileImg: {
+        
+    //     height: 80,
+    //     width: 80,
+    //     borderRadius: 40,
+    //   },
     container:{   
         flex:1,   
         flexDirection:'column',
