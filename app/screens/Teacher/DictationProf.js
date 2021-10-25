@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
 import { getModulesApi, getAllCourse,getCursaCoursesStudent,addStudentCourse,getCursoPersonal, getTeacherCourses } from '../../api/course';
 import { Modal, Portal,Provider, TextInput } from 'react-native-paper';
+import { NavigationContainer } from '@react-navigation/native';
+
 import {
     getStorageItem,
     ID_CURRENT_CURSE,
@@ -32,7 +34,6 @@ export default function DictationProf() {
     useEffect(() => {
         getStorageItem(ID_CURRENT_CURSE).then((idCourse) => {
             if (idCourse) {
-                console.log(idCourse)
                 getModulesApi(idCourse).then((dataModules) => {
                     if (dataModules.ok) {
                         var modulesRes = [];
@@ -93,7 +94,6 @@ export default function DictationProf() {
                 modRes.push({module: m.module, open: m.open})
             }
         });
-
         setModules(modRes);
     };
 
@@ -121,23 +121,26 @@ export default function DictationProf() {
         })
     }
     const getColor = (index) =>{
-        
         if ( index == pressed){
             return "#21BF2F"
         }else{
         return TEXTHOME
         }
     }
+
     const inscribirse = ()=>{
         return (
-        <View style={styles.containerModal}>
-            <ScrollView styles={{flex:1}}>
-            {allCourses.map((e,index)=>( 
-                <TouchableOpacity onPress={()=>{addStudentToCourse(e._id)}} key={index} style={styles.coursesToAdd}>
-                    <Text key={index} style={styles.textCourseModal}>{e.nombre}</Text>
-                </TouchableOpacity> 
-            ) )}
-            </ScrollView>
+        // <View style={styles.containerModal}>
+        //     <ScrollView styles={{flex:1}}>
+        //     {allCourses.map((e,index)=>( 
+        //         <TouchableOpacity onPress={()=>{addStudentToCourse(e._id)}} key={index} style={styles.coursesToAdd}>
+        //             <Text key={index} style={styles.textCourseModal}>{e.nombre}</Text>
+        //         </TouchableOpacity> 
+        //     ) )}
+        //     </ScrollView>
+        // </View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text>Settings!</Text>
         </View>
         )
     }
@@ -146,16 +149,19 @@ export default function DictationProf() {
         let descripcion;
         crearCurso(nombre,descripcion)
         return (
-        <View>
-            <TextInput
-            value={nombre}
-            >
-                Nombre de Curso</TextInput>
-            <TextInput
-            value={descripcion}
-            >
-                Descripcion de Curso</TextInput>
-        </View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text>Home!</Text>
+            </View>
+        // <View>
+        //     <TextInput
+        //     value={nombre}
+        //     >
+        //         Nombre de Curso</TextInput>
+        //     <TextInput
+        //     value={descripcion}
+        //     >
+        //         Descripcion de Curso</TextInput>
+        // </View>
         )
     }
 
@@ -174,8 +180,8 @@ export default function DictationProf() {
                     <TouchableHighlight
                        style={[styles.profileImgContainer, { borderColor:getColor(-2), borderWidth:2 }]}
                        onPress={()=>{
-                        setPressed(-2)
                         if (personalCourse) {
+                            setPressed(-2)
                             setStorageCurrentCourse(personalCourse)
                             setCurrentCourse(personalCourse)
                         }
@@ -187,10 +193,10 @@ export default function DictationProf() {
                         <TouchableHighlight key={index}
                        style={[styles.profileImgContainer, { borderColor:getColor(index), borderWidth:5 }]}
                             onPress={()=>{
-                                setPressed(index)
-                                if (j._id) {
-                                    setStorageCurrentCourse(j.curso_cursado)
-                                    setCurrentCourse(j.curso_cursado)
+                                if (j.curso) {
+                                    setPressed(index)
+                                    setStorageCurrentCourse(j.curso)
+                                    setCurrentCourse(j.curso)
                                 }
                             }}
                             >
@@ -249,10 +255,12 @@ export default function DictationProf() {
           <Provider style={{flex:0.1}}>
             <Portal style={{flex:0.2}}>
                 <Modal visible={modalVisible} onDismiss={hideModal} contentContainerStyle={styles.containerModal}>
+                    <View> 
                         <Tab.Navigator>
                             <Tab.Screen name="Inscribirse" component={inscribirse} />
-                            <Tab.Screen name="Crear Curso" component={crearCurso} />
+                            <Tab.Screen name="CrearCurso" component={crearCurso} />
                         </Tab.Navigator>
+                    </View>
                 </Modal>
             </Portal>
         </Provider>
