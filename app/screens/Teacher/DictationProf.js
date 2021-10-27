@@ -3,7 +3,7 @@ import { View, TouchableHighlight, Image, ScrollView, StyleSheet,Text, Alert,Tou
 import { ListItem, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
-import { getModulesApi, getAllCourse,getCursaCoursesStudent,addStudentCourse,getCursoPersonal, getTeacherCourses } from '../../api/course';
+import { getModulesApi, getAllCourse,addTeacherCourse,getCursoPersonal, getTeacherCourses,crearNuevoCurso } from '../../api/course';
 import { Modal, Portal,Provider, TextInput } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -15,6 +15,7 @@ import {
 } from '../../../utils/asyncStorageManagement';
 import Loading from '../../components/Loading';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import SummaryCreateDictation from '../Teacher/SummaryCreateDictation';
 
 export default function DictationProf() {
     const Tab = createMaterialTopTabNavigator();
@@ -28,8 +29,35 @@ export default function DictationProf() {
     const showModal = () => setModalVisible(true);
     const hideModal = () => setModalVisible(false);
     const [updateCoursesStudent, setUpdateCoursesStudent ] = useState(false);
+    const [updateAllCourses, setUpdateAllCourses] = useState(false)
     const [personalCourse,setPersonalCourse] = useState('');
     const [pressed, setPressed ] = useState(-3)
+
+    const open_summaryCreateDictation = (config,module,course) =>{
+        navigation.navigate('summaryDictaction', {
+        dictationRhythmic:null,
+        institute:"falta",
+        course:course,
+        module:module,
+        nameConfig:config.nombre,
+        descriptionConfig:config.descripcion,
+        giro_melodico_regla:config.giro_melodico_regla,
+        notas_inicio:config.notas_inicio,
+        notas_fin:config.notas_fin,
+        clave_prioridad:config.clave_prioridad,
+        escala_diatonica_regla:config.escala_diatonica_regla,
+        nota_base:config.nota_base,
+        nro_compases:config.nro_compases,
+        simple:config.simple,
+        compas_regla:config.compas_regla,
+        celula_ritmica_regla:config.celula_ritmica_regla,
+        BPM:128,
+        tesitura:null,
+        isOnlyView:true
+        });
+        
+    }
+
 
     useEffect(() => {
         getStorageItem(ID_CURRENT_CURSE).then((idCourse) => {
@@ -55,7 +83,7 @@ export default function DictationProf() {
             if (result.ok) setAllCourses(result.cursos)
         })
        
-    },[])
+    },[updateAllCourses])
 
     const getNombreCurso = (idCourse) =>{
         for (let e in allCourses){
@@ -97,26 +125,21 @@ export default function DictationProf() {
         setModules(modRes);
     };
 
-    const configDictationIn = (config, module) => {
-        navigation.navigate('config_dictation', {
-            configDictation: config,
-            module: module,
-        });
-    }
+    
     const addStudentToCourse = (idCourse) =>{
         hideModal()
         getStorageItem(ID_USER).then((idUser) => {
             if (idCourse) {
-                addStudentCourse(idCourse,idUser).then((result)=>{
+                addTeacherCourse(idCourse,idUser).then((result)=>{
                     if (result.ok){
-                        Alert.alert('Te has inscripto en un nuevo curso exitosamente')
+                        Alert.alert('Nuevo curso a dictar agregado exitosamente')
                         setUpdateCoursesStudent(!updateCoursesStudent);
                     }else {
-                        Alert.alert('No te has podido inscribir al curso')
+                        Alert.alert('No se ha podrido agregar el curso')
                     }
                 })
             }else{
-                Alert.alert('No te has podido inscribir al curso')
+                Alert.alert('No se ha podrido agregar el curso')
             }
         })
     }
@@ -130,41 +153,67 @@ export default function DictationProf() {
 
     const inscribirse = ()=>{
         return (
-        // <View style={styles.containerModal}>
-        //     <ScrollView styles={{flex:1}}>
-        //     {allCourses.map((e,index)=>( 
-        //         <TouchableOpacity onPress={()=>{addStudentToCourse(e._id)}} key={index} style={styles.coursesToAdd}>
-        //             <Text key={index} style={styles.textCourseModal}>{e.nombre}</Text>
-        //         </TouchableOpacity> 
-        //     ) )}
-        //     </ScrollView>
-        // </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Settings!</Text>
+            <ScrollView styles={{flex:1}}>
+            {allCourses.map((e,index)=>( 
+                <TouchableOpacity onPress={()=>{addStudentToCourse(e._id)}} key={index} style={styles.coursesToAdd}>
+                    <Text key={index} style={styles.textCourseModal}>{e.nombre}</Text>
+                </TouchableOpacity> 
+            ) )}
+            </ScrollView>
         </View>
+       
         )
     }
     const crearCurso= () =>{
-        let nombre;
-        let descripcion;
-        crearCurso(nombre,descripcion)
+        const [nombre , setNombre ] = useState('')
+        const [descripcion , setDescripcion ] = useState('')
+        const onPressSubmit =() => {
+            if (nombre != '' && descripcion != ''){
+             crearNuevoCurso(nombre,descripcion).then((result)=>{
+                    if (result.ok){
+                        Alert.alert('Nuevo curso creado exitosamente')
+                        setNombre('')
+                        setDescripcion('')
+                        setUpdateAllCourses(!updateAllCourses)
+                        hideModal;
+                    }else {
+                        Alert.alert('No se ha podrido crear el curso')
+                    }
+                })
+            }else{
+                Alert.alert('El nombre o descripcion son vacios')
+            }
+        }
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Home!</Text>
-            </View>
-        // <View>
-        //     <TextInput
-        //     value={nombre}
-        //     >
-        //         Nombre de Curso</TextInput>
-        //     <TextInput
-        //     value={descripcion}
-        //     >
-        //         Descripcion de Curso</TextInput>
-        // </View>
+        <View style={{ flex: 1, flexDirection:'column', alignItems:"center", backgroundColor:BACKGROUNDHOME}}>
+                <Text 
+                style={ {height:30, color:TEXTHOME, marginTop:30} }>
+                    Nombre de Curso</Text>
+                <TextInput 
+                style={{ height:30,width:'80%' }}
+                onChangeText={text => setNombre(text)}
+                value={nombre}> </TextInput>
+
+                <Text style={ {height:30, color:TEXTHOME,marginTop:30}} >
+                    Descripcion de Curso</Text>
+                <TextInput 
+                style={{ height:30,width:'80%' }}
+                value={descripcion}
+                onChangeText={text => setDescripcion(text)}
+                ></TextInput>
+
+                <TouchableHighlight 
+                style={{backgroundColor:'white', width:"100%", alignItems:'center'}}
+                onPress={onPressSubmit}
+                >
+                    <Text   style={ {height:30, color:TEXTHOME, marginTop:10}} > Crear </Text>
+                </TouchableHighlight>
+        </View>
         )
     }
 
+  
     if (loading) return <Loading isVisible={true} text="Cargando" />;
 
     return (
@@ -233,8 +282,8 @@ export default function DictationProf() {
                     {module.module.configuracion_dictado.map((config, j) => (
                         <ListItem containerStyle={styles.subcontent}
                             key={j}
-                            onPress={() => {
-                                configDictationIn(config, module.module);
+                            onPress={()=>{
+                                open_summaryCreateDictation(config,module.module,currentCourse)
                             }}
                             bottomDivider
                             
@@ -255,12 +304,10 @@ export default function DictationProf() {
           <Provider style={{flex:0.1}}>
             <Portal style={{flex:0.2}}>
                 <Modal visible={modalVisible} onDismiss={hideModal} contentContainerStyle={styles.containerModal}>
-                    <View> 
                         <Tab.Navigator>
-                            <Tab.Screen name="Inscribirse" component={inscribirse} />
-                            <Tab.Screen name="CrearCurso" component={crearCurso} />
+                            <Tab.Screen name="Seleccionar" component={inscribirse} />
+                            <Tab.Screen name="Crear Curso" component={crearCurso} />
                         </Tab.Navigator>
-                    </View>
                 </Modal>
             </Portal>
         </Provider>
@@ -307,12 +354,6 @@ const styles = StyleSheet.create({
         width: 80,
         borderRadius: 40,
       },
-    //   profileImg: {
-        
-    //     height: 80,
-    //     width: 80,
-    //     borderRadius: 40,
-    //   },
     container:{   
         flex:1,   
         flexDirection:'column',

@@ -37,6 +37,7 @@ export default function SummaryCreateDictation({ route }) {
         celula_ritmica_regla,
         BPM,
         tesitura,
+        isOnlyView,
     } = route.params;
 
     const [visibleEndCreate, setVisibleEndCreate] = useState(false);
@@ -269,7 +270,9 @@ export default function SummaryCreateDictation({ route }) {
 
             <Button
                 title="Finalizar"
-                onPress={async () => await createConfigDictation()}
+                onPress={async () => {  if (!isOnlyView) {await createConfigDictation()}
+                                        else { navigation.goBack() }
+                }}
                 buttonStyle={{ backgroundColor: PRIMARY_COLOR }}
             />
 
