@@ -11,22 +11,15 @@ export default function Profile(props) {
     };
 
     return (
-            <View style={styles.container} >
-                <Text>Perfil...</Text>
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button} onPress={logout}>
-                        <Text style={styles.textLogin}>Cerrar Sesion</Text>
-                    </TouchableOpacity>
-                </View>
+            <View style={{flex:1, flexDirection:'column-reverse'}}>
+                <TouchableOpacity style={styles.button} onPress={logout}>
+                    <Text style={styles.textLogin}>Cerrar Sesion</Text>
+                </TouchableOpacity>
             </View>
     );
 }
 const styles = StyleSheet.create({
-    container:{
-        flex:1
-    },
     buttonContainer: {
-        flexDirection: 'column',
         padding: 5,
         height: '6%',
         width: '50%',
@@ -35,7 +28,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     button: {
-        backgroundColor: ITEMSHOME,
+        flexDirection:"column-reverse",
         borderRadius: 4,
         height: '100%',
         width: '100%',
@@ -43,9 +36,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     textLogin: {
+        flexDirection:"column-reverse",
         fontSize: 20,
         fontWeight: 'bold',
         color: TEXTHOME,
         alignSelf: 'center',
+        marginBottom:20,
     },
 });

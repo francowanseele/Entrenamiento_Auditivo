@@ -33,12 +33,12 @@ export default function DictationProf() {
     const [personalCourse,setPersonalCourse] = useState('');
     const [pressed, setPressed ] = useState(-3)
 
-    const open_summaryCreateDictation = (config,module,course) =>{
+    const open_summaryCreateDictation = (config,module) =>{
         navigation.navigate('summaryDictaction', {
         dictationRhythmic:null,
         institute:"falta",
-        course:course,
-        module:module,
+        course:{name:getNombreCurso(currentCourse)},
+        module:{name:module.nombre},
         nameConfig:config.nombre,
         descriptionConfig:config.descripcion,
         giro_melodico_regla:config.giro_melodico_regla,
@@ -92,6 +92,14 @@ export default function DictationProf() {
             }
         }
     }
+
+    const getCurso = (idCourse) =>{
+        for (let e in courses){
+            if (idCourse ==  courses[e]._id){
+                return courses[e]
+            }
+        }
+    }
     
     useEffect(()=>{
         getStorageItem(ID_USER).then((idUser) => {
@@ -99,7 +107,7 @@ export default function DictationProf() {
                 getTeacherCourses(idUser).then((result)=>{
                     if (result.ok){ 
                         setCourses(result.cursos)
-                        setCurrentCourse(result.cursos[0].curso)
+                        setCurrentCourse(result.cursos[0])
                         setStorageCurrentCourse(result.cursos[0].curso)
                         setPressed(0)
                     }
@@ -166,11 +174,11 @@ export default function DictationProf() {
         )
     }
     const crearCurso= () =>{
-        const [nombre , setNombre ] = useState('')
+        const [nombreValue , setNombre ] = useState('')
         const [descripcion , setDescripcion ] = useState('')
         const onPressSubmit =() => {
-            if (nombre != '' && descripcion != ''){
-             crearNuevoCurso(nombre,descripcion).then((result)=>{
+            if (nombreValue != '' && descripcion != ''){
+             crearNuevoCurso(nombreValue,descripcion).then((result)=>{
                     if (result.ok){
                         Alert.alert('Nuevo curso creado exitosamente')
                         setNombre('')
@@ -193,7 +201,7 @@ export default function DictationProf() {
                 <TextInput 
                 style={{ height:30,width:'80%' }}
                 onChangeText={text => setNombre(text)}
-                value={nombre}> </TextInput>
+                value={nombreValue}></TextInput>
 
                 <Text style={ {height:30, color:TEXTHOME,marginTop:30}} >
                     Descripcion de Curso</Text>
@@ -249,7 +257,7 @@ export default function DictationProf() {
                                 }
                             }}
                             >
-                                <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name="+getNombreCurso(j.curso_cursado) }} style={styles.profileImg} />
+                                <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name="+getNombreCurso(j.curso) }} style={styles.profileImg} />
                     </TouchableHighlight> 
                         
                     )) : <></>}
@@ -283,7 +291,7 @@ export default function DictationProf() {
                         <ListItem containerStyle={styles.subcontent}
                             key={j}
                             onPress={()=>{
-                                open_summaryCreateDictation(config,module.module,currentCourse)
+                                open_summaryCreateDictation(config,module.module)
                             }}
                             bottomDivider
                             

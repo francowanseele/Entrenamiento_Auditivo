@@ -74,7 +74,7 @@ export default function Solution({ route }) {
                     containerStyle={styles.button}
                     onPress={() => {
                         setevaluacionNota(12);
-                        setModalVisible(true);
+                        navigation.goBack();
                     }}
                 />
                 <Button
@@ -209,6 +209,7 @@ export default function Solution({ route }) {
                         </View>
                     </View>
                 </Overlay>
+                <Text style={styles.textoDatos} >Al  realizar la autoevaluación  estas de acuerdo de que estos datos serán ran usados con fines estadísticos.</Text>
             </ScrollView>
         </View>
     );
@@ -220,6 +221,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',
+    },
+    textoDatos:{
+        width:'90%',
+        alignSelf:"center",
+        marginTop:10
     },
     modalView: {
         flexDirection: 'column',
