@@ -2,19 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { View, TouchableHighlight, Image, ScrollView, StyleSheet,Text, Alert,TouchableOpacity } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-<<<<<<< HEAD
 import {BACKGROUNDHOME,TEXTHOME,ITEMSHOME, TOPSCREENHOME} from '../../styles/styleValues';
 import { getModulesApi, getAllCourse,getCursaCoursesStudent,addStudentCourse,getCursoPersonal } from '../../api/course';
 import { Modal, Portal,Provider } from 'react-native-paper';
-=======
-import {
-    BACKGROUNDHOME,
-    TEXTHOME,
-    ITEMSHOME,
-    TOPSCREENHOME,
-} from '../../styles/styleValues';
-import { getModulesApi } from '../../api/course';
->>>>>>> master
+
 import {
     getStorageItem,
     ID_CURRENT_CURSE,
