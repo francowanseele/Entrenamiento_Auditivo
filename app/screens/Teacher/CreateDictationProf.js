@@ -269,26 +269,26 @@ export default function CreateDictationProf({ route }) {
     };
 
     const createConfigDictation = async () => {
-        navigation.navigate('summaryCreateDictation', {
-            dictationRhythmic,
-            institute,
-            course,
-            module,
-            nameConfig,
-            descriptionConfig,
-            giro_melodico_regla,
-            notas_inicio,
-            notas_fin,
-            clave_prioridad,
-            escala_diatonica_regla,
-            nota_base,
-            nro_compases,
-            simple,
-            compas_regla,
-            celula_ritmica_regla,
-            BPM,
-            tesitura,
-        });
+        // navigation.navigate('summaryCreateDictation', {
+        //     dictationRhythmic,
+        //     institute,
+        //     course,
+        //     module,
+        //     nameConfig,
+        //     descriptionConfig,
+        //     giro_melodico_regla,
+        //     notas_inicio,
+        //     notas_fin,
+        //     clave_prioridad,
+        //     escala_diatonica_regla,
+        //     nota_base,
+        //     nro_compases,
+        //     simple,
+        //     compas_regla,
+        //     celula_ritmica_regla,
+        //     BPM,
+        //     tesitura,
+        // });
 
         // TODO: verificar que están todos los datos correctos
         var allOk = true;

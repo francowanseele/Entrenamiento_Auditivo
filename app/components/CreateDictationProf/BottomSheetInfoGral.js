@@ -8,6 +8,7 @@ import OverlayFormModule from './OverlayFormModule';
 import { getCourseInstituteApi, getInstituteApi } from '../../api/institute';
 import Loading from '../Loading';
 import { getModulesApi } from '../../api/course';
+import { PRIMARY_COLOR } from '../../../utils/colorPalette';
 
 export default function BottomSheetInfoGral(props) {
     const {
@@ -201,6 +202,11 @@ export default function BottomSheetInfoGral(props) {
                         <Button
                             title="Confirmar"
                             onPress={() => confirmation()}
+                            buttonStyle={{
+                                backgroundColor: PRIMARY_COLOR,
+                                paddingHorizontal: 15,
+                                marginTop: 10,
+                            }}
                         />
                     </View>
                     <ScrollView>
@@ -373,7 +379,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     titleBottom: {
-        fontSize: 17,
+        fontSize: 20,
         fontWeight: 'bold',
         marginTop: 20,
         marginBottom: 20,

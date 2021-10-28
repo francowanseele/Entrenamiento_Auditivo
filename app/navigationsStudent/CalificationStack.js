@@ -31,10 +31,12 @@ export default function () {
                       backgroundColor: TOPSCREENHOME,
                     },
                     headerTintColor: TEXTHOME,
+
                     headerTitleStyle: {
-                      fontWeight: 'bold',
+                        fontSize: 20,
+                        fontWeight: 'bold',
                     },
-                  }} 
+                }}
             />
         </Stack.Navigator>
     );

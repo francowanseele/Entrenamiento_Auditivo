@@ -16,6 +16,9 @@ import {
     MaterialCommunityIcons,
     Foundation,
 } from '@expo/vector-icons';
+import { Icon } from 'react-native-elements';
+import { PRIMARY_COLOR } from '../../utils/colorPalette';
+import CreateDictationProfStack from '../navigationsProf/CreateDictationProfStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -52,10 +55,26 @@ export default function Navigation(props) {
                         component={HomeStack}
                         options={{
                             tabBarIcon: ({ color, size }) => (
-                                <MaterialCommunityIcons
-                                    name="music-note-eighth"
-                                    size={24}
-                                    color={TABSCREENHOMETEXT}
+                                <Icon
+                                    name="book-music"
+                                    type="material-community"
+                                    color={PRIMARY_COLOR}
+                                />
+                            ),
+                            tabBarLabel: () => {
+                                return null;
+                            },
+                        }}
+                    />
+                    <Tab.Screen
+                        name="createDictation"
+                        component={CreateDictationProfStack}
+                        options={{
+                            tabBarIcon: ({ color, size }) => (
+                                <Icon
+                                    name="music-note-plus"
+                                    type="material-community"
+                                    color={PRIMARY_COLOR}
                                 />
                             ),
                             tabBarLabel: () => {
@@ -68,10 +87,10 @@ export default function Navigation(props) {
                         component={CalificationStack}
                         options={{
                             tabBarIcon: ({ color, size }) => (
-                                <Foundation
-                                    name="clipboard-notes"
-                                    size={24}
-                                    color={TABSCREENHOMETEXT}
+                                <Icon
+                                    name="school"
+                                    type="material-community"
+                                    color={PRIMARY_COLOR}
                                 />
                             ),
                             tabBarLabel: () => {
@@ -84,10 +103,10 @@ export default function Navigation(props) {
                         // component={ProfileStack}
                         options={{
                             tabBarIcon: ({ color, size }) => (
-                                <MaterialIcons
+                                <Icon
                                     name="account-circle"
-                                    size={24}
-                                    color={TABSCREENHOMETEXT}
+                                    type="material-community"
+                                    color={PRIMARY_COLOR}
                                 />
                             ),
                             tabBarLabel: () => {
