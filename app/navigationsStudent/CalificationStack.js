@@ -1,21 +1,37 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Calification from '../screens/Student/Calification';
-import { TOPSCREENHOME } from '../styles/styleValues';
+import CalificationCourses from '../screens/Student/CalificationCourses';
+import { TOPSCREENHOME, TEXTHOME } from '../styles/styleValues';
 const Stack = createStackNavigator();
 
 export default function () {
     return (
         <Stack.Navigator>
+           <Stack.Screen
+                name="calification_courses"
+                component={CalificationCourses}
+                options={{
+                    title: 'Calificaciones' ,
+                    headerStyle: {
+                      backgroundColor: TOPSCREENHOME,
+                    },
+                    headerTintColor: TEXTHOME,
+                    headerTitleStyle: {
+                      fontWeight: 'bold',
+                    },
+                  }} 
+            />
             <Stack.Screen
-                name="calification"
+                name="Calification"
                 component={Calification}
                 options={{
-                    title: 'Calificaciones',
-                    // headerStyle: {
-                    //   backgroundColor: TOPSCREENHOME,
-                    // },
-                    // headerTintColor: '#fff',
+                    title: ' Modulos' ,
+                    headerStyle: {
+                      backgroundColor: TOPSCREENHOME,
+                    },
+                    headerTintColor: TEXTHOME,
+
                     headerTitleStyle: {
                         fontSize: 20,
                         fontWeight: 'bold',

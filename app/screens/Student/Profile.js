@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, StyleSheet, Button, Text, TouchableOpacity } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { BACKGROUNDHOME, ITEMSHOME, TEXTHOME } from '../../styles/styleValues';
 import { setStorageUserLogout } from '../../../utils/asyncStorageManagement';
 
@@ -12,26 +11,15 @@ export default function Profile(props) {
     };
 
     return (
-        <LinearGradient
-            style={styles.lineargradient}
-            // Background Linear Gradient
-            colors={[BACKGROUNDHOME, BACKGROUNDHOME, ITEMSHOME, ITEMSHOME]}
-        >
-            <Text>Perfil...</Text>
-            <View style={styles.buttonContainer}>
+            <View style={{flex:1, flexDirection:'column-reverse'}}>
                 <TouchableOpacity style={styles.button} onPress={logout}>
                     <Text style={styles.textLogin}>Cerrar Sesion</Text>
                 </TouchableOpacity>
             </View>
-        </LinearGradient>
     );
 }
 const styles = StyleSheet.create({
-    lineargradient: {
-        height: '100%',
-    },
     buttonContainer: {
-        flexDirection: 'column',
         padding: 5,
         height: '6%',
         width: '50%',
@@ -40,7 +28,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     button: {
-        backgroundColor: ITEMSHOME,
+        flexDirection:"column-reverse",
         borderRadius: 4,
         height: '100%',
         width: '100%',
@@ -48,9 +36,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     textLogin: {
+        flexDirection:"column-reverse",
         fontSize: 20,
         fontWeight: 'bold',
         color: TEXTHOME,
         alignSelf: 'center',
+        marginBottom:20,
     },
 });
