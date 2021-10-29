@@ -73,8 +73,10 @@ export default function Home() {
                 getCursaCoursesStudent(idUser).then((result)=>{
                     if (result.ok){ 
                         setCourses(result.cursos)
-                        setCurrentCourse(result.cursos[0].curso_cursado)
-                        setStorageCurrentCourse(result.cursos[0].curso_cursado)
+                        if (result.cursos.length > 0) {
+                            setCurrentCourse(result.cursos[0].curso_cursado)
+                            setStorageCurrentCourse(result.cursos[0].curso_cursado)
+                        }
                     }
                 })
                 getCursoPersonal(idUser).then((result)=>{
@@ -134,112 +136,202 @@ export default function Home() {
     if (loading) return <Loading isVisible={true} text="Cargando" />;
 
     return (
-       <View  style={styles.container}>
-           <View style={styles.cursoStories}>
-                <ScrollView style={{flex:0.2}} horizontal showsHorizontalScrollIndicator={false}>
-                    <TouchableHighlight
-                       style={[styles.profileImgContainer, { borderColor:TEXTHOME, borderWidth:2 }]}
-                       onPress={showModal}
-                            >
-                                <Image source={{uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name=Nuevo" }} style={styles.profileImg} />
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                       style={[styles.profileImgContainer, { borderColor:getColor(-2), borderWidth:2 }]}
-                       onPress={()=>{
-                        setPressed(-2)
-                        if (personalCourse) {
-                            setStorageCurrentCourse(personalCourse)
-                            setCurrentCourse(personalCourse)
-                        }
-                    }}
-                            >
-                                <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name=Personal" }} style={styles.profileImg} />
-                    </TouchableHighlight>
-                    {courses ?courses.map((j,index)=>(
-                        <TouchableHighlight key={index}
-                       style={[styles.profileImgContainer, { borderColor:getColor(index), borderWidth:5 }]}
-                            onPress={()=>{
-                                setPressed(index)
-                                if (j._id) {
-                                    setStorageCurrentCourse(j.curso_cursado)
-                                    setCurrentCourse(j.curso_cursado)
-                                }
-                            }}
-                            >
-                                <Image source={{ uri:"https://ui-avatars.com/api/?color="+TEXTHOME+"&background="+BACKGROUNDHOME+"&name="+getNombreCurso(j.curso_cursado) }} style={styles.profileImg} />
-                    </TouchableHighlight> 
-                        
-                    )) : <></>}
-                </ScrollView>
-           </View>
-        <View style={{flex:1, backgroundColor:BACKGROUNDHOME}}>
-          <ScrollView>     
-
-            {modules.map((module, i) => (
-                <ListItem.Accordion
-                    containerStyle={styles.itemsContainer}
-                    content={
-                        <>
-                            <Icon
-                                type="material-community"
-                                name="playlist-music"
-                                iconStyle={styles.iconMenuLeft}
-                            />
-                            <ListItem.Content style={styles.items}>
-                                <ListItem.Title style={styles.title}>
-                                    {module.module.nombre}
-                                </ListItem.Title>
-                            </ListItem.Content>
-                        </>
-                    }
-                    key={i}
-                    isExpanded={module.open}
-                    onPress={() => {
-                        open_closeModulePress(module);
-                    }}
+        <View style={styles.container}>
+            <View style={styles.cursoStories}>
+                <ScrollView
+                    style={{ flex: 0.2 }}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
                 >
-                    {module.module.configuracion_dictado.map((config, j) => (
-                        <ListItem
-                            containerStyle={styles.subcontent}
-                            key={j}
-                            onPress={() => {
-                                configDictationIn(config, module.module);
+                    <TouchableHighlight
+                        style={[
+                            styles.profileImgContainer,
+                            { borderColor: TEXTHOME, borderWidth: 2 },
+                        ]}
+                        onPress={showModal}
+                    >
+                        <Image
+                            source={{
+                                uri:
+                                    'https://ui-avatars.com/api/?color=' +
+                                    TEXTHOME +
+                                    '&background=' +
+                                    BACKGROUNDHOME +
+                                    '&name=Nuevo',
                             }}
-                            bottomDivider
-                        >
-                            <ListItem.Content style={styles.subitems}>
-                                <ListItem.Title style={styles.title}>
-                                    {'      ' + config.nombre}
-                                </ListItem.Title>
-                                <ListItem.Subtitle style={{ color: 'black' }}>
-                                    {'    ' + config.descripcion}
-                                </ListItem.Subtitle>
-                            </ListItem.Content>
-                            <ListItem.Chevron />
-                        </ListItem>
-                    ))}
-                </ListItem.Accordion>
-            ))}
-          </ScrollView>
-      
-          <Provider style={{flex:0.1}}>
-            <Portal style={{flex:0.2}}>
-                <Modal visible={modalVisible} onDismiss={hideModal} contentContainerStyle={styles.containerModal}>
-                        <View style={styles.containerModal}>
-                            <ScrollView styles={{flex:1}}>
-                            {allCourses.map((e,index)=>( 
-                                <TouchableOpacity onPress={()=>{addStudentToCourse(e._id)}} key={index} style={styles.coursesToAdd}>
-                                    <Text key={index} style={styles.textCourseModal}>{e.nombre}</Text>
-                                </TouchableOpacity> 
-                            ) )}
-                            </ScrollView>
-                        </View>
-                </Modal>
-            </Portal>
-        </Provider>
-        </View>
-        </View>
+                            style={styles.profileImg}
+                        />
+                    </TouchableHighlight>
+                    <TouchableHighlight
+                        style={[
+                            styles.profileImgContainer,
+                            { borderColor: getColor(-2), borderWidth: 2 },
+                        ]}
+                        onPress={() => {
+                            setPressed(-2);
+                            if (personalCourse) {
+                                setStorageCurrentCourse(personalCourse);
+                                setCurrentCourse(personalCourse);
+                            }
+                        }}
+                    >
+                        <Image
+                            source={{
+                                uri:
+                                    'https://ui-avatars.com/api/?color=' +
+                                    TEXTHOME +
+                                    '&background=' +
+                                    BACKGROUNDHOME +
+                                    '&name=Personal',
+                            }}
+                            style={styles.profileImg}
+                        />
+                    </TouchableHighlight>
+                    {courses ? (
+                        courses.map((j, index) => (
+                            <TouchableHighlight
+                                key={index}
+                                style={[
+                                    styles.profileImgContainer,
+                                    {
+                                        borderColor: getColor(index),
+                                        borderWidth: 5,
+                                    },
+                                ]}
+                                onPress={() => {
+                                    setPressed(index);
+                                    if (j._id) {
+                                        setStorageCurrentCourse(
+                                            j.curso_cursado
+                                        );
+                                        setCurrentCourse(j.curso_cursado);
+                                    }
+                                }}
+                            >
+                                <Image
+                                    source={{
+                                        uri:
+                                            'https://ui-avatars.com/api/?color=' +
+                                            TEXTHOME +
+                                            '&background=' +
+                                            BACKGROUNDHOME +
+                                            '&name=' +
+                                            getNombreCurso(j.curso_cursado),
+                                    }}
+                                    style={styles.profileImg}
+                                />
+                            </TouchableHighlight>
+                        ))
+                    ) : (
+                        <></>
+                    )}
+                </ScrollView>
+            </View>
+            <View style={{ flex: 1, backgroundColor: BACKGROUNDHOME }}>
+                <ScrollView>
+                    {modules != null && modules.length > 0 ? (
+                        modules.map((module, i) => (
+                            <ListItem.Accordion
+                                containerStyle={styles.itemsContainer}
+                                content={
+                                    <>
+                                        <Icon
+                                            type="material-community"
+                                            name="playlist-music"
+                                            iconStyle={styles.iconMenuLeft}
+                                        />
+                                        <ListItem.Content style={styles.items}>
+                                            <ListItem.Title
+                                                style={styles.title}
+                                            >
+                                                {module.module.nombre}
+                                            </ListItem.Title>
+                                        </ListItem.Content>
+                                    </>
+                                }
+                                key={i}
+                                isExpanded={module.open}
+                                onPress={() => {
+                                    open_closeModulePress(module);
+                                }}
+                            >
+                                {module.module.configuracion_dictado.map(
+                                    (config, j) => (
+                                        <ListItem
+                                            containerStyle={styles.subcontent}
+                                            key={j}
+                                            onPress={() => {
+                                                configDictationIn(
+                                                    config,
+                                                    module.module
+                                                );
+                                            }}
+                                            bottomDivider
+                                        >
+                                            <ListItem.Content
+                                                style={styles.subitems}
+                                            >
+                                                <ListItem.Title
+                                                    style={styles.title}
+                                                >
+                                                    {'      ' + config.nombre}
+                                                </ListItem.Title>
+                                                <ListItem.Subtitle
+                                                    style={{ color: 'black' }}
+                                                >
+                                                    {'    ' +
+                                                        config.descripcion}
+                                                </ListItem.Subtitle>
+                                            </ListItem.Content>
+                                            <ListItem.Chevron />
+                                        </ListItem>
+                                    )
+                                )}
+                            </ListItem.Accordion>
+                        ))
+                    ) : (
+                        <>
+                            <Text
+                                style={{ textAlign: 'center', marginTop: 20 }}
+                            >
+                                No existen módulos para el curso actual.
+                            </Text>
+                        </>
+                    )}
+                </ScrollView>
 
+                <Provider style={{ flex: 0.1 }}>
+                    <Portal style={{ flex: 0.2 }}>
+                        <Modal
+                            visible={modalVisible}
+                            onDismiss={hideModal}
+                            contentContainerStyle={styles.containerModal}
+                        >
+                            <View style={styles.containerModal}>
+                                <ScrollView styles={{ flex: 1 }}>
+                                    {allCourses.map((e, index) => (
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                addStudentToCourse(e._id);
+                                            }}
+                                            key={index}
+                                            style={styles.coursesToAdd}
+                                        >
+                                            <Text
+                                                key={index}
+                                                style={styles.textCourseModal}
+                                            >
+                                                {e.nombre}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    ))}
+                                </ScrollView>
+                            </View>
+                        </Modal>
+                    </Portal>
+                </Provider>
+            </View>
+        </View>
     );
 }
 

@@ -15,34 +15,37 @@ export default function CalificationCourses() {
     const navigation = useNavigation();
 
     useEffect(() => {
-        getStorageItem(ID_USER).then((idUser) => { 
+        getStorageItem(ID_USER).then((idUser) => {
             if (idUser) {
-                getClasificaciones(idUser).then((response)=>{
-                    if (response.ok){
-                        let newArray = []
-                        for (let current in response.calificaciones){
+                getClasificaciones(idUser).then((response) => {
+                    if (response.ok) {
+                        let newArray = [];
+                        for (let current in response.calificaciones) {
                             newArray.push({
-                                id:current,
-                                calificaciones:response.calificaciones[current]
-                            })
+                                id: current,
+                                calificaciones:
+                                    response.calificaciones[current],
+                            });
                         }
-                        setCalificaciones(newArray)
-                        setLoading(false)
-                    }else { 
-                        setCalificaciones([])
-                        console.log('calif vacio ')
+                        setCalificaciones(newArray);
+                        setLoading(false);
+                    } else {
+                        setCalificaciones([]);
+                        console.log('calif vacio ');
                         // setLoading(false)
                     }
-                }) 
+                });
             }
-        }).then(()=>{ setLoading(true) });
+        });
+
+        setLoading(false);
     }, []);
 
     const calificationIn = (idCourse) => {
         navigation.navigate('Calification', {
-            idCourse: idCourse
+            idCourse: idCourse,
         });
-    }
+    };
     const getStyleByState = (nota) => {
         if (nota) {
             if (nota == 0 || nota <= 2) {
@@ -54,7 +57,6 @@ export default function CalificationCourses() {
             }
         } else return styles.notaRed;
     };
-    
 
     if (loading) return <Loading isVisible={true} text="Cargando" />;
 

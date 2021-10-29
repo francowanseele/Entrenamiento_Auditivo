@@ -30,6 +30,13 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
 import OverlayInfo from '../../components/CreateDictationProf/OverlayInfo';
 import { generateDictationApi } from '../../api/user';
+import {
+    getParams,
+    getStorageIsStudent,
+    getStorageItem,
+    ID_USER,
+} from '../../../utils/asyncStorageManagement';
+import { getCursoPersonal } from '../../api/course';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -118,6 +125,23 @@ export default function CreateDictationProf({ route }) {
     const navigation = useNavigation();
 
     useEffect(() => {
+        getStorageIsStudent().then((result) => {
+            if (result) {
+                setInstitute({ id: '60eaf4e8d15d33bc122b06aa', name: 'UTEC' });
+
+                getStorageItem(ID_USER).then((idUser) => {
+                    getCursoPersonal(idUser).then((curseResult) => {
+                        if (curseResult.ok) {
+                            setCourse({
+                                id: curseResult.curso_personal,
+                                name: curseResult.curso_objeto[0].nombre,
+                            });
+                        }
+                    });
+                });
+            }
+        });
+
         // Cargar del local storage el último instituto, curso y módulo para el que configuró algo
 
         // VALIDATIONS ---------------------

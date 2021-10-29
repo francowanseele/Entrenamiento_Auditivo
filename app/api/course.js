@@ -321,6 +321,7 @@ export function getCursoPersonal(idUser) {
                         ok: true,
                         message: result.message,
                         curso_personal: result.curso_personal,
+                        curso_objeto: result.curso_objeto,
                     };
                 } else {
                     return {

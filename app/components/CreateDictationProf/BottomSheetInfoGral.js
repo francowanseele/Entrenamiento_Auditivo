@@ -9,6 +9,7 @@ import { getCourseInstituteApi, getInstituteApi } from '../../api/institute';
 import Loading from '../Loading';
 import { getModulesApi } from '../../api/course';
 import { PRIMARY_COLOR } from '../../../utils/colorPalette';
+import { getStorageIsStudent } from '../../../utils/asyncStorageManagement';
 
 export default function BottomSheetInfoGral(props) {
     const {
@@ -44,6 +45,8 @@ export default function BottomSheetInfoGral(props) {
     const [msjErrorOverlay, setMsjErrorOverlay] = useState('');
     const [visibleAddModule, setVisibleAddModule] = useState(false);
 
+    const [isStudent, setIsStudent] = useState(true);
+
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -61,6 +64,9 @@ export default function BottomSheetInfoGral(props) {
         setModule(moduleGral);
         setNameConfig(nameConfigGral);
         setDescriptionConfig(descriptionConfigGral);
+
+        var isStudentResponse = await getStorageIsStudent();
+        setIsStudent(isStudentResponse);
     };
 
     const editInstitute = async () => {
@@ -237,12 +243,17 @@ export default function BottomSheetInfoGral(props) {
                                             : 'Sin definir'}
                                     </ListItem.Subtitle>
                                 </View>
+
                                 <View style={styles.contentListRight}>
-                                    <Icon
-                                        type="material-community"
-                                        name="pencil-outline"
-                                        onPress={() => editInstitute()}
-                                    />
+                                    {!isStudent ? (
+                                        <Icon
+                                            type="material-community"
+                                            name="pencil-outline"
+                                            onPress={() => editInstitute()}
+                                        />
+                                    ) : (
+                                        <></>
+                                    )}
                                 </View>
                             </ListItem.Content>
                         </ListItem>
@@ -257,12 +268,17 @@ export default function BottomSheetInfoGral(props) {
                                             : 'Sin definir'}
                                     </ListItem.Subtitle>
                                 </View>
+
                                 <View style={styles.contentListRight}>
-                                    <Icon
-                                        type="material-community"
-                                        name="pencil-outline"
-                                        onPress={() => editCourse()}
-                                    />
+                                    {!isStudent ? (
+                                        <Icon
+                                            type="material-community"
+                                            name="pencil-outline"
+                                            onPress={() => editCourse()}
+                                        />
+                                    ) : (
+                                        <></>
+                                    )}
                                 </View>
                             </ListItem.Content>
                         </ListItem>
