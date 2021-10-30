@@ -109,12 +109,21 @@ export default function Dictation({ route }) {
 
             const soundObject = new Audio.Sound();
             await soundObject.loadAsync({ uri: tran });
+
             soundObject.setOnPlaybackStatusUpdate(async (status) => {
-                if (status.didJustFinish === true) {
+                const dur = status.durationMillis;
+
+                setTimeout(async () => {
                     // audio has finished!
                     await soundObject.unloadAsync();
                     setReproduciendo(false);
-                }
+                }, dur + 1000);
+
+                // if (status.didJustFinish === true) {
+                //     // audio has finished!
+                //     await soundObject.unloadAsync();
+                //     setReproduciendo(false);
+                // }
             });
 
             const timeToStart = await playStick();

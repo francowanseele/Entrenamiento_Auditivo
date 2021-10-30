@@ -141,7 +141,9 @@ export default function CreateDictationProf({ route }) {
                 });
             }
         });
+    }, []);
 
+    useEffect(() => {
         // Cargar del local storage el último instituto, curso y módulo para el que configuró algo
 
         // VALIDATIONS ---------------------
@@ -169,6 +171,95 @@ export default function CreateDictationProf({ route }) {
             clearAllFields();
         }
     }, [cleanAll]);
+
+    useEffect(() => {
+        if (dictationRhythmic) {
+            setGiro_melodico_regla([
+                {
+                    giros_melodicos: ['C4', 'C4', 'C4'],
+                    prioridad: 1,
+                },
+            ]);
+
+            setNotas_inicio(['C4']);
+            setNotas_fin(['C4']);
+            setClave_prioridad([
+                {
+                    clave: 'Sol',
+                    prioridad: 1,
+                },
+                {
+                    clave: 'Fa',
+                    prioridad: 0,
+                },
+            ]);
+            setEscala_diatonica_regla([
+                {
+                    escala_diatonica: 'Do',
+                    prioridad: 1,
+                },
+                {
+                    escala_diatonica: 'Sol',
+                    prioridad: 0,
+                },
+                {
+                    escala_diatonica: 'Re',
+                    prioridad: 0,
+                },
+                {
+                    escala_diatonica: 'La',
+                    prioridad: 0,
+                },
+                {
+                    escala_diatonica: 'Mi',
+                    prioridad: 0,
+                },
+                {
+                    escala_diatonica: 'Si',
+                    prioridad: 0,
+                },
+                {
+                    escala_diatonica: 'Fa#',
+                    prioridad: 0,
+                },
+                {
+                    escala_diatonica: 'Solb',
+                    prioridad: 0,
+                },
+                {
+                    escala_diatonica: 'Reb',
+                    prioridad: 0,
+                },
+                {
+                    escala_diatonica: 'Lab',
+                    prioridad: 0,
+                },
+                {
+                    escala_diatonica: 'Mib',
+                    prioridad: 0,
+                },
+                {
+                    escala_diatonica: 'Sib',
+                    prioridad: 0,
+                },
+                {
+                    escala_diatonica: 'Fa',
+                    prioridad: 0,
+                },
+            ]);
+            setNota_base(['C4']);
+        } else {
+            setGiro_melodico_regla([]);
+            setNotas_inicio([]);
+            setNotas_fin([]);
+            setClave_prioridad([
+                { clave: 'Sol', prioridad: 1 },
+                { clave: 'Fa', prioridad: 1 },
+            ]);
+            setEscala_diatonica_regla(defoultValue_EscalaDiatonica());
+            setNota_base(null);
+        }
+    }, [dictationRhythmic]);
 
     const clearAllFields = () => {
         // General config
@@ -293,28 +384,6 @@ export default function CreateDictationProf({ route }) {
     };
 
     const createConfigDictation = async () => {
-        // navigation.navigate('summaryCreateDictation', {
-        //     dictationRhythmic,
-        //     institute,
-        //     course,
-        //     module,
-        //     nameConfig,
-        //     descriptionConfig,
-        //     giro_melodico_regla,
-        //     notas_inicio,
-        //     notas_fin,
-        //     clave_prioridad,
-        //     escala_diatonica_regla,
-        //     nota_base,
-        //     nro_compases,
-        //     simple,
-        //     compas_regla,
-        //     celula_ritmica_regla,
-        //     BPM,
-        //     tesitura,
-        // });
-
-        // TODO: verificar que están todos los datos correctos
         var allOk = true;
 
         // Verify empty fields
@@ -445,7 +514,21 @@ export default function CreateDictationProf({ route }) {
                     BPM,
                     tesitura,
                 });
+            } else {
+                setTitleErrorConfig(
+                    'No es posible crear ningún dictado a partir de la configuración'
+                );
+                setTextErrorConfig(
+                    `Por favor revise los parámetros en la configuración establecida. Puede que tenga que agregar una mayor cantidad de opciones en su configuración como pueden ser más giros melódicos, células ritmicas, entre otros.`
+                );
+                setVisibleErrorConfig(true);
             }
+        } else {
+            setTitleErrorConfig('No es posible crear la configuración.');
+            setTextErrorConfig(
+                `Por favor revise los parámetros en la configuración establecida. Puede que tenga que agregar una mayor cantidad de opciones en su configuración como pueden ser más giros melódicos, células ritmicas, entre otros.`
+            );
+            setVisibleErrorConfig(true);
         }
     };
 
@@ -537,6 +620,7 @@ export default function CreateDictationProf({ route }) {
                     okClefs={okClefs}
                     okTonality={okTonality}
                     okReferenceNote={true} // No control in reference note
+                    dictationRhythmic={dictationRhythmic}
                 />
             </ScrollView>
             <Button
@@ -546,19 +630,35 @@ export default function CreateDictationProf({ route }) {
             />
 
             {/* Bottom sheets */}
-            <BottomSheetInfoGral
-                instituteGral={institute}
-                courseGral={course}
-                moduleGral={module}
-                nameConfigGral={nameConfig}
-                descriptionConfigGral={descriptionConfig}
-                setInstituteGral={setInstitute}
-                setCourseGral={setCourse}
-                setModuleGral={setModule}
-                setNameConfigGral={setNameConfig}
-                setDescriptionConfigGral={setDescriptionConfig}
-                refRBSheet={refRBSheet}
-            />
+            {getStorageIsStudent() && course.name != '' && course.id != null ? (
+                <BottomSheetInfoGral
+                    instituteGral={institute}
+                    courseGral={course}
+                    moduleGral={module}
+                    nameConfigGral={nameConfig}
+                    descriptionConfigGral={descriptionConfig}
+                    setInstituteGral={setInstitute}
+                    setCourseGral={setCourse}
+                    setModuleGral={setModule}
+                    setNameConfigGral={setNameConfig}
+                    setDescriptionConfigGral={setDescriptionConfig}
+                    refRBSheet={refRBSheet}
+                />
+            ) : (
+                <BottomSheetInfoGral
+                    instituteGral={institute}
+                    courseGral={course}
+                    moduleGral={module}
+                    nameConfigGral={nameConfig}
+                    descriptionConfigGral={descriptionConfig}
+                    setInstituteGral={setInstitute}
+                    setCourseGral={setCourse}
+                    setModuleGral={setModule}
+                    setNameConfigGral={setNameConfig}
+                    setDescriptionConfigGral={setDescriptionConfig}
+                    refRBSheet={refRBSheet}
+                />
+            )}
 
             {/* Melodic */}
             <BottomSheetGiroMelodico
