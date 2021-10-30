@@ -14,7 +14,7 @@ export default function (props) {
                 name="profile"
                 // component={Profile}
                 options={{
-                    title: 'Perfil',
+                    title: 'Perfil Estudiante',
                     // headerStyle: {
                     //     backgroundColor: TOPSCREENHOME,
                     // },

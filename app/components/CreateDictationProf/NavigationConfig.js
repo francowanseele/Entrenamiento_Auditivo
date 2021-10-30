@@ -45,38 +45,46 @@ export default function NavigationConfig(props) {
         okClefs,
         okTonality,
         okReferenceNote,
+        dictationRhythmic,
     } = props;
 
     return (
         <Tab.Navigator>
-            <Tab.Screen
-                name="Config. Melódica"
-                children={() => (
-                    <ConfigMelodic
-                        giro_melodico_regla={giro_melodico_regla}
-                        notas_inicio={notas_inicio}
-                        notas_fin={notas_fin}
-                        clave_prioridad={clave_prioridad}
-                        nota_base={nota_base}
-                        setAdd={setAdd}
-                        setNotesStart={setNotesStart}
-                        setGiro_melodico_reglaEdit={setGiro_melodico_reglaEdit}
-                        setClaveEdit={setClaveEdit}
-                        setMayor={setMayor}
-                        mayor={mayor}
-                        refRBSheet_GiroMelodico={refRBSheet_GiroMelodico}
-                        refRBSheet_NotesStartEnd={refRBSheet_NotesStartEnd}
-                        refRBSheet_Clave={refRBSheet_Clave}
-                        refRBSheet_Tonalidad={refRBSheet_Tonalidad}
-                        refRBSheet_Reference={refRBSheet_Reference}
-                        okStartNotes={okStartNotes}
-                        okEndNotes={okEndNotes}
-                        okClefs={okClefs}
-                        okTonality={okTonality}
-                        okReferenceNote={okReferenceNote}
-                    />
-                )}
-            />
+            {dictationRhythmic ? (
+                <></>
+            ) : (
+                <Tab.Screen
+                    name="Config. Melódica"
+                    children={() => (
+                        <ConfigMelodic
+                            giro_melodico_regla={giro_melodico_regla}
+                            notas_inicio={notas_inicio}
+                            notas_fin={notas_fin}
+                            clave_prioridad={clave_prioridad}
+                            nota_base={nota_base}
+                            setAdd={setAdd}
+                            setNotesStart={setNotesStart}
+                            setGiro_melodico_reglaEdit={
+                                setGiro_melodico_reglaEdit
+                            }
+                            setClaveEdit={setClaveEdit}
+                            setMayor={setMayor}
+                            mayor={mayor}
+                            refRBSheet_GiroMelodico={refRBSheet_GiroMelodico}
+                            refRBSheet_NotesStartEnd={refRBSheet_NotesStartEnd}
+                            refRBSheet_Clave={refRBSheet_Clave}
+                            refRBSheet_Tonalidad={refRBSheet_Tonalidad}
+                            refRBSheet_Reference={refRBSheet_Reference}
+                            okStartNotes={okStartNotes}
+                            okEndNotes={okEndNotes}
+                            okClefs={okClefs}
+                            okTonality={okTonality}
+                            okReferenceNote={okReferenceNote}
+                        />
+                    )}
+                />
+            )}
+
             <Tab.Screen
                 name="Config. Rítmica"
                 children={() => (

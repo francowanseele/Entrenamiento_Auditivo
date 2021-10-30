@@ -152,13 +152,13 @@ export default function BottomSheetInfoGral(props) {
                     await setMsjErrorOverlay('');
                 } else {
                     await setMsjErrorOverlay(
-                        'No existen módulos para el curso seleccionado (Vea el curso que seleccionó).'
+                        'No existen módulos para el curso seleccionado. Cambie de curso o inserte nuevos módulos.'
                     );
                 }
             }
         } else {
             await setMsjErrorOverlay(
-                'No existen módulos para el curso seleccionado (Vea el curso que seleccionó).'
+                'No existen módulos para el curso seleccionado. Cambie de curso o inserte nuevos módulos.'
             );
         }
 

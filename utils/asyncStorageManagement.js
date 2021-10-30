@@ -27,7 +27,8 @@ export async function setStorageUserLogged(
     await AsyncStorage.setItem(ID_USER, _id);
     await AsyncStorage.setItem(EMAIL, email);
     await AsyncStorage.setItem(IS_STUDENT, isStudent);
-    await AsyncStorage.setItem(ID_CURRENT_CURSE, _idCurrentCourse);
+    if (_idCurrentCourse)
+        await AsyncStorage.setItem(ID_CURRENT_CURSE, _idCurrentCourse);
 }
 
 export async function setStorageUserLogout() {
