@@ -141,6 +141,25 @@ export default function CreateDictationProf({ route }) {
                 });
             }
         });
+    }, []);
+
+    useEffect(() => {
+        // getStorageIsStudent().then((result) => {
+        //     if (result) {
+        //         setInstitute({ id: '60eaf4e8d15d33bc122b06aa', name: 'UTEC' });
+
+        //         getStorageItem(ID_USER).then((idUser) => {
+        //             getCursoPersonal(idUser).then((curseResult) => {
+        //                 if (curseResult.ok) {
+        //                     setCourse({
+        //                         id: curseResult.curso_personal,
+        //                         name: curseResult.curso_objeto[0].nombre,
+        //                     });
+        //                 }
+        //             });
+        //         });
+        //     }
+        // });
 
         // Cargar del local storage el último instituto, curso y módulo para el que configuró algo
 
@@ -546,19 +565,35 @@ export default function CreateDictationProf({ route }) {
             />
 
             {/* Bottom sheets */}
-            <BottomSheetInfoGral
-                instituteGral={institute}
-                courseGral={course}
-                moduleGral={module}
-                nameConfigGral={nameConfig}
-                descriptionConfigGral={descriptionConfig}
-                setInstituteGral={setInstitute}
-                setCourseGral={setCourse}
-                setModuleGral={setModule}
-                setNameConfigGral={setNameConfig}
-                setDescriptionConfigGral={setDescriptionConfig}
-                refRBSheet={refRBSheet}
-            />
+            {getStorageIsStudent() && course.name != '' && course.id != null ? (
+                <BottomSheetInfoGral
+                    instituteGral={institute}
+                    courseGral={course}
+                    moduleGral={module}
+                    nameConfigGral={nameConfig}
+                    descriptionConfigGral={descriptionConfig}
+                    setInstituteGral={setInstitute}
+                    setCourseGral={setCourse}
+                    setModuleGral={setModule}
+                    setNameConfigGral={setNameConfig}
+                    setDescriptionConfigGral={setDescriptionConfig}
+                    refRBSheet={refRBSheet}
+                />
+            ) : (
+                <BottomSheetInfoGral
+                    instituteGral={institute}
+                    courseGral={course}
+                    moduleGral={module}
+                    nameConfigGral={nameConfig}
+                    descriptionConfigGral={descriptionConfig}
+                    setInstituteGral={setInstitute}
+                    setCourseGral={setCourse}
+                    setModuleGral={setModule}
+                    setNameConfigGral={setNameConfig}
+                    setDescriptionConfigGral={setDescriptionConfig}
+                    refRBSheet={refRBSheet}
+                />
+            )}
 
             {/* Melodic */}
             <BottomSheetGiroMelodico

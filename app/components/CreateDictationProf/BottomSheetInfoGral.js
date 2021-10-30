@@ -7,9 +7,13 @@ import OverlayPicker from './OverlayPicker';
 import OverlayFormModule from './OverlayFormModule';
 import { getCourseInstituteApi, getInstituteApi } from '../../api/institute';
 import Loading from '../Loading';
-import { getModulesApi } from '../../api/course';
+import { getCursoPersonal, getModulesApi } from '../../api/course';
 import { PRIMARY_COLOR } from '../../../utils/colorPalette';
-import { getStorageIsStudent } from '../../../utils/asyncStorageManagement';
+import {
+    getStorageIsStudent,
+    getStorageItem,
+    ID_USER,
+} from '../../../utils/asyncStorageManagement';
 
 export default function BottomSheetInfoGral(props) {
     const {
@@ -67,6 +71,17 @@ export default function BottomSheetInfoGral(props) {
 
         var isStudentResponse = await getStorageIsStudent();
         setIsStudent(isStudentResponse);
+
+        if (isStudentResponse) {
+            setInstitute({ id: '60eaf4e8d15d33bc122b06aa', name: 'UTEC' });
+
+            const idUser = await getStorageItem(ID_USER);
+            const courseResult = await getCursoPersonal(idUser);
+            await setCourse({
+                id: courseResult.curso_personal,
+                name: courseResult.curso_objeto[0].nombre,
+            });
+        }
     };
 
     const editInstitute = async () => {

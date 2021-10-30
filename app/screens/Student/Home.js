@@ -15,6 +15,7 @@ import {
 import Loading from '../../components/Loading';
 import {
     PRIMARY_COLOR,
+    QUARTER_COLOR,
     SECONDARY_COLOR,
     TERTIARY_COLOR,
 } from '../../../utils/colorPalette';
@@ -26,14 +27,15 @@ export default function Home() {
     const [courses, setCourses] = useState([]);
     const [allCourses, setAllCourses] = useState([]);
     const [currentCourse, setCurrentCourse] = useState('');
-    const [modalVisible, setModalVisible] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false);
     const showModal = () => setModalVisible(true);
     const hideModal = () => setModalVisible(false);
-    const [updateCoursesStudent, setUpdateCoursesStudent ] = useState(false);
-    const [personalCourse,setPersonalCourse] = useState('');
-    const [pressed, setPressed ] = useState(-3)
+    const [updateCoursesStudent, setUpdateCoursesStudent] = useState(false);
+    const [personalCourse, setPersonalCourse] = useState('');
+    const [pressed, setPressed] = useState(-3);
 
     useEffect(() => {
+        setLoading(true);
         getStorageItem(ID_CURRENT_CURSE).then((idCourse) => {
             if (idCourse) {
                 getModulesApi(idCourse).then((dataModules) => {
@@ -50,43 +52,64 @@ export default function Home() {
                 });
             }
         });
+        setLoading(false);
     }, [currentCourse]);
 
     useEffect(() => {
-        getAllCourse().then((result)=>{
-            if (result.ok) setAllCourses(result.cursos)
-        })
-       
-    },[])
+        setLoading(true);
+        getAllCourse().then((result) => {
+            if (result.ok) {
+                var publicCourses = [];
+                result.cursos.forEach((curso) => {
+                    if (curso.personal == false) {
+                        publicCourses.push({
+                            _id: curso._id,
+                            descripcion: curso.descripcion,
+                            nombre: curso.nombre,
+                            personal: curso.personal,
+                        });
+                    }
+                });
 
-    const getNombreCurso = (idCourse) =>{
-        for (let e in allCourses){
-            if (idCourse ==  allCourses[e]._id){
-                return allCourses[e].nombre
+                setAllCourses(publicCourses);
+            }
+        });
+        setLoading(false);
+    }, []);
+
+    const getNombreCurso = (idCourse) => {
+        for (let e in allCourses) {
+            if (idCourse == allCourses[e]._id) {
+                return allCourses[e].nombre;
             }
         }
-    }
-    
-    useEffect(()=>{
+    };
+
+    useEffect(() => {
+        setLoading(true);
         getStorageItem(ID_USER).then((idUser) => {
             if (idUser) {
-                getCursaCoursesStudent(idUser).then((result)=>{
-                    if (result.ok){ 
-                        setCourses(result.cursos)
+                getCursaCoursesStudent(idUser).then((result) => {
+                    if (result.ok) {
+                        setCourses(result.cursos);
                         if (result.cursos.length > 0) {
-                            setCurrentCourse(result.cursos[0].curso_cursado)
-                            setStorageCurrentCourse(result.cursos[0].curso_cursado)
+                            setCurrentCourse(result.cursos[0].curso_cursado);
+                            setStorageCurrentCourse(
+                                result.cursos[0].curso_cursado
+                            );
                         }
+                        setPressed(0);
                     }
-                })
-                getCursoPersonal(idUser).then((result)=>{
-                    if (result.ok){
-                        setPersonalCourse(result.curso_personal)
+                });
+                getCursoPersonal(idUser).then((result) => {
+                    if (result.ok) {
+                        setPersonalCourse(result.curso_personal);
                     }
-                })
+                });
             }
-        })
-    },[updateCoursesStudent]);
+        });
+        setLoading(false);
+    }, [updateCoursesStudent]);
 
     const open_closeModulePress = (module) => {
         var modRes = [];
@@ -106,32 +129,33 @@ export default function Home() {
             configDictation: config,
             module: module,
         });
-    }
-    const addStudentToCourse = (idCourse) =>{
-        hideModal()
+    };
+    const addStudentToCourse = (idCourse) => {
+        hideModal();
         getStorageItem(ID_USER).then((idUser) => {
             if (idCourse) {
-                addStudentCourse(idCourse,idUser).then((result)=>{
-                    if (result.ok){
-                        Alert.alert('Te has inscripto en un nuevo curso exitosamente')
+                addStudentCourse(idCourse, idUser).then((result) => {
+                    if (result.ok) {
+                        Alert.alert(
+                            'Te has inscripto en un nuevo curso exitosamente'
+                        );
                         setUpdateCoursesStudent(!updateCoursesStudent);
-                    }else {
-                        Alert.alert('No te has podido inscribir al curso')
+                    } else {
+                        Alert.alert('No te has podido inscribir al curso');
                     }
-                })
-            }else{
-                Alert.alert('No te has podido inscribir al curso')
+                });
+            } else {
+                Alert.alert('No te has podido inscribir al curso');
             }
-        })
-    }
-    const getColor = (index) =>{
-        
-        if ( index == pressed){
-            return "#21BF2F"
-        }else{
-        return TEXTHOME
+        });
+    };
+    const getColor = (index) => {
+        if (index == pressed) {
+            return '#21BF2F';
+        } else {
+            return TEXTHOME;
         }
-    }
+    };
 
     if (loading) return <Loading isVisible={true} text="Cargando" />;
 
@@ -150,42 +174,54 @@ export default function Home() {
                         ]}
                         onPress={showModal}
                     >
-                        <Image
-                            source={{
-                                uri:
-                                    'https://ui-avatars.com/api/?color=' +
-                                    TEXTHOME +
-                                    '&background=' +
-                                    BACKGROUNDHOME +
-                                    '&name=Nuevo',
-                            }}
-                            style={styles.profileImg}
-                        />
+                        <>
+                            <Image
+                                source={{
+                                    uri:
+                                        'https://ui-avatars.com/api/?color=' +
+                                        TEXTHOME +
+                                        '&background=' +
+                                        BACKGROUNDHOME +
+                                        '&name=Nuevo',
+                                }}
+                                style={styles.profileImg}
+                            />
+                            <Text style={{ alignSelf: 'center' }}>
+                                Nuevo Curso
+                            </Text>
+                        </>
                     </TouchableHighlight>
                     <TouchableHighlight
                         style={[
                             styles.profileImgContainer,
                             { borderColor: getColor(-2), borderWidth: 2 },
                         ]}
-                        onPress={() => {
-                            setPressed(-2);
+                        onPress={async () => {
+                            await setLoading(true);
+                            await setPressed(-2);
                             if (personalCourse) {
-                                setStorageCurrentCourse(personalCourse);
-                                setCurrentCourse(personalCourse);
+                                await setStorageCurrentCourse(personalCourse);
+                                await setCurrentCourse(personalCourse);
                             }
+                            await setLoading(false);
                         }}
                     >
-                        <Image
-                            source={{
-                                uri:
-                                    'https://ui-avatars.com/api/?color=' +
-                                    TEXTHOME +
-                                    '&background=' +
-                                    BACKGROUNDHOME +
-                                    '&name=Personal',
-                            }}
-                            style={styles.profileImg}
-                        />
+                        <>
+                            <Image
+                                source={{
+                                    uri:
+                                        'https://ui-avatars.com/api/?color=' +
+                                        TEXTHOME +
+                                        '&background=' +
+                                        BACKGROUNDHOME +
+                                        '&name=Personal',
+                                }}
+                                style={styles.profileImg}
+                            />
+                            <Text style={{ alignSelf: 'center' }}>
+                                Curso personal
+                            </Text>
+                        </>
                     </TouchableHighlight>
                     {courses ? (
                         courses.map((j, index) => (
@@ -198,28 +234,35 @@ export default function Home() {
                                         borderWidth: 5,
                                     },
                                 ]}
-                                onPress={() => {
-                                    setPressed(index);
-                                    if (j._id) {
-                                        setStorageCurrentCourse(
+                                onPress={async () => {
+                                    await setLoading(true);
+                                    await setPressed(index);
+                                    if (j.curso_cursado) {
+                                        await setStorageCurrentCourse(
                                             j.curso_cursado
                                         );
-                                        setCurrentCourse(j.curso_cursado);
+                                        await setCurrentCourse(j.curso_cursado);
                                     }
+                                    await setLoading(false);
                                 }}
                             >
-                                <Image
-                                    source={{
-                                        uri:
-                                            'https://ui-avatars.com/api/?color=' +
-                                            TEXTHOME +
-                                            '&background=' +
-                                            BACKGROUNDHOME +
-                                            '&name=' +
-                                            getNombreCurso(j.curso_cursado),
-                                    }}
-                                    style={styles.profileImg}
-                                />
+                                <>
+                                    <Image
+                                        source={{
+                                            uri:
+                                                'https://ui-avatars.com/api/?color=' +
+                                                TEXTHOME +
+                                                '&background=' +
+                                                BACKGROUNDHOME +
+                                                '&name=' +
+                                                getNombreCurso(j.curso_cursado),
+                                        }}
+                                        style={styles.profileImg}
+                                    />
+                                    <Text style={{ alignSelf: 'center' }}>
+                                        {getNombreCurso(j.curso_cursado)}
+                                    </Text>
+                                </>
                             </TouchableHighlight>
                         ))
                     ) : (
@@ -309,21 +352,52 @@ export default function Home() {
                         >
                             <View style={styles.containerModal}>
                                 <ScrollView styles={{ flex: 1 }}>
-                                    {allCourses.map((e, index) => (
-                                        <TouchableOpacity
+                                    {allCourses.map((e, i) => (
+                                        <ListItem
+                                            containerStyle={{ width: '100%' }}
+                                            key={i}
+                                            bottomDivider
                                             onPress={() => {
                                                 addStudentToCourse(e._id);
                                             }}
-                                            key={index}
-                                            style={styles.coursesToAdd}
                                         >
-                                            <Text
-                                                key={index}
-                                                style={styles.textCourseModal}
-                                            >
-                                                {e.nombre}
-                                            </Text>
-                                        </TouchableOpacity>
+                                            {/* <Icon name={item.icon} /> */}
+                                            <ListItem.Content>
+                                                <ListItem.Title
+                                                    style={{
+                                                        fontWeight: 'bold',
+                                                        fontSize: 17,
+                                                    }}
+                                                >
+                                                    {e.nombre}
+                                                </ListItem.Title>
+                                                <ListItem.Subtitle
+                                                    style={{
+                                                        color: 'black',
+                                                        fontSize: 15,
+                                                        color: PRIMARY_COLOR,
+                                                    }}
+                                                >
+                                                    {e.descripcion}
+                                                </ListItem.Subtitle>
+                                            </ListItem.Content>
+                                            <ListItem.Chevron />
+                                        </ListItem>
+
+                                        // <TouchableOpacity
+                                        //     onPress={() => {
+                                        //         addStudentToCourse(e._id);
+                                        //     }}
+                                        //     key={index}
+                                        //     style={styles.coursesToAdd}
+                                        // >
+                                        //     <Text
+                                        //         key={index}
+                                        //         style={styles.textCourseModal}
+                                        //     >
+                                        //         {e.nombre}
+                                        //     </Text>
+                                        // </TouchableOpacity>
                                     ))}
                                 </ScrollView>
                             </View>
@@ -346,67 +420,69 @@ const styles = StyleSheet.create({
         backgroundColor: BACKGROUNDHOME,
         marginTop: 10,
     },
-    coursesToAdd:{
-        padding:5,
-        height:'6%',
-        alignItems:'center',
-        backgroundColor:BACKGROUNDHOME,
+    coursesToAdd: {
+        padding: 5,
+        height: '6%',
+        alignItems: 'center',
+        backgroundColor: BACKGROUNDHOME,
     },
-    textCourseModal:{
-        alignSelf:'center',
+    textCourseModal: {
+        alignSelf: 'center',
         color: TEXTHOME,
-        fontWeight:'bold',
-        fontSize:20,
+        fontWeight: 'bold',
+        fontSize: 20,
     },
-    containerModal:{
-        backgroundColor:BACKGROUNDHOME,
-        flex:0.9,
-        width:'90%',
-        height:'90%',
-        borderRadius:10,
-        alignSelf:'center',
+    containerModal: {
+        backgroundColor: BACKGROUNDHOME,
+        flex: 0.9,
+        width: '90%',
+        height: '90%',
+        borderRadius: 10,
+        alignSelf: 'center',
     },
     profileImgContainer: {
         marginLeft: 8,
         height: 80,
         width: 80,
         borderRadius: 40,
-      },
-      profileImg: {
+    },
+    profileImg: {
         height: 80,
         width: 80,
         borderRadius: 40,
-      },
+        marginBottom: -20,
+    },
     //   profileImg: {
-        
+
     //     height: 80,
     //     width: 80,
     //     borderRadius: 40,
     //   },
-    container:{   
-        flex:1,   
-        flexDirection:'column',
-        backgroundColor:BACKGROUNDHOME,
-        marginTop:10     
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: BACKGROUNDHOME,
+        marginTop: 10,
     },
-    cursoStories:{
-        backgroundColor:BACKGROUNDHOME,
-        flex:0.15,
-        height:"11%"
+    cursoStories: {
+        backgroundColor: BACKGROUNDHOME,
+        flex: 0.15,
+        height: '11%',
+        borderBottomWidth: 2,
+        borderColor: QUARTER_COLOR,
     },
-    itemsContainer:{
-        flex:1,
-        marginTop:15,
-        backgroundColor:ITEMSHOME,
-        flexDirection:'row',
-        width:'97%',
-        alignSelf:'center',
-        borderRadius:10,
+    itemsContainer: {
+        flex: 1,
+        marginTop: 15,
+        backgroundColor: ITEMSHOME,
+        flexDirection: 'row',
+        width: '97%',
+        alignSelf: 'center',
+        borderRadius: 10,
         shadowColor: '#470000',
-        shadowOffset: {width: 10, height: 10},
+        shadowOffset: { width: 10, height: 10 },
         shadowOpacity: 0.2,
-        elevation:13,        
-
+        elevation: 13,
     },
     title: {
         color: PRIMARY_COLOR,

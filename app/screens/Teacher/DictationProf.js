@@ -37,6 +37,12 @@ import {
 import Loading from '../../components/Loading';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import SummaryCreateDictation from '../Teacher/SummaryCreateDictation';
+import {
+    PRIMARY_COLOR,
+    QUARTER_COLOR,
+    SECONDARY_COLOR,
+    TERTIARY_COLOR,
+} from '../../../utils/colorPalette';
 
 export default function DictationProf() {
     const Tab = createMaterialTopTabNavigator();
@@ -79,6 +85,7 @@ export default function DictationProf() {
     };
 
     useEffect(() => {
+        setLoading(true);
         getStorageItem(ID_CURRENT_CURSE).then((idCourse) => {
             if (idCourse) {
                 getModulesApi(idCourse).then((dataModules) => {
@@ -88,19 +95,36 @@ export default function DictationProf() {
                             modulesRes.push({ module: m, open: false });
                         });
                         setModules(modulesRes);
-                        setLoading(false);
+                        //setLoading(false);
                     } else {
                         setModules([]);
                     }
                 });
             }
         });
+        setLoading(false);
     }, [currentCourse]);
 
     useEffect(() => {
+        setLoading(true);
         getAllCourse().then((result) => {
-            if (result.ok) setAllCourses(result.cursos);
+            if (result.ok) {
+                var publicCourses = [];
+                result.cursos.forEach((curso) => {
+                    if (curso.personal == false) {
+                        publicCourses.push({
+                            _id: curso._id,
+                            descripcion: curso.descripcion,
+                            nombre: curso.nombre,
+                            personal: curso.personal,
+                        });
+                    }
+                });
+
+                setAllCourses(publicCourses);
+            }
         });
+        setLoading(false);
     }, [updateAllCourses]);
 
     const getNombreCurso = (idCourse) => {
@@ -120,6 +144,7 @@ export default function DictationProf() {
     };
 
     useEffect(() => {
+        setLoading(true);
         getStorageItem(ID_USER).then((idUser) => {
             if (idUser) {
                 getTeacherCourses(idUser).then((result) => {
@@ -139,6 +164,7 @@ export default function DictationProf() {
                 });
             }
         });
+        setLoading(false);
     }, [updateCoursesStudent]);
 
     const open_closeModulePress = (module) => {
@@ -183,25 +209,59 @@ export default function DictationProf() {
     const inscribirse = () => {
         return (
             <View
-                style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
+                style={
+                    {
+                        // flex: 1,
+                        // justifyContent: 'center',
+                        // alignItems: 'center',
+                    }
+                }
             >
-                <ScrollView styles={{ flex: 1 }}>
-                    {allCourses.map((e, index) => (
-                        <TouchableOpacity
+                {/* <ScrollView styles={{ flex: 1 }}> */}
+                <ScrollView>
+                    {allCourses.map((e, i) => (
+                        <ListItem
+                            containerStyle={{ width: '100%' }}
+                            key={i}
+                            bottomDivider
                             onPress={() => {
                                 addStudentToCourse(e._id);
                             }}
-                            key={index}
-                            style={styles.coursesToAdd}
                         >
-                            <Text key={index} style={styles.textCourseModal}>
-                                {e.nombre}
-                            </Text>
-                        </TouchableOpacity>
+                            {/* <Icon name={item.icon} /> */}
+                            <ListItem.Content>
+                                <ListItem.Title
+                                    style={{
+                                        fontWeight: 'bold',
+                                        fontSize: 17,
+                                    }}
+                                >
+                                    {e.nombre}
+                                </ListItem.Title>
+                                <ListItem.Subtitle
+                                    style={{
+                                        color: 'black',
+                                        fontSize: 15,
+                                        color: PRIMARY_COLOR,
+                                    }}
+                                >
+                                    {e.descripcion}
+                                </ListItem.Subtitle>
+                            </ListItem.Content>
+                            <ListItem.Chevron />
+                        </ListItem>
+
+                        // <TouchableOpacity
+                        //     onPress={() => {
+                        //         addStudentToCourse(e._id);
+                        //     }}
+                        //     key={index}
+                        //     style={styles.coursesToAdd}
+                        // >
+                        //     <Text key={index} style={styles.textCourseModal}>
+                        //         {e.nombre}
+                        //     </Text>
+                        // </TouchableOpacity>
                     ))}
                 </ScrollView>
             </View>
@@ -309,7 +369,9 @@ export default function DictationProf() {
 
     if (loading) return <Loading isVisible={true} text="Cargando" />;
 
-    return (
+    return loading ? (
+        <Loading isVisible={true} text="Cargando" />
+    ) : (
         <View style={styles.container}>
             <View style={styles.cursoStories}>
                 <ScrollView
@@ -324,42 +386,54 @@ export default function DictationProf() {
                         ]}
                         onPress={showModal}
                     >
-                        <Image
-                            source={{
-                                uri:
-                                    'https://ui-avatars.com/api/?color=' +
-                                    TEXTHOME +
-                                    '&background=' +
-                                    BACKGROUNDHOME +
-                                    '&name=Nuevo',
-                            }}
-                            style={styles.profileImg}
-                        />
+                        <>
+                            <Image
+                                source={{
+                                    uri:
+                                        'https://ui-avatars.com/api/?color=' +
+                                        TEXTHOME +
+                                        '&background=' +
+                                        BACKGROUNDHOME +
+                                        '&name=Nuevo',
+                                }}
+                                style={styles.profileImg}
+                            />
+                            <Text style={{ alignSelf: 'center' }}>
+                                Nuevo personal
+                            </Text>
+                        </>
                     </TouchableHighlight>
                     <TouchableHighlight
                         style={[
                             styles.profileImgContainer,
                             { borderColor: getColor(-2), borderWidth: 2 },
                         ]}
-                        onPress={() => {
+                        onPress={async () => {
+                            await setLoading(true);
                             if (personalCourse) {
-                                setPressed(-2);
-                                setStorageCurrentCourse(personalCourse);
-                                setCurrentCourse(personalCourse);
+                                await setPressed(-2);
+                                await setStorageCurrentCourse(personalCourse);
+                                await setCurrentCourse(personalCourse);
                             }
+                            await setLoading(false);
                         }}
                     >
-                        <Image
-                            source={{
-                                uri:
-                                    'https://ui-avatars.com/api/?color=' +
-                                    TEXTHOME +
-                                    '&background=' +
-                                    BACKGROUNDHOME +
-                                    '&name=Personal',
-                            }}
-                            style={styles.profileImg}
-                        />
+                        <>
+                            <Image
+                                source={{
+                                    uri:
+                                        'https://ui-avatars.com/api/?color=' +
+                                        TEXTHOME +
+                                        '&background=' +
+                                        BACKGROUNDHOME +
+                                        '&name=Personal',
+                                }}
+                                style={styles.profileImg}
+                            />
+                            <Text style={{ alignSelf: 'center' }}>
+                                Curso personal
+                            </Text>
+                        </>
                     </TouchableHighlight>
                     {courses || courses.length > 0 ? (
                         courses.map((j, index) => (
@@ -372,26 +446,33 @@ export default function DictationProf() {
                                         borderWidth: 5,
                                     },
                                 ]}
-                                onPress={() => {
+                                onPress={async () => {
+                                    await setLoading(true);
                                     if (j.curso) {
-                                        setPressed(index);
-                                        setStorageCurrentCourse(j.curso);
-                                        setCurrentCourse(j.curso);
+                                        await setPressed(index);
+                                        await setStorageCurrentCourse(j.curso);
+                                        await setCurrentCourse(j.curso);
                                     }
+                                    await setLoading(false);
                                 }}
                             >
-                                <Image
-                                    source={{
-                                        uri:
-                                            'https://ui-avatars.com/api/?color=' +
-                                            TEXTHOME +
-                                            '&background=' +
-                                            BACKGROUNDHOME +
-                                            '&name=' +
-                                            getNombreCurso(j.curso),
-                                    }}
-                                    style={styles.profileImg}
-                                />
+                                <>
+                                    <Image
+                                        source={{
+                                            uri:
+                                                'https://ui-avatars.com/api/?color=' +
+                                                TEXTHOME +
+                                                '&background=' +
+                                                BACKGROUNDHOME +
+                                                '&name=' +
+                                                getNombreCurso(j.curso),
+                                        }}
+                                        style={styles.profileImg}
+                                    />
+                                    <Text style={{ alignSelf: 'center' }}>
+                                        {getNombreCurso(j.curso)}
+                                    </Text>
+                                </>
                             </TouchableHighlight>
                         ))
                     ) : (
@@ -534,6 +615,7 @@ const styles = StyleSheet.create({
         height: 80,
         width: 80,
         borderRadius: 40,
+        marginBottom: -20,
     },
     container: {
         flex: 1,
@@ -545,6 +627,8 @@ const styles = StyleSheet.create({
         backgroundColor: BACKGROUNDHOME,
         flex: 0.15,
         height: '11%',
+        borderBottomWidth: 2,
+        borderColor: QUARTER_COLOR,
     },
     itemsContainer: {
         flex: 1,
