@@ -17,8 +17,11 @@ export default function CalificationCourses() {
     useEffect(() => {
         getStorageItem(ID_USER).then((idUser) => {
             if (idUser) {
+                console.log(idUser)
                 getClasificaciones(idUser).then((response) => {
                     if (response.ok) {
+                        console.log('response')
+                        console.log(response.calificaciones)
                         let newArray = [];
                         for (let current in response.calificaciones) {
                             newArray.push({
@@ -62,6 +65,7 @@ export default function CalificationCourses() {
 
     return (
         <ScrollView style={styles.container}>
+            {console.log(calificaciones)}
         {calificaciones.map((j,i) =>(
                 <ListItem key={i} 
                 onPress={() => {

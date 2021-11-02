@@ -100,6 +100,7 @@ export default function CalificationProf() {
 
     return (
         <ScrollView style={styles.container}>
+            {console.log(userCalificaciones)}
             {userCalificaciones.length > 0 ? (
                 userCalificaciones.map(
                     (j, i) => (
