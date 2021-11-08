@@ -1,14 +1,18 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
+
 import React from 'react';
-import Navigation from './app/navigationsStudent/Navigation';
-import NavigationProf from './app/navigationsProf/Navigation';
+import { Text } from 'react-native';
+
 import Start from './app/screens/Login/Start';
 
-export default function App() {
-    // TODO
-    // Si inició como estudiante renderizo navigationsStudent/Navigation
-    // Si inició como docente renderizo navigation DOCENTE
-
+const App = () => {
     return <Start />;
-    //return <Navigation />;
-    // return <NavigationProf />;
-}
+};
+
+export default App;

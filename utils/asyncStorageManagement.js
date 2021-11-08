@@ -15,7 +15,6 @@ export const DOC_LAST_INSTITUTE = 'docLastInstitute';
 export const DOC_LAST_COURSE = 'docLastCourse';
 export const DOC_LAST_MODULE = 'docLastModule';
 
-
 // Todos los parámetros se reciben como String
 export async function setStorageUserLogged(
     email,
@@ -37,7 +36,7 @@ export async function setStorageUserLogout() {
     await AsyncStorage.setItem(EMAIL, '');
     await AsyncStorage.setItem(ID_CURRENT_CURSE, '');
 }
-export async function setStorageCurrentCourse(idCourse){
+export async function setStorageCurrentCourse(idCourse) {
     await AsyncStorage.setItem(ID_CURRENT_CURSE, idCourse);
 }
 
@@ -84,7 +83,7 @@ export async function getVarTemp_Teacher() {
     const lastInstitute = await AsyncStorage.getItem(DOC_LAST_INSTITUTE);
     const lastCourse = await AsyncStorage.getItem(DOC_LAST_COURSE);
     const lastModule = await AsyncStorage.getItem(DOC_LAST_MODULE);
-    
+
     const data = {
         lastInstitute,
         lastCourse,

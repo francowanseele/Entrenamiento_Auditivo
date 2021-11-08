@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Icon, Divider, Button } from 'react-native-elements';
-import { Audio } from 'expo-av';
+// import { Audio } from 'expo-av';
 import {
     BACKGROUNDHOME,
     TEXTHOME,
@@ -21,6 +21,7 @@ import Graphic from '../../components/Graphic';
 import { Ionicons } from '@expo/vector-icons';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import ScreenPlaying from '../../components/ScreenPlaying';
+import TrackPlayer, { Event, Capability } from 'react-native-track-player';
 
 export default function Dictation({ route }) {
     // ---------------------
@@ -40,64 +41,146 @@ export default function Dictation({ route }) {
             : undefined;
     }, [sound]);
 
-    const playStick = async () => {
+    const playWithStick = async (tran) => {
         try {
             const timePulseMs = Math.round(60000 / dictation.bpm);
-            const soundObjectStickArr = [];
 
-            const soundObjectStick0 = new Audio.Sound();
-            await soundObjectStick0.loadAsync(
-                require('../../../assets/stick_sound.mp3')
-            );
-            soundObjectStickArr.push(soundObjectStick0);
+            await TrackPlayer.setupPlayer();
 
-            const soundObjectStick1 = new Audio.Sound();
-            await soundObjectStick1.loadAsync(
-                require('../../../assets/stick_sound.mp3')
-            );
-            soundObjectStickArr.push(soundObjectStick1);
+            await TrackPlayer.updateOptions({
+                stopWithApp: false,
+                alwaysPauseOnInterruption: true,
+                capabilities: [
+                    Capability.Play,
+                    Capability.Pause,
+                    Capability.SkipToNext,
+                    Capability.SkipToPrevious,
+                ],
+            });
 
-            const soundObjectStick2 = new Audio.Sound();
-            await soundObjectStick2.loadAsync(
-                require('../../../assets/stick_sound.mp3')
-            );
-            soundObjectStickArr.push(soundObjectStick2);
-
-            const soundObjectStick3 = new Audio.Sound();
-            await soundObjectStick3.loadAsync(
-                require('../../../assets/stick_sound.mp3')
-            );
-            soundObjectStickArr.push(soundObjectStick3);
-            // console.log('-------');
-            // console.log(dictation.numerador);
-            // console.log('-------');
-            for (let i = 0; i < dictation.numerador && i < 4; i++) {
-                setTimeout(function () {
-                    soundObjectStickArr[i].playAsync();
-                }, timePulseMs * i);
+            for (let i = 0; i < dictation.numerador; i++) {
+                await TrackPlayer.add({
+                    id: 'stick' + i.toString(),
+                    url: require('../../../assets/stick_sound.mp3'),
+                    title: 'stick' + i.toString() + 'Title',
+                    artist: 'stick' + i.toString(),
+                    duration: 1,
+                });
             }
+            await TrackPlayer.add({
+                id: 'trackId',
+                url: tran,
+                title: 'Track Title',
+                artist: 'Track Artist',
+            });
 
-            if (dictation.numerador <= 4) {
-                return timePulseMs * dictation.numerador;
-            } else {
-                return timePulseMs * 4;
-            }
+            //add listener on track change
+            TrackPlayer.addEventListener(
+                Event.PlaybackQueueEnded,
+                async (e) => {
+                    console.log('song ended', e);
+
+                    const trackId = (await TrackPlayer.getCurrentTrack()) - 1; //get the current id
+
+                    console.log('track id', trackId);
+
+                    // if (trackId !== index.current) {
+                    //     setSongIndex(trackId);
+                    //     isItFromUser.current = false;
+
+                    //     if (trackId > index.current) {
+                    //         goNext();
+                    //     } else {
+                    //         goPrv();
+                    //     }
+                    //     setTimeout(() => {
+                    //         isItFromUser.current = true;
+                    //     }, 200);
+                    // }
+
+                    // isPlayerReady.current = true;
+                }
+            );
+
+            //add listener on track change
+            TrackPlayer.addEventListener(
+                Event.PlaybackTrackChanged,
+                async (e) => {
+                    console.log('song CHANGE', e);
+
+                    const trackId = (await TrackPlayer.getCurrentTrack()) - 1; //get the current id
+
+                    console.log('track id', trackId);
+                    // isPlayerReady.current = true;
+                }
+            );
+
+            // const a = await TrackPlayer.getTrack(3);
+            // console.log(a);
+
+            TrackPlayer.play();
+
+            // var i = 1;
+            // var interval = setInterval(async () => {
+            //     console.log('SONIDO STICK');
+            //     if (i == 1) {
+            //         TrackPlayer.play();
+            //     } else {
+            //         TrackPlayer.seekTo(0);
+            //         TrackPlayer.play();
+            //     }
+            //     i++;
+
+            //     if (i > dictation.numerador || i > 4) {
+            //         await TrackPlayer.add({
+            //             id: 'trackId',
+            //             url: tran,
+            //             title: 'Track Title',
+            //             artist: 'Track Artist',
+            //         });
+
+            //         const durationDictation = await TrackPlayer.getDuration();
+            //         console.log(durationDictation);
+            //         await TrackPlayer.play();
+
+            //         var j = 0;
+            //         var intervalDictation = setInterval(() => {
+            //             if (j > 0) {
+            //                 setReproduciendo(false);
+            //                 clearInterval(intervalDictation);
+            //             }
+            //             j++;
+            //         }, durationDictation * 1000 + 1000);
+
+            //         clearInterval(interval);
+            //     }
+            // }, timePulseMs * i);
+
+            // if (dictation.numerador <= 4) {
+            //     return timePulseMs * dictation.numerador;
+            // } else {
+            //     return timePulseMs * 4;
+            // }
         } catch (error) {
             setReproduciendo(false);
+            console.log('ERROR STICKS');
+            console.log(error);
             return 0;
         }
     };
 
     const playNoteRef = async () => {
-        const id = await getStorageItem(ID_USER);
-        const tran = await tramsitNoteReferenceApi(id);
-        console.log(tran);
+        // const id = await getStorageItem(ID_USER);
+        // const tran = await tramsitNoteReferenceApi(id);
+        // console.log(tran);
 
-        const { sound } = await Audio.Sound.createAsync({ uri: tran });
-        setSound(sound);
+        // const { sound } = await Audio.Sound.createAsync({ uri: tran });
+        // setSound(sound);
 
-        await sound.playAsync();
-        setReproduciendo(false);
+        // await sound.playAsync();
+        // setReproduciendo(false);
+
+        console.log('play note ref');
     };
 
     const playDictado = async () => {
@@ -107,30 +190,59 @@ export default function Dictation({ route }) {
             const tran = await tramsitDictationApi(id);
             console.log(tran);
 
-            const soundObject = new Audio.Sound();
-            await soundObject.loadAsync({ uri: tran });
+            await playWithStick(tran);
 
-            soundObject.setOnPlaybackStatusUpdate(async (status) => {
-                const dur = status.durationMillis;
+            // var durationDictation = 0;
+            // var intervalSticks = setInterval(async () => {
+            //     await TrackPlayer.setupPlayer();
 
-                setTimeout(async () => {
-                    // audio has finished!
-                    await soundObject.unloadAsync();
-                    setReproduciendo(false);
-                }, dur + 1000);
+            //     await TrackPlayer.add({
+            //         id: 'trackId',
+            //         url: tran,
+            //         title: 'Track Title',
+            //         artist: 'Track Artist',
+            //     });
 
-                // if (status.didJustFinish === true) {
-                //     // audio has finished!
-                //     await soundObject.unloadAsync();
-                //     setReproduciendo(false);
-                // }
-            });
+            //     durationDictation = await TrackPlayer.getDuration();
+            //     await TrackPlayer.play();
+            //     clearInterval(intervalSticks);
+            // }, duration + 500);
 
-            const timeToStart = await playStick();
+            // var intervalDictation = setInterval(async () => {
+            //     // audio has finished!
+            //     setReproduciendo(false);
+            //     clearInterval(intervalDictation);
+            // }, durationDictation * 1000 + 1000);
 
-            setTimeout(function () {
-                soundObject.playAsync();
-            }, timeToStart);
+            // ------------------------------------------------------
+
+            // Start playing it
+            // await TrackPlayer.play();
+
+            // const soundObject = new Audio.Sound();
+            // await soundObject.loadAsync({ uri: tran });
+
+            // soundObject.setOnPlaybackStatusUpdate(async (status) => {
+            //     const dur = status.durationMillis;
+
+            //     setTimeout(async () => {
+            //         // audio has finished!
+            //         await soundObject.unloadAsync();
+            //         setReproduciendo(false);
+            //     }, dur + 1000);
+
+            //     // if (status.didJustFinish === true) {
+            //     //     // audio has finished!
+            //     //     await soundObject.unloadAsync();
+            //     //     setReproduciendo(false);
+            //     // }
+            // });
+
+            // const timeToStart = await playStick();
+
+            // setTimeout(function () {
+            //     soundObject.playAsync();
+            // }, timeToStart);
 
             // const { sound } = await Audio.Sound.createAsync({ uri: tran });
             // setSound(sound);
@@ -138,9 +250,12 @@ export default function Dictation({ route }) {
             // console.log('Playing Sound');
             // await sound.playAsync();
         } catch (error) {
-            await soundObject.unloadAsync();
-            setReproduciendo(false);
+            // await soundObject.unloadAsync();
+            // setReproduciendo(false);
+            console.log(error);
         }
+
+        console.log('play dictation');
     };
 
     const openSolution = () => {

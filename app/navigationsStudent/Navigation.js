@@ -11,11 +11,6 @@ import {
 import HomeStack from './HomeStack';
 import CalificationStack from './CalificationStack';
 import ProfileStack from './ProfileStack';
-import {
-    MaterialIcons,
-    MaterialCommunityIcons,
-    Foundation,
-} from '@expo/vector-icons';
 import { Icon } from 'react-native-elements';
 import { PRIMARY_COLOR } from '../../utils/colorPalette';
 import CreateDictationProfStack from '../navigationsProf/CreateDictationProfStack';

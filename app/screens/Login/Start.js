@@ -7,12 +7,12 @@ import UserGuest from './UserGuest';
 import Navigation from '../../navigationsStudent/Navigation';
 import NavigationProf from '../../navigationsProf/Navigation';
 import Loading from '../../components/Loading';
-
+import { Text } from 'react-native';
 
 export default function Start() {
     const [login, setLogin] = useState(false);
     const [isStudent, setIsStudent] = useState(null);
-   
+
     useEffect(() => {
         getStorageIsLogged().then((isLogged) => {
             setLogin(isLogged);
@@ -20,18 +20,15 @@ export default function Start() {
         getStorageIsStudent().then((isStudent_storage) => {
             setIsStudent(isStudent_storage);
         });
-
     }, [login]);
 
     // if (login === null) return <Loading isVisible={true} text="Cargando" />;
 
-  
-    return !login? (
-        <UserGuest setLogin={setLogin} setIsStudent={setIsStudent}  />
+    return !login ? (
+        <UserGuest setLogin={setLogin} setIsStudent={setIsStudent} />
     ) : isStudent ? (
         <Navigation setLogin={setLogin} />
     ) : (
         <NavigationProf setLogin={setLogin} />
     );
-   
 }

@@ -10,12 +10,10 @@ import {
     Image,
     KeyboardAvoidingView,
 } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 import SwitchSelector from 'react-native-switch-selector';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { Entypo } from '@expo/vector-icons';
-import { CheckBox } from 'react-native-elements';
 
 import {
     BACKGROUNDHOME,
@@ -322,7 +320,12 @@ export default function UserGuest(props) {
                                 setIsVisiblePass(!isVisiblePass);
                             }}
                         >
-                            <Entypo name="eye" size={24} color={TEXTHOME} />
+                            <Icon
+                                name="eye-off"
+                                type="material-community"
+                                color={TEXTHOME}
+                                size={24}
+                            />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.inputStyle}>
@@ -342,7 +345,12 @@ export default function UserGuest(props) {
                                 setIsVisiblePass(!isVisiblePass);
                             }}
                         >
-                            <Entypo name="eye" size={24} color={TEXTHOME} />
+                            <Icon
+                                name="eye-off"
+                                type="material-community"
+                                color={TEXTHOME}
+                                size={24}
+                            />
                         </TouchableOpacity>
                     </View>
 
@@ -388,7 +396,12 @@ export default function UserGuest(props) {
                                 setIsVisiblePass(!isVisiblePass);
                             }}
                         >
-                            <Entypo name="eye" size={24} color={TEXTHOME} />
+                            <Icon
+                                name="eye-off"
+                                type="material-community"
+                                color={TEXTHOME}
+                                size={24}
+                            />
                         </TouchableOpacity>
                     </View>
                     <SwitchSelector

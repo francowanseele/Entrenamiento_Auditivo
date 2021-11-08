@@ -111,6 +111,7 @@ export const getUsuarioApi = (data) => {
         },
         body: JSON.stringify(data),
     };
+
     return fetch(url, params)
         .then((response) => {
             if (response.status === 501) {
