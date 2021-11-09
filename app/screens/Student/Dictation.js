@@ -21,7 +21,7 @@ import Graphic from '../../components/Graphic';
 import { Ionicons } from '@expo/vector-icons';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import ScreenPlaying from '../../components/ScreenPlaying';
-import TrackPlayer, { Event, Capability } from 'react-native-track-player';
+// import TrackPlayer, { Event, Capability } from 'react-native-track-player';
 
 export default function Dictation({ route }) {
     // ---------------------

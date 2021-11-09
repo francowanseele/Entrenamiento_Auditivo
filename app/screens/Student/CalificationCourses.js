@@ -31,7 +31,6 @@ export default function CalificationCourses() {
                         setLoading(false);
                     } else {
                         setCalificaciones([]);
-                        console.log('calif vacio ');
                         // setLoading(false)
                     }
                 });
@@ -62,6 +61,7 @@ export default function CalificationCourses() {
 
     return (
         <ScrollView style={styles.container}>
+            {/* {console.log(calificaciones)} */}
         {calificaciones.map((j,i) =>(
                 <ListItem key={i} 
                 onPress={() => {
