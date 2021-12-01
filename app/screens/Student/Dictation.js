@@ -30,6 +30,7 @@ export default function Dictation({ route }) {
     const { dictation } = route.params;
     const navigation = useNavigation();
     const [reproduciendo, setReproduciendo] = useState(false);
+    const [playingNoteRef, setPlayingNoteRef] = useState(false);
     const [sound, setSound] = useState();
 
     useEffect(() => {
@@ -40,6 +41,38 @@ export default function Dictation({ route }) {
               }
             : undefined;
     }, [sound]);
+
+    const playWithoutSticks = async (tran) => {
+        setReproduciendo(true);
+
+        await TrackPlayer.destroy();
+        await TrackPlayer.setupPlayer();
+
+        await TrackPlayer.updateOptions({
+            stopWithApp: false,
+            alwaysPauseOnInterruption: true,
+            capabilities: [
+                Capability.Play,
+                Capability.Pause,
+                Capability.SkipToNext,
+                Capability.SkipToPrevious,
+            ],
+        });
+
+        await TrackPlayer.add({
+            id: 'trackId',
+            url: tran,
+            title: 'Track Title',
+            artist: 'Track Artist',
+        });
+
+        TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async (e) => {
+            setReproduciendo(false);
+            await TrackPlayer.destroy();
+        });
+
+        await TrackPlayer.play();
+    };
 
     const playWithStick = async (tran) => {
         try {
@@ -78,7 +111,7 @@ export default function Dictation({ route }) {
             TrackPlayer.addEventListener(
                 Event.PlaybackQueueEnded,
                 async (e) => {
-                    console.log('song ended', e);
+                    //console.log('song ended', e);
 
                     const trackId = (await TrackPlayer.getCurrentTrack()) - 1; //get the current id
 
@@ -170,17 +203,38 @@ export default function Dictation({ route }) {
     };
 
     const playNoteRef = async () => {
-        // const id = await getStorageItem(ID_USER);
-        // const tran = await tramsitNoteReferenceApi(id);
-        // console.log(tran);
+        setPlayingNoteRef(true);
+        const id = await getStorageItem(ID_USER);
+        const tran = await tramsitNoteReferenceApi(id);
+        console.log(tran);
 
-        // const { sound } = await Audio.Sound.createAsync({ uri: tran });
-        // setSound(sound);
+        await TrackPlayer.setupPlayer();
 
-        // await sound.playAsync();
-        // setReproduciendo(false);
+        await TrackPlayer.updateOptions({
+            stopWithApp: false,
+            alwaysPauseOnInterruption: true,
+            capabilities: [
+                Capability.Play,
+                Capability.Pause,
+                Capability.SkipToNext,
+                Capability.SkipToPrevious,
+            ],
+        });
 
-        console.log('play note ref');
+        await TrackPlayer.add({
+            id: 'trackReferenceId',
+            url: tran,
+            title: 'TrackReference Title',
+            artist: 'TrackReference Artist',
+        });
+
+        TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async (e) => {
+            // setReproduciendo(false);
+            setPlayingNoteRef(false);
+            await TrackPlayer.destroy();
+        });
+
+        await TrackPlayer.play();
     };
 
     const playDictado = async () => {
@@ -190,7 +244,8 @@ export default function Dictation({ route }) {
             const tran = await tramsitDictationApi(id);
             console.log(tran);
 
-            await playWithStick(tran);
+            await playWithoutSticks(tran);
+            // await playWithStick(tran);
 
             // var durationDictation = 0;
             // var intervalSticks = setInterval(async () => {
@@ -254,8 +309,6 @@ export default function Dictation({ route }) {
             // setReproduciendo(false);
             console.log(error);
         }
-
-        console.log('play dictation');
     };
 
     const openSolution = () => {
@@ -293,10 +346,15 @@ export default function Dictation({ route }) {
                     />
                 </View>
                 <Button
-                    title="Play Nota referencia"
+                    title={
+                        playingNoteRef
+                            ? 'Escuchando..'
+                            : 'Escuchar Nota referencia'
+                    }
                     buttonStyle={styles.btnPlayNoteRef}
                     style={{ width: '70%', alignSelf: 'center' }}
                     onPress={playNoteRef}
+                    disabled={playingNoteRef}
                 />
                 <Icon
                     type="material-community"

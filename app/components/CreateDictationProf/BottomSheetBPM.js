@@ -15,15 +15,22 @@ export default function BottomSheetBPM(props) {
 
     const onChangeMenor = (event) => {
         setBPMLocal({
-            menor: parseInt(event.nativeEvent.text),
+            menor:
+                event.nativeEvent.text != ''
+                    ? parseInt(event.nativeEvent.text)
+                    : 0,
             mayor: BPMLocal.mayor,
         });
     };
 
     const onChangeMayor = (event) => {
+        console.log(event.nativeEvent);
         setBPMLocal({
             menor: BPMLocal.menor,
-            mayor: parseInt(event.nativeEvent.text),
+            mayor:
+                event.nativeEvent.text != ''
+                    ? parseInt(event.nativeEvent.text)
+                    : 0,
         });
     };
 

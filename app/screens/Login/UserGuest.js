@@ -26,6 +26,7 @@ import { addUserApi, getUsuarioApi } from '../../api/user';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import { ScrollView } from 'react-native-gesture-handler';
 import { addCourseApi } from '../../api/course';
+import Loading from '../../components/Loading';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -40,6 +41,7 @@ export default function UserGuest(props) {
     const { setLogin, setIsStudent } = props;
     const [student, setStudent] = useState(true);
     const [registerStatus, setRegisterStatus] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const loginStudent = async () => {
         await setStorageUserLogged(
@@ -73,6 +75,8 @@ export default function UserGuest(props) {
                 isTeacher: !student,
             };
 
+            setLoading(true);
+
             getUsuarioApi(data).then(async (res) => {
                 if (res.ok) {
                     if (res.esDocente) {
@@ -101,6 +105,8 @@ export default function UserGuest(props) {
                     setPassword('');
                 }
             });
+
+            setLoading(false);
         } else {
             // console.log(res)
             Alert.alert('Ups..', 'Usuario y/o contraseña incorrectos');
@@ -166,6 +172,8 @@ export default function UserGuest(props) {
                     lastNameUser,
                 personal: true,
             };
+
+            setLoading(true);
 
             const addCourseResponse = await addCourseApi(data);
 
@@ -234,6 +242,7 @@ export default function UserGuest(props) {
                     changeRegisterLogin();
                 }
             }
+            setLoading(false);
         } else {
             Alert.alert(
                 'Ups..',
@@ -241,6 +250,8 @@ export default function UserGuest(props) {
             );
         }
     };
+
+    if (loading) return <Loading isVisible={true} text="Cargando" />;
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior="padding">
