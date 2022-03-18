@@ -43,7 +43,18 @@ export default function Solution({ route }) {
         return Math.trunc((cantNotas * porcentaje) / 100);
     };
     const calcularResultado = (tipoError) => {
-        setAutoevaluacion(
+        if (tipoError == "ninguno") { 
+            setAutoevaluacion( 
+                currentUserMail,
+                dictation._id,
+                12,
+                tipoError
+            ).then(() => {
+                navigation.goBack();
+            });
+            return;
+         }
+        setAutoevaluacion( 
             currentUserMail,
             dictation._id,
             evaluacionNota,
@@ -74,7 +85,7 @@ export default function Solution({ route }) {
                     titleStyle={{ color: SECONDARY_COLOR }}
                     containerStyle={styles.button}
                     onPress={() => {
-                        setevaluacionNota(12);
+                        calcularResultado('ninguno')
                         navigation.goBack();
                     }}
                     buttonStyle={{ borderColor: PRIMARY_COLOR, borderWidth: 1 }}
@@ -191,7 +202,7 @@ export default function Solution({ route }) {
                                 titleStyle={{ color: TEXTHOME }}
                                 type="outline"
                                 containerStyle={styles.buttonModal}
-                                onPress={() => {
+                                onPress={() => {``
                                     calcularResultado('ritmico');
                                 }}
                             />

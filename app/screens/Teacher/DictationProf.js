@@ -304,15 +304,7 @@ export default function DictationProf() {
 
     const inscribirse = () => {
         return (
-            <View
-                style={
-                    {
-                        // flex: 1,
-                        // justifyContent: 'center',
-                        // alignItems: 'center',
-                    }
-                }
-            >
+            <View>
                 {/* <ScrollView styles={{ flex: 1 }}> */}
                 <ScrollView>
                     {getCursesToSubscribe(allCourses).map((e, i) => (
@@ -761,28 +753,37 @@ export default function DictationProf() {
                         </>
                     )}
                 </ScrollView>
-
-                <Provider style={{ flex: 0.1 }}>
-                    <Portal style={{ flex: 0.2 }}>
-                        <Modal
-                            visible={modalVisible}
-                            onDismiss={hideModal}
-                            contentContainerStyle={styles.containerModal}
-                        >
-                            <Tab.Navigator>
-                                <Tab.Screen
-                                    name="Seleccionar"
-                                    component={inscribirse}
-                                />
-                                <Tab.Screen
-                                    name="Crear Curso"
-                                    component={crearCurso}
-                                />
-                            </Tab.Navigator>
-                        </Modal>
-                    </Portal>
-                </Provider>
             </View>
+
+            <Provider>
+                <Portal>
+                    <Modal
+                        visible={modalVisible}
+                        onDismiss={hideModal}
+                        contentContainerStyle={styles.containerModal}
+                    >
+                        <View
+                            style={{
+                                height: '100%',
+                                backgroundColor: BACKGROUNDHOME,
+                            }}
+                        >
+                            <ScrollView>
+                                <Tab.Navigator>
+                                    <Tab.Screen
+                                        name="Seleccionar"
+                                        component={inscribirse}
+                                    />
+                                    <Tab.Screen
+                                        name="Crear Curso"
+                                        component={crearCurso}
+                                    />
+                                </Tab.Navigator>
+                            </ScrollView>
+                        </View>
+                    </Modal>
+                </Portal>
+            </Provider>
         </View>
     );
 }
@@ -826,12 +827,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     containerModal: {
-        backgroundColor: BACKGROUNDHOME,
-        flex: 0.9,
-        width: '90%',
-        height: '90%',
+        // backgroundColor: BACKGROUNDHOME,
+        // flex: 0.9,
+        width: '100%',
+        height: '100%',
         borderRadius: 10,
-        alignSelf: 'center',
+        // alignSelf: 'center',
     },
     profileImgContainer: {
         marginLeft: 8,

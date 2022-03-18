@@ -8,6 +8,7 @@ import {
     Button,
 } from 'react-native-elements';
 import SwitchSelector from 'react-native-switch-selector';
+import SelectPicker from 'react-native-form-select-picker';
 
 import ListEmpty from './ListEmpty';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
@@ -29,6 +30,20 @@ export default function ConfigRhythmic(props) {
         refRBSheet_CelulaRitmica,
         refRBSheet_BPM,
     } = props;
+
+    // BORRAR
+    const [selected, setSelected] = useState();
+    const options = [
+        'Apple',
+        'Banana',
+        'Orange',
+        'a',
+        'b',
+        'c',
+        'd',
+        'cd',
+        'sdf',
+    ];
 
     const openSetNroCompas = () => {
         refRBSheet_Picker.current.open();
@@ -180,7 +195,7 @@ export default function ConfigRhythmic(props) {
                             color="white"
                         />
                     }
-                    style={styles.buttonRight}
+                    containerStyle={styles.buttonRight}
                     buttonStyle={styles.buttonAdd}
                     onPress={() => {
                         addCompas();
@@ -218,7 +233,7 @@ export default function ConfigRhythmic(props) {
             <View style={styles.contentTitle}>
                 <Text style={styles.title}>Nro. Compases</Text>
                 <Button
-                    style={styles.buttonRight}
+                    containerStyle={styles.buttonRight}
                     title={nro_compases}
                     onPress={openSetNroCompas}
                     buttonStyle={{
@@ -240,7 +255,7 @@ export default function ConfigRhythmic(props) {
                             color="white"
                         />
                     }
-                    style={styles.buttonRight}
+                    containerStyle={styles.buttonRight}
                     buttonStyle={styles.buttonAdd}
                     onPress={() => {
                         addCelulaRitmica();
@@ -303,6 +318,20 @@ export default function ConfigRhythmic(props) {
                     </View>
                 </ListItem.Content>
             </ListItem>
+
+            {/* BORRAR */}
+            <SelectPicker
+                onValueChange={(value) => {
+                    // Do anything you want with the value.
+                    // For example, save in state.
+                    setSelected(value);
+                }}
+                selected={selected}
+            >
+                {Object.values(options).map((val, index) => (
+                    <SelectPicker.Item label={val} value={val} key={index} />
+                ))}
+            </SelectPicker>
         </View>
     );
 }

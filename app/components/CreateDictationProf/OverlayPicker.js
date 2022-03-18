@@ -17,6 +17,7 @@ import {
 } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
 import SwipePicker from 'react-native-swipe-picker';
+import { FIFTH_COLOR } from '../../../utils/colorPalette';
 
 export default function OverlayPicker(props) {
     const {
@@ -77,39 +78,25 @@ export default function OverlayPicker(props) {
                             onPress={() => confirmation()}
                         />
                     </View>
-                    {Platform.OS == 'ios' ? (
-                        <>
-                            <Picker
-                                ref={pickerRef}
-                                selectedValue={valueLocal.name}
-                                onValueChange={(itemValue, itemIndex) =>
-                                    setValuesPicker(itemValue, itemIndex)
-                                }
-                                style={{ height: 65 }}
-                            >
-                                {values.map((val, i) => (
-                                    <Picker.Item
-                                        key={i}
-                                        label={val.name}
-                                        value={val.name}
-                                    />
-                                ))}
-                            </Picker>
-                        </>
-                    ) : (
-                        <>
-                            {valuesToPicker.length > 0 ? (
-                                <SwipePicker
-                                    items={valuesToPicker}
-                                    onChange={({ index, item }) => {
-                                        setValuesPicker(valuesToPicker, index);
-                                    }}
+                    <View style={styles.screen}>
+                        <Picker
+                            ref={pickerRef}
+                            selectedValue={valueLocal.name}
+                            onValueChange={(itemValue, itemIndex) =>
+                                setValuesPicker(itemValue, itemIndex)
+                            }
+                            mode="dropdown" // Android only
+                            style={styles.picker}
+                        >
+                            {values.map((val, i) => (
+                                <Picker.Item
+                                    key={i}
+                                    label={val.name}
+                                    value={val.name}
                                 />
-                            ) : (
-                                <></>
-                            )}
-                        </>
-                    )}
+                            ))}
+                        </Picker>
+                    </View>
                 </>
             ) : (
                 <View style={styles.containerError}>
@@ -152,5 +139,21 @@ const styles = StyleSheet.create({
     },
     msjError: {
         fontSize: 17,
+    },
+    screen: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    text: {
+        fontSize: 24,
+    },
+    picker: {
+        marginVertical: 30,
+        width: 300,
+        padding: 10,
+        borderWidth: 1,
+        borderColor: FIFTH_COLOR,
+        borderRadius: 5,
     },
 });

@@ -352,7 +352,7 @@ export default function Dictation({ route }) {
                             : 'Escuchar Nota referencia'
                     }
                     buttonStyle={styles.btnPlayNoteRef}
-                    style={{ width: '70%', alignSelf: 'center' }}
+                    containerStyle={{ width: '70%', alignSelf: 'center' }}
                     onPress={playNoteRef}
                     disabled={playingNoteRef}
                 />

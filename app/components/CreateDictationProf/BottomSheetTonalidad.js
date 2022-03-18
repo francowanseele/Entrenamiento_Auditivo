@@ -395,7 +395,7 @@ export default function BottomSheetTonalidad(props) {
                         Prioridad a cada tonalidad
                     </Text>
                     <Button
-                        style={styles.okGiroMelodico}
+                        containerStyle={styles.okGiroMelodico}
                         buttonStyle={styles.okGiroMelodicoButton}
                         title="Confirmar"
                         title="Ok"

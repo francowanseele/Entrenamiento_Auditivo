@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, ScrollView, View, Text, Animated } from 'react-native';
 import { Button, Overlay, Input } from 'react-native-elements';
+import { PRIMARY_COLOR, TEXT_COLOR_WRONG } from '../../../utils/colorPalette';
 
 import { addModulesApi, getModulesApi } from '../../api/course';
 
@@ -56,7 +57,11 @@ export default function OverlayPicker(props) {
         <Overlay
             isVisible={visible}
             onBackdropPress={toggleOverlay}
-            overlayStyle={styles.overlaySelectPicker}
+            overlayStyle={
+                idCourse != null
+                    ? styles.overlaySelectPicker
+                    : styles.overlaySelectPickerError
+            }
         >
             {idCourse != null ? (
                 <ScrollView>
@@ -80,8 +85,27 @@ export default function OverlayPicker(props) {
                         />
                     </View>
                     <View style={styles.contentButtons}>
-                        <Button title="Confirmar" onPress={confirmation} />
-                        <Button title="Cancelar" onPress={cancel} />
+                        <Button
+                            title="Confirmar"
+                            onPress={confirmation}
+                            buttonStyle={{
+                                backgroundColor: PRIMARY_COLOR,
+                                paddingHorizontal: 15,
+                                marginTop: 10,
+                            }}
+                        />
+                        <Button
+                            title="Cancelar"
+                            onPress={cancel}
+                            buttonStyle={{
+                                marginTop: 10,
+                            }}
+                            titleStyle={{
+                                color: TEXT_COLOR_WRONG,
+                                textDecorationLine: 'underline',
+                            }}
+                            type="clear"
+                        />
                     </View>
                 </ScrollView>
             ) : (
@@ -102,8 +126,13 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     overlaySelectPicker: {
-        width: '90%',
-        height: '40%',
+        width: '100%',
+        height: '100%',
+        paddingTop: '20%',
+    },
+    overlaySelectPickerError: {
+        width: '100%',
+        height: '50%',
     },
     containerTitle: {
         flexDirection: 'row',

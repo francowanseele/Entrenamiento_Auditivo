@@ -70,7 +70,7 @@ export default function BottomSheetBPM(props) {
             >
                 <Text style={styles.titleBottom}>Establecer BPM</Text>
                 <Button
-                    style={styles.okGiroMelodico}
+                    containerStyle={styles.okGiroMelodico}
                     buttonStyle={styles.okGiroMelodicoButton}
                     title="Confirmar"
                     onPress={() => confirmation()}

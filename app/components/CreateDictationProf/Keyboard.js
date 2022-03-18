@@ -108,7 +108,7 @@ export default function Keyboard(props) {
                                 color="white"
                             />
                         }
-                        style={styles.buttonDelete}
+                        containerStyle={styles.buttonDelete}
                         onPress={() => deleteNote()}
                     />
                 </View>
@@ -120,17 +120,17 @@ export default function Keyboard(props) {
                         <Button
                             title={alterar(nota, '#')}
                             onPress={() => writeNote(alterar(nota, '#'))}
-                            style={styles.buttonNotes}
+                            containerStyle={styles.buttonNotes}
                         />
                         <Button
                             title={nota}
                             onPress={() => writeNote(nota)}
-                            style={styles.buttonNotes}
+                            containerStyle={styles.buttonNotes}
                         />
                         <Button
                             title={alterar(nota, 'b')}
                             onPress={() => writeNote(alterar(nota, 'b'))}
-                            style={styles.buttonNotes}
+                            containerStyle={styles.buttonNotes}
                         />
                     </View>
                 ))}

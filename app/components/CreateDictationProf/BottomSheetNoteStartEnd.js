@@ -70,7 +70,7 @@ export default function BottomSheetNoteStartEnd(props) {
                 >
                     <Text style={styles.titleBottom}>{title}</Text>
                     <Button
-                        style={styles.okGiroMelodico}
+                        containerStyle={styles.okGiroMelodico}
                         buttonStyle={styles.okGiroMelodicoButton}
                         title="Confirmar"
                         onPress={() => confirmation()}

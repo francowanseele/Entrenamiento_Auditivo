@@ -161,7 +161,7 @@ export default function ConfigMelodic(props) {
                             color="white"
                         />
                     }
-                    style={styles.buttonRight}
+                    containerStyle={styles.buttonRight}
                     buttonStyle={styles.buttonAdd}
                     onPress={addGiroMelodicoRegla}
                 />

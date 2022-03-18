@@ -263,7 +263,7 @@ export default function BottomSheetCelulaRitmica(props) {
                             Agregar célula rítmica
                         </Text>
                         <Button
-                            style={styles.okGiroMelodico}
+                            containerStyle={styles.okGiroMelodico}
                             buttonStyle={styles.okGiroMelodicoButton}
                             title="Confirmar"
                             onPress={() => confirmation()}
@@ -279,7 +279,7 @@ export default function BottomSheetCelulaRitmica(props) {
                                 Editar célula rítmica
                             </Text>
                             <Button
-                                style={styles.okGiroMelodico}
+                                containerStyle={styles.okGiroMelodico}
                                 buttonStyle={styles.okGiroMelodicoButton}
                                 title="Confirmar"
                                 onPress={() => confirmation()}

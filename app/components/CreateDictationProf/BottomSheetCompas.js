@@ -213,7 +213,7 @@ export default function BottomSheetCompas(props) {
                     >
                         <Text style={styles.titleBottom}>Agregar compases</Text>
                         <Button
-                            style={styles.okGiroMelodico}
+                            containerStyle={styles.okGiroMelodico}
                             buttonStyle={styles.okGiroMelodicoButton}
                             title="Confirmar"
                             onPress={() => confirmation()}
@@ -224,7 +224,7 @@ export default function BottomSheetCompas(props) {
                     <View style={{ flexDirection: 'row', paddingRight: 15 }}>
                         <Text style={styles.titleBottom}>Editar compás</Text>
                         <Button
-                            style={styles.okGiroMelodico}
+                            containerStyle={styles.okGiroMelodico}
                             buttonStyle={styles.okGiroMelodicoButton}
                             title="Confirmar"
                             onPress={() => confirmation()}

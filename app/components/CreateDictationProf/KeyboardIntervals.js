@@ -57,7 +57,13 @@ export default function Keyboard(props) {
 
     useEffect(() => {
         setTimeout(() => {
-            scrollViewRef.current.scrollTo({ x: 575, animated: true });
+            if (
+                scrollViewRef &&
+                scrollViewRef.current &&
+                scrollViewRef.current.scrollTo
+            ) {
+                scrollViewRef.current.scrollTo({ x: 575, animated: true });
+            }
         }, 500);
     }, []);
 
@@ -78,7 +84,7 @@ export default function Keyboard(props) {
                                 color="white"
                             />
                         }
-                        style={styles.buttonDelete}
+                        containerStyle={styles.buttonDelete}
                         onPress={() => deleteNote()}
                     />
                 </View>
@@ -97,7 +103,7 @@ export default function Keyboard(props) {
                               <Button
                                   title={note.firstInterval}
                                   onPress={() => writeNote(note.firstNote)}
-                                  style={styles.buttonNotes}
+                                  containerStyle={styles.buttonNotes}
                                   buttonStyle={{
                                       backgroundColor: '#F7F7F7',
                                       height: 55,
@@ -109,7 +115,7 @@ export default function Keyboard(props) {
                                   <Button
                                       title={note.secondInterval}
                                       onPress={() => writeNote(note.secondNote)}
-                                      style={styles.buttonNotes}
+                                      containerStyle={styles.buttonNotes}
                                       buttonStyle={{
                                           backgroundColor: '#B5B5B5',
                                           height: 55,
@@ -133,7 +139,7 @@ export default function Keyboard(props) {
                               <Button
                                   title={note.firstInterval}
                                   onPress={() => writeNote(note.firstNote)}
-                                  style={styles.buttonNotes}
+                                  containerStyle={styles.buttonNotes}
                                   buttonStyle={{
                                       backgroundColor: '#F7F7F7',
                                       height: 55,
@@ -145,7 +151,7 @@ export default function Keyboard(props) {
                                   <Button
                                       title={note.secondInterval}
                                       onPress={() => writeNote(note.secondNote)}
-                                      style={styles.buttonNotes}
+                                      containerStyle={styles.buttonNotes}
                                       buttonStyle={{
                                           backgroundColor: '#B5B5B5',
                                           height: 55,

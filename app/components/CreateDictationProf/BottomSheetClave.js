@@ -70,7 +70,7 @@ export default function BottomSheetClave(props) {
                 >
                     <Text style={styles.titleBottom}>Clave de {clave}</Text>
                     <Button
-                        style={styles.okGiroMelodico}
+                        containerStyle={styles.okGiroMelodico}
                         buttonStyle={styles.okGiroMelodicoButton}
                         title="Confirmar"
                         onPress={() => confirmation()}

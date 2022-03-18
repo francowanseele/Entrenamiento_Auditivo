@@ -78,6 +78,7 @@ export default function UserGuest(props) {
             setLoading(true);
 
             getUsuarioApi(data).then(async (res) => {
+                console.log(res);
                 if (res.ok) {
                     if (res.esDocente) {
                         await setStorageUserLogged(
