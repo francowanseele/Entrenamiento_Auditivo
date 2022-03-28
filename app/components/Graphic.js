@@ -18,65 +18,65 @@ export default ({
     const [clave, setclave] = useState(claveParam); 
     const [tarjetas, setTarjetas] = useState({ 
        '16-16-16-16':`
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new   StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new   StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new   StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
+        new   StaveNote({clef: "`+claveParam+`", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
         `,
         '8-16-16':
             `
-        new VF.StaveNote({clef: "` +
+        new   StaveNote({clef: "` +
             claveParam +
             `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
-        new VF.StaveNote({clef: "` +
+        new   StaveNote({clef: "` +
             claveParam +
             `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "` +
+        new   StaveNote({clef: "` +
             claveParam +
             `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
         `,
         '16-16-8':
             `
-        new VF.StaveNote({clef: "` +
+        new   StaveNote({clef: "` +
             claveParam +
             `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "` +
+        new   StaveNote({clef: "` +
             claveParam +
             `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "` +
+        new   StaveNote({clef: "` +
             claveParam +
             `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
         `,
         '16-8-16':
             `
-        new VF.StaveNote({clef: "` +
+        new   StaveNote({clef: "` +
             claveParam +
             `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
-        new VF.StaveNote({clef: "` +
+        new   StaveNote({clef: "` +
             claveParam +
             `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
-        new VF.StaveNote({clef: "` +
+        new   StaveNote({clef: "` +
             claveParam +
             `", keys: ["ParteMelodica"], duration: "16" })MODIFICACION
         `,
         '8-8':
             `
-        new VF.StaveNote({clef: "` +
+        new   StaveNote({clef: "` +
             claveParam +
             `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
-        new VF.StaveNote({clef: "` +
+        new   StaveNote({clef: "` +
             claveParam +
             `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
         `,
         '8-8-8':
             `
-        new VF.StaveNote({clef: "` +
+        new   StaveNote({clef: "` +
             claveParam +
             `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
-        new VF.StaveNote({clef: "` +
+        new   StaveNote({clef: "` +
             claveParam +
             `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
-        new VF.StaveNote({clef: "` +
+        new   StaveNote({clef: "` +
             claveParam +
             `", keys: ["ParteMelodica"], duration: "8" })MODIFICACION
         `,
@@ -169,12 +169,12 @@ export default ({
             if (figuras[actualPara][0].includes('b')) {
                 resTarjeta = resTarjeta.replace(
                     'MODIFICACION',
-                    '.addAccidental(0, new VF.Accidental("b")),'
+                    '.addAccidental(0, new   Accidental("b")),'
                 );
             } else if (figuras[actualPara][0].includes('#')) {
                 resTarjeta = resTarjeta.replace(
                     'MODIFICACION',
-                    '.addAccidental(0, new VF.Accidental("#")),'
+                    '.addAccidental(0, new   Accidental("#")),'
                 );
             } else if (figuras[actualPara][0].includes('d')) {
                 resTarjeta = resTarjeta.replace(
@@ -311,7 +311,7 @@ export default ({
                 // console.log(esTarjeta)
                 if (!sostenido && !bemol && !punto && !esTarjeta) {
                     res = res.concat(
-                        'new Vex.Flow.StaveNote({clef: "' +
+                        'new  StaveNote({clef: "' +
                             clave +
                             '", keys: ["' +
                             figuras[actual][0] +
@@ -322,29 +322,29 @@ export default ({
                     );
                 } else if (sostenido && !esTarjeta) {
                     res = res.concat(
-                        'new Vex.Flow.StaveNote({clef: "' +
+                        'new  StaveNote({clef: "' +
                             clave +
                             '", keys: ["' +
                             figuras[actual][0] +
                             '"], duration: "' +
                             figuras[actual][1] +
-                            '" }).addAccidental(0, new VF.Accidental("#")),' +
+                            '" }).addAccidental(0, new   Accidental("#")),' +
                             '\n'
                     );
                 } else if (bemol && !esTarjeta) {
                     res = res.concat(
-                        'new Vex.Flow.StaveNote({clef: "' +
+                        'new  StaveNote({clef: "' +
                             clave +
                             '", keys: ["' +
                             figuras[actual][0] +
                             '"], duration: "' +
                             figuras[actual][1] +
-                            '" }).addAccidental(0, new VF.Accidental("b")),' +
+                            '" }).addAccidental(0, new   Accidental("b")),' +
                             '\n'
                     );
                 } else if (punto && !esTarjeta) {
                     res = res.concat(
-                        'new Vex.Flow.StaveNote({clef: "' +
+                        'new  StaveNote({clef: "' +
                             clave +
                             '", keys: ["' +
                             figuras[actual][0] +
@@ -386,7 +386,7 @@ export default ({
                     huboTarjeta = true;
                     res = res.concat(
                         `beams = beams.concat([
-                        new Vex.Flow.Beam(notesTarjeta` +
+                        new  Beam(notesTarjeta` +
                             compasActual +
                             `)
                         ])` +
@@ -412,10 +412,10 @@ export default ({
                 res = res.concat(
                     `     
                 ]); \n
-                var beams = VF.Beam.generateBeams( notesMeasure` +
+                var beams =   Beam.generateBeams( notesMeasure` +
                         (compasActual - 1) +
                         `);
-                Vex.Flow.Formatter.FormatAndDraw(context, staveMeasure` +
+                 Formatter.FormatAndDraw(context, staveMeasure` +
                         (compasActual - 1) +
                         `, notesMeasure` +
                         (compasActual - 1) +
@@ -435,7 +435,7 @@ export default ({
                 // Notas dentro del compas
                 var staveMeasure` +
                         compasActual +
-                        ` = new Vex.Flow.Stave( \n
+                        ` = new  Stave( \n
                 staveMeasure` +
                         (compasActual - 1) +
                         `.width + staveMeasure` +
@@ -472,16 +472,16 @@ export default ({
         // if (esTarjeta){
         //     res = res.concat(
         //         `]; \n beams = [
-        //             new Vex.Flow.Beam(notesMeasure`+compasActual+`)
+        //             new  Beam(notesMeasure`+compasActual+`)
         //         `
         //     )
         // }
         res = res.concat(
             `]); \n
-            var beams = VF.Beam.generateBeams( notesMeasure` +
+            var beams =   Beam.generateBeams( notesMeasure` +
                 compasActual.toString() +
                 `);
-        Vex.Flow.Formatter.FormatAndDraw(context, staveMeasure` +
+         Formatter.FormatAndDraw(context, staveMeasure` +
                 compasActual.toString() +
                 `, notesMeasure` +
                 compasActual.toString() +
@@ -520,16 +520,18 @@ export default ({
           height: 1px;
       }
       </style>
-      <script src="https://unpkg.com/vexflow/releases/vexflow-debug.js"> 
+      <script src="https://cdn.jsdelivr.net/npm/vexflow/build/cjs/vexflow.js"></script>
+
       </script>
       <script>
-      function writeNote(pitch, rhythm){  //(tono,ritmo)
+      function writeNote(){  //(tono,ritmo)
         
-          VF = Vex.Flow;
+            const { Renderer, Stave, Accidental, StaveNote, Beam, Formatter, Dot } = Vex.Flow;
+
   
           // Create an SVG renderer and attach it to the DIV element named "boo".
           var div = document.getElementById("boo")
-          var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+          var renderer = new Renderer(div, Renderer.Backends.SVG);
           
           // Size our SVG:
           renderer.resize(`+largoPentagrama() +`, 300);
@@ -539,7 +541,7 @@ export default ({
           
           
           // measure 1
-            var staveMeasure1 = new Vex.Flow.Stave(10, 0, 500);
+            var staveMeasure1 = new  Stave(10, 0, 500);
             staveMeasure1.addClef("` +
                 clave +
                 `").addTimeSignature('` +
@@ -557,15 +559,15 @@ export default ({
                 `
       }
       </script>
-          <div class="music-render" id="boo"/> 
+          <div class="music-render" id="boo"></div> 
           <script>writeNote();</script>
   `
         );
         // console.log(Html)
     }, [escalaDiatonicaRes]); 
-
-    
+    // console.log(Html)
     return (
+        // <WebView source={{ uri: 'https://reactnative.dev/' }} />
         <WebView
             source={{ html: Html }}
             style={{
