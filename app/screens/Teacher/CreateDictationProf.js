@@ -19,6 +19,7 @@ import BottomSheetReference from '../../components/CreateDictationProf/BottomShe
 import BottomSheetTonalidad from '../../components/CreateDictationProf/BottomSheetTonalidad';
 import BottomSheetCompas from '../../components/CreateDictationProf/BottomSheetCompas';
 import BottomSheetCelulaRitmica from '../../components/CreateDictationProf/BottomSheetCelulaRitmica';
+import BottomSheetCreateCelulaRitmica from '../../components/CreateDictationProf/BottomSheetCreateCelulaRitmica';
 import BottomSheetBPM from '../../components/CreateDictationProf/BottomSheetBPM';
 import {
     atLeastOneClef,
@@ -53,6 +54,7 @@ export default function CreateDictationProf({ route }) {
     const refRBSheet_Tonalidad = useRef();
     const refRBSheet_Compas = useRef();
     const refRBSheet_CelulaRitmica = useRef();
+    const refRBSheet_CreateRitmica = useRef();
     const refRBSheet_BPM = useRef();
     const toastRef = useRef();
 
@@ -736,6 +738,11 @@ export default function CreateDictationProf({ route }) {
                 setCelula_ritmica_regla={setCelula_ritmica_regla}
                 editCelula_ritmica={editCelula_ritmica}
                 refRBSheet={refRBSheet_CelulaRitmica}
+            />
+             <BottomSheetCreateCelulaRitmica
+                add={addCelulaRitmica}
+                simple={simple}
+                refRBSheet={refRBSheet_CreateRitmica}
             />
             <BottomSheetBPM
                 refRBSheet={refRBSheet_BPM}
