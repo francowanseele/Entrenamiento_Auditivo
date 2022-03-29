@@ -290,6 +290,8 @@ export default function ConfigDictation({ route }) {
             escalaDiatoica: dictation.escala_diatonica,
             bpm: dictation.bpm ? dictation.bpm : 128,
             nota_base: dictation.nota_base,
+            numerador: dictation.numerador,
+            denominador: dictation.denominador,
         };
 
         const id = await getStorageItem(ID_USER);

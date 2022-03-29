@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Icon, Divider, Button } from 'react-native-elements';
-// import { Audio } from 'expo-av';
 import {
     BACKGROUNDHOME,
     TEXTHOME,
@@ -18,7 +17,6 @@ import {
 import { tramsitDictationApi, tramsitNoteReferenceApi } from '../../api/sound';
 import { getStorageItem, ID_USER } from '../../../utils/asyncStorageManagement';
 import Graphic from '../../components/Graphic';
-import { Ionicons } from '@expo/vector-icons';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import ScreenPlaying from '../../components/ScreenPlaying';
 import TrackPlayer, { Event, Capability } from 'react-native-track-player';
@@ -74,134 +72,6 @@ export default function Dictation({ route }) {
         await TrackPlayer.play();
     };
 
-    const playWithStick = async (tran) => {
-        try {
-            const timePulseMs = Math.round(60000 / dictation.bpm);
-
-            await TrackPlayer.setupPlayer();
-
-            await TrackPlayer.updateOptions({
-                stopWithApp: false,
-                alwaysPauseOnInterruption: true,
-                capabilities: [
-                    Capability.Play,
-                    Capability.Pause,
-                    Capability.SkipToNext,
-                    Capability.SkipToPrevious,
-                ],
-            });
-
-            for (let i = 0; i < dictation.numerador; i++) {
-                await TrackPlayer.add({
-                    id: 'stick' + i.toString(),
-                    url: require('../../../assets/stick_sound.mp3'),
-                    title: 'stick' + i.toString() + 'Title',
-                    artist: 'stick' + i.toString(),
-                    duration: 1,
-                });
-            }
-            await TrackPlayer.add({
-                id: 'trackId',
-                url: tran,
-                title: 'Track Title',
-                artist: 'Track Artist',
-            });
-
-            //add listener on track change
-            TrackPlayer.addEventListener(
-                Event.PlaybackQueueEnded,
-                async (e) => {
-                    //console.log('song ended', e);
-
-                    const trackId = (await TrackPlayer.getCurrentTrack()) - 1; //get the current id
-
-                    console.log('track id', trackId);
-
-                    // if (trackId !== index.current) {
-                    //     setSongIndex(trackId);
-                    //     isItFromUser.current = false;
-
-                    //     if (trackId > index.current) {
-                    //         goNext();
-                    //     } else {
-                    //         goPrv();
-                    //     }
-                    //     setTimeout(() => {
-                    //         isItFromUser.current = true;
-                    //     }, 200);
-                    // }
-
-                    // isPlayerReady.current = true;
-                }
-            );
-
-            //add listener on track change
-            TrackPlayer.addEventListener(
-                Event.PlaybackTrackChanged,
-                async (e) => {
-                    console.log('song CHANGE', e);
-
-                    const trackId = (await TrackPlayer.getCurrentTrack()) - 1; //get the current id
-
-                    console.log('track id', trackId);
-                    // isPlayerReady.current = true;
-                }
-            );
-
-            // const a = await TrackPlayer.getTrack(3);
-            // console.log(a);
-
-            TrackPlayer.play();
-
-            // var i = 1;
-            // var interval = setInterval(async () => {
-            //     console.log('SONIDO STICK');
-            //     if (i == 1) {
-            //         TrackPlayer.play();
-            //     } else {
-            //         TrackPlayer.seekTo(0);
-            //         TrackPlayer.play();
-            //     }
-            //     i++;
-
-            //     if (i > dictation.numerador || i > 4) {
-            //         await TrackPlayer.add({
-            //             id: 'trackId',
-            //             url: tran,
-            //             title: 'Track Title',
-            //             artist: 'Track Artist',
-            //         });
-
-            //         const durationDictation = await TrackPlayer.getDuration();
-            //         console.log(durationDictation);
-            //         await TrackPlayer.play();
-
-            //         var j = 0;
-            //         var intervalDictation = setInterval(() => {
-            //             if (j > 0) {
-            //                 setReproduciendo(false);
-            //                 clearInterval(intervalDictation);
-            //             }
-            //             j++;
-            //         }, durationDictation * 1000 + 1000);
-
-            //         clearInterval(interval);
-            //     }
-            // }, timePulseMs * i);
-
-            // if (dictation.numerador <= 4) {
-            //     return timePulseMs * dictation.numerador;
-            // } else {
-            //     return timePulseMs * 4;
-            // }
-        } catch (error) {
-            setReproduciendo(false);
-            console.log('ERROR STICKS');
-            console.log(error);
-            return 0;
-        }
-    };
-
     const playNoteRef = async () => {
         setPlayingNoteRef(true);
         const id = await getStorageItem(ID_USER);
@@ -245,68 +115,9 @@ export default function Dictation({ route }) {
             console.log(tran);
 
             await playWithoutSticks(tran);
-            // await playWithStick(tran);
-
-            // var durationDictation = 0;
-            // var intervalSticks = setInterval(async () => {
-            //     await TrackPlayer.setupPlayer();
-
-            //     await TrackPlayer.add({
-            //         id: 'trackId',
-            //         url: tran,
-            //         title: 'Track Title',
-            //         artist: 'Track Artist',
-            //     });
-
-            //     durationDictation = await TrackPlayer.getDuration();
-            //     await TrackPlayer.play();
-            //     clearInterval(intervalSticks);
-            // }, duration + 500);
-
-            // var intervalDictation = setInterval(async () => {
-            //     // audio has finished!
-            //     setReproduciendo(false);
-            //     clearInterval(intervalDictation);
-            // }, durationDictation * 1000 + 1000);
-
-            // ------------------------------------------------------
-
-            // Start playing it
-            // await TrackPlayer.play();
-
-            // const soundObject = new Audio.Sound();
-            // await soundObject.loadAsync({ uri: tran });
-
-            // soundObject.setOnPlaybackStatusUpdate(async (status) => {
-            //     const dur = status.durationMillis;
-
-            //     setTimeout(async () => {
-            //         // audio has finished!
-            //         await soundObject.unloadAsync();
-            //         setReproduciendo(false);
-            //     }, dur + 1000);
-
-            //     // if (status.didJustFinish === true) {
-            //     //     // audio has finished!
-            //     //     await soundObject.unloadAsync();
-            //     //     setReproduciendo(false);
-            //     // }
-            // });
-
-            // const timeToStart = await playStick();
-
-            // setTimeout(function () {
-            //     soundObject.playAsync();
-            // }, timeToStart);
-
-            // const { sound } = await Audio.Sound.createAsync({ uri: tran });
-            // setSound(sound);
-
-            // console.log('Playing Sound');
-            // await sound.playAsync();
         } catch (error) {
             // await soundObject.unloadAsync();
-            // setReproduciendo(false);
+            setReproduciendo(false);
             console.log(error);
         }
     };
