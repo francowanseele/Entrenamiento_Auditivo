@@ -232,7 +232,7 @@ export default function BottomSheetCelulaRitmica(props) {
         <RBSheet
             ref={refRBSheet}
             closeOnDragDown={true}
-            closeOnPressMask={false}
+            // closeOnPressMask={false}
             closeOnPressMask={true}
             animationType="slide"
             dragFromTopOnly={true}
@@ -267,7 +267,7 @@ export default function BottomSheetCelulaRitmica(props) {
                             buttonStyle={styles.okGiroMelodicoButton}
                             title="Confirmar"
                             onPress={() => confirmation()}
-                            containerStyle={styles.okGiroMelodicoContainer}
+                            // containerStyle={styles.okGiroMelodicoContainer}
                         />
                     </View>
                 ) : (
@@ -283,7 +283,7 @@ export default function BottomSheetCelulaRitmica(props) {
                                 buttonStyle={styles.okGiroMelodicoButton}
                                 title="Confirmar"
                                 onPress={() => confirmation()}
-                                containerStyle={styles.okGiroMelodicoContainer}
+                                // containerStyle={styles.okGiroMelodicoContainer}
                             />
                         </View>
                     </>
@@ -308,26 +308,26 @@ export default function BottomSheetCelulaRitmica(props) {
                                                 onPress={() =>
                                                     checkedCelulaRitmica(cr)
                                                 }
-                                                checkedIcon={
-                                                    <Icon
-                                                        name="check-circle"
-                                                        type="material-community"
-                                                        color={TEXT_COLOR_RIGHT}
-                                                        containerStyle={
-                                                            styles.containerCheckChecked
-                                                        }
-                                                    />
-                                                }
-                                                uncheckedIcon={
-                                                    <Icon
-                                                        name="check-circle"
-                                                        type="material-community"
-                                                        color={'grey'}
-                                                        containerStyle={
-                                                            styles.containerCheckUnchecked
-                                                        }
-                                                    />
-                                                }
+                                                // checkedIcon={
+                                                //     <Icon
+                                                //         name="check-circle"
+                                                //         type="material-community"
+                                                //         color={TEXT_COLOR_RIGHT}
+                                                //         containerStyle={
+                                                //             styles.containerCheckChecked
+                                                //         }
+                                                //     />
+                                                // }
+                                                // uncheckedIcon={
+                                                //     <Icon
+                                                //         name="check-circle"
+                                                //         type="material-community"
+                                                //         color={'grey'}
+                                                //         containerStyle={
+                                                //             styles.containerCheckUnchecked
+                                                //         }
+                                                //     />
+                                                // }
                                             />
                                         ) : (
                                             // <CheckBox

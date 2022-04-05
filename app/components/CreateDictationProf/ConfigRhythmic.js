@@ -28,6 +28,7 @@ export default function ConfigRhythmic(props) {
         refRBSheet_Picker,
         refRBSheet_Compas,
         refRBSheet_CelulaRitmica,
+        refRBSheet_CreateRitmica,
         refRBSheet_BPM,
     } = props;
 
@@ -57,6 +58,10 @@ export default function ConfigRhythmic(props) {
     const addCelulaRitmica = async () => {
         await setAddCelulaRitmica(true);
         refRBSheet_CelulaRitmica.current.open();
+    };
+    const createCelulaRitmica = async () => {
+        await setAddCelulaRitmica(true);
+        refRBSheet_CreateRitmica.current.open();
     };
 
     const editCompas = async (compas) => {
@@ -259,6 +264,20 @@ export default function ConfigRhythmic(props) {
                     buttonStyle={styles.buttonAdd}
                     onPress={() => {
                         addCelulaRitmica();
+                    }}
+                />
+                <Button
+                    icon={
+                        <Icon
+                            type="material-community"
+                            name="plus-thick"
+                            color="white"
+                        />
+                    }
+                    containerStyle={styles.buttonRight}
+                    buttonStyle={styles.buttonAdd}
+                    onPress={() => {
+                        createCelulaRitmica();
                     }}
                 />
             </View>

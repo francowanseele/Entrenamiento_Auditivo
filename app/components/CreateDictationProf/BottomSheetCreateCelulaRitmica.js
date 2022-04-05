@@ -24,20 +24,23 @@ import {
     addGiroMelodicoApi,
     getGiroMelodicoApi,
 } from '../../api/giro_melodico';
-import KeyboardIntervals from './KeyboardIntervals';
+import KeyboardCreateCelulas from './KeyboardCreateCelulas';
 
 export default function BottomSheetCreateCelulaRitmica(props) {
     const {
         add,
-        simple,
+        setSimple,
         refRBSheet
     } = props;
-    const [prio, setPrio] = useState(1);
-    const [giro, setGiro] = useState([]);
+    // const [prio, setPrio] = useState(1);
+    const [figuras, setFiguras] = useState([]);
     const [renderSlider, setRenderSlider] = useState(false);
-    const [title, setTitle] = useState('Nuevo giro melódico');
+    const [title, setTitle] = useState('Nueva celula ritmica');
     const [writeGiroMelodico, setWriteGiroMelodico] = useState(true);
     const [girosMelodicosDB, setGirosMelodicosDB] = useState([]);
+
+
+    
 
     const confirmation = () => {
         // const newGiro = {
@@ -62,22 +65,10 @@ export default function BottomSheetCreateCelulaRitmica(props) {
         // }
 
         // setGiro_melodico_regla(newGiroMelodicoRegla);
-        // refRBSheet.current.close();
+        refRBSheet.current.close();
     };
 
-    const saveGiroMelodico = async () => {
-        // const data = {
-        //     giro_melodico: giro,
-        //     mayor: mayor,
-        // };
-
-        // const addGiroMelodicoResult = await addGiroMelodicoApi(data);
-
-        // if (addGiroMelodicoResult.ok) {
-        //     confirmation();
-        // }
-    };
-
+  
     const deleteGiro = () => {
         // var newGiroMelodicoRegla = [];
         // giro_melodico_regla.forEach((gm_regla) => {
@@ -90,29 +81,8 @@ export default function BottomSheetCreateCelulaRitmica(props) {
         // refRBSheet.current.close();
     };
 
-    const printArray = (arr) => {
-        var res = '';
-        for (let i = 0; i < arr.length - 1; i++) {
-            const elem = arr[i];
-            res = res.concat(elem, ' - ');
-        }
-        if (arr.length > 0) {
-            res = res.concat(arr[arr.length - 1]);
-        } else {
-            res = 'SIN DEFINIR';
-        }
-
-        return res;
-    };
-
-    const isGiroIn = (giro, giroArr) => {
-        var ok = false;
-        giroArr.forEach((g) => {
-            ok = ok || printArray(giro) == printArray(g);
-        });
-
-        return ok;
-    };
+   
+   
 
     const isGiroAdded = (giro) => {
         var ok = false;
@@ -131,7 +101,7 @@ export default function BottomSheetCreateCelulaRitmica(props) {
             ref={refRBSheet}
             closeOnDragDown={true}
             closeOnPressMask={false}
-            closeOnPressMask={true}
+            // closeOnPressMask={true}
             animationType="slide"
             dragFromTopOnly={true}
             onOpen={async () => {
@@ -151,32 +121,6 @@ export default function BottomSheetCreateCelulaRitmica(props) {
         >
             <View>
                 
-                    <SwitchSelector
-                        initial={!add || writeGiroMelodico ? 0 : 1}
-                        onPress={(value) => setWriteGiroMelodico(value == 'e')}
-                        textColor={'black'}
-                        selectedColor={'white'}
-                        buttonColor={SECONDARY_COLOR}
-                        borderColor={PRIMARY_COLOR}
-                        hasPadding
-                        options={[
-                            {
-                                label: 'Escribir',
-                                value: 'e',
-                            },
-                            {
-                                label: 'Listar',
-                                value: 'l',
-                            },
-                        ]}
-                        testID="gender-switch-selector"
-                        accessibilityLabel="gender-switch-selector"
-                        style={{
-                            alignSelf: 'center',
-                            width: '95%',
-                        }}
-                    />
-               
                     <View>
                         <View
                             style={{
@@ -193,6 +137,31 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                                 containerStyle={styles.okGiroMelodicoContainer}
                             />
                         </View>
+                        <SwitchSelector
+                        initial={!add || writeGiroMelodico ? 0 : 1}
+                        onPress={(value) => setSimple(value == 'e')}
+                        textColor={'black'}
+                        selectedColor={'white'}
+                        buttonColor={SECONDARY_COLOR}
+                        borderColor={PRIMARY_COLOR}
+                        hasPadding
+                        options={[
+                            {
+                                label: 'Simple',
+                                value: 'e',
+                            },
+                            {
+                                label: 'Compuesta',
+                                value: 'l',
+                            },
+                        ]}
+                        testID="gender-switch-selector"
+                        accessibilityLabel="gender-switch-selector"
+                        style={{
+                            alignSelf: 'center',
+                            width: '95%',
+                        }}
+                    />
                         <ScrollView>
                             <View
                                 style={{
@@ -201,53 +170,17 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                                 }}
                             >
                                 <Text style={styles.textPrioridad}>
-                                    Prioridad: {prio}
+                                    Figuras: 
                                 </Text>
 
                             </View>
 
-                            <View style={styles.contentSlider}>
-                                {renderSlider ? (
-                                    <Slider
-                                        value={prio}
-                                        onValueChange={(value) =>
-                                            setPrio(value)
-                                        }
-                                        minimumValue={0}
-                                        maximumValue={5}
-                                        step={1}
-                                        thumbStyle={{
-                                            height: 20,
-                                            width: 20,
-                                            backgroundColor: 'transparent',
-                                        }}
-                                        thumbProps={{
-                                            children: (
-                                                <Icon
-                                                    name="circle-small"
-                                                    type="material-community"
-                                                    size={15}
-                                                    reverse
-                                                    containerStyle={{
-                                                        bottom: 15,
-                                                        right: 15,
-                                                    }}
-                                                    color="black"
-                                                />
-                                            ),
-                                        }}
-                                    />
-                                ) : (
-                                    <></>
-                                )}
-                            </View>
-
                             <Divider orientation="horizontal" />
 
-                            <KeyboardIntervals
-                                notes={giro}
-                                setNotes={setGiro}
-                                mayor={mayor}
+                            <KeyboardCreateCelulas
+                                figuras={figuras}
+                                setFiguras={setFiguras}
+                                // mayor={mayor}
                             />
                         </ScrollView>
                     </View>

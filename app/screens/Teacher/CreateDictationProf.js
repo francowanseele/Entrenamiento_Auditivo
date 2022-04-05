@@ -616,6 +616,7 @@ export default function CreateDictationProf({ route }) {
                     refRBSheet_Reference={refRBSheet_Reference}
                     refRBSheet_Compas={refRBSheet_Compas}
                     refRBSheet_CelulaRitmica={refRBSheet_CelulaRitmica}
+                    refRBSheet_CreateRitmica={refRBSheet_CreateRitmica}
                     refRBSheet_BPM={refRBSheet_BPM}
                     okStartNotes={okStartNotes}
                     okEndNotes={okEndNotes}
@@ -741,7 +742,7 @@ export default function CreateDictationProf({ route }) {
             />
              <BottomSheetCreateCelulaRitmica
                 add={addCelulaRitmica}
-                simple={simple}
+                setSimple={setSimple}
                 refRBSheet={refRBSheet_CreateRitmica}
             />
             <BottomSheetBPM

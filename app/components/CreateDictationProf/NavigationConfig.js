@@ -39,6 +39,7 @@ export default function NavigationConfig(props) {
         refRBSheet_Reference,
         refRBSheet_Compas,
         refRBSheet_CelulaRitmica,
+        refRBSheet_CreateRitmica,
         refRBSheet_BPM,
         okStartNotes,
         okEndNotes,
@@ -102,6 +103,7 @@ export default function NavigationConfig(props) {
                         refRBSheet_Picker={refRBSheet_Picker}
                         refRBSheet_Compas={refRBSheet_Compas}
                         refRBSheet_CelulaRitmica={refRBSheet_CelulaRitmica}
+                        refRBSheet_CreateRitmica={refRBSheet_CreateRitmica}
                         refRBSheet_BPM={refRBSheet_BPM}
                     />
                 )}
