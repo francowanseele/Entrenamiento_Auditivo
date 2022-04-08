@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, Text, Animated } from 'react-native';
+import { StyleSheet, ScrollView, View, Text  } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
+
 import {
     ListItem,
     Icon,
     Slider,
     Button,
     Divider,
-    CheckBox,
+    Input,
 } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import SwitchSelector from 'react-native-switch-selector';
@@ -28,9 +30,10 @@ import KeyboardCreateCelulas from './KeyboardCreateCelulas';
 
 export default function BottomSheetCreateCelulaRitmica(props) {
     const {
-        add,
+        create,
         setSimple,
-        refRBSheet
+        refRBSheet,
+        setValorCelula,
     } = props;
     // const [prio, setPrio] = useState(1);
     const [figuras, setFiguras] = useState([]);
@@ -56,7 +59,6 @@ export default function BottomSheetCreateCelulaRitmica(props) {
         //         if (gm_regla == giro_melodico_reglaEdit) {
         //             newGiroMelodicoRegla.push(newGiro);
         //         } else {
-        //             newGiroMelodicoRegla.push(gm_regla);
         //         }
         //     }
         // });
@@ -96,6 +98,49 @@ export default function BottomSheetCreateCelulaRitmica(props) {
         return ok;
     };
 
+
+    const [photo, setPhoto] = useState(null);
+
+    const handleChoosePhoto = () => {
+        launchImageLibrary({ noData: true }, (response) => {
+          // console.log(response);
+          if (response) {
+            setPhoto(response);
+          }
+        });
+      };
+
+    const createFormData = (photo, body = {}) => {
+        const data = new FormData();
+      
+        data.append('photo', {
+          name: photo.fileName,
+          type: photo.type,
+          uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri,
+        });
+      
+        Object.keys(body).forEach((key) => {
+          data.append(key, body[key]);
+        });
+      
+        return data;
+      };
+
+      const handleUploadPhoto = () => {
+        // fetch(`${SERVER_URL}/api/upload`, {
+        //   method: 'POST',
+        //   body: createFormData(photo, { userId: '123' }),
+        // })
+        //   .then((response) => response.json())
+        //   .then((response) => {
+        //     console.log('response', response);
+        //   })
+        //   .catch((error) => {
+        //     console.log('error', error);
+        //   });
+      };
+    
+
     return (
         <RBSheet
             ref={refRBSheet}
@@ -132,13 +177,13 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                             <Button
                                 style={styles.okGiroMelodico}
                                 buttonStyle={styles.okGiroMelodicoButton}
-                                title={add ? 'Agregar' : 'Confirmar'}
+                                title={ 'Guardar Celula'}
                                 onPress={() => confirmation()}
                                 containerStyle={styles.okGiroMelodicoContainer}
                             />
                         </View>
                         <SwitchSelector
-                        initial={!add || writeGiroMelodico ? 0 : 1}
+                        initial={0}
                         onPress={(value) => setSimple(value == 'e')}
                         textColor={'black'}
                         selectedColor={'white'}
@@ -183,37 +228,62 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                                 // mayor={mayor}
                             />
                         </ScrollView>
-                    </View>
+                        <View style={{flexDirection:'column',width:'100%'}}>
+                            <Input
+                                style={{
+                                    marginTop:15,
+                                    width:'50%'
+                                }}
+                                placeholder='Valor de la celula ritmica (Numerador)'
+                                onChangeText={
+                                        value =>{ 
+                                        setValorCelula(value)
+                                    }}
+                                    keyboardType="numeric"
+
+                            />
+                            <Input
+                            style={{
+                                marginTop:15,
+                                width:'50%'
+                            }}
+                            placeholder='Valor de la celula ritmica (Denominador)'
+                            onChangeText={
+                                    value =>{ 
+                                    setValorCelula(value)
+                                }}
+                                keyboardType="numeric"
+
+                            />
+                        </View>
+                        {photo && (
+                        <>
+                        <Image
+                            source={{ uri: photo.uri }}
+                            style={{ width: 300, height: 300 }}
+                        />
+                        <Button title="Upload Photo" onPress={handleUploadPhoto} />
+                        </>
+                    )}
+                    <Button title="Choose Photo" onPress={handleChoosePhoto} />
+                                    </View>
             </View>
         </RBSheet>
     );
 }
 
 const styles = StyleSheet.create({
-    contentButtonDelete: {
-        paddingTop: 20,
-        width: '20%',
-    },
-    contentKeyboard: {
-        flexDirection: 'row',
-    },
+   
+   
     buttonDelete: {
         borderStyle: 'solid',
         alignSelf: 'flex-end',
     },
-    buttonDeleteContainer: {
-        width: '50%',
-    },
-    buttonSaveAndAddTitle: {
-        color: PRIMARY_COLOR,
-        textDecorationLine: 'underline',
-    },
-    buttonDeleteTitle: {
-        color: TEXT_COLOR_WRONG,
-        textDecorationLine: 'underline',
-    },
+  
     okGiroMelodico: {
         marginTop: 10,
+        marginBottom:10,
+        borderRadius:29,
     },
     okGiroMelodicoContainer: {
         width: '30%',
@@ -230,26 +300,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         width: '70%',
     },
-    buttonNotes: {
-        width: 60,
-        margin: 2,
-    },
-    contentGirosMelodicos: {
-        flexDirection: 'row',
-        alignContent: 'center',
-        padding: 20,
-        width: '80%',
-    },
-    textGirosMelodicos: {
-        fontSize: 15,
-        width: '100%',
-        borderColor: 'black',
-        borderStyle: 'solid',
-        borderWidth: 1,
-        borderRadius: 5,
-        backgroundColor: 'white',
-        padding: 10,
-    },
+   
     textPrioridad: {
         fontSize: 18,
         fontWeight: 'bold',
@@ -257,43 +308,5 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         width: '50%',
     },
-    textPrioridadListado: {
-        marginLeft: 30,
-        textAlign: 'left',
-        fontSize: 17,
-    },
-    contentSlider: {
-        paddingLeft: 25,
-        paddingRight: 25,
-        margin: 10,
-    },
-    containerCheckbox: {
-        backgroundColor: 'transparent',
-        borderWidth: 0,
-    },
-    textCheckbox: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    containerCheckUnchecked: {
-        backgroundColor: FIFTH_COLOR,
-        padding: 5,
-        marginHorizontal: 10,
-        borderStyle: 'solid',
-        borderColor: 'lightgrey',
-        borderWidth: 3,
-        borderRadius: 5,
-    },
-    containerCheckChecked: {
-        backgroundColor: BACKGROUND_COLOR_RIGHT,
-        padding: 5,
-        marginHorizontal: 10,
-        borderStyle: 'solid',
-        borderColor: BORDER_COLOR_RIGHT,
-        borderWidth: 3,
-        borderRadius: 5,
-    },
-    divider: {
-        marginBottom: 15,
-    },
+   
 });

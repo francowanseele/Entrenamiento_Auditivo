@@ -99,6 +99,10 @@ export default function CreateDictationProf({ route }) {
     const [notesStart, setNotesStart] = useState(true);
     const [claveEdit, setClaveEdit] = useState('Sol');
 
+    //new celula ritmica
+    const [ valorCelula, setValorCelula ] = useState(0);
+    const [createCelulaRitmica, setCreateCelulaRitmica] = useState(true);
+
     // Advanced
     const [tesitura, setTesitura] = useState([
         {
@@ -293,6 +297,7 @@ export default function CreateDictationProf({ route }) {
         });
         setAddCompas(true);
         setAddCelulaRitmica(true);
+        setCreateCelulaRitmica(true);
         setEditCompas_regla(null);
         setEditCelula_ritmica(null);
         setNotesStart(true);
@@ -603,6 +608,7 @@ export default function CreateDictationProf({ route }) {
                     setGiro_melodico_reglaEdit={setGiro_melodico_reglaEdit}
                     setClaveEdit={setClaveEdit}
                     setAddCelulaRitmica={setAddCelulaRitmica}
+                    setCreateCelulaRitmica={setCreateCelulaRitmica}
                     setAddCompas={setAddCompas}
                     setEditCompas_regla={setEditCompas_regla}
                     setEditCelula_ritmica={setEditCelula_ritmica}
@@ -741,9 +747,10 @@ export default function CreateDictationProf({ route }) {
                 refRBSheet={refRBSheet_CelulaRitmica}
             />
              <BottomSheetCreateCelulaRitmica
-                add={addCelulaRitmica}
+                create={createCelulaRitmica}
                 setSimple={setSimple}
                 refRBSheet={refRBSheet_CreateRitmica}
+                setValorCelula={setValorCelula}
             />
             <BottomSheetBPM
                 refRBSheet={refRBSheet_BPM}

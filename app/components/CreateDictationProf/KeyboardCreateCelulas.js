@@ -94,27 +94,23 @@ export default function KeyboardCreateCelulas(props) {
         return res;
     };
 
-    const writeNote = (nota) => {
-        if (max && notes.length >= max) {
-            toastMax.current.show(textAlertMax);
-        } else {
-            var newGiro = [];
-            notes.forEach((g) => {
-                newGiro.push(g);
+    const writeFigura = (figura) => {
+            var newNotas = [];
+            figuras.forEach((g) => {
+                newNotas.push(g);
             });
-            newGiro.push(nota);
-            setFiguras(newGiro);
-        }
+            newNotas.push(figura);
+            setFiguras(newNotas);
     };
 
     const deleteNote = () => {
-        var newGiro = [];
-        for (let i = 0; i < notes.length - 1; i++) {
-            const g = notes[i];
-            newGiro.push(g);
+        var newFiguras = [];
+        for (let i = 0; i < figuras.length - 1; i++) {
+            const g = figuras[i];
+            newFiguras.push(g);
         }
 
-        setNotes(newGiro);
+        setFiguras(newFiguras);
     };
 
     return (
@@ -141,7 +137,7 @@ export default function KeyboardCreateCelulas(props) {
             </View>
 
             <ScrollView horizontal={true}>
-                {figuresKeyboard.map((nota, i) => (
+                {figuresKeyboard.map((figura, i) => (
                     <View key={i}>
                         <Button
                              icon={
@@ -151,17 +147,14 @@ export default function KeyboardCreateCelulas(props) {
                                   color="white"
                                 />
                               }
-                            title={nota}
-                            onPress={() => writeNote(nota)}
+                            title={figura}
+                            onPress={() => writeFigura(figura)}
                             containerStyle={styles.buttonNotes}
                         />
                         
                     </View>
                 ))}
             </ScrollView>
-            <Input
-                placeholder='Valor de la celula ritmica'
-                />
         </>
     );
 }

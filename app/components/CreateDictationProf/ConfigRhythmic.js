@@ -22,6 +22,7 @@ export default function ConfigRhythmic(props) {
         celula_ritmica_regla,
         BPM,
         setAddCelulaRitmica,
+        setCreateCelulaRitmica,
         setAddCompas,
         setEditCompas_regla,
         setEditCelula_ritmica,
@@ -60,7 +61,7 @@ export default function ConfigRhythmic(props) {
         refRBSheet_CelulaRitmica.current.open();
     };
     const createCelulaRitmica = async () => {
-        await setAddCelulaRitmica(true);
+        await setCreateCelulaRitmica(true);
         refRBSheet_CreateRitmica.current.open();
     };
 
