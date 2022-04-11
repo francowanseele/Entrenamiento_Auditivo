@@ -100,8 +100,10 @@ export default function CreateDictationProf({ route }) {
     const [claveEdit, setClaveEdit] = useState('Sol');
 
     //new celula ritmica
-    const [ valorCelula, setValorCelula ] = useState(0);
+    const [ valorCelula, setValorCelula ] = useState('0');
     const [createCelulaRitmica, setCreateCelulaRitmica] = useState(true);
+    const [photo, setPhoto] = useState(null);
+    const [figuras, setFiguras] = useState([]);
 
     // Advanced
     const [tesitura, setTesitura] = useState([
@@ -747,10 +749,13 @@ export default function CreateDictationProf({ route }) {
                 refRBSheet={refRBSheet_CelulaRitmica}
             />
              <BottomSheetCreateCelulaRitmica
-                create={createCelulaRitmica}
                 setSimple={setSimple}
                 refRBSheet={refRBSheet_CreateRitmica}
                 setValorCelula={setValorCelula}
+                setPhoto={setPhoto}
+                photo={photo}
+                figuras={figuras}
+                setFiguras={setFiguras}
             />
             <BottomSheetBPM
                 refRBSheet={refRBSheet_BPM}

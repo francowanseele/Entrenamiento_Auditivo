@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, Text  } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Image, Alert  } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 
 import {
@@ -30,77 +30,34 @@ import KeyboardCreateCelulas from './KeyboardCreateCelulas';
 
 export default function BottomSheetCreateCelulaRitmica(props) {
     const {
-        create,
         setSimple,
         refRBSheet,
         setValorCelula,
+        setPhoto,
+        photo,
+        setFiguras,
+        figuras
     } = props;
     // const [prio, setPrio] = useState(1);
-    const [figuras, setFiguras] = useState([]);
-    const [renderSlider, setRenderSlider] = useState(false);
+    
     const [title, setTitle] = useState('Nueva celula ritmica');
-    const [writeGiroMelodico, setWriteGiroMelodico] = useState(true);
-    const [girosMelodicosDB, setGirosMelodicosDB] = useState([]);
+    const [ valorCelulaDenominador, setValorCelulaDenominador ] = useState(0);
+    const [ valorCelulaNumerador, setValorCelulaNumerador ] = useState(0);
+    
 
 
     
 
     const confirmation = () => {
-        // const newGiro = {
-        //     giros_melodicos: giro,
-        //     prioridad: prio,
-        // };
 
-        // var newGiroMelodicoRegla = [];
-        // giro_melodico_regla.forEach((gm_regla) => {
-        //     if (add) {
-        //         newGiroMelodicoRegla.push(gm_regla);
-        //     } else {
-        //         if (gm_regla == giro_melodico_reglaEdit) {
-        //             newGiroMelodicoRegla.push(newGiro);
-        //         } else {
-        //         }
-        //     }
-        // });
-        // if (add) {
-        //     newGiroMelodicoRegla.push(newGiro);
-        // }
-
-        // setGiro_melodico_regla(newGiroMelodicoRegla);
-        refRBSheet.current.close();
+        if ( photo && (valorCelulaDenominador != 0 && valorCelulaNumerador != 0 && figuras.length > 0) ){ 
+            setValorCelula(valorCelulaNumerador.toString+'/'+valorCelulaDenominador.toString);
+            refRBSheet.current.close(); 
+        }else
+             Alert.alert('Campos incompletos','Debes llenar todos los campos','ok')
     };
 
   
-    const deleteGiro = () => {
-        // var newGiroMelodicoRegla = [];
-        // giro_melodico_regla.forEach((gm_regla) => {
-        //     if (gm_regla != giro_melodico_reglaEdit) {
-        //         newGiroMelodicoRegla.push(gm_regla);
-        //     }
-        // });
-
-        // setGiro_melodico_regla(newGiroMelodicoRegla);
-        // refRBSheet.current.close();
-    };
-
-   
-   
-
-    const isGiroAdded = (giro) => {
-        var ok = false;
-        girosMelodicosDB.forEach((gm_db) => {
-            ok =
-                ok ||
-                (printArray(giro) == printArray(gm_db.giros_melodicos) &&
-                    gm_db.add);
-        });
-
-        return ok;
-    };
-
-
-    const [photo, setPhoto] = useState(null);
-
     const handleChoosePhoto = () => {
         launchImageLibrary({ noData: true }, (response) => {
           // console.log(response);
@@ -109,37 +66,6 @@ export default function BottomSheetCreateCelulaRitmica(props) {
           }
         });
       };
-
-    const createFormData = (photo, body = {}) => {
-        const data = new FormData();
-      
-        data.append('photo', {
-          name: photo.fileName,
-          type: photo.type,
-          uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri,
-        });
-      
-        Object.keys(body).forEach((key) => {
-          data.append(key, body[key]);
-        });
-      
-        return data;
-      };
-
-      const handleUploadPhoto = () => {
-        // fetch(`${SERVER_URL}/api/upload`, {
-        //   method: 'POST',
-        //   body: createFormData(photo, { userId: '123' }),
-        // })
-        //   .then((response) => response.json())
-        //   .then((response) => {
-        //     console.log('response', response);
-        //   })
-        //   .catch((error) => {
-        //     console.log('error', error);
-        //   });
-      };
-    
 
     return (
         <RBSheet
@@ -237,7 +163,7 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                                 placeholder='Valor de la celula ritmica (Numerador)'
                                 onChangeText={
                                         value =>{ 
-                                        setValorCelula(value)
+                                        setValorCelulaNumerador(value)
                                     }}
                                     keyboardType="numeric"
 
@@ -250,7 +176,7 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                             placeholder='Valor de la celula ritmica (Denominador)'
                             onChangeText={
                                     value =>{ 
-                                    setValorCelula(value)
+                                    setValorCelulaDenominador(value)
                                 }}
                                 keyboardType="numeric"
 
@@ -262,10 +188,10 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                             source={{ uri: photo.uri }}
                             style={{ width: 300, height: 300 }}
                         />
-                        <Button title="Upload Photo" onPress={handleUploadPhoto} />
+                        {/* <Button title="Upload Photo" onPress={handleUploadPhoto} /> */}
                         </>
                     )}
-                    <Button title="Choose Photo" onPress={handleChoosePhoto} />
+                    <Button title="Subir imagen" onPress={handleChoosePhoto} />
                                     </View>
             </View>
         </RBSheet>
