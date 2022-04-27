@@ -8,8 +8,6 @@ export default function KeyboardCreateCelulas(props) {
         '1',
         '2',
         '4',
-        '2',
-        '4',
         '8',
         '16',
         '32',
@@ -17,61 +15,38 @@ export default function KeyboardCreateCelulas(props) {
         'd2','d4','d8','d16'
     ];
 
-    const getFigure = (figs) => {
-        const arrFigs = figs.split('-');
-        var arr = [];
-        arrFigs.forEach((f) => {
+    const getFigure = (fig) => {
+
+        const getNameIcon = (f) =>{
             switch (f) {
                 case '1':
-                    arr.push('music-note-whole');
-                    break;
+                   return ('music-note-whole');
                 case '2':
-                    arr.push('music-note-half');
-                    break;
+                    return ('music-note-half');
                 case 'd2':
-                    arr.push('music-note-half-dotted');
-                    break;
+                    return ('music-note-half-dotted');
                 case '4':
-                    arr.push('music-note-quarter');
-                    break;
+                    return ('music-note-quarter');
                 case 'd4':
-                    arr.push('music-note-quarter-dotted');
-                    break;
+                    return ('music-note-quarter-dotted');
                 case '8':
-                    arr.push('music-note-eighth');
-                    break;
+                    return ('music-note-eighth');
                 case 'd8':
-                    arr.push('music-note-eighth-dotted');
-                    break;
+                    return ('music-note-eighth-dotted');
                 case '16':
-                    arr.push('music-note-sixteenth');
-                    break;
+                    return ('music-note-sixteenth');
                 case 'd16':
-                    arr.push('music-note-sixteenth-dotted');
-                    break;
-                default:
-                    break;
+                    return ('music-note-sixteenth-dotted');
             }
-        });
+        };
 
         return (
-            <View
-                style={{
-                    flexDirection: 'row',
-                    borderStyle: 'solid',
-                    borderWidth: 1,
-                    borderRadius: 5,
-                }}
-            >
-                {arr.map((icon, i) => (
-                    <Icon
-                        key={i}
-                        name={icon}
-                        type="material-community"
-                        iconStyle={{ fontSize: 30 }}
-                    />
-                ))}
-            </View>
+            getNameIcon(fig)
+            // <Icon
+            //     name={getNameIcon(fig)}
+            //     type="material-community"
+            //     iconStyle={{ fontSize: 30 }}
+            // />
         );
     };
 
@@ -79,19 +54,23 @@ export default function KeyboardCreateCelulas(props) {
         return nota.slice(0, 1) + alteracion + nota.slice(1, 2);
     };
 
-    const printArray = (arr) => {
-        var res = '';
-        if (arr.length > 0) {
-            for (let i = 0; i < arr.length - 1; i++) {
-                const elem = arr[i];
-                res = res.concat(elem, ' - ');
-            }
-            res = res.concat(arr[arr.length - 1]);
-        } else {
-            res = ' - ';
-        }
-
-        return res;
+    const PrintArray = ({figuras}) => {
+        if (figuras.length > 0) {
+            return (
+             <>
+                {figuras.forEach((elem)=>{ 
+                 elem != undefined?
+                    <Icon
+                    name={elem}
+                    type="material-community"
+                    iconStyle={{ fontSize: 30 }}
+                    />
+                 :
+                 <Text>{elem}</Text>
+                })}
+            </>
+            )
+        }else {return <></>}
     };
 
     const writeFigura = (figura) => {
@@ -117,9 +96,9 @@ export default function KeyboardCreateCelulas(props) {
         <>
             <View style={styles.contentKeyboard}>
                 <View style={styles.contentGirosMelodicos}>
-                    <Text style={styles.textGirosMelodicos}>
-                        {printArray(figuras)}
-                    </Text>
+                    {/* <Text style={styles.textGirosMelodicos}> */}
+                        <PrintArray figuras={figuras} />
+                    {/* </Text> */}
                 </View>
                 <View style={styles.contentButtonDelete}>
                     <Button
@@ -148,7 +127,7 @@ export default function KeyboardCreateCelulas(props) {
                                 />
                               }
                             title={figura}
-                            onPress={() => writeFigura(figura)}
+                            onPress={() => writeFigura(getFigure(figura))}
                             containerStyle={styles.buttonNotes}
                         />
                         
