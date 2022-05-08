@@ -121,8 +121,8 @@ export default function ConfigDictation({ route }) {
     const generarDictadoNuevo = async () => {
         setLoading(true);
         const { logged, email, id, isStudent, id_course } = await getParams();
-        const idUser = id;
-        const idCourse = id_course;
+        const idUser = parseInt(id);
+        const idCourse = parseInt(id_course);
         const resGirosMelodicos = getGirosMelodicos(
             configDictation.giro_melodico_regla
         );
@@ -152,15 +152,15 @@ export default function ConfigDictation({ route }) {
         const resultDictation = await generateDictationApi(
             idUser,
             idCourse,
-            module._id,
-            configDictation._id,
+            module.id,
+            configDictation.id,
             1,
             data,
             false
         );
 
         if (resultDictation.ok) {
-            getDictationApi(idUser, configDictation._id).then(
+            getDictationApi(idUser, configDictation.id).then(
                 (resultNewDictation) => {
                     if (resultNewDictation.ok) {
                         setDictations(resultNewDictation.dictations);
@@ -189,12 +189,12 @@ export default function ConfigDictation({ route }) {
 
     useEffect(() => {
         getParams().then((d) => {
-            const idUser = d.id;
+            const idUser = parseInt(d.id);
             const logged = d.logged;
             const email = d.email;
             const isStudent = d.isStudent;
-            const idCourse = d.id_course;
-            getDictationApi(idUser, configDictation._id).then((result) => {
+            const idCourse = parseInt(d.id_course);
+            getDictationApi(idUser, configDictation.id).then((result) => {
                 if (result.ok) {
                     if (result.dictations.length == 0) {
                         // Generar nuevos
@@ -236,8 +236,8 @@ export default function ConfigDictation({ route }) {
                         generateDictationApi(
                             idUser,
                             idCourse,
-                            module._id,
-                            configDictation._id,
+                            module.id,
+                            configDictation.id,
                             5,
                             data,
                             false
@@ -245,7 +245,7 @@ export default function ConfigDictation({ route }) {
                             if (resultDictation.ok) {
                                 getDictationApi(
                                     idUser,
-                                    configDictation._id
+                                    configDictation.id
                                 ).then((resultNewDictation) => {
                                     if (resultNewDictation.ok) {
                                         setDictations(

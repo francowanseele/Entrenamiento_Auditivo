@@ -133,8 +133,8 @@ export const getUsuarioApi = (data) => {
                         email: result.email,
                         password: result.password,
                         esDocente: result.esDocente,
-                        id_user: result.id_user,
-                        personal_course: result.personal_course,
+                        id_user: result.id_user.toString(),
+                        personal_course: result.personal_course.toString(),
                     };
                 } else {
                     return {

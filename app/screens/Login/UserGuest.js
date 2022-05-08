@@ -186,10 +186,7 @@ export default function UserGuest(props) {
                         email: Email,
                         password: Password,
                         isTeacher: false,
-                        idCoursePersonal: addCourseResponse.course._id,
-                        studyCourseArray: [],
-                        dictateCourseArray: [],
-                        inInstituteArray: [],
+                        idCoursePersonal: addCourseResponse.course.id,
                     };
 
                     const userEstudentResult = await addUserApi(
@@ -200,8 +197,8 @@ export default function UserGuest(props) {
                             await setStorageUserLogged(
                                 Email,
                                 '1',
-                                userEstudentResult.user._id,
-                                addCourseResponse.course._id
+                                userEstudentResult.user.id,
+                                addCourseResponse.course.id
                             );
 
                             setIsStudent(true);
@@ -217,10 +214,7 @@ export default function UserGuest(props) {
                         email: Email,
                         password: Password,
                         isTeacher: true,
-                        idCoursePersonal: addCourseResponse.course._id,
-                        studyCourseArray: [],
-                        dictateCourseArray: [],
-                        inInstituteArray: [],
+                        idCoursePersonal: addCourseResponse.course.id,
                     };
 
                     const userDocResult = await addUserApi(dataUserDoc);
@@ -229,8 +223,8 @@ export default function UserGuest(props) {
                             await setStorageUserLogged(
                                 Email,
                                 '0',
-                                userDocResult.user._id,
-                                addCourseResponse.course._id
+                                userDocResult.user.id,
+                                addCourseResponse.course.id
                             );
 
                             setIsStudent(false);

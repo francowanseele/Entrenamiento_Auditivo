@@ -23,8 +23,8 @@ import {
     addTeacherCourse,
     getCursoPersonal,
     getTeacherCourses,
-    crearNuevoCurso,
     addCourseApi,
+    getConfigDictationApi,
 } from '../../api/course';
 import { Modal, Portal, Provider, TextInput } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
@@ -44,7 +44,7 @@ import {
     SECONDARY_COLOR,
     TERTIARY_COLOR,
 } from '../../../utils/colorPalette';
-import { addCourseToInstituteApi } from '../../api/institute';
+// import { addCourseToInstituteApi } from '../../api/institute';
 
 export default function DictationProf() {
     const Tab = createMaterialTopTabNavigator();
@@ -64,24 +64,26 @@ export default function DictationProf() {
 
     const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
 
-    const open_summaryCreateDictation = (config, module) => {
+    const open_summaryCreateDictation = async (config, module) => {
+        const configResut = await getConfigDictationApi(config.id);
+
         navigation.navigate('summaryDictaction', {
             dictationRhythmic: null,
             institute: 'falta',
             course: { name: getNombreCurso(cursoSeleccionado) },
-            module: { name: module.nombre },
-            nameConfig: config.nombre,
-            descriptionConfig: config.descripcion,
-            giro_melodico_regla: config.giro_melodico_regla,
-            notas_inicio: config.notas_inicio,
-            notas_fin: config.notas_fin,
-            clave_prioridad: config.clave_prioridad,
-            escala_diatonica_regla: config.escala_diatonica_regla,
-            nota_base: config.nota_base,
-            nro_compases: config.nro_compases,
-            simple: config.simple,
-            compas_regla: config.compas_regla,
-            celula_ritmica_regla: config.celula_ritmica_regla,
+            module: { name: module.Nombre },
+            nameConfig: configResut.config.nombre,
+            descriptionConfig: configResut.config.descripcion,
+            giro_melodico_regla: configResut.config.giro_melodico_regla,
+            notas_inicio: configResut.config.notas_inicio,
+            notas_fin: configResut.config.notas_fin,
+            clave_prioridad: configResut.config.clave_prioridad,
+            escala_diatonica_regla: configResut.config.escala_diatonica_regla,
+            nota_base: configResut.config.nota_base,
+            nro_compases: configResut.config.nro_compases,
+            simple: configResut.config.simple,
+            compas_regla: configResut.config.compas_regla,
+            celula_ritmica_regla: configResut.config.celula_ritmica_regla,
             BPM: 128,
             tesitura: null,
             isOnlyView: true,
@@ -115,12 +117,12 @@ export default function DictationProf() {
             if (result.ok) {
                 var publicCourses = [];
                 result.cursos.forEach((curso) => {
-                    if (curso.personal == false) {
+                    if (curso.Personal == false) {
                         publicCourses.push({
-                            _id: curso._id,
-                            descripcion: curso.descripcion,
-                            nombre: curso.nombre,
-                            personal: curso.personal,
+                            id: curso.id,
+                            Descripcion: curso.Descripcion,
+                            Nombre: curso.Nombre,
+                            Personal: curso.Personal,
                         });
                     }
                 });
@@ -155,12 +157,12 @@ export default function DictationProf() {
             if (result.ok) {
                 var publicCourses = [];
                 result.cursos.forEach((curso) => {
-                    if (curso.personal == false) {
+                    if (curso.Personal == false) {
                         publicCourses.push({
-                            _id: curso._id,
-                            descripcion: curso.descripcion,
-                            nombre: curso.nombre,
-                            personal: curso.personal,
+                            id: curso.id,
+                            Descripcion: curso.Descripcion,
+                            Nombre: curso.Nombre,
+                            Personal: curso.Personal,
                         });
                     }
                 });
@@ -179,15 +181,15 @@ export default function DictationProf() {
             return 'Nuevo Curso';
         }
         for (let e in allCourses) {
-            if (idCourse == allCourses[e]._id) {
-                return allCourses[e].nombre;
+            if (idCourse == allCourses[e].id) {
+                return allCourses[e].Nombre;
             }
         }
     };
 
     const getCurso = (idCourse) => {
         for (let e in courses) {
-            if (idCourse == courses[e]._id) {
+            if (idCourse == courses[e].id) {
                 return courses[e];
             }
         }
@@ -198,13 +200,13 @@ export default function DictationProf() {
         var encontre = false;
         for (let i = 0; i < courses.length; i++) {
             const c = courses[i];
-            if (c.curso == idCurrent) {
+            if (c.id == idCurrent) {
                 encontre = true;
-                setPressed(i);
+                await setPressed(i);
             }
         }
         if (!encontre) {
-            setPressed(-2);
+            await setPressed(-2);
         }
     };
 
@@ -212,26 +214,23 @@ export default function DictationProf() {
         setLoading(true);
         getStorageItem(ID_USER).then((idUser) => {
             if (idUser) {
-                getCursoPersonal(idUser).then((result) => {
+                getCursoPersonal(parseInt(idUser)).then((result) => {
                     if (result.ok) {
-                        setPersonalCourse(result.curso_personal);
+                        setPersonalCourse(result.curso_objeto.id);
                     }
                 });
 
-                getTeacherCourses(idUser).then((result) => {
+                getTeacherCourses(parseInt(idUser)).then((result) => {
                     if (result.ok) {
                         setCourses(result.cursos);
 
                         if (result.cursos.length > 0) {
-                            setCurrentCourse(result.cursos[0]);
-                            setStorageCurrentCourse(result.cursos[0].curso);
+                            setCurrentCourse(result.cursos[0].id);
+                            setStorageCurrentCourse(result.cursos[0].id);
                         }
                         // setPressed(-0);
                         // selectCoursePressed(result.cursos[0].curso, courses);
-                        selectCoursePressed(
-                            result.cursos[0].curso,
-                            result.cursos
-                        );
+                        selectCoursePressed(result.cursos[0].id, result.cursos);
                     }
                 });
             }
@@ -242,7 +241,7 @@ export default function DictationProf() {
     const open_closeModulePress = (module) => {
         var modRes = [];
         modules.forEach((m) => {
-            if (m.module._id == module.module._id) {
+            if (m.module.id == module.module.id) {
                 modRes.push({ module: m.module, open: !m.open });
             } else {
                 modRes.push({ module: m.module, open: m.open });
@@ -291,7 +290,7 @@ export default function DictationProf() {
         allCourses.forEach((c) => {
             var inCourse = false;
             courses.forEach((courseUser) => {
-                if (c._id == courseUser.curso) {
+                if (c.id == courseUser.id) {
                     inCourse = true;
                 }
             });
@@ -299,6 +298,7 @@ export default function DictationProf() {
                 res.push(c);
             }
         });
+
         return res;
     };
 
@@ -313,7 +313,7 @@ export default function DictationProf() {
                             key={i}
                             bottomDivider
                             onPress={() => {
-                                addStudentToCourse(e._id);
+                                addStudentToCourse(e.id);
                             }}
                         >
                             {/* <Icon name={item.icon} /> */}
@@ -324,7 +324,7 @@ export default function DictationProf() {
                                         fontSize: 17,
                                     }}
                                 >
-                                    {e.nombre}
+                                    {e.Nombre}
                                 </ListItem.Title>
                                 <ListItem.Subtitle
                                     style={{
@@ -333,7 +333,7 @@ export default function DictationProf() {
                                         color: PRIMARY_COLOR,
                                     }}
                                 >
-                                    {e.descripcion}
+                                    {e.Descripcion}
                                 </ListItem.Subtitle>
                             </ListItem.Content>
                             <ListItem.Chevron />
@@ -398,46 +398,41 @@ export default function DictationProf() {
                     name: nombreValue,
                     description: descripcion,
                     personal: false,
+                    idInstitute: 1,
                 };
                 addCourseApi(data).then((result) => {
                     if (result.ok) {
-                        const dataCourse = {
-                            idCourse: result.course._id,
-                        };
+                        Alert.alert('Nuevo curso creado exitosamente');
+                        setNombre('');
+                        setDescripcion('');
+                        setUpdateAllCourses(!updateAllCourses);
+                        hideModal;
 
-                        addCourseToInstituteApi(dataCourse).then(
-                            (resultInstitute) => {
-                                if (resultInstitute.ok) {
-                                    Alert.alert(
-                                        'Nuevo curso creado exitosamente'
-                                    );
-                                    setNombre('');
-                                    setDescripcion('');
-                                    setUpdateAllCourses(!updateAllCourses);
-                                    hideModal;
-                                } else {
-                                    Alert.alert(
-                                        'No se ha podrido crear el curso'
-                                    );
-                                }
-                            }
-                        );
+                        // const dataCourse = {
+                        //     idCourse: result.course._id,
+                        // };
+
+                        // addCourseToInstituteApi(dataCourse).then(
+                        //     (resultInstitute) => {
+                        //         if (resultInstitute.ok) {
+                        //             Alert.alert(
+                        //                 'Nuevo curso creado exitosamente'
+                        //             );
+                        //             setNombre('');
+                        //             setDescripcion('');
+                        //             setUpdateAllCourses(!updateAllCourses);
+                        //             hideModal;
+                        //         } else {
+                        //             Alert.alert(
+                        //                 'No se ha podrido crear el curso'
+                        //             );
+                        //         }
+                        //     }
+                        // );
                     } else {
                         Alert.alert('No se ha podrido crear el curso');
                     }
                 });
-
-                // crearNuevoCurso(nombreValue, descripcion).then((result) => {
-                //     if (result.ok) {
-                //         Alert.alert('Nuevo curso creado exitosamente');
-                //         setNombre('');
-                //         setDescripcion('');
-                //         setUpdateAllCourses(!updateAllCourses);
-                //         hideModal;
-                //     } else {
-                //         Alert.alert('No se ha podrido crear el curso');
-                //     }
-                // });
             } else {
                 Alert.alert('El nombre o descripcion son vacios');
             }
@@ -528,14 +523,14 @@ export default function DictationProf() {
                     style={[
                         styles.contentHistIG,
                         {
-                            borderColor: getColor(j.curso),
-                            borderWidth: getBorderWith(j.curso),
+                            borderColor: getColor(j.id),
+                            borderWidth: getBorderWith(j.id),
                         },
                     ]}
                 >
-                    {renderLetterCourse(getNombreCurso(j.curso))}
+                    {renderLetterCourse(getNombreCurso(j.id))}
                 </View>
-                <Text style={styles.nameHistIG}>{getNombreCurso(j.curso)}</Text>
+                <Text style={styles.nameHistIG}>{getNombreCurso(j.id)}</Text>
             </>
         );
     };
@@ -577,7 +572,7 @@ export default function DictationProf() {
                         onPress={showModal}
                     >
                         <>
-                            {iconHistory(-3, { curso: 'Nuevo Curso' })}
+                            {iconHistory(-3, { id: 'Nuevo Curso' })}
                             {/* <Image
                                 source={{
                                     uri:
@@ -614,7 +609,7 @@ export default function DictationProf() {
                         }}
                     >
                         <>
-                            {iconHistory(-2, { curso: personalCourse })}
+                            {iconHistory(-2, { id: personalCourse })}
                             {/* <Image
                                 source={{
                                     uri:
@@ -644,7 +639,7 @@ export default function DictationProf() {
                                 // ]}
                                 onPress={async () => {
                                     setLoading(true);
-                                    selectCourseHistory(j.curso);
+                                    selectCourseHistory(j.id);
                                     setLoading(false);
 
                                     // await setLoading(true);
@@ -698,7 +693,7 @@ export default function DictationProf() {
                                             <ListItem.Title
                                                 style={styles.title}
                                             >
-                                                {module.module.nombre}
+                                                {module.module.Nombre}
                                             </ListItem.Title>
                                         </ListItem.Content>
                                     </>
@@ -728,13 +723,13 @@ export default function DictationProf() {
                                                 <ListItem.Title
                                                     style={styles.title}
                                                 >
-                                                    {'      ' + config.nombre}
+                                                    {'      ' + config.Nombre}
                                                 </ListItem.Title>
                                                 <ListItem.Subtitle
                                                     style={{ color: 'black' }}
                                                 >
                                                     {'    ' +
-                                                        config.descripcion}
+                                                        config.Descripcion}
                                                 </ListItem.Subtitle>
                                             </ListItem.Content>
                                             <ListItem.Chevron />

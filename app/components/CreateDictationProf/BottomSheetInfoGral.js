@@ -73,13 +73,13 @@ export default function BottomSheetInfoGral(props) {
         setIsStudent(isStudentResponse);
 
         if (isStudentResponse) {
-            setInstitute({ id: '60eaf4e8d15d33bc122b06aa', name: 'UTEC' });
+            setInstitute({ id: '1', name: 'UTEC' });
 
             const idUser = await getStorageItem(ID_USER);
             const courseResult = await getCursoPersonal(idUser);
             await setCourse({
-                id: courseResult.curso_personal,
-                name: courseResult.curso_objeto[0].nombre,
+                id: courseResult.curso_objeto.id,
+                name: courseResult.curso_objeto.Nombre,
             });
         }
     };
@@ -92,7 +92,7 @@ export default function BottomSheetInfoGral(props) {
         if (institutesResult.ok) {
             var resInstitutes = [];
             institutesResult.institutes.forEach((iRes) => {
-                resInstitutes.push({ id: iRes._id, name: iRes.nombre });
+                resInstitutes.push({ id: iRes.id, name: iRes.Nombre });
             });
             await setInstitutes(resInstitutes);
         }
@@ -112,7 +112,7 @@ export default function BottomSheetInfoGral(props) {
             if (coursesResult.ok) {
                 var resCourses = [];
                 coursesResult.courses.forEach((cRes) => {
-                    resCourses.push({ id: cRes._id, name: cRes.nombre });
+                    resCourses.push({ id: cRes.id, name: cRes.Nombre });
                 });
                 setCourses(resCourses);
 
@@ -144,7 +144,7 @@ export default function BottomSheetInfoGral(props) {
             if (modulesResult.ok) {
                 var resModules = [];
                 modulesResult.modules.forEach((mRes) => {
-                    resModules.push({ id: mRes._id, name: mRes.nombre });
+                    resModules.push({ id: mRes.id, name: mRes.Nombre });
                 });
                 setModules(resModules);
 
@@ -193,7 +193,7 @@ export default function BottomSheetInfoGral(props) {
         <RBSheet
             ref={refRBSheet}
             closeOnDragDown={true}
-            closeOnPressMask={false}
+            // closeOnPressMask={false}
             closeOnPressMask={true}
             animationType="slide"
             dragFromTopOnly={true}
