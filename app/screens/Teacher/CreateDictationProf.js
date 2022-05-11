@@ -135,14 +135,18 @@ export default function CreateDictationProf({ route }) {
     useEffect(() => {
         getStorageIsStudent().then((result) => {
             if (result) {
-                setInstitute({ id: '60eaf4e8d15d33bc122b06aa', name: 'UTEC' });
+                setInstitute({ id: '1', name: 'UTEC' });
 
                 getStorageItem(ID_USER).then((idUser) => {
                     getCursoPersonal(idUser).then((curseResult) => {
+                        console.log(
+                            '==================================================='
+                        );
+                        console.log(curseResult);
                         if (curseResult.ok) {
                             setCourse({
-                                id: curseResult.curso_personal,
-                                name: curseResult.curso_objeto[0].nombre,
+                                id: curseResult.curso.id,
+                                name: curseResult.curso.Nombre,
                             });
                         }
                     });
@@ -522,6 +526,7 @@ export default function CreateDictationProf({ route }) {
                     celula_ritmica_regla,
                     BPM,
                     tesitura,
+                    mayor,
                 });
             } else {
                 setTitleErrorConfig(
@@ -532,13 +537,14 @@ export default function CreateDictationProf({ route }) {
                 );
                 setVisibleErrorConfig(true);
             }
-        } else {
-            setTitleErrorConfig('No es posible crear la configuración.');
-            setTextErrorConfig(
-                `Por favor revise los parámetros en la configuración establecida. Puede que tenga que agregar una mayor cantidad de opciones en su configuración como pueden ser más giros melódicos, células ritmicas, entre otros.`
-            );
-            setVisibleErrorConfig(true);
         }
+        // else {
+        //     setTitleErrorConfig('No es posible crear la configuración.');
+        //     setTextErrorConfig(
+        //         `Por favor revise los parámetros en la configuración establecida. Puede que tenga que agregar una mayor cantidad de opciones en su configuración como pueden ser más giros melódicos, células ritmicas, entre otros..`
+        //     );
+        //     setVisibleErrorConfig(true);
+        // }
     };
 
     // if (lastInstitute === null || lastCourse === null || lastModule === null)
@@ -750,8 +756,8 @@ export default function CreateDictationProf({ route }) {
             />
              <BottomSheetCreateCelulaRitmica
                 setSimple={setSimple}
+                simple={simple}
                 refRBSheet={refRBSheet_CreateRitmica}
-                setValorCelula={setValorCelula}
                 setPhoto={setPhoto}
                 photo={photo}
                 figuras={figuras}

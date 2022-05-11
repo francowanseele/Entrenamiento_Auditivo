@@ -9,44 +9,36 @@ export default function KeyboardCreateCelulas(props) {
         '2',
         '4',
         '8',
-        '16',
-        '32',
-        '64',
-        'd2','d4','d8','d16'
+        'd2','d4','d8','d16','16',
+        '32','64'
     ];
 
+    const getNameIcon = (f) =>{
+        switch (f) {
+            case '1':
+               return ('music-note-whole');
+            case '2':
+                return ('music-note-half');
+            case 'd2':
+                return ('music-note-half-dotted');
+            case '4':
+                return ('music-note-quarter');
+            case 'd4':
+                return ('music-note-quarter-dotted');
+            case '8':
+                return ('music-note-eighth');
+            case 'd8':
+                return ('music-note-eighth-dotted');
+            case '16':
+                return ('music-note-sixteenth');
+            case 'd16':
+                return ('music-note-sixteenth-dotted');
+        }
+    };
+
     const getFigure = (fig) => {
-
-        const getNameIcon = (f) =>{
-            switch (f) {
-                case '1':
-                   return ('music-note-whole');
-                case '2':
-                    return ('music-note-half');
-                case 'd2':
-                    return ('music-note-half-dotted');
-                case '4':
-                    return ('music-note-quarter');
-                case 'd4':
-                    return ('music-note-quarter-dotted');
-                case '8':
-                    return ('music-note-eighth');
-                case 'd8':
-                    return ('music-note-eighth-dotted');
-                case '16':
-                    return ('music-note-sixteenth');
-                case 'd16':
-                    return ('music-note-sixteenth-dotted');
-            }
-        };
-
         return (
             getNameIcon(fig)
-            // <Icon
-            //     name={getNameIcon(fig)}
-            //     type="material-community"
-            //     iconStyle={{ fontSize: 30 }}
-            // />
         );
     };
 
@@ -58,15 +50,16 @@ export default function KeyboardCreateCelulas(props) {
         if (figuras.length > 0) {
             return (
              <>
-                {figuras.forEach((elem)=>{ 
-                 elem != undefined?
-                    <Icon
-                    name={elem}
-                    type="material-community"
-                    iconStyle={{ fontSize: 30 }}
-                    />
-                 :
-                 <Text>{elem}</Text>
+                {figuras.map((elem)=>{ 
+                    if (elem != undefined){
+                        return(
+                        <Icon
+                            name={elem}
+                            type="material-community"
+                            iconStyle={{ fontSize: 30, marginTop:5 }}
+                        />)}
+                    else return(
+                        <Text>{elem}</Text>)
                 })}
             </>
             )
@@ -96,9 +89,9 @@ export default function KeyboardCreateCelulas(props) {
         <>
             <View style={styles.contentKeyboard}>
                 <View style={styles.contentGirosMelodicos}>
-                    {/* <Text style={styles.textGirosMelodicos}> */}
+                    <Text style={styles.textGirosMelodicos}>
                         <PrintArray figuras={figuras} />
-                    {/* </Text> */}
+                    </Text>
                 </View>
                 <View style={styles.contentButtonDelete}>
                     <Button
@@ -121,15 +114,15 @@ export default function KeyboardCreateCelulas(props) {
                         <Button
                              icon={
                                 <Icon
-                                  name="arrow-right"
-                                  size={15}
-                                  color="white"
+                                  name={getNameIcon(figura)}
+                                  fontSize={30}
+                                  type="material-community"
                                 />
                               }
-                            title={figura}
+                            title={getNameIcon(figura)? '' : figura}
                             onPress={() => writeFigura(getFigure(figura))}
                             containerStyle={styles.buttonNotes}
-                        />
+                         />
                         
                     </View>
                 ))}

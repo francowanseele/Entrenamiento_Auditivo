@@ -46,6 +46,52 @@ export function getModulesApi(idCourse) {
         });
 }
 
+export function getConfigDictationApi(idConfig) {
+    const url = `${basePath}/get-config-dictation/${idConfig}`;
+
+    const params = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+    return fetch(url, params)
+        .then((response) => {
+            if (response.status === 501) {
+                return null;
+            } else {
+                return response.json();
+            }
+        })
+        .then((result) => {
+            if (!result) {
+                return {
+                    ok: false,
+                    message: 'Error interno del servidor.',
+                };
+            } else {
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        config: result.config,
+                        message: result.message,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        message: result.message,
+                    };
+                }
+            }
+        })
+        .catch((err) => {
+            return {
+                ok: false,
+                message: 'Error de servidor, vuelva a intentarlo más tarde',
+            };
+        });
+}
+
 export function addStudentCourse(idCourse, idUser) {
     const url = `${basePath}/add-student-course`;
 
@@ -339,6 +385,7 @@ export function getCursoPersonal(idUser) {
             };
         });
 }
+
 export function addConfigDictationApi(idCourse, idModule, idUserCreate, data) {
     const url = `${basePath}/add-config-dictation-module?idCourse=${idCourse}&idModule=${idModule}&idUserCreate=${idUserCreate}`;
 
@@ -481,55 +528,6 @@ export async function getTeacherCourses(idUser) {
             };
         });
 }
-
-export const crearNuevoCurso = (nombre, descripcion) => {
-    const url = `${basePath}/add-course`;
-
-    const params = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            name: nombre,
-            description: descripcion,
-        }),
-    };
-    return fetch(url, params)
-        .then((response) => {
-            if (response.status === 501) {
-                return null;
-            } else {
-                return response.json();
-            }
-        })
-        .then((result) => {
-            if (!result) {
-                return {
-                    ok: false,
-                    message: 'Error interno del servidor.',
-                };
-            } else {
-                if (result.ok) {
-                    return {
-                        ok: true,
-                        course: result.course,
-                    };
-                } else {
-                    return {
-                        ok: false,
-                        message: result.message,
-                    };
-                }
-            }
-        })
-        .catch((err) => {
-            return {
-                ok: false,
-                message: 'Error de servidor, vuelva a intentarlo más tarde',
-            };
-        });
-};
 
 export function addCourseApi(data) {
     const url = `${basePath}/add-course`;

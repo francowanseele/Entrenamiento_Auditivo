@@ -101,14 +101,14 @@ export default function BottomSheetCompas(props) {
                 compasesResult.compases.forEach((compasRes) => {
                     const index = compas_regla.findIndex(
                         (x) =>
-                            x.numerador == compasRes.numerador &&
-                            x.denominador == compasRes.denominador &&
+                            x.numerador == compasRes.Numerador &&
+                            x.denominador == compasRes.Denominador &&
                             x.simple == simple
                     );
                     listAllCompasesRes.push({
-                        numerador: compasRes.numerador,
-                        denominador: compasRes.denominador,
-                        simple: compasRes.simple,
+                        numerador: compasRes.Numerador,
+                        denominador: compasRes.Denominador,
+                        simple: compasRes.Simple,
                         checked: index != -1,
                         prioridad:
                             index == -1 ? 0 : compas_regla[index].prioridad,
@@ -184,7 +184,7 @@ export default function BottomSheetCompas(props) {
         <RBSheet
             ref={refRBSheet}
             closeOnDragDown={true}
-            closeOnPressMask={false}
+            // closeOnPressMask={false}
             closeOnPressMask={true}
             animationType="slide"
             dragFromTopOnly={true}
@@ -213,7 +213,7 @@ export default function BottomSheetCompas(props) {
                     >
                         <Text style={styles.titleBottom}>Agregar compases</Text>
                         <Button
-                            containerStyle={styles.okGiroMelodico}
+                            // containerStyle={styles.okGiroMelodico}
                             buttonStyle={styles.okGiroMelodicoButton}
                             title="Confirmar"
                             onPress={() => confirmation()}
@@ -224,7 +224,7 @@ export default function BottomSheetCompas(props) {
                     <View style={{ flexDirection: 'row', paddingRight: 15 }}>
                         <Text style={styles.titleBottom}>Editar compás</Text>
                         <Button
-                            containerStyle={styles.okGiroMelodico}
+                            // containerStyle={styles.okGiroMelodico}
                             buttonStyle={styles.okGiroMelodicoButton}
                             title="Confirmar"
                             onPress={() => confirmation()}
@@ -241,8 +241,8 @@ export default function BottomSheetCompas(props) {
                                         {add ? (
                                             <CheckBox
                                                 title={`Compás ${compas.numerador}/${compas.denominador}`}
-                                                checkedIcon="dot-circle-o"
-                                                uncheckedIcon="circle-o"
+                                                // checkedIcon="dot-circle-o"
+                                                // uncheckedIcon="circle-o"
                                                 checked={compas.checked}
                                                 containerStyle={
                                                     styles.containerCheckbox

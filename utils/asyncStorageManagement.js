@@ -23,9 +23,9 @@ export async function setStorageUserLogged(
     _idCurrentCourse
 ) {
     await AsyncStorage.setItem(LOGGED, '1');
-    await AsyncStorage.setItem(ID_USER, _id);
+    await AsyncStorage.setItem(ID_USER, _id.toString());
     await AsyncStorage.setItem(EMAIL, email);
-    await AsyncStorage.setItem(IS_STUDENT, isStudent);
+    await AsyncStorage.setItem(IS_STUDENT, isStudent.toString());
     if (_idCurrentCourse)
         await AsyncStorage.setItem(ID_CURRENT_CURSE, _idCurrentCourse);
 }
@@ -37,7 +37,7 @@ export async function setStorageUserLogout() {
     await AsyncStorage.setItem(ID_CURRENT_CURSE, '');
 }
 export async function setStorageCurrentCourse(idCourse) {
-    await AsyncStorage.setItem(ID_CURRENT_CURSE, idCourse);
+    await AsyncStorage.setItem(ID_CURRENT_CURSE, idCourse.toString());
 }
 
 export async function getStorageIsLogged() {
@@ -74,9 +74,9 @@ export async function getParams() {
 
 // Manage var temp Teacher
 export async function setVarTemp_Teacher(_idInstitute, _idCourse, _idModule) {
-    await AsyncStorage.setItem(DOC_LAST_INSTITUTE, _idInstitute);
-    await AsyncStorage.setItem(DOC_LAST_COURSE, _idCourse);
-    await AsyncStorage.setItem(DOC_LAST_MODULE, _idModule);
+    await AsyncStorage.setItem(DOC_LAST_INSTITUTE, _idInstitute.toString());
+    await AsyncStorage.setItem(DOC_LAST_COURSE, _idCourse.toString());
+    await AsyncStorage.setItem(DOC_LAST_MODULE, _idModule.toString());
 }
 
 export async function getVarTemp_Teacher() {

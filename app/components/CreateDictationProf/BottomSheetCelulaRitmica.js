@@ -42,6 +42,7 @@ export default function BottomSheetCelulaRitmica(props) {
             listAllCR.forEach((crLocal) => {
                 if (crLocal.checked) {
                     resCR.push({
+                        id: crLocal.id,
                         celula_ritmica: crLocal.figuras,
                         simple: crLocal.simple,
                         prioridad: crLocal.prioridad,
@@ -55,6 +56,7 @@ export default function BottomSheetCelulaRitmica(props) {
                     crReg.simple == listAllCR[0].simple
                 ) {
                     resCR.push({
+                        id: crReg.id,
                         celula_ritmica: crReg.celula_ritmica,
                         simple: crReg.simple,
                         prioridad: listAllCR[0].prioridad,
@@ -77,6 +79,7 @@ export default function BottomSheetCelulaRitmica(props) {
                 crReg.simple != listAllCR[0].simple
             ) {
                 crRes.push({
+                    id: crReg.id,
                     celula_ritmica: crReg.celula_ritmica,
                     simple: crReg.simple,
                     prioridad: crReg.prioridad,
@@ -102,6 +105,7 @@ export default function BottomSheetCelulaRitmica(props) {
                             x.simple == CRResult.simple
                     );
                     listAllCRRes.push({
+                        id: CRResult.id,
                         figuras: CRResult.figuras,
                         simple: CRResult.simple,
                         checked: index != -1,
@@ -116,6 +120,7 @@ export default function BottomSheetCelulaRitmica(props) {
         } else {
             setListAllCR([
                 {
+                    id: editCelula_ritmica.id,
                     figuras: editCelula_ritmica.celula_ritmica,
                     simple: editCelula_ritmica.simple,
                     checked: true,
@@ -263,7 +268,7 @@ export default function BottomSheetCelulaRitmica(props) {
                             Agregar célula rítmica
                         </Text>
                         <Button
-                            containerStyle={styles.okGiroMelodico}
+                            // containerStyle={styles.okGiroMelodico}
                             buttonStyle={styles.okGiroMelodicoButton}
                             title="Confirmar"
                             onPress={() => confirmation()}
@@ -279,7 +284,7 @@ export default function BottomSheetCelulaRitmica(props) {
                                 Editar célula rítmica
                             </Text>
                             <Button
-                                containerStyle={styles.okGiroMelodico}
+                                // containerStyle={styles.okGiroMelodico}
                                 buttonStyle={styles.okGiroMelodicoButton}
                                 title="Confirmar"
                                 onPress={() => confirmation()}
@@ -297,8 +302,8 @@ export default function BottomSheetCelulaRitmica(props) {
                                         {add ? (
                                             <CheckBox
                                                 title={getFigure(cr.figuras)}
-                                                checkedIcon="dot-circle-o"
-                                                uncheckedIcon="circle-o"
+                                                // checkedIcon="dot-circle-o"
+                                                // uncheckedIcon="circle-o"
                                                 checked={cr.checked}
                                                 containerStyle={
                                                     styles.containerCheckbox

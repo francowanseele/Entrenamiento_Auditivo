@@ -116,7 +116,7 @@ export default function BottomSheetGiroMelodico(props) {
                 var prio = 0;
                 giro_melodico_regla.forEach((gm_regla) => {
                     if (
-                        printArray(gm.notas) ==
+                        printArray(gm.map((g) => g.Nota)) ==
                         printArray(gm_regla.giros_melodicos)
                     ) {
                         encontrado = true;
@@ -125,7 +125,7 @@ export default function BottomSheetGiroMelodico(props) {
                 });
 
                 girosMelodicosDBTemp.push({
-                    giros_melodicos: gm.notas,
+                    giros_melodicos: gm.map((g) => g.Nota),
                     prioridad: prio,
                     add: encontrado,
                 });
@@ -133,7 +133,6 @@ export default function BottomSheetGiroMelodico(props) {
 
             setGirosMelodicosDB(girosMelodicosDBTemp);
         }
-
         setRenderSlider(true);
     };
 
@@ -244,6 +243,7 @@ export default function BottomSheetGiroMelodico(props) {
                 ...girosMelodicosDB.slice(index + 1),
             ]);
         }
+
         setRenderSlider(true);
     };
 
@@ -308,7 +308,7 @@ export default function BottomSheetGiroMelodico(props) {
         <RBSheet
             ref={refRBSheet}
             closeOnDragDown={true}
-            closeOnPressMask={false}
+            // closeOnPressMask={false}
             closeOnPressMask={true}
             animationType="slide"
             dragFromTopOnly={true}
@@ -462,8 +462,8 @@ export default function BottomSheetGiroMelodico(props) {
                                                     title={printArray(
                                                         gm.giros_melodicos
                                                     )}
-                                                    checkedIcon="dot-circle-o"
-                                                    uncheckedIcon="circle-o"
+                                                    // checkedIcon="dot-circle-o"
+                                                    // uncheckedIcon="circle-o"
                                                     checked={gm.add}
                                                     containerStyle={
                                                         styles.containerCheckbox

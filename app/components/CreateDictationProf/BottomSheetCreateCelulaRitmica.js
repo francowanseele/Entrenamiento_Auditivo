@@ -27,12 +27,13 @@ import {
     getGiroMelodicoApi,
 } from '../../api/giro_melodico';
 import KeyboardCreateCelulas from './KeyboardCreateCelulas';
+import { addCelulaRitmicaApi } from '../../api/celula_ritmica';
 
 export default function BottomSheetCreateCelulaRitmica(props) {
     const {
         setSimple,
+        simple,
         refRBSheet,
-        setValorCelula,
         setPhoto,
         photo,
         setFiguras,
@@ -44,14 +45,14 @@ export default function BottomSheetCreateCelulaRitmica(props) {
     const [ valorCelulaDenominador, setValorCelulaDenominador ] = useState(0);
     const [ valorCelulaNumerador, setValorCelulaNumerador ] = useState(0);
     
-
-
-    
-
-    const confirmation = () => {
-
-        if ( photo && (valorCelulaDenominador != 0 && valorCelulaNumerador != 0 && figuras.length > 0) ){ 
-            setValorCelula(valorCelulaNumerador.toString+'/'+valorCelulaDenominador.toString);
+    const confirmation = async () => {
+        const data = {
+            photo:photo,
+            figuras:figuras,
+            simple:simple,
+        }
+        if ( photo &&  figuras.length > 0 ){ 
+            await addCelulaRitmicaApi()
             refRBSheet.current.close(); 
         }else
              Alert.alert('Campos incompletos','Debes llenar todos los campos','ok')
@@ -64,6 +65,7 @@ export default function BottomSheetCreateCelulaRitmica(props) {
           if (response) {
             setPhoto(response);
           }
+          console.log(photo)
         });
       };
 
@@ -154,45 +156,22 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                                 // mayor={mayor}
                             />
                         </ScrollView>
-                        <View style={{flexDirection:'column',width:'100%'}}>
-                            <Input
-                                style={{
-                                    marginTop:15,
-                                    width:'50%'
-                                }}
-                                placeholder='Valor de la celula ritmica (Numerador)'
-                                onChangeText={
-                                        value =>{ 
-                                        setValorCelulaNumerador(value)
-                                    }}
-                                    keyboardType="numeric"
+                        <Divider orientation="horizontal" />
 
-                            />
-                            <Input
-                            style={{
-                                marginTop:15,
-                                width:'50%'
-                            }}
-                            placeholder='Valor de la celula ritmica (Denominador)'
-                            onChangeText={
-                                    value =>{ 
-                                    setValorCelulaDenominador(value)
-                                }}
-                                keyboardType="numeric"
-
-                            />
-                        </View>
                         {photo && (
                         <>
                         <Image
-                            source={{ uri: photo.uri }}
-                            style={{ width: 300, height: 300 }}
+                            source={{ uri: photo.assets[0].uri }}
+                            // source={{uri:}}
+                            style={{ width: 380, height: 200, alignSelf:'center' }}
                         />
                         {/* <Button title="Upload Photo" onPress={handleUploadPhoto} /> */}
                         </>
                     )}
+                     <Divider orientation="horizontal" />
+
                     <Button title="Subir imagen" onPress={handleChoosePhoto} />
-                                    </View>
+                 </View>
             </View>
         </RBSheet>
     );

@@ -37,6 +37,7 @@ export default function SummaryCreateDictation({ route }) {
         celula_ritmica_regla,
         BPM,
         tesitura,
+        mayor,
         isOnlyView,
     } = route.params;
 
@@ -97,12 +98,13 @@ export default function SummaryCreateDictation({ route }) {
                 clefPriority: clave_prioridad,
                 escalaDiatonicaRegla: escala_diatonica_regla,
                 celulaRitmicaRegla: celula_ritmica_regla,
-                nroCompases: nro_compases,
+                nroCompases: parseInt(nro_compases),
                 compasRegla: compas_regla,
                 simple: simple,
                 notaBase: nota_base[0],
                 bpm: BPM,
                 dictado_ritmico: dictationRhythmic,
+                mayor: mayor,
             };
 
             const resultNewConfig = await addConfigDictationApi(
@@ -270,8 +272,12 @@ export default function SummaryCreateDictation({ route }) {
 
             <Button
                 title="Finalizar"
-                onPress={async () => {  if (!isOnlyView) {await createConfigDictation()}
-                                        else { navigation.goBack() }
+                onPress={async () => {
+                    if (!isOnlyView) {
+                        await createConfigDictation();
+                    } else {
+                        navigation.goBack();
+                    }
                 }}
                 buttonStyle={{ backgroundColor: PRIMARY_COLOR }}
             />

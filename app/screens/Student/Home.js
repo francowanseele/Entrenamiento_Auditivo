@@ -23,6 +23,7 @@ import {
     getCursaCoursesStudent,
     addStudentCourse,
     getCursoPersonal,
+    getConfigDictationApi,
 } from '../../api/course';
 import { Modal, Portal, Provider } from 'react-native-paper';
 
@@ -62,12 +63,12 @@ export default function Home() {
             if (result.ok) {
                 var publicCourses = [];
                 result.cursos.forEach((curso) => {
-                    if (curso.personal == false) {
+                    if (curso.Personal == false) {
                         publicCourses.push({
-                            _id: curso._id,
-                            descripcion: curso.descripcion,
-                            nombre: curso.nombre,
-                            personal: curso.personal,
+                            id: curso.id,
+                            Descripcion: curso.Descripcion,
+                            Nombre: curso.Nombre,
+                            Personal: curso.Personal,
                         });
                     }
                 });
@@ -104,8 +105,8 @@ export default function Home() {
             return 'Nuevo Curso';
         }
         for (let e in allCourses) {
-            if (idCourse == allCourses[e]._id) {
-                return allCourses[e].nombre;
+            if (idCourse == allCourses[e].id) {
+                return allCourses[e].Nombre;
             }
         }
     };
@@ -115,7 +116,7 @@ export default function Home() {
         var encontre = false;
         for (let i = 0; i < courses.length; i++) {
             const c = courses[i];
-            if (c.curso_cursado == idCurrent) {
+            if (c.id == idCurrent) {
                 encontre = true;
                 await setPressed(i);
             }
@@ -131,7 +132,7 @@ export default function Home() {
             if (idUser) {
                 getCursoPersonal(idUser).then((resultPersonal) => {
                     if (resultPersonal.ok) {
-                        setPersonalCourse(resultPersonal.curso_personal);
+                        setPersonalCourse(resultPersonal.curso_objeto.id);
                     }
                 });
 
@@ -140,12 +141,10 @@ export default function Home() {
                         setCourses(result.cursos);
 
                         if (result.cursos.length > 0) {
-                            setCurrentCourse(result.cursos[0].curso_cursado);
-                            setStorageCurrentCourse(
-                                result.cursos[0].curso_cursado
-                            );
+                            setCurrentCourse(result.cursos[0].id);
+                            setStorageCurrentCourse(result.cursos[0].id);
                             selectCoursePressed(
-                                result.cursos[0].curso_cursado,
+                                result.cursos[0].id,
                                 result.cursos
                             );
                         }
@@ -165,7 +164,7 @@ export default function Home() {
     const open_closeModulePress = (module) => {
         var modRes = [];
         modules.forEach((m) => {
-            if (m.module._id == module.module._id) {
+            if (m.module.id == module.module.id) {
                 modRes.push({ module: m.module, open: !m.open });
             } else {
                 modRes.push({ module: m.module, open: m.open });
@@ -175,11 +174,19 @@ export default function Home() {
         setModules(modRes);
     };
 
-    const configDictationIn = (config, module) => {
-        navigation.navigate('config_dictation', {
-            configDictation: config,
-            module: module,
-        });
+    const configDictationIn = async (config, module) => {
+        // setLoading(true);
+
+        const configResut = await getConfigDictationApi(config.id);
+
+        // setLoading(false);
+
+        if (configResut.ok) {
+            navigation.navigate('config_dictation', {
+                configDictation: configResut.config,
+                module: module,
+            });
+        }
     };
     const addStudentToCourse = (idCourse) => {
         hideModal();
@@ -256,17 +263,15 @@ export default function Home() {
                     style={[
                         styles.contentHistIG,
                         {
-                            borderColor: getColor(j.curso_cursado),
-                            borderWidth: getBorderWith(j.curso_cursado),
+                            borderColor: getColor(j.id),
+                            borderWidth: getBorderWith(j.id),
                         },
                     ]}
                 >
                     {/* <Text>CP</Text> */}
-                    {renderLetterCourse(getNombreCurso(j.curso_cursado))}
+                    {renderLetterCourse(getNombreCurso(j.id))}
                 </View>
-                <Text style={styles.nameHistIG}>
-                    {getNombreCurso(j.curso_cursado)}
-                </Text>
+                <Text style={styles.nameHistIG}>{getNombreCurso(j.id)}</Text>
             </>
         );
     };
@@ -293,7 +298,7 @@ export default function Home() {
         allCourses.forEach((c) => {
             var inCourse = false;
             courses.forEach((courseUser) => {
-                if (c._id == courseUser.curso_cursado) {
+                if (c.id == courseUser.id) {
                     inCourse = true;
                 }
             });
@@ -322,7 +327,7 @@ export default function Home() {
                         onPress={showModal}
                     >
                         <>
-                            {iconHistory(-3, { curso_cursado: 'Nuevo Curso' })}
+                            {iconHistory(-3, { id: 'Nuevo Curso' })}
                             {/* <Image
                                 source={{
                                     uri:
@@ -359,7 +364,7 @@ export default function Home() {
                     >
                         <>
                             {iconHistory(-2, {
-                                curso_cursado: personalCourse,
+                                id: personalCourse,
                             })}
                             {/* <Image
                                 source={{
@@ -390,7 +395,7 @@ export default function Home() {
                                 // ]}
                                 onPress={async () => {
                                     setLoading(true);
-                                    selectCourseHistory(j.curso_cursado);
+                                    selectCourseHistory(j.id);
                                     setLoading(false);
 
                                     // await setLoading(true);
@@ -446,7 +451,7 @@ export default function Home() {
                                             <ListItem.Title
                                                 style={styles.title}
                                             >
-                                                {module.module.nombre}
+                                                {module.module.Nombre}
                                             </ListItem.Title>
                                         </ListItem.Content>
                                     </>
@@ -476,13 +481,13 @@ export default function Home() {
                                                 <ListItem.Title
                                                     style={styles.title}
                                                 >
-                                                    {'      ' + config.nombre}
+                                                    {'      ' + config.Nombre}
                                                 </ListItem.Title>
                                                 <ListItem.Subtitle
                                                     style={{ color: 'black' }}
                                                 >
                                                     {'    ' +
-                                                        config.descripcion}
+                                                        config.Descripcion}
                                                 </ListItem.Subtitle>
                                             </ListItem.Content>
                                             <ListItem.Chevron />
@@ -520,7 +525,7 @@ export default function Home() {
                                                 key={i}
                                                 bottomDivider
                                                 onPress={() => {
-                                                    addStudentToCourse(e._id);
+                                                    addStudentToCourse(e.id);
                                                 }}
                                             >
                                                 {/* <Icon name={item.icon} /> */}
@@ -531,7 +536,7 @@ export default function Home() {
                                                             fontSize: 17,
                                                         }}
                                                     >
-                                                        {e.nombre}
+                                                        {e.Nombre}
                                                     </ListItem.Title>
                                                     <ListItem.Subtitle
                                                         style={{
@@ -540,7 +545,7 @@ export default function Home() {
                                                             color: PRIMARY_COLOR,
                                                         }}
                                                     >
-                                                        {e.descripcion}
+                                                        {e.Descripcion}
                                                     </ListItem.Subtitle>
                                                 </ListItem.Content>
                                                 <ListItem.Chevron />

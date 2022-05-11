@@ -26,10 +26,10 @@ export default function OverlayPicker(props) {
             const resultModules = await getModulesApi(idCourse);
             var dataModule = { id: null, name: '' };
             resultModules.modules.forEach((m) => {
-                if (m.nombre == name && m.descripcion == description) {
+                if (m.Nombre == name && m.Descripcion == description) {
                     dataModule = {
-                        id: m._id,
-                        name: m.nombre,
+                        id: m.id,
+                        name: m.Nombre,
                     };
                 }
             });
