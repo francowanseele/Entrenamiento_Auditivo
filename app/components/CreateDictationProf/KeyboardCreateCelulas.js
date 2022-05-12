@@ -2,6 +2,19 @@ import React from 'react';
 import { StyleSheet, ScrollView, View, Text, Animated } from 'react-native';
 import { ListItem, Icon, Slider, Button, Divider, Input } from 'react-native-elements';
 
+
+export const getValueFromIcon = (i) =>{
+   if( 'music-note-whole')return '1';
+   if('music-note-half') return '2';
+   if ('music-note-half-dotted') return 'd2';
+   if( 'music-note-quarter') return '4';
+    if('music-note-quarter-dotted') return 'd4';
+   if('music-note-eighth')return '8';
+    if('music-note-eighth-dotted') return 'd8';
+    if('music-note-sixteenth') return '16';
+    if('music-note-sixteenth-dotted') return 'd16';
+};
+
 export default function KeyboardCreateCelulas(props) {
     const {figuras, setFiguras} = props;
     const figuresKeyboard = [
@@ -35,6 +48,7 @@ export default function KeyboardCreateCelulas(props) {
                 return ('music-note-sixteenth-dotted');
         }
     };
+    
 
     const getFigure = (fig) => {
         return (

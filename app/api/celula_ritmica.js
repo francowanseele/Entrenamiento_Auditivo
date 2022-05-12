@@ -49,7 +49,7 @@ export function getCelulaRitmicaApi(simple) {
 export function addCelulaRitmicaApi(data) {
     const url = `${basePath}/create-celula-ritmica`;
     const params = {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },

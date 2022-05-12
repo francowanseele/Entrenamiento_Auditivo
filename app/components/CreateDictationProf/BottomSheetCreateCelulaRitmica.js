@@ -27,6 +27,7 @@ import {
     getGiroMelodicoApi,
 } from '../../api/giro_melodico';
 import KeyboardCreateCelulas from './KeyboardCreateCelulas';
+import getValueFromIcon from './KeyboardCreateCelulas';
 import { addCelulaRitmicaApi } from '../../api/celula_ritmica';
 
 export default function BottomSheetCreateCelulaRitmica(props) {
@@ -42,17 +43,25 @@ export default function BottomSheetCreateCelulaRitmica(props) {
     // const [prio, setPrio] = useState(1);
     
     const [title, setTitle] = useState('Nueva celula ritmica');
-    const [ valorCelulaDenominador, setValorCelulaDenominador ] = useState(0);
-    const [ valorCelulaNumerador, setValorCelulaNumerador ] = useState(0);
     
     const confirmation = async () => {
+        const photoData = new FormData();
+        let figurasOriginal = [];
+        console.log(figuras)
+        // figuras.map((figura)=>{
+        //     figurasOriginal = figurasOriginal.concat(getValueFromIcon(figura))
+        // })
+        console.log(getValueFromIcon('music-note-half-dotted'))
+        photoData.append('celula_photo',photo)
         const data = {
-            photo:photo,
-            figuras:figuras,
+            photo:photoData,
+            figuras:figurasOriginal,
             simple:simple,
         }
+        console.log(figurasOriginal)
+        console.log('llega aqui ================>')
         if ( photo &&  figuras.length > 0 ){ 
-            await addCelulaRitmicaApi()
+            await addCelulaRitmicaApi(data)
             refRBSheet.current.close(); 
         }else
              Alert.alert('Campos incompletos','Debes llenar todos los campos','ok')
