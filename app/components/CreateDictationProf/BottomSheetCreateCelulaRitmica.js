@@ -30,6 +30,27 @@ import KeyboardCreateCelulas from './KeyboardCreateCelulas';
 import getValueFromIcon from './KeyboardCreateCelulas';
 import { addCelulaRitmicaApi } from '../../api/celula_ritmica';
 
+const KeyBoardValuesFigures = [ 
+    {
+     name:'music-note-whole',
+     value:'1'},
+     {name:'music-note-half',
+     value:'2'},
+   {name:'music-note-half-dotted',
+   value:'d2'},
+  {name:'music-note-quarter',
+  value:'4'},
+  {name:'music-note-quarter-dotted',
+  value:'d4'},
+  {name:'music-note-eighth',
+  value:'8'},
+  {name:'music-note-eighth-dotted',
+  value:'d8'},
+  {name:'music-note-sixteenth',
+  value:'16'},
+   {name:'music-note-sixteenth-dotted',
+   value:'d16'} ]
+
 export default function BottomSheetCreateCelulaRitmica(props) {
     const {
         setSimple,
@@ -47,19 +68,16 @@ export default function BottomSheetCreateCelulaRitmica(props) {
     const confirmation = async () => {
         const photoData = new FormData();
         let figurasOriginal = [];
-        console.log(figuras)
-        // figuras.map((figura)=>{
-        //     figurasOriginal = figurasOriginal.concat(getValueFromIcon(figura))
-        // })
-        console.log(getValueFromIcon('music-note-half-dotted'))
-        photoData.append('celula_photo',photo)
+        figuras.map((figura)=>{
+            let res = KeyBoardValuesFigures.find((fig)=> fig.name === figura)
+            figurasOriginal.push(res.value)
+        })
+        photoData.append(photo)
         const data = {
             photo:photoData,
             figuras:figurasOriginal,
             simple:simple,
         }
-        console.log(figurasOriginal)
-        console.log('llega aqui ================>')
         if ( photo &&  figuras.length > 0 ){ 
             await addCelulaRitmicaApi(data)
             refRBSheet.current.close(); 
@@ -70,11 +88,9 @@ export default function BottomSheetCreateCelulaRitmica(props) {
   
     const handleChoosePhoto = () => {
         launchImageLibrary({ noData: true }, (response) => {
-          // console.log(response);
           if (response) {
             setPhoto(response);
           }
-          console.log(photo)
         });
       };
 
