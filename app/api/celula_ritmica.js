@@ -1,5 +1,6 @@
 import { basePath } from './config';
 
+
 export function getCelulaRitmicaApi(simple) {
     const url = `${basePath}/get-celula-ritmica/${simple}`;
     const params = {
@@ -52,6 +53,7 @@ export function addCelulaRitmicaApi(data) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+
         },
         body: JSON.stringify(data),
     };

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, ScrollView, View, Text, Image, Alert  } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
+import ImgToBase64 from 'react-native-image-base64';
+
 
 import {
     ListItem,
@@ -66,19 +68,22 @@ export default function BottomSheetCreateCelulaRitmica(props) {
     const [title, setTitle] = useState('Nueva celula ritmica');
     
     const confirmation = async () => {
-        const photoData = new FormData();
-        let figurasOriginal = [];
+        let valorOriginal = [];
         figuras.map((figura)=>{
             let res = KeyBoardValuesFigures.find((fig)=> fig.name === figura)
-            figurasOriginal.push(res.value)
+            valorOriginal.push(res.value)
         })
-        photoData.append(photo)
+        console.log(photo.uri)
+        
+        const photo64 = await ImgToBase64.getBase64String(photo.uri)
+        console.log('=========================================')
         const data = {
-            photo:photoData,
-            figuras:figurasOriginal,
+            profileImage: photo64,
+            valor:valorOriginal,
             simple:simple,
         }
-        if ( photo &&  figuras.length > 0 ){ 
+        console.log(data)
+        if ( photo &&  valorOriginal.length > 0 ){ 
             await addCelulaRitmicaApi(data)
             refRBSheet.current.close(); 
         }else
@@ -89,7 +94,7 @@ export default function BottomSheetCreateCelulaRitmica(props) {
     const handleChoosePhoto = () => {
         launchImageLibrary({ noData: true }, (response) => {
           if (response) {
-            setPhoto(response);
+            setPhoto(response.assets[0]);
           }
         });
       };
@@ -186,7 +191,7 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                         {photo && (
                         <>
                         <Image
-                            source={{ uri: photo.assets[0].uri }}
+                            source={{ uri: photo.uri }}
                             // source={{uri:}}
                             style={{ width: 380, height: 200, alignSelf:'center' }}
                         />
