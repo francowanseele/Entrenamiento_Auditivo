@@ -37,6 +37,7 @@ import {
     ID_USER,
 } from '../../../utils/asyncStorageManagement';
 import { getCursoPersonal } from '../../api/course';
+import BottomSheetLigadura from '../../components/CreateDictationProf/BottomSheetLigadura';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -53,6 +54,7 @@ export default function CreateDictationProf({ route }) {
     const refRBSheet_Tonalidad = useRef();
     const refRBSheet_Compas = useRef();
     const refRBSheet_CelulaRitmica = useRef();
+    const refRBSheet_Ligaduras = useRef();
     const refRBSheet_BPM = useRef();
     const toastRef = useRef();
 
@@ -86,6 +88,8 @@ export default function CreateDictationProf({ route }) {
     const [simple, setSimple] = useState(true);
     const [compas_regla, setCompas_regla] = useState([]);
     const [celula_ritmica_regla, setCelula_ritmica_regla] = useState([]);
+    const [ligadura_regla, setLigadura_regla] = useState([]);
+    const [editLigaduraFirstCR, setEditLigaduraFirstCR] = useState(null);
     const [BPM, setBPM] = useState({
         menor: 128,
         mayor: 128,
@@ -131,10 +135,6 @@ export default function CreateDictationProf({ route }) {
 
                 getStorageItem(ID_USER).then((idUser) => {
                     getCursoPersonal(idUser).then((curseResult) => {
-                        console.log(
-                            '==================================================='
-                        );
-                        console.log(curseResult);
                         if (curseResult.ok) {
                             setCourse({
                                 id: curseResult.curso.id,
@@ -175,6 +175,25 @@ export default function CreateDictationProf({ route }) {
             clearAllFields();
         }
     }, [cleanAll]);
+
+    useEffect(() => {
+        // Check celula_ritmica_regla and ligadura_regla
+        let ligadura_reglaRes = [];
+        ligadura_regla.forEach((l) => {
+            const firstElemFound = celula_ritmica_regla.find(
+                (cr) => cr.celula_ritmica == l.elem.first
+            );
+            const secondElemFound = celula_ritmica_regla.find(
+                (cr) => cr.celula_ritmica == l.elem.second
+            );
+
+            if (firstElemFound && secondElemFound) {
+                ligadura_reglaRes.push(l);
+            }
+        });
+
+        setLigadura_regla(ligadura_reglaRes);
+    }, [celula_ritmica_regla]);
 
     useEffect(() => {
         if (dictationRhythmic) {
@@ -289,6 +308,7 @@ export default function CreateDictationProf({ route }) {
         setSimple(true);
         setCompas_regla([]);
         setCelula_ritmica_regla([]);
+        setLigadura_regla([]);
         setBPM({
             menor: 128,
             mayor: 128,
@@ -486,6 +506,7 @@ export default function CreateDictationProf({ route }) {
                 notaBase: nota_base ? nota_base[0] : null,
                 bpm: BPM,
                 dictado_ritmico: dictationRhythmic,
+                ligaduraRegla: ligadura_regla,
             };
             const resGenerate = await generateDictationApi(
                 null,
@@ -518,6 +539,7 @@ export default function CreateDictationProf({ route }) {
                     BPM,
                     tesitura,
                     mayor,
+                    ligadura_regla,
                 });
             } else {
                 setTitleErrorConfig(
@@ -612,6 +634,7 @@ export default function CreateDictationProf({ route }) {
                     setEditCelula_ritmica={setEditCelula_ritmica}
                     setMayor={setMayor}
                     mayor={mayor}
+                    setEditLigaduraFirstCR={setEditLigaduraFirstCR}
                     refRBSheet_Picker={refRBSheet_Picker}
                     refRBSheet_GiroMelodico={refRBSheet_GiroMelodico}
                     refRBSheet_NotesStartEnd={refRBSheet_NotesStartEnd}
@@ -627,6 +650,7 @@ export default function CreateDictationProf({ route }) {
                     okTonality={okTonality}
                     okReferenceNote={true} // No control in reference note
                     dictationRhythmic={dictationRhythmic}
+                    refRBSheet_Ligaduras={refRBSheet_Ligaduras}
                 />
             </ScrollView>
             <Button
@@ -742,6 +766,14 @@ export default function CreateDictationProf({ route }) {
                 setCelula_ritmica_regla={setCelula_ritmica_regla}
                 editCelula_ritmica={editCelula_ritmica}
                 refRBSheet={refRBSheet_CelulaRitmica}
+            />
+            <BottomSheetLigadura
+                simple={simple}
+                ligaduraFirstCR={editLigaduraFirstCR}
+                celula_ritmica_regla={celula_ritmica_regla}
+                ligadura_regla={ligadura_regla}
+                setLigadura_regla={setLigadura_regla}
+                refRBSheet_Ligaduras={refRBSheet_Ligaduras}
             />
             <BottomSheetBPM
                 refRBSheet={refRBSheet_BPM}
