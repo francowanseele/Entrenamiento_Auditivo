@@ -63,7 +63,6 @@ export default function BottomSheetCreateCelulaRitmica(props) {
         setFiguras,
         figuras
     } = props;
-    // const [prio, setPrio] = useState(1);
     
     const [title, setTitle] = useState('Nueva celula ritmica');
     
@@ -73,19 +72,18 @@ export default function BottomSheetCreateCelulaRitmica(props) {
             let res = KeyBoardValuesFigures.find((fig)=> fig.name === figura)
             valorOriginal.push(res.value)
         })
-        console.log(photo.uri)
         
         const photo64 = await ImgToBase64.getBase64String(photo.uri)
-        console.log('=========================================')
         const data = {
             profileImage: photo64,
             valor:valorOriginal,
             simple:simple,
         }
-        console.log(data)
         if ( photo &&  valorOriginal.length > 0 ){ 
             await addCelulaRitmicaApi(data)
-            refRBSheet.current.close(); 
+            refRBSheet.current.close();
+            setPhoto(null);
+            setFiguras([])
         }else
              Alert.alert('Campos incompletos','Debes llenar todos los campos','ok')
     };

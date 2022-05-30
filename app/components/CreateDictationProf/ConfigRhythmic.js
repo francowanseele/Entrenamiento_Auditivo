@@ -271,7 +271,7 @@ export default function ConfigRhythmic(props) {
                     icon={
                         <Icon
                             type="material-community"
-                            name="plus-thick"
+                            name="pencil-outline"
                             color="white"
                         />
                     }
@@ -400,5 +400,6 @@ const styles = StyleSheet.create({
         backgroundColor: SECONDARY_COLOR,
         borderRadius: 15,
         paddingHorizontal: 15,
+        margin:4
     },
 });
