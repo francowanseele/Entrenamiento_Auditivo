@@ -12,6 +12,7 @@ import SelectPicker from 'react-native-form-select-picker';
 
 import ListEmpty from './ListEmpty';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
+import getImagenFromB64String from '../CreateDictationProf/BottomSheetCelulaRitmica'
 
 export default function ConfigRhythmic(props) {
     const {
@@ -296,6 +297,9 @@ export default function ConfigRhythmic(props) {
                             <View style={styles.contentListLeft}>
                                 <ListItem.Title>
                                     {getFigure(celula.celula_ritmica)}
+                                    {/* <View>{
+                                        getImagenFromB64String(celula.imagen)}
+                                    </View> */}
                                 </ListItem.Title>
                                 <ListItem.Subtitle>
                                     Prioridad {celula.prioridad}

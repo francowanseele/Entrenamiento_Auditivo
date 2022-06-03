@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView, View, Text, Animated } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Image } from 'react-native';
 import {
     ListItem,
     Icon,
@@ -22,6 +22,12 @@ import {
 } from '../../../utils/colorPalette';
 
 import { getCelulaRitmicaApi } from '../../api/celula_ritmica';
+
+export const getImagenFromB64String = (imagen)=>{
+    return (
+        <Image style={{marginLeft:15, width:90,height:50}} source={{uri: `data:image/gif;base64,${imagen}`}} />
+    )
+}
 
 export default function BottomSheetCelulaRitmica(props) {
     const {
@@ -96,6 +102,7 @@ export default function BottomSheetCelulaRitmica(props) {
 
         if (add) {
             const celulaRitmicaResult = await getCelulaRitmicaApi(simple);
+            console.log(celulaRitmicaResult)
             if (celulaRitmicaResult.ok) {
                 var listAllCRRes = [];
                 celulaRitmicaResult.celulaRitmica.forEach((CRResult) => {
@@ -108,6 +115,7 @@ export default function BottomSheetCelulaRitmica(props) {
                         id: CRResult.id,
                         figuras: CRResult.figuras,
                         simple: CRResult.simple,
+                        imagen: CRResult.imagen,
                         checked: index != -1,
                         prioridad:
                             index == -1
@@ -174,6 +182,8 @@ export default function BottomSheetCelulaRitmica(props) {
         }
         setRenderSlider(true);
     };
+
+  
 
     const getFigure = (figs) => {
         const arrFigs = figs.split('-');
@@ -300,8 +310,9 @@ export default function BottomSheetCelulaRitmica(props) {
                                 <View key={i}>
                                     <View>
                                         {add ? (
+                                            <>
+                                            {getImagenFromB64String(cr.imagen)}
                                             <CheckBox
-                                                title={getFigure(cr.figuras)}
                                                 // checkedIcon="dot-circle-o"
                                                 // uncheckedIcon="circle-o"
                                                 checked={cr.checked}
@@ -334,6 +345,7 @@ export default function BottomSheetCelulaRitmica(props) {
                                                 //     />
                                                 // }
                                             />
+                                            </>
                                         ) : (
                                             // <CheckBox
                                             //     title={`Célula rítmica ${cr.figuras}`}
@@ -355,6 +367,7 @@ export default function BottomSheetCelulaRitmica(props) {
                                                     marginTop: 10,
                                                 }}
                                             >
+                                                
                                                 <Text
                                                     style={{
                                                         fontSize: 18,
