@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import { StyleSheet, Image, Text, View } from 'react-native';
 import {
     ListItem,
     Icon,
@@ -12,7 +12,13 @@ import SelectPicker from 'react-native-form-select-picker';
 
 import ListEmpty from './ListEmpty';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
-import getImagenFromB64String from '../CreateDictationProf/BottomSheetCelulaRitmica'
+// import getImagenFromB64String from '../CreateDictationProf/BottomSheetCelulaRitmica'
+
+export const getImagenFromB64String = (imagen)=>{
+    return (
+        <Image style={{marginLeft:15, width:90,height:50}} source={{uri: `data:image/gif;base64,${imagen}`}} />
+    )
+}
 
 export default function ConfigRhythmic(props) {
     const {
@@ -297,9 +303,9 @@ export default function ConfigRhythmic(props) {
                             <View style={styles.contentListLeft}>
                                 <ListItem.Title>
                                     {getFigure(celula.celula_ritmica)}
-                                    {/* <View>{
+                                    <View>{
                                         getImagenFromB64String(celula.imagen)}
-                                    </View> */}
+                                    </View>
                                 </ListItem.Title>
                                 <ListItem.Subtitle>
                                     Prioridad {celula.prioridad}

@@ -102,7 +102,6 @@ export default function BottomSheetCelulaRitmica(props) {
 
         if (add) {
             const celulaRitmicaResult = await getCelulaRitmicaApi(simple);
-            console.log(celulaRitmicaResult)
             if (celulaRitmicaResult.ok) {
                 var listAllCRRes = [];
                 celulaRitmicaResult.celulaRitmica.forEach((CRResult) => {
