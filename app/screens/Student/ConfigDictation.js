@@ -52,6 +52,7 @@ export default function ConfigDictation({ route }) {
             resPrio.push({
                 regla: i,
                 prioridad: giro.prioridad,
+                lecturaAmbasDirecciones: giro.lecturaAmbasDirecciones,
             });
         }
 

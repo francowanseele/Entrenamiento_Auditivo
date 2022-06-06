@@ -137,8 +137,8 @@ export default function CreateDictationProf({ route }) {
                     getCursoPersonal(idUser).then((curseResult) => {
                         if (curseResult.ok) {
                             setCourse({
-                                id: curseResult.curso.id,
-                                name: curseResult.curso.Nombre,
+                                id: curseResult.curso_objeto.id,
+                                name: curseResult.curso_objeto.Nombre,
                             });
                         }
                     });
@@ -364,6 +364,7 @@ export default function CreateDictationProf({ route }) {
             resPrio.push({
                 regla: i,
                 prioridad: giro.prioridad,
+                lecturaAmbasDirecciones: giro.lecturaAmbasDirecciones,
             });
         }
 
