@@ -14,7 +14,7 @@ import ListEmpty from './ListEmpty';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 // import getImagenFromB64String from '../CreateDictationProf/BottomSheetCelulaRitmica'
 
-export const getImagenFromB64String = (imagen)=>{
+ const getImagenFromB64String = (imagen)=>{
     return (
         <Image style={{marginLeft:15, width:90,height:50}} source={{uri: `data:image/gif;base64,${imagen}`}} />
     )
@@ -313,10 +313,8 @@ export default function ConfigRhythmic(props) {
                         <ListItem.Content style={styles.content}>
                             <View style={styles.contentListCRLeft}>
                                 <ListItem.Title>
-                                    {getFigure(celula.celula_ritmica)}
-                                    <View>{
-                                        getImagenFromB64String(celula.imagen)}
-                                    </View>
+                                    {/* {getFigure(celula.celula_ritmica)} */}
+                                        { getImagenFromB64String(celula.imagen)}
                                 </ListItem.Title>
                                 <ListItem.Subtitle>
                                     Prioridad {celula.prioridad}

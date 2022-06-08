@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView, View, Text, Animated } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Image } from 'react-native';
 import {
     ListItem,
     Icon,
@@ -22,6 +22,11 @@ import {
 } from '../../../utils/colorPalette';
 
 import { getCelulaRitmicaApi } from '../../api/celula_ritmica';
+ const getImagenFromB64String = (imagen)=>{
+    return (
+        <Image style={{marginLeft:15, width:90,height:50}} source={{uri: `data:image/gif;base64,${imagen}`}} />
+    )
+}
 
 export default function BottomSheetLigadura(props) {
     const {
@@ -103,6 +108,7 @@ export default function BottomSheetLigadura(props) {
                         checked: false,
                         prioridad: 0,
                         must: false,
+                        imagen: CRResult.imagen,
                     });
                 }
             });
@@ -296,8 +302,10 @@ export default function BottomSheetLigadura(props) {
                             {listAllCR.map((cr, i) => (
                                 <View key={i}>
                                     <View>
-                                        <CheckBox
-                                            title={getFigure(cr.figuras)}
+                                        {getImagenFromB64String(cr.imagen)}
+                                    <CheckBox
+                                            // title={getFigure(cr.figuras)}
+                                          
                                             // checkedIcon="dot-circle-o"
                                             // uncheckedIcon="circle-o"
                                             checked={cr.checked}

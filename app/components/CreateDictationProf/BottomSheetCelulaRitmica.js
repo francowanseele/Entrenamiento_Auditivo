@@ -52,6 +52,7 @@ export default function BottomSheetCelulaRitmica(props) {
                         celula_ritmica: crLocal.figuras,
                         simple: crLocal.simple,
                         prioridad: crLocal.prioridad,
+                        imagen:crLocal.imagen
                     });
                 }
             });
@@ -66,6 +67,7 @@ export default function BottomSheetCelulaRitmica(props) {
                         celula_ritmica: crReg.celula_ritmica,
                         simple: crReg.simple,
                         prioridad: listAllCR[0].prioridad,
+                        imagen: listAllCR[0].imagen,
                     });
                 } else {
                     resCR.push(crReg);
