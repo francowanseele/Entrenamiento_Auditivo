@@ -21,7 +21,7 @@ import {
     TEXT_COLOR_WRONG,
 } from '../../../utils/colorPalette';
 
-import { getCelulaRitmicaApi } from '../../api/celula_ritmica';
+import { getCelulaRitmicaApi,eliminarCelulaRitmicaApi } from '../../api/celula_ritmica';
 
 export const getImagenFromB64String = (imagen)=>{
     return (
@@ -76,6 +76,15 @@ export default function BottomSheetCelulaRitmica(props) {
         setCelula_ritmica_regla(resCR);
         refRBSheet.current.close();
     };
+
+    const deleteCelulaRitmicaFromDb = async (idCelulaRitmica) =>{
+        const data = {
+            idCelulaRitmica:idCelulaRitmica
+        }
+
+        await eliminarCelulaRitmicaApi(data);
+        refRBSheet.current.close();
+    }
 
     const deleteCelulaRitmica = () => {
         var crRes = [];
@@ -310,7 +319,34 @@ export default function BottomSheetCelulaRitmica(props) {
                                     <View>
                                         {add ? (
                                             <>
+                                            <View style={{flexDirection:'row'}}>
                                             {getImagenFromB64String(cr.imagen)}
+                                            <Button
+                                                    icon={
+                                                        <Icon
+                                                            name="delete-circle-outline"
+                                                            type="material-community"
+                                                            color={
+                                                                TEXT_COLOR_WRONG
+                                                            }
+                                                        />
+                                                    }
+                                                    titleStyle={
+                                                        styles.buttonDeleteTitle
+                                                    }
+                                                    title="Eliminar"
+                                                    containerStyle={
+                                                        styles.buttonDeleteContainer
+                                                    }
+                                                    buttonStyle={
+                                                        styles.buttonDelete
+                                                    }
+                                                    type="clear"
+                                                    onPress={() =>
+                                                        deleteCelulaRitmicaFromDb(cr.id)
+                                                    }
+                                                />
+                                            </View>
                                             <CheckBox
                                                 // checkedIcon="dot-circle-o"
                                                 // uncheckedIcon="circle-o"
