@@ -52,6 +52,7 @@ export default function ConfigDictation({ route }) {
             resPrio.push({
                 regla: i,
                 prioridad: giro.prioridad,
+                lecturaAmbasDirecciones: giro.lecturaAmbasDirecciones,
             });
         }
 
@@ -126,6 +127,7 @@ export default function ConfigDictation({ route }) {
         const resGirosMelodicos = getGirosMelodicos(
             configDictation.giro_melodico_regla
         );
+
         const data = {
             tarjetas: getTarjetas(configDictation.celula_ritmica_regla),
             nroCompases: configDictation.nro_compases,
@@ -147,6 +149,7 @@ export default function ConfigDictation({ route }) {
             dictado_ritmico: configDictation.dictado_ritmico
                 ? configDictation.dictado_ritmico
                 : false,
+            ligaduraRegla: configDictation.ligaduraRegla,
         };
 
         const resultDictation = await generateDictationApi(
@@ -232,6 +235,7 @@ export default function ConfigDictation({ route }) {
                             dictado_ritmico: configDictation.dictado_ritmico
                                 ? configDictation.dictado_ritmico
                                 : false,
+                            ligaduraRegla: configDictation.ligaduraRegla,
                         };
                         generateDictationApi(
                             idUser,

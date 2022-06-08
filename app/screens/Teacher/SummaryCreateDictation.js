@@ -39,6 +39,7 @@ export default function SummaryCreateDictation({ route }) {
         tesitura,
         mayor,
         isOnlyView,
+        ligadura_regla,
     } = route.params;
 
     const [visibleEndCreate, setVisibleEndCreate] = useState(false);
@@ -105,6 +106,7 @@ export default function SummaryCreateDictation({ route }) {
                 bpm: BPM,
                 dictado_ritmico: dictationRhythmic,
                 mayor: mayor,
+                ligaduraRegla: ligadura_regla,
             };
 
             const resultNewConfig = await addConfigDictationApi(

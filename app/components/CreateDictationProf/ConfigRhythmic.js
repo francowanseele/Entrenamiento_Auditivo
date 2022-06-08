@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, Image, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Image } from 'react-native';
 import {
     ListItem,
     Icon,
@@ -19,6 +19,7 @@ export const getImagenFromB64String = (imagen)=>{
         <Image style={{marginLeft:15, width:90,height:50}} source={{uri: `data:image/gif;base64,${imagen}`}} />
     )
 }
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function ConfigRhythmic(props) {
     const {
@@ -33,11 +34,13 @@ export default function ConfigRhythmic(props) {
         setAddCompas,
         setEditCompas_regla,
         setEditCelula_ritmica,
+        setEditLigaduraFirstCR,
         refRBSheet_Picker,
         refRBSheet_Compas,
         refRBSheet_CelulaRitmica,
         refRBSheet_CreateRitmica,
         refRBSheet_BPM,
+        refRBSheet_Ligaduras,
     } = props;
 
     // BORRAR
@@ -70,6 +73,14 @@ export default function ConfigRhythmic(props) {
     const createCelulaRitmica = async () => {
         await setCreateCelulaRitmica(true);
         refRBSheet_CreateRitmica.current.open();
+    };
+
+    const setLigaduras = async (celula) => {
+        await setEditLigaduraFirstCR({
+            id: celula.id,
+            figuras: celula.celula_ritmica,
+        });
+        refRBSheet_Ligaduras.current.open();
     };
 
     const editCompas = async (compas) => {
@@ -300,7 +311,7 @@ export default function ConfigRhythmic(props) {
                 .map((celula, i) => (
                     <ListItem key={i} bottomDivider>
                         <ListItem.Content style={styles.content}>
-                            <View style={styles.contentListLeft}>
+                            <View style={styles.contentListCRLeft}>
                                 <ListItem.Title>
                                     {getFigure(celula.celula_ritmica)}
                                     <View>{
@@ -311,8 +322,20 @@ export default function ConfigRhythmic(props) {
                                     Prioridad {celula.prioridad}
                                 </ListItem.Subtitle>
                             </View>
-                            <View style={styles.contentListRight}>
+                            <View style={styles.contentListCRRight}>
+                                <TouchableOpacity
+                                    style={styles.slursContainer}
+                                    onPress={() => {
+                                        setLigaduras(celula);
+                                    }}
+                                >
+                                    <Image
+                                        style={styles.slursImage}
+                                        source={require('../../../assets/slurs.png')}
+                                    />
+                                </TouchableOpacity>
                                 <Icon
+                                    style={styles.iconEdit}
                                     type="material-community"
                                     name="pencil-outline"
                                     onPress={() => editCelulaRitmica(celula)}
@@ -398,9 +421,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         margin: 10,
     },
+    contentListCRLeft: {
+        textAlign: 'left',
+        width: '75%',
+    },
     contentListLeft: {
         textAlign: 'left',
         width: '80%',
+    },
+    contentListCRRight: {
+        textAlign: 'right',
+        width: '25%',
+        flexDirection: 'row',
     },
     contentListRight: {
         textAlign: 'right',
@@ -411,5 +443,23 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         paddingHorizontal: 15,
         margin:4
+    },
+    slursContainer: {
+        width: 30,
+        height: 30,
+        textAlign: 'left',
+        borderWidth: 1,
+        borderRadius: 3,
+        padding: 2,
+    },
+    slursImage: {
+        flex: 1,
+        width: null,
+        height: null,
+        resizeMode: 'contain',
+    },
+    iconEdit: {
+        textAlign: 'right',
+        marginLeft: '20%',
     },
 });

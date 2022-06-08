@@ -37,6 +37,7 @@ export default function BottomSheetGiroMelodico(props) {
     } = props;
     const [prio, setPrio] = useState(1);
     const [giro, setGiro] = useState([]);
+    const [readBothDirections, setReadBothDirections] = useState(false);
     const [renderSlider, setRenderSlider] = useState(false);
     const [title, setTitle] = useState('Nuevo giro melódico');
     const [writeGiroMelodico, setWriteGiroMelodico] = useState(true);
@@ -46,6 +47,7 @@ export default function BottomSheetGiroMelodico(props) {
         const newGiro = {
             giros_melodicos: giro,
             prioridad: prio,
+            lecturaAmbasDirecciones: readBothDirections,
         };
 
         var newGiroMelodicoRegla = [];
@@ -98,10 +100,14 @@ export default function BottomSheetGiroMelodico(props) {
         if (add) {
             setGiro([]);
             setPrio(1);
+            setReadBothDirections(false);
             setTitle('Nuevo giro melódico');
         } else {
             setGiro(giro_melodico_reglaEdit.giros_melodicos);
             setPrio(giro_melodico_reglaEdit.prioridad);
+            setReadBothDirections(
+                giro_melodico_reglaEdit.lecturaAmbasDirecciones
+            );
             setTitle('Editar giro melódico');
         }
 
@@ -114,6 +120,7 @@ export default function BottomSheetGiroMelodico(props) {
             girosMelodicosResonse.girosMelodicos.forEach((gm) => {
                 var encontrado = false;
                 var prio = 0;
+                var lecturaAmbasDireccionesAux = false;
                 giro_melodico_regla.forEach((gm_regla) => {
                     if (
                         printArray(gm.map((g) => g.Nota)) ==
@@ -121,6 +128,8 @@ export default function BottomSheetGiroMelodico(props) {
                     ) {
                         encontrado = true;
                         prio = gm_regla.prioridad;
+                        lecturaAmbasDireccionesAux =
+                            gm_regla.lecturaAmbasDirecciones;
                     }
                 });
 
@@ -128,6 +137,7 @@ export default function BottomSheetGiroMelodico(props) {
                     giros_melodicos: gm.map((g) => g.Nota),
                     prioridad: prio,
                     add: encontrado,
+                    lecturaAmbasDirecciones: lecturaAmbasDireccionesAux,
                 });
             });
 
@@ -191,6 +201,7 @@ export default function BottomSheetGiroMelodico(props) {
                     newGiro_melodico_regla.push({
                         giros_melodicos: gm_db.giros_melodicos,
                         prioridad: gm_db.prioridad,
+                        lecturaAmbasDirecciones: gm_db.lecturaAmbasDirecciones,
                     });
 
                     setGiro_melodico_reglaARR = newGiro_melodico_regla;
@@ -201,6 +212,8 @@ export default function BottomSheetGiroMelodico(props) {
                     // update
                     let g = giro_melodico_regla[index];
                     g['prioridad'] = gm_db.prioridad;
+                    g['lecturaAmbasDirecciones'] =
+                        gm_db.lecturaAmbasDirecciones;
                     setGiro_melodico_reglaARR = [
                         ...setGiro_melodico_reglaARR.slice(0, index),
                         g,
@@ -269,6 +282,49 @@ export default function BottomSheetGiroMelodico(props) {
             ]);
         }
     };
+
+    const setLecturaAmbasDirecciones = async (giro) => {
+        var index = girosMelodicosDB.findIndex(
+            (x) =>
+                printArray(x.giros_melodicos) ==
+                printArray(giro.giros_melodicos)
+        );
+
+        let g = girosMelodicosDB[index];
+
+        g['lecturaAmbasDirecciones'] = !g['lecturaAmbasDirecciones'];
+
+        if (index === -1) {
+            // TODO: handle error
+            console.log('no match');
+        } else {
+            await setGirosMelodicosDB([
+                ...girosMelodicosDB.slice(0, index),
+                g,
+                ...girosMelodicosDB.slice(index + 1),
+            ]);
+        }
+    };
+
+    function ReadingDirection(props) {
+        const { giroMelodico } = props;
+        return (
+            <CheckBox
+                title="Leer en ambas direcciones"
+                checked={
+                    giroMelodico
+                        ? giroMelodico.lecturaAmbasDirecciones
+                        : readBothDirections
+                }
+                onPress={
+                    giroMelodico
+                        ? () => setLecturaAmbasDirecciones(giroMelodico)
+                        : () => setReadBothDirections(!readBothDirections)
+                }
+                containerStyle={styles.containerCheckbox}
+            />
+        );
+    }
 
     function ButtonEliminarSave() {
         if (add) {
@@ -426,6 +482,8 @@ export default function BottomSheetGiroMelodico(props) {
 
                             <Divider orientation="horizontal" />
 
+                            <ReadingDirection />
+
                             <KeyboardIntervals
                                 notes={giro}
                                 setNotes={setGiro}
@@ -500,6 +558,11 @@ export default function BottomSheetGiroMelodico(props) {
                                                         />
                                                     }
                                                 />
+
+                                                <ReadingDirection
+                                                    giroMelodico={gm}
+                                                />
+
                                                 <Text
                                                     style={
                                                         styles.textPrioridadListado

@@ -177,7 +177,10 @@ export default function ConfigMelodic(props) {
                                 {printArray(giro.giros_melodicos)}
                             </ListItem.Title>
                             <ListItem.Subtitle>
-                                Prioridad {giro.prioridad}
+                                Prioridad {giro.prioridad} - Dirección{' '}
+                                {giro.lecturaAmbasDirecciones
+                                    ? 'Ambas'
+                                    : 'Izq a Der'}
                             </ListItem.Subtitle>
                         </View>
                         <View style={styles.contentAlert}></View>

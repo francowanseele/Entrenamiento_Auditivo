@@ -34,6 +34,7 @@ export default function NavigationConfig(props) {
         setEditCelula_ritmica,
         setMayor,
         mayor,
+        setEditLigaduraFirstCR,
         refRBSheet_Clave,
         refRBSheet_Tonalidad,
         refRBSheet_NotesStartEnd,
@@ -48,6 +49,7 @@ export default function NavigationConfig(props) {
         okTonality,
         okReferenceNote,
         dictationRhythmic,
+        refRBSheet_Ligaduras,
     } = props;
 
     return (
@@ -102,11 +104,13 @@ export default function NavigationConfig(props) {
                         setAddCompas={setAddCompas}
                         setEditCompas_regla={setEditCompas_regla}
                         setEditCelula_ritmica={setEditCelula_ritmica}
+                        setEditLigaduraFirstCR={setEditLigaduraFirstCR}
                         refRBSheet_Picker={refRBSheet_Picker}
                         refRBSheet_Compas={refRBSheet_Compas}
                         refRBSheet_CelulaRitmica={refRBSheet_CelulaRitmica}
                         refRBSheet_CreateRitmica={refRBSheet_CreateRitmica}
                         refRBSheet_BPM={refRBSheet_BPM}
+                        refRBSheet_Ligaduras={refRBSheet_Ligaduras}
                     />
                 )}
             />
