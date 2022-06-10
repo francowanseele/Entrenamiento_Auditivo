@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { Picker } from '@react-native-picker/picker';
-import { Platform, View, StyleSheet } from 'react-native';
+import { Platform, View, StyleSheet, Dimensions } from 'react-native';
 import { FIFTH_COLOR } from '../../../utils/colorPalette';
 
 export default function BottomSheetPicker(props) {
@@ -13,10 +13,13 @@ export default function BottomSheetPicker(props) {
         <RBSheet
             ref={refRBSheet}
             closeOnDragDown={true}
-            closeOnPressMask={false}
             closeOnPressMask={true}
-            animationType="slide"
+            animationType="none"
             dragFromTopOnly={true}
+            height={
+                Dimensions.get('window').height *
+                (Platform.OS == 'ios' ? 0.5 : 0.35)
+            }
             customStyles={{
                 wrapper: {
                     backgroundColor: 'rgba(0,0,0,.25)',
@@ -25,8 +28,11 @@ export default function BottomSheetPicker(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    height: Platform.OS == 'ios' ? '50%' : '35%',
+                    borderRadius: 10,
                 },
+                // container: {
+                //     height: Platform.OS == 'ios' ? '50%' : '35%',
+                // },
             }}
         >
             <View style={styles.screen}>

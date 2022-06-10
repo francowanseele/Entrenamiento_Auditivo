@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, Text, Animated } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Animated, Dimensions } from 'react-native';
 import { ListItem, Icon, Slider, Button, Divider } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Toast from 'react-native-easy-toast';
@@ -39,13 +39,13 @@ export default function BottomSheetReference(props) {
         <RBSheet
             ref={refRBSheet}
             closeOnDragDown={true}
-            closeOnPressMask={false}
             closeOnPressMask={true}
-            animationType="slide"
+            animationType="none"
             dragFromTopOnly={true}
             onOpen={async () => {
                 await initialStateOpen();
             }}
+            height={Dimensions.get('window').height * 0.6}
             customStyles={{
                 wrapper: {
                     backgroundColor: 'rgba(0,0,0,.25)',
@@ -54,7 +54,7 @@ export default function BottomSheetReference(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    height: '60%',
+                    borderRadius: 10,
                 },
             }}
         >
@@ -71,7 +71,6 @@ export default function BottomSheetReference(props) {
                         buttonStyle={styles.okGiroMelodicoButton}
                         title="Confirmar"
                         onPress={() => confirmation()}
-                        containerStyle={styles.okGiroMelodicoContainer}
                     />
                 </View>
                 <ScrollView>
@@ -102,11 +101,12 @@ const styles = StyleSheet.create({
     buttonDelete: {
         width: 60,
     },
-    okGiroMelodico: {
-        marginTop: 20,
-    },
+    // okGiroMelodico: {
+    //     marginTop: 20,
+    // },
     okGiroMelodico: {
         marginTop: 10,
+        width: '30%',
     },
     okGiroMelodicoContainer: {
         width: '30%',

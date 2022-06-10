@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, Text, Animated } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Animated, Dimensions } from 'react-native';
 import {
     ListItem,
     Icon,
@@ -366,11 +366,12 @@ export default function BottomSheetGiroMelodico(props) {
             closeOnDragDown={true}
             // closeOnPressMask={false}
             closeOnPressMask={true}
-            animationType="slide"
+            animationType="none"
             dragFromTopOnly={true}
             onOpen={async () => {
                 await initialStateOpen();
             }}
+            height={Dimensions.get('window').height * 0.75}
             customStyles={{
                 wrapper: {
                     backgroundColor: 'rgba(0,0,0,.25)',
@@ -379,7 +380,7 @@ export default function BottomSheetGiroMelodico(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    height: '75%',
+                    borderRadius: 10,
                 },
             }}
         >
