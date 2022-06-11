@@ -64,6 +64,9 @@ export default function Solution({ route }) {
         });
     };
 
+    console.log('Figuras');
+    console.log(dictation.figuras);
+
     return (
         <View style={styles.container}>
             <View style={styles.graficoContainer}>

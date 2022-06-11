@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, Text, Image, Alert  } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Image, Alert, Dimensions  } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import ImgToBase64 from 'react-native-image-base64';
 
@@ -101,13 +101,13 @@ export default function BottomSheetCreateCelulaRitmica(props) {
         <RBSheet
             ref={refRBSheet}
             closeOnDragDown={true}
-            closeOnPressMask={false}
-            // closeOnPressMask={true}
-            animationType="slide"
+            closeOnPressMask={true}
+            animationType="none"
             dragFromTopOnly={true}
             onOpen={async () => {
                 await initialStateOpen();
             }}
+            height={Dimensions.get('window').height * 0.75}
             customStyles={{
                 wrapper: {
                     backgroundColor: 'rgba(0,0,0,.25)',
@@ -116,7 +116,7 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    height: '75%',
+                    borderRadius: 10,
                 },
             }}
         >

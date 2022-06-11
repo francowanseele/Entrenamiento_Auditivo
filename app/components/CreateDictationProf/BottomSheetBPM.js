@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Dimensions } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { FIFTH_COLOR, PRIMARY_COLOR } from '../../../utils/colorPalette';
@@ -43,13 +43,13 @@ export default function BottomSheetBPM(props) {
         <RBSheet
             ref={refRBSheet}
             closeOnDragDown={true}
-            closeOnPressMask={false}
             closeOnPressMask={true}
-            animationType="slide"
+            animationType="none"
             dragFromTopOnly={true}
             onOpen={() => {
                 initialStateOpen();
             }}
+            height={Dimensions.get('window').height * 0.75}
             customStyles={{
                 wrapper: {
                     backgroundColor: 'rgba(0,0,0,.25)',
@@ -58,7 +58,7 @@ export default function BottomSheetBPM(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    height: '75%',
+                    borderRadius: 10,
                 },
             }}
         >
@@ -74,7 +74,6 @@ export default function BottomSheetBPM(props) {
                     buttonStyle={styles.okGiroMelodicoButton}
                     title="Confirmar"
                     onPress={() => confirmation()}
-                    containerStyle={styles.okGiroMelodicoContainer}
                 />
             </View>
             <View
@@ -128,6 +127,7 @@ const styles = StyleSheet.create({
     },
     okGiroMelodico: {
         marginTop: 10,
+        width: '30%'
     },
     okGiroMelodicoContainer: {
         width: '30%',

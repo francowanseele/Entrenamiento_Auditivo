@@ -43,30 +43,6 @@ export default function UserGuest(props) {
     const [registerStatus, setRegisterStatus] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const loginStudent = async () => {
-        await setStorageUserLogged(
-            'franco.wanseele@gmail.com',
-            '1',
-            '60ca130df62dc319f92173d6',
-            '60c524e76b07c02c7250abba'
-        );
-
-        setIsStudent(true);
-        setLogin(true);
-    };
-
-    const loginDoc = async () => {
-        await setStorageUserLogged(
-            'franco.wanseele@gmail.com',
-            '0',
-            'DEFINIR',
-            '60c524e76b07c02c7250abba'
-        );
-
-        setIsStudent(false);
-        setLogin(true);
-    };
-
     const loginFunc = async () => {
         if (validate(Email) == true) {
             const data = {
@@ -85,7 +61,8 @@ export default function UserGuest(props) {
                             res.email,
                             '0',
                             res.id_user,
-                            res.personal_course
+                            res.personal_course,
+                            res.personal_course,
                         );
                         setIsStudent(false);
                         setLogin(true);
@@ -94,6 +71,7 @@ export default function UserGuest(props) {
                             res.email,
                             '1',
                             res.id_user,
+                            res.personal_course,
                             res.personal_course
                         );
                         setIsStudent(true);
@@ -172,6 +150,7 @@ export default function UserGuest(props) {
                     ' ' +
                     lastNameUser,
                 personal: true,
+                idUser: null,
             };
 
             setLoading(true);
@@ -198,7 +177,8 @@ export default function UserGuest(props) {
                                 Email,
                                 '1',
                                 userEstudentResult.user.id,
-                                addCourseResponse.course.id
+                                addCourseResponse.course.id,
+                                addCourseResponse.course.id,
                             );
 
                             setIsStudent(true);
@@ -224,6 +204,7 @@ export default function UserGuest(props) {
                                 Email,
                                 '0',
                                 userDocResult.user.id,
+                                addCourseResponse.course.id,
                                 addCourseResponse.course.id
                             );
 

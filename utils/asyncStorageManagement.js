@@ -5,6 +5,7 @@ export const EMAIL = 'email';
 export const ID_USER = '_id';
 export const IS_STUDENT = 'isStudent';
 export const ID_CURRENT_CURSE = '_idCurrentCourse';
+export const ID_PERSONAL_COURSE = 'idPersonalCourse';
 
 // Variables temporales estudiante
 export const STU_LAST_COURSE = 'stuLastCourse';
@@ -20,12 +21,15 @@ export async function setStorageUserLogged(
     email,
     isStudent,
     _id,
-    _idCurrentCourse
+    _idCurrentCourse,
+    idPersonalCourse
 ) {
     await AsyncStorage.setItem(LOGGED, '1');
     await AsyncStorage.setItem(ID_USER, _id.toString());
     await AsyncStorage.setItem(EMAIL, email);
     await AsyncStorage.setItem(IS_STUDENT, isStudent.toString());
+    if (idPersonalCourse)
+        await AsyncStorage.setItem(ID_PERSONAL_COURSE, idPersonalCourse);
     if (_idCurrentCourse)
         await AsyncStorage.setItem(ID_CURRENT_CURSE, _idCurrentCourse);
 }
@@ -35,6 +39,7 @@ export async function setStorageUserLogout() {
     await AsyncStorage.setItem(ID_USER, '');
     await AsyncStorage.setItem(EMAIL, '');
     await AsyncStorage.setItem(ID_CURRENT_CURSE, '');
+    await AsyncStorage.setItem(ID_PERSONAL_COURSE, '');
 }
 export async function setStorageCurrentCourse(idCourse) {
     await AsyncStorage.setItem(ID_CURRENT_CURSE, idCourse.toString());
@@ -61,12 +66,14 @@ export async function getParams() {
     const id = await AsyncStorage.getItem(ID_USER);
     const isStudent = await AsyncStorage.getItem(IS_STUDENT);
     const id_course = await AsyncStorage.getItem(ID_CURRENT_CURSE);
+    const idPersonalCourse = await AsyncStorage.getItem(ID_PERSONAL_COURSE);
     const data = {
         logged,
         email,
         id,
         isStudent,
         id_course,
+        idPersonalCourse,
     };
 
     return data;

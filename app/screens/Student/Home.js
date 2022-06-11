@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     View,
     TouchableHighlight,
-    Image,
     ScrollView,
     StyleSheet,
     Text,
     Alert,
-    TouchableOpacity,
 } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
@@ -15,7 +13,6 @@ import {
     BACKGROUNDHOME,
     TEXTHOME,
     ITEMSHOME,
-    TOPSCREENHOME,
 } from '../../styles/styleValues';
 import {
     getModulesApi,
@@ -24,12 +21,14 @@ import {
     addStudentCourse,
     getCursoPersonal,
     getConfigDictationApi,
+    hasPermissionEditCourseApi,
 } from '../../api/course';
 import { Modal, Portal, Provider } from 'react-native-paper';
 
 import {
     getStorageItem,
     ID_CURRENT_CURSE,
+    ID_PERSONAL_COURSE,
     ID_USER,
     setStorageCurrentCourse,
 } from '../../../utils/asyncStorageManagement';
@@ -40,6 +39,9 @@ import {
     SECONDARY_COLOR,
     TERTIARY_COLOR,
 } from '../../../utils/colorPalette';
+import SelectCourse from '../../components/BottomSheetOptions/SelectCourse';
+import EditModuleConfig from '../../components/BottomSheetOptions/EditModuleConfig';
+import { DELAY_LONG_PRESS } from '../../../utils/constants';
 
 export default function Home() {
     const navigation = useNavigation();
@@ -54,6 +56,25 @@ export default function Home() {
     const [updateCoursesStudent, setUpdateCoursesStudent] = useState(false);
     const [personalCourse, setPersonalCourse] = useState('');
     const [pressed, setPressed] = useState(-3);
+    const [updateAllModules, setUpdateAllModules] = useState(false);
+
+    const [idCourseSelectedHistory, setIdCourseSelectedHistory] = useState(null);
+
+    const [courseName, setCourseName] = useState('');
+
+    // Edit Module or Config 
+    const [idModuleToEdit, setIdModuleToEdit] = useState(null);
+    const [idConfigDictationToEdit, setIdConfigDictationToEdit] = useState(null);
+    const [isModuleToEdit, setIsModuleToEdit] = useState(false);
+    const [isConfigDictationToEdit, setIsConfigDictationToEdit] = useState(false);
+    const [nameToEdit, setNameToEdit] = useState('');
+    const [descriptionToEdit, setDescriptionToEdit] = useState('');
+    const [idCourseToEdit, setIdCourseToEdit] = useState(null);
+    const [permissionToEdit, setPermissionToEdit] = useState(true);
+
+    // UseRef
+    const refRBSheet_SelectCourse = useRef();
+    const refRBSheet_EditModuleConfig = useRef();
 
     const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
 
@@ -129,12 +150,16 @@ export default function Home() {
     useEffect(() => {
         setLoading(true);
         getStorageItem(ID_USER).then((idUser) => {
+            getStorageItem(ID_PERSONAL_COURSE).then((idPersonalCourse) => {
+                selectCoursePressed(idPersonalCourse);
+                setPersonalCourse(idPersonalCourse);
+            })
             if (idUser) {
-                getCursoPersonal(idUser).then((resultPersonal) => {
-                    if (resultPersonal.ok) {
-                        setPersonalCourse(resultPersonal.curso_objeto.id);
-                    }
-                });
+                // getCursoPersonal(idUser).then((resultPersonal) => {
+                //     if (resultPersonal.ok) {
+                //         setPersonalCourse(resultPersonal.curso_objeto.id);
+                //     }
+                // });
 
                 getCursaCoursesStudent(idUser).then((result) => {
                     if (result.ok) {
@@ -160,6 +185,24 @@ export default function Home() {
         });
         setLoading(false);
     }, [updateCoursesStudent]);
+
+    useEffect(() => {
+        setLoading(true);
+
+        getModulesApi(cursoSeleccionado).then((modulesResponse) => {
+            if (modulesResponse.ok) {
+                var modulesRes = [];
+                modulesResponse.modules.forEach((m) => {
+                    modulesRes.push({ module: m, open: false });
+                });
+                setModules(modulesRes);
+            } else {
+                setModules([]);
+            }
+        });
+
+        setLoading(false);
+    }, [updateAllModules])
 
     const open_closeModulePress = (module) => {
         var modRes = [];
@@ -276,7 +319,9 @@ export default function Home() {
         );
     };
 
-    const selectCourseHistory = async (idCurso) => {
+    const goToCourse = async (idCurso) => {
+        setLoading(true);
+
         await setStorageCurrentCourse(idCurso);
         setCursoSeleccionado(idCurso);
 
@@ -291,6 +336,15 @@ export default function Home() {
         } else {
             await setModules([]);
         }
+
+        setLoading(false);
+    }
+
+    const selectCourseHistory = async (idCurso) => {
+        await setIdCourseSelectedHistory(idCurso);
+        await setCourseName(getNombreCurso(idCurso));
+        // await setCourseDescription(getNombreCurso(idCurso).description);
+        refRBSheet_SelectCourse.current.open();
     };
 
     const getCursesToSubscribe = (allCourses) => {
@@ -309,124 +363,79 @@ export default function Home() {
         return res;
     };
 
+    const openEditModuleOptions = async (module) => {
+        const idCourse = cursoSeleccionado;
+        const idUser = await getStorageItem(ID_USER);
+        await setLoading(true);
+        await setNameToEdit(module.Nombre);
+        await setDescriptionToEdit(module.Descripcion);
+        await setIsModuleToEdit(true);
+        await setIsConfigDictationToEdit(false);
+        await setIdModuleToEdit(module.id);
+        await setIdConfigDictationToEdit(null);
+        await setIdCourseToEdit(idCourse);
+        await setLoading(false);
+
+        const hasPermission = await hasPermissionEditCourseApi(idUser, idCourse);
+        await setPermissionToEdit(hasPermission.ok && hasPermission.permiso);
+        await setLoading(false);
+
+        refRBSheet_EditModuleConfig.current.open();
+    }
+
+    const openEditConfigDictationOptions = async (config) => {
+        const idCourse = cursoSeleccionado;
+        const idUser = await getStorageItem(ID_USER);
+        await setLoading(true);
+        await setNameToEdit(config.Nombre);
+        await setDescriptionToEdit(config.Descripcion);
+        await setIsModuleToEdit(false);
+        await setIsConfigDictationToEdit(true);
+        await setIdModuleToEdit(null);
+        await setIdConfigDictationToEdit(config.id);
+        await setIdCourseToEdit(idCourse);
+        await setLoading(false);
+
+        const hasPermission = await hasPermissionEditCourseApi(idUser, idCourse);
+        await setPermissionToEdit(hasPermission.ok && hasPermission.permiso);
+        await setLoading(false);
+        
+        refRBSheet_EditModuleConfig.current.open();
+    }
+
     if (loading) return <Loading isVisible={true} text="Cargando" />;
 
     return (
         <View style={styles.container}>
             <View style={styles.cursoStories}>
-                <ScrollView
-                    // style={{ flex: 0.2 }}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                >
-                    <TouchableHighlight
-                        // style={[
-                        //     styles.profileImgContainer,
-                        //     { borderColor: TEXTHOME, borderWidth: 2 },
-                        // ]}
-                        onPress={showModal}
-                    >
-                        <>
-                            {iconHistory(-3, { id: 'Nuevo Curso' })}
-                            {/* <Image
-                                source={{
-                                    uri:
-                                        'https://ui-avatars.com/api/?color=' +
-                                        TEXTHOME +
-                                        '&background=' +
-                                        BACKGROUNDHOME +
-                                        '&name=Nuevo',
-                                }}
-                                style={styles.profileImg}
-                            />
-                            <Text style={{ alignSelf: 'center' }}>
-                                Nuevo Curso
-                            </Text> */}
-                        </>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    <TouchableHighlight onPress={showModal}>
+                        <>{iconHistory(-3, { id: 'Nuevo Curso' })}</>
                     </TouchableHighlight>
                     <TouchableHighlight
-                        // style={[
-                        //     styles.profileImgContainer,
-                        //     { borderColor: getColor(-2), borderWidth: 2 },
-                        // ]}
                         onPress={async () => {
                             setLoading(true);
                             selectCourseHistory(personalCourse);
                             setLoading(false);
-                            // await setLoading(true);
-                            // await setPressed(-2);
-                            // if (personalCourse) {
-                            //     await setStorageCurrentCourse(personalCourse);
-                            //     await setCurrentCourse(personalCourse);
-                            // }
-                            // await setLoading(false);
                         }}
                     >
                         <>
                             {iconHistory(-2, {
                                 id: personalCourse,
                             })}
-                            {/* <Image
-                                source={{
-                                    uri:
-                                        'https://ui-avatars.com/api/?color=' +
-                                        TEXTHOME +
-                                        '&background=' +
-                                        BACKGROUNDHOME +
-                                        '&name=Personal',
-                                }}
-                                style={styles.profileImg}
-                            />
-                            <Text style={{ alignSelf: 'center' }}>
-                                Curso personal
-                            </Text> */}
                         </>
                     </TouchableHighlight>
                     {courses ? (
                         courses.map((j, index) => (
                             <TouchableHighlight
                                 key={index}
-                                // style={[
-                                //     styles.profileImgContainer,
-                                //     {
-                                //         borderColor: getColor(index),
-                                //         borderWidth: 5,
-                                //     },
-                                // ]}
                                 onPress={async () => {
                                     setLoading(true);
                                     selectCourseHistory(j.id);
                                     setLoading(false);
-
-                                    // await setLoading(true);
-                                    // await setPressed(index);
-                                    // if (j.curso_cursado) {
-                                    //     await setStorageCurrentCourse(
-                                    //         j.curso_cursado
-                                    //     );
-                                    //     await setCurrentCourse(j.curso_cursado);
-                                    // }
-                                    // await setLoading(false);
                                 }}
                             >
-                                <>
-                                    {iconHistory(index, j)}
-                                    {/* <Image
-                                        source={{
-                                            uri:
-                                                'https://ui-avatars.com/api/?color=' +
-                                                TEXTHOME +
-                                                '&background=' +
-                                                BACKGROUNDHOME +
-                                                '&name=' +
-                                                getNombreCurso(j.curso_cursado),
-                                        }}
-                                        style={styles.profileImg}
-                                    />
-                                    <Text style={{ alignSelf: 'center' }}>
-                                        {getNombreCurso(j.curso_cursado)}
-                                    </Text> */}
-                                </>
+                                <>{iconHistory(index, j)}</>
                             </TouchableHighlight>
                         ))
                     ) : (
@@ -461,6 +470,8 @@ export default function Home() {
                                 onPress={() => {
                                     open_closeModulePress(module);
                                 }}
+                                onLongPress={() => openEditModuleOptions(module.module)}
+                                delayLongPress={DELAY_LONG_PRESS}
                             >
                                 {module.module.configuracion_dictado.map(
                                     (config, j) => (
@@ -473,6 +484,8 @@ export default function Home() {
                                                     module.module
                                                 );
                                             }}
+                                            onLongPress={() => openEditConfigDictationOptions(config)}
+                                            delayLongPress={DELAY_LONG_PRESS}
                                             bottomDivider
                                         >
                                             <ListItem.Content
@@ -572,6 +585,31 @@ export default function Home() {
                         </Modal>
                     </Portal>
                 </Provider>
+
+                <SelectCourse
+                    refRBSheet={refRBSheet_SelectCourse}
+                    goToCourse={goToCourse}
+                    idCourse={idCourseSelectedHistory}
+                    courseName={courseName}
+                    setUpdateCoursesStudent={setUpdateCoursesStudent}
+                    updateCoursesStudent={updateCoursesStudent}
+                />
+
+                <EditModuleConfig
+                    refRBSheet={refRBSheet_EditModuleConfig}
+                    isModule={isModuleToEdit}
+                    isConfigDictation={isConfigDictationToEdit}
+                    idCourse={idCourseToEdit}
+                    idModule={idModuleToEdit}
+                    idConfigDictation={idConfigDictationToEdit}
+                    name={nameToEdit}
+                    description={descriptionToEdit}
+                    setUpdateCoursesStudent={setUpdateCoursesStudent}
+                    updateCoursesStudent={updateCoursesStudent}
+                    updateAllModules={updateAllModules}
+                    setUpdateAllModules={setUpdateAllModules}
+                    permissionToEdit={permissionToEdit}
+                />
             </View>
         </View>
     );

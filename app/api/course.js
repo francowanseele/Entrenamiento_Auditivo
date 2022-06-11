@@ -576,3 +576,295 @@ export function addCourseApi(data) {
             };
         });
 }
+
+export function unregisterStudentFromCourseApi(data) {
+    const url = `${basePath}/unregister-student-course`;
+    const params = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    };
+    return fetch(url, params)
+        .then((response) => {
+            if (response.status === 501) {
+                return null;
+            } else {
+                return response.json();
+            }
+        })
+        .then((result) => {
+            if (!result) {
+                return {
+                    ok: false,
+                    message: 'Error interno del servidor.',
+                };
+            } else {
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        studenCourse: result.studenCourse,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        message: result.message,
+                    };
+                }
+            }
+        })
+        .catch((err) => {
+            return {
+                ok: false,
+                message: 'Error de servidor, vuelva a intentarlo más tarde',
+            };
+        });
+}
+
+export function unregisterTeacherFromCourseApi(data) {
+    const url = `${basePath}/unregister-teacher-course`;
+    const params = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    };
+
+
+    return fetch(url, params)
+        .then((response) => {
+            if (response.status === 501) {
+                return null;
+            } else {
+                return response.json();
+            }
+        })
+        .then((result) => {
+            if (!result) {
+                return {
+                    ok: false,
+                    message: 'Error interno del servidor.',
+                };
+            } else {
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        teacherCourse: result.teacherCourse,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        message: result.message,
+                    };
+                }
+            }
+        })
+        .catch((err) => {
+            return {
+                ok: false,
+                message: 'Error de servidor, vuelva a intentarlo más tarde',
+            };
+        });
+}
+
+export function editCourseApi(data, idCourse, idUser) {
+    const url = `${basePath}/edit-course/${idCourse}?idUser=${idUser}`;
+
+    const params = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    };
+
+
+    return fetch(url, params)
+        .then((response) => {
+            if (response.status === 501) {
+                return null;
+            } else {
+                return response.json();
+            }
+        })
+        .then((result) => {
+            if (!result) {
+                return {
+                    ok: false,
+                    message: 'Error interno del servidor.',
+                };
+            } else {
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        permiso: true,
+                        course: result.course,
+                        message: result.message,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        message: result.message,
+                    };
+                }
+            }
+        })
+        .catch((err) => {
+            return {
+                ok: false,
+                message: 'Error de servidor, vuelva a intentarlo más tarde',
+            };
+        });
+}
+
+export function editModuleApi(data, idCourse, idUser, idModule) {
+    const url = `${basePath}/edit-module/${idCourse}?idUser=${idUser}&idModule=${idModule}`;
+
+    const params = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    };
+
+
+    return fetch(url, params)
+        .then((response) => {
+            if (response.status === 501) {
+                return null;
+            } else {
+                return response.json();
+            }
+        })
+        .then((result) => {
+            if (!result) {
+                return {
+                    ok: false,
+                    message: 'Error interno del servidor.',
+                };
+            } else {
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        permiso: result.permiso,
+                        module: result.module,
+                        message: result.message,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        permiso: result.permiso,
+                        message: result.message,
+                    };
+                }
+            }
+        })
+        .catch((err) => {
+            return {
+                ok: false,
+                message: 'Error de servidor, vuelva a intentarlo más tarde',
+            };
+        });
+}
+
+export function editConfigDictationApi(data, idCourse, idUser, idConfigDictation) {
+    const url = `${basePath}/edit-config-dictation/${idCourse}?idUser=${idUser}&idConfigDictation=${idConfigDictation}`;
+
+    const params = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    };
+
+
+    return fetch(url, params)
+        .then((response) => {
+            if (response.status === 501) {
+                return null;
+            } else {
+                return response.json();
+            }
+        })
+        .then((result) => {
+            if (!result) {
+                return {
+                    ok: false,
+                    message: 'Error interno del servidor.',
+                };
+            } else {
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        permiso: result.permiso,
+                        configDictation: result.configDictation,
+                        message: result.message,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        permiso: result.permiso,
+                        message: result.message,
+                    };
+                }
+            }
+        })
+        .catch((err) => {
+            return {
+                ok: false,
+                message: 'Error de servidor, vuelva a intentarlo más tarde',
+            };
+        });
+}
+
+export function hasPermissionEditCourseApi(idUser, idCourse) {
+    const url = `${basePath}/user-has-permission-edit/${idCourse}?idUser=${idUser}`;
+
+    const params = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+
+    return fetch(url, params)
+        .then((response) => {
+            if (response.status === 501) {
+                return null;
+            } else {
+                return response.json();
+            }
+        })
+        .then((result) => {
+            if (!result) {
+                return {
+                    ok: false,
+                    message: 'Error interno del servidor.',
+                };
+            } else {
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        permiso: result.permiso,
+                        message: result.message,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        message: result.message,
+                    };
+                }
+            }
+        })
+        .catch((err) => {
+            return {
+                ok: false,
+                message: 'Error de servidor, vuelva a intentarlo más tarde',
+            };
+        });
+}

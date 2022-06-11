@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView, View, Text, Image } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Image, Dimensions } from 'react-native';
 import {
     ListItem,
     Icon,
@@ -244,11 +244,12 @@ export default function BottomSheetLigadura(props) {
             ref={refRBSheet_Ligaduras}
             closeOnDragDown={true}
             closeOnPressMask={true}
-            animationType="slide"
+            animationType="none"
             dragFromTopOnly={true}
             onOpen={async () => {
                 await initialStateOpen();
             }}
+            height={Dimensions.get('window').height * 0.75}
             customStyles={{
                 wrapper: {
                     backgroundColor: 'rgba(0,0,0,.25)',
@@ -257,7 +258,7 @@ export default function BottomSheetLigadura(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    height: '75%',
+                    borderRadius: 10,
                 },
             }}
         >
