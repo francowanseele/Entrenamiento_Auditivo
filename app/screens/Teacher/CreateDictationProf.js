@@ -341,6 +341,7 @@ export default function CreateDictationProf({ route }) {
             res.push({
                 elem: celula.celula_ritmica,
                 prioridad: celula.prioridad,
+                id:celula.id
             });
         });
 
@@ -545,7 +546,7 @@ export default function CreateDictationProf({ route }) {
                     nro_compases,
                     simple,
                     compas_regla,
-                    celula_ritmica_regla,
+                    celula_ritmica_regla:getTarjetas(celula_ritmica_regla),
                     BPM,
                     tesitura,
                     mayor,
