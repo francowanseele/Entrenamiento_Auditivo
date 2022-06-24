@@ -12,8 +12,6 @@ export default ({
     escalaDiatonica,
     isNotaReferencia
 }) => {
-    // console.log(figurasConCompas)
-    // console.log(dictadoGeneradoTraducidoParam)
     const [figuras, setfiguras] = useState([]);
     const [clave, setclave] = useState(claveParam); 
     const [tarjetas, setTarjetas] = useState({ 
@@ -208,11 +206,18 @@ export default ({
             actual = actual.slice(0, actual.length - 1) + '/' + ultimoChar;
             resDictado.push(actual);
         }
-        // console.log('resDictadoconBarrita==>'+resDictado)
         let compasActual;
         let figuraActual;
         let aux = [];
-        let index = -1;
+        let index = 0;
+        // for (let i = 0;i < figurasConCompas.length; i++){
+        //     for (let j=0;j< figurasConCompas.length;j++){
+        //         if (figurasConCompas[i][j] && figurasConCompas[i][j].includes('_')){
+        //              if (figurasConCompas[i][j][0]=='_') figurasConCompas[i][j] = figurasConCompas[i][j].substring(1);
+        //              figurasConCompas[i][j]= figurasConCompas[i][j].replace('_','-')
+        //         }
+        //     }
+        // }
         for (
             compasActual = 0;
             compasActual < figurasConCompas.length;
@@ -223,31 +228,39 @@ export default ({
                 figuraActual < figurasConCompas[compasActual].length;
                 figuraActual++
             ) {
-                index = index + 1;
                 if (
                     typeof tarjetasNotas[
                         figurasConCompas[compasActual][figuraActual]
                     ] == 'undefined'
                 ) {
-                    if (
-                        !figurasConCompas[compasActual][figuraActual].includes(
-                            '-'
-                        )
-                    ) {
+                    if( (!figurasConCompas[compasActual][figuraActual].includes('-')) && 
+                                (!figurasConCompas[compasActual][figuraActual].includes('_')) ){
                         aux.push([
                             resDictado[index],
                             figurasConCompas[compasActual][figuraActual],
                         ]);
-                    } else {
-                        let notasSeparar =
-                            figurasConCompas[compasActual][figuraActual].split(
-                                '-'
-                            );
-
+                        index = index + 1;
+                    } else if (!figurasConCompas[compasActual][figuraActual].includes('_')) {
+                        let notasSeparar = figurasConCompas[compasActual][figuraActual].split('-');
                         for (var h = 0; h < notasSeparar.length; h++) {
                             aux.push([resDictado[index + h], notasSeparar[h]]);
-                        }
+                        } 
                         index = index + notasSeparar.length - 1;
+                        index = index + 1;
+                    }else if (figurasConCompas[compasActual][figuraActual].includes('_')){
+                        if (figurasConCompas[compasActual][figuraActual].charAt(0) === '_'){
+                            let notasSeparar = figurasConCompas[compasActual][figuraActual].split('_');
+                            notasSeparar.shift();
+                            for (var h = 0; h < notasSeparar.length; h++) {
+                                aux.push([resDictado[index-1], notasSeparar[h]]);
+                            } 
+                        }else {
+                            let notasSeparar = figurasConCompas[compasActual][figuraActual].split('_');
+                            for (var h = 0; h < notasSeparar.length; h++) {
+                                aux.push([resDictado[index], notasSeparar[h]]);
+                            } 
+                            index = index + 1;
+                        }
                     }
                 } else {
                     tarjetasActuales.push(
@@ -261,6 +274,7 @@ export default ({
                         aux.push([resDictado[index + h], '+' + notasTrj[h]]);
                     }
                     index = index + notasTrj.length - 1;
+                    index = index + 1;
                 }
             }
             if (compasActual != figurasConCompas.length - 1) {
@@ -277,13 +291,47 @@ export default ({
         });
     }
 
+    const existLigadura = ( figuras ) =>{
+
+        figuras.forEach((fig)=>{
+            if (fig.includes('_')){
+                return true
+            }
+        })
+        return false;
+    }
+
+    const getLigadurasToGraphic = (figuras) =>{
+        res = '';
+        figuras.forEach((fig,index1)=>{
+            fig.forEach((f,index2)=>{
+                if (f.includes('_')){
+                    // aqui necesito saber si es siempre el proximo el que lleva la ligadura
+                    // tener en cuenta casos bordes el ultimo de este compas con el siguiente
+                    //idem principio de compas tengo que resolver esos casos
+                    res = res.concat(`
+                    const ties = [
+                        new StaveTie({
+                        first_note: notesMeasure notesMeasure`+index1+`[`+(index2-1).toString+`],
+                        last_note: notesMeasure`+index1+`[`+(index2+1).toString+`],
+                        first_indices: [0],
+                        last_indices: [0],
+                        }),
+                    ];`)
+                }
+            })
+           
+        })
+        if (res != '') {
+            res = res.concat( `ties.forEach((t) => {
+                t.setContext(context).draw();
+            });`)
+        } 
+        return res;
+    }
+
     const getFigurasyDuracion = () => {
         translateToGraphic();
-        // console.log('dictadoGeneradoTraducido===>' + dictadoGeneradoTraducido);
-        // console.log('FigurasConCompas===>' + figurasConCompas);
-        // console.log('FigurasSinCompas===>' + figurasSinCompas);
-        // console.log('FiguraspostFunc///>      '+figuras)
-
         let res = '';
         let compasActual = 1;
         let sostenido = false;
@@ -291,6 +339,7 @@ export default ({
         let punto = false;
         let esTarjeta = false;
         let huboTarjeta = false;
+        // FIGURAS LLEGA CON UN UNDEFINE EN izquierda [[undefined, "h"]]
         for (let actual = 0; actual < figuras.length; actual++) {
             if (figuras[actual] != 'NuevoCompas') {
                 if (figuras[actual][1].includes('+')) {
@@ -308,7 +357,6 @@ export default ({
                     figuras[actual][0].replace('b', '');
                     bemol = true;
                 }
-                // console.log(esTarjeta)
                 if (!sostenido && !bemol && !punto && !esTarjeta) {
                     res = res.concat(
                         'new  StaveNote({clef: "' +
@@ -354,7 +402,6 @@ export default ({
                             '\n'
                     );
                 } else if (esTarjeta) {
-                    // console.log('entro a tarjeta')
                     res = res.concat(
                         `]);` +
                             `\n` +
@@ -488,6 +535,8 @@ export default ({
                 `);\n
         `
         );
+
+        
         //si hubo tarjeta en este compas entra aqui
         if (huboTarjeta) {
             res = res.concat(
@@ -496,9 +545,13 @@ export default ({
             );
             huboTarjeta = false;
         }
-
+        // if (existLigadura(figuras)){
+            // res = res.concat(getLigadurasToGraphic(figuras));
+        // }
         return res;
     };
+
+
     const largoPentagrama = () =>{
         if (isNotaReferencia) {
             return '930'
@@ -565,7 +618,6 @@ export default ({
         );
         // console.log(Html)
     }, [escalaDiatonicaRes]); 
-    // console.log(Html)
     return (
         // <WebView source={{ uri: 'https://reactnative.dev/' }} />
         <WebView
