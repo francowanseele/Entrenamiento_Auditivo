@@ -380,7 +380,8 @@ export default function BottomSheetTonalidad(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    borderRadius: 10,
+                    borderTopRightRadius: 10,
+                    borderTopLeftRadius: 10,
                 },
             }}
         >
@@ -420,6 +421,11 @@ export default function BottomSheetTonalidad(props) {
                                             checkedEscala(
                                                 escala.escala_diatonica
                                             )
+                                        }
+                                        checked={
+                                            getPriority(
+                                                escala.escala_diatonica
+                                            ) != 0
                                         }
                                         checkedIcon={
                                             <Icon

@@ -7,7 +7,7 @@ import {
     Text,
     Alert,
 } from 'react-native';
-import { ListItem, Icon } from 'react-native-elements';
+import { ListItem, Icon, Input, Button } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import {
     BACKGROUNDHOME,
@@ -41,11 +41,12 @@ import {
     PRIMARY_COLOR,
     QUARTER_COLOR,
     SECONDARY_COLOR,
-    TERTIARY_COLOR,
 } from '../../../utils/colorPalette';
 import SelectCourse from '../../components/BottomSheetOptions/SelectCourse';
 import { DELAY_LONG_PRESS } from '../../../utils/constants';
 import EditModuleConfig from '../../components/BottomSheetOptions/EditModuleConfig';
+import NewCourse from '../../components/BottomSheetOptions/NewCourse';
+import { getInstituteByUserApi } from '../../api/institute';
 
 export default function DictationProf() {
     const Tab = createMaterialTopTabNavigator();
@@ -56,8 +57,6 @@ export default function DictationProf() {
     const [allCourses, setAllCourses] = useState([]);
     const [currentCourse, setCurrentCourse] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
-    const showModal = () => setModalVisible(true);
-    const hideModal = () => setModalVisible(false);
     const [updateCoursesStudent, setUpdateCoursesStudent] = useState(false);
     const [updateAllCourses, setUpdateAllCourses] = useState(false);
     const [personalCourse, setPersonalCourse] = useState('');
@@ -83,9 +82,19 @@ export default function DictationProf() {
     const [idCourseToEdit, setIdCourseToEdit] = useState(null);
     const [permissionToEdit, setPermissionToEdit] = useState(true);
 
+    // new coruse
+    const [institutes, setInstitutes] = useState([]);
+    const [visibleOverlayInstitute, setVisibleOverlayInstitute] = useState(false);
+    const [instituteLocal, setInstituteLocal] = useState(null);
+    const [msgErrorOverlay, setMsgErrorOverlay] = useState('');
+    const [titleOverlay, setTitleOverlay] = useState('');
+    const [courseNameLocal, setCourseNameLocal] = useState('');
+    const [courseDescriptionLocal, setCourseDescriptionLocal] = useState('');
+
     // UseRef
     const refRBSheet_SelectCourse = useRef();
     const refRBSheet_EditModuleConfig = useRef();
+    const refRBSheet_NewCourse = useRef();
 
     const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
 
@@ -163,6 +172,25 @@ export default function DictationProf() {
                         name: res.curso_objeto.Nombre,
                         description: res.curso_objeto.Descripcion,
                     });
+                }
+            })
+
+            // Get institutes of the current user
+            getInstituteByUserApi(userId).then((institutesResult) => {
+                if(institutesResult.ok){
+                    var res = [];
+                    res.push({
+                        id: null,
+                        name: 'SIN INSTITUTO'
+                    })
+                    institutesResult.institutes.forEach(i => {
+                        res.push({
+                            id: i.InstitutoId,
+                            name: i.Nombre,
+                        });
+                    });
+                    setInstitutes(res);
+                    // setInstituteLocal(res[0]);
                 }
             })
         })
@@ -258,11 +286,13 @@ export default function DictationProf() {
     const selectCoursePressed = async (courseSelect, courses) => {
         const idCurrent = await getStorageItem(ID_CURRENT_CURSE);
         var encontre = false;
-        for (let i = 0; i < courses.length; i++) {
-            const c = courses[i];
-            if (c.id == idCurrent) {
-                encontre = true;
-                await setPressed(i);
+        if (courses) {
+            for (let i = 0; i < courses.length; i++) {
+                const c = courses[i];
+                if (c.id == idCurrent) {
+                    encontre = true;
+                    await setPressed(i);
+                }
             }
         }
         if (!encontre) {
@@ -317,25 +347,6 @@ export default function DictationProf() {
         setModules(modRes);
     };
 
-    const addStudentToCourse = (idCourse) => {
-        hideModal();
-        getStorageItem(ID_USER).then((idUser) => {
-            if (idCourse) {
-                addTeacherCourse(idCourse, idUser).then((result) => {
-                    if (result.ok) {
-                        Alert.alert(
-                            'Nuevo curso a dictar agregado exitosamente'
-                        );
-                        setUpdateCoursesStudent(!updateCoursesStudent);
-                    } else {
-                        Alert.alert('No se ha podrido agregar el curso');
-                    }
-                });
-            } else {
-                Alert.alert('No se ha podrido agregar el curso');
-            }
-        });
-    };
     const getColor = (index) => {
         if (index == cursoSeleccionado) {
             return SECONDARY_COLOR;
@@ -350,194 +361,6 @@ export default function DictationProf() {
         } else {
             return 1;
         }
-    };
-
-    const getCursesToSubscribe = (allCourses) => {
-        var res = [];
-        allCourses.forEach((c) => {
-            var inCourse = false;
-            courses.forEach((courseUser) => {
-                if (c.id == courseUser.id) {
-                    inCourse = true;
-                }
-            });
-            if (!inCourse) {
-                res.push(c);
-            }
-        });
-
-        return res;
-    };
-
-    const inscribirse = () => {
-        return (
-            <View>
-                {/* <ScrollView styles={{ flex: 1 }}> */}
-                <ScrollView>
-                    {getCursesToSubscribe(allCourses).map((e, i) => (
-                        <ListItem
-                            containerStyle={{ width: '100%' }}
-                            key={i}
-                            bottomDivider
-                            onPress={() => {
-                                addStudentToCourse(e.id);
-                            }}
-                        >
-                            {/* <Icon name={item.icon} /> */}
-                            <ListItem.Content>
-                                <ListItem.Title
-                                    style={{
-                                        fontWeight: 'bold',
-                                        fontSize: 17,
-                                    }}
-                                >
-                                    {e.Nombre}
-                                </ListItem.Title>
-                                <ListItem.Subtitle
-                                    style={{
-                                        color: 'black',
-                                        fontSize: 15,
-                                        color: PRIMARY_COLOR,
-                                    }}
-                                >
-                                    {e.Descripcion}
-                                </ListItem.Subtitle>
-                            </ListItem.Content>
-                            <ListItem.Chevron />
-                        </ListItem>
-                    ))}
-                </ScrollView>
-            </View>
-        );
-    };
-
-    // const inscribirse = () => {
-    //     // if (!allCourses) return <Loading isVisible={true} text="Cargando" />;
-    //     return (
-    //         <View
-    //             style={{
-    //                 flex: 1,
-    //                 justifyContent: 'center',
-    //                 alignItems: 'center',
-    //             }}
-    //         >
-    //             {console.log(allCourses)}
-    //             {console.log('-------------------')}
-    //             {console.log(allCourses[0].nombre)}
-    //             <ScrollView styles={{ flex: 1 }}>
-    //                 {allCourses.map((e, index) => (
-    //                     // <Text>{e.nombre}</Text>
-    //                     <TouchableOpacity
-    //                         onPress={() => {
-    //                             addStudentToCourse(e._id);
-    //                         }}
-    //                         key={index}
-    //                         style={styles.coursesToAdd}
-    //                     >
-    //                         <Text style={styles.textCourseModal}>
-    //                             {e.nombre}
-    //                         </Text>
-    //                     </TouchableOpacity>
-    //                 ))}
-    //             </ScrollView>
-    //         </View>
-    //     );
-    // };
-
-    const crearCurso = () => {
-        const [nombreValue, setNombre] = useState('');
-        const [descripcion, setDescripcion] = useState('');
-        const onPressSubmit = async () => {
-            if (nombreValue != '' && descripcion != '') {
-                const idUser = await getStorageItem(ID_USER);
-                const data = {
-                    name: nombreValue,
-                    description: descripcion,
-                    personal: false,
-                    idInstitute: 1,
-                    idUser: parseInt(idUser),
-                };
-                addCourseApi(data).then((result) => {
-                    if (result.ok) {
-                        Alert.alert('Nuevo curso creado exitosamente');
-                        setNombre('');
-                        setDescripcion('');
-                        setUpdateAllCourses(!updateAllCourses);
-                        hideModal;
-
-                        // const dataCourse = {
-                        //     idCourse: result.course._id,
-                        // };
-
-                        // addCourseToInstituteApi(dataCourse).then(
-                        //     (resultInstitute) => {
-                        //         if (resultInstitute.ok) {
-                        //             Alert.alert(
-                        //                 'Nuevo curso creado exitosamente'
-                        //             );
-                        //             setNombre('');
-                        //             setDescripcion('');
-                        //             setUpdateAllCourses(!updateAllCourses);
-                        //             hideModal;
-                        //         } else {
-                        //             Alert.alert(
-                        //                 'No se ha podrido crear el curso'
-                        //             );
-                        //         }
-                        //     }
-                        // );
-                    } else {
-                        Alert.alert('No se ha podrido crear el curso');
-                    }
-                });
-            } else {
-                Alert.alert('El nombre o descripcion son vacios');
-            }
-        };
-        return (
-            <View
-                style={{
-                    flex: 1,
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    backgroundColor: BACKGROUNDHOME,
-                }}
-            >
-                <Text style={{ height: 30, color: TEXTHOME, marginTop: 30 }}>
-                    Nombre de Curso
-                </Text>
-                <TextInput
-                    style={{ height: 30, width: '80%' }}
-                    onChangeText={(text) => setNombre(text)}
-                    value={nombreValue}
-                ></TextInput>
-
-                <Text style={{ height: 30, color: TEXTHOME, marginTop: 30 }}>
-                    Descripcion de Curso
-                </Text>
-                <TextInput
-                    style={{ height: 30, width: '80%' }}
-                    value={descripcion}
-                    onChangeText={(text) => setDescripcion(text)}
-                ></TextInput>
-
-                <TouchableHighlight
-                    style={{
-                        backgroundColor: 'white',
-                        width: '100%',
-                        alignItems: 'center',
-                    }}
-                    onPress={onPressSubmit}
-                >
-                    <Text
-                        style={{ height: 30, color: TEXTHOME, marginTop: 10 }}
-                    >
-                        {' '}
-                        Crear{' '}
-                    </Text>
-                </TouchableHighlight>
-            </View>
-        );
     };
 
     const getLetterCourse = (nombre) => {
@@ -668,7 +491,7 @@ export default function DictationProf() {
         <View style={styles.container}>
             <View style={styles.cursoStories}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                    <TouchableHighlight onPress={showModal}>
+                    <TouchableHighlight onPress={() => refRBSheet_NewCourse.current.open()}>
                         <>{iconHistory(-3, { id: 'Nuevo Curso' })}</>
                     </TouchableHighlight>
                     <TouchableHighlight
@@ -775,7 +598,7 @@ export default function DictationProf() {
                     )}
                 </ScrollView>
 
-                <Provider>
+                {/* <Provider>
                     <Portal>
                         <Modal
                             visible={modalVisible}
@@ -796,14 +619,34 @@ export default function DictationProf() {
                                         />
                                         <Tab.Screen
                                             name="Crear Curso"
-                                            component={crearCurso}
+                                            component={CrearCurso}
                                         />
                                     </Tab.Navigator>
                                 </ScrollView>
                             </View>
                         </Modal>
                     </Portal>
-                </Provider>
+                </Provider> */}
+
+                <NewCourse
+                    refRBSheet={refRBSheet_NewCourse}
+                    isTeacher={true}
+                    visibleOverlayInstitute={visibleOverlayInstitute}
+                    setVisibleOverlayInstitute={setVisibleOverlayInstitute}
+                    institutes={institutes}
+                    instituteLocal={instituteLocal}
+                    setInstituteLocal={setInstituteLocal}
+                    courseNameLocal={courseNameLocal}
+                    setCourseNameLocal={setCourseNameLocal}
+                    courseDescriptionLocal={courseDescriptionLocal}
+                    setCourseDescriptionLocal={setCourseDescriptionLocal}
+                    updateAllCourses={updateAllCourses}
+                    setUpdateAllCourses={setUpdateAllCourses}
+                    courses={courses}
+                    allCourses={allCourses}
+                    updateCoursesStudent={updateCoursesStudent}
+                    setUpdateCoursesStudent={setUpdateCoursesStudent}
+                />
 
                 <SelectCourse
                     refRBSheet={refRBSheet_SelectCourse}
@@ -941,4 +784,32 @@ const styles = StyleSheet.create({
         // width: '90%',
         // alignSelf: 'center',
     },
+    containerButtons: {
+        marginTop: '20%',
+    },
+    containerButtonOk: {
+        marginHorizontal: 10,
+        marginTop: 5,
+        backgroundColor: PRIMARY_COLOR,
+    },
+    containerButtonCancel: {
+        marginHorizontal: 10,
+        marginTop: 5,
+        backgroundColor: QUARTER_COLOR,
+    },
+    content: {
+        flexDirection: 'row',
+        width: '100%',
+    },
+    contentListLeft: {
+        textAlign: 'left',
+        width: '80%',
+    },
+    contentListRight: {
+        textAlign: 'right',
+        width: '20%',
+    },
+    contentInstituteOption: {
+        marginBottom: 15
+    }
 });

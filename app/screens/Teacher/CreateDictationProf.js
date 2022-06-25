@@ -139,7 +139,7 @@ export default function CreateDictationProf({ route }) {
     useEffect(() => {
         getStorageIsStudent().then((result) => {
             if (result) {
-                setInstitute({ id: '1', name: 'UTEC' });
+                // setInstitute({ id: '1', name: 'UTEC' });
 
                 getStorageItem(ID_USER).then((idUser) => {
                     getCursoPersonal(idUser).then((curseResult) => {
@@ -422,7 +422,6 @@ export default function CreateDictationProf({ route }) {
 
         // Verify empty fields
         const okConfigGral =
-            institute.id != null &&
             course.id != null &&
             module.id != null &&
             nameConfig != '' &&
@@ -531,7 +530,6 @@ export default function CreateDictationProf({ route }) {
             if (resGenerate.ok) {
                 navigation.navigate('summaryCreateDictation', {
                     dictationRhythmic,
-                    institute,
                     course,
                     module,
                     nameConfig,
@@ -577,7 +575,7 @@ export default function CreateDictationProf({ route }) {
         <>
             <ScrollView>
                 <InfoGral
-                    institute={institute}
+                    // institute={institute}
                     course={course}
                     module={module}
                     nameConfig={nameConfig}

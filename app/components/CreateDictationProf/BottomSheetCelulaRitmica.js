@@ -272,7 +272,8 @@ export default function BottomSheetCelulaRitmica(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    borderRadius: 10,
+                    borderTopRightRadius: 10,
+                    borderTopLeftRadius: 10,
                 },
             }}
         >

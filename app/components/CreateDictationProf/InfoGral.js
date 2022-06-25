@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { getVarTemp_Teacher } from '../../../utils/asyncStorageManagement';
 import {
@@ -16,7 +15,7 @@ import Loading from '../Loading';
 
 export default function InfoGral(props) {
     const {
-        institute,
+        // institute,
         course,
         module,
         nameConfig,
@@ -30,7 +29,6 @@ export default function InfoGral(props) {
 
     const informationMissing = () => {
         return !(
-            institute.id &&
             course.id &&
             module.id &&
             nameConfig != '' &&
@@ -42,10 +40,10 @@ export default function InfoGral(props) {
         <TouchableOpacity style={styles.contentGral} onPress={openConfigGral}>
             <View key={0} style={styles.card}>
                 <View key={0} style={styles.contentCard}>
-                    <View key={0} style={styles.content}>
+                    {/* <View key={0} style={styles.content}>
                         <Text style={styles.title}>INSTITUTO: </Text>
                         <Text>{institute.id ? institute.name : '-'}</Text>
-                    </View>
+                    </View> */}
 
                     <View key={1} style={styles.content}>
                         <Text style={styles.title}>CURSO: </Text>

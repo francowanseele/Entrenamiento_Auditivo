@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, ScrollView, Text, View, Image } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
 import {
     ListItem,
     Icon,
@@ -19,7 +19,6 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
         <Image style={{marginLeft:15, width:90,height:50}} source={{uri: `data:image/gif;base64,${imagen}`}} />
     )
 }
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function ConfigRhythmic(props) {
     const {
