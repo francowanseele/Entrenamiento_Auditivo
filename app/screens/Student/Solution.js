@@ -63,10 +63,7 @@ export default function Solution({ route }) {
             navigation.goBack();
         });
     };
-
-    console.log('Figuras');
-    console.log(dictation.figuras);
-
+    
     return (
         <View style={styles.container}>
             <View style={styles.graficoContainer}>
@@ -230,7 +227,7 @@ export default function Solution({ route }) {
                         </View>
                     </View>
                 </Overlay>
-                <Text style={styles.textoDatos} >Al  realizar la autoevaluación  estas de acuerdo de que estos datos serán ran usados con fines estadísticos.</Text>
+                <Text style={styles.textoDatos} >Al  realizar la autoevaluación  estas de acuerdo de que estos datos serán usados con fines estadísticos.</Text>
             </ScrollView>
         </View>
     );

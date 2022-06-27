@@ -13,6 +13,7 @@ export default ({
     isNotaReferencia
 }) => {
     const [figuras, setfiguras] = useState([]);
+    const [ figurasLigaduras, setFigurasLigaduras ] = useState(figurasConCompas)
     const [clave, setclave] = useState(claveParam); 
     const [tarjetas, setTarjetas] = useState({ 
        '16-16-16-16':`
@@ -198,7 +199,7 @@ export default ({
         return res;
     };
 
-    const translateToGraphic = () => {
+    const translateToGraphic = (arrayIndicesLigaduras) => {
         let ultimoChar;
         let resDictado = [];
         for (let actual of dictadoGeneradoTraducido) {
@@ -249,12 +250,27 @@ export default ({
                         index = index + 1;
                     }else if (figurasConCompas[compasActual][figuraActual].includes('_')){
                         if (figurasConCompas[compasActual][figuraActual].charAt(0) === '_'){
+                            // me guardo indices para graficar la ligadura
+                            arrayIndicesLigaduras.push({
+                                compas:compasActual,
+                                figura:figuraActual,
+                                esAlPrincipio:true,
+                                largoCompasAnterior:figurasConCompas[compasActual-1].length,
+                            })
+                            //caso ligaduras al principio del compas
                             let notasSeparar = figurasConCompas[compasActual][figuraActual].split('_');
                             notasSeparar.shift();
                             for (var h = 0; h < notasSeparar.length; h++) {
                                 aux.push([resDictado[index-1], notasSeparar[h]]);
                             } 
                         }else {
+                             // me guardo indices para graficar la ligadura
+                             arrayIndicesLigaduras.push({
+                                compas:compasActual,
+                                figura:figuraActual,
+                                esAlPrincipio:false
+                            })
+                            //caso ligaduras en el medio del compas
                             let notasSeparar = figurasConCompas[compasActual][figuraActual].split('_');
                             for (var h = 0; h < notasSeparar.length; h++) {
                                 aux.push([resDictado[index], notasSeparar[h]]);
@@ -291,47 +307,48 @@ export default ({
         });
     }
 
-    const existLigadura = ( figuras ) =>{
-
-        figuras.forEach((fig)=>{
-            if (fig.includes('_')){
-                return true
-            }
-        })
-        return false;
-    }
-
-    const getLigadurasToGraphic = (figuras) =>{
-        res = '';
-        figuras.forEach((fig,index1)=>{
-            fig.forEach((f,index2)=>{
-                if (f.includes('_')){
-                    // aqui necesito saber si es siempre el proximo el que lleva la ligadura
-                    // tener en cuenta casos bordes el ultimo de este compas con el siguiente
-                    //idem principio de compas tengo que resolver esos casos
-                    res = res.concat(`
-                    const ties = [
-                        new StaveTie({
-                        first_note: notesMeasure notesMeasure`+index1+`[`+(index2-1).toString+`],
-                        last_note: notesMeasure`+index1+`[`+(index2+1).toString+`],
-                        first_indices: [0],
-                        last_indices: [0],
-                        }),
-                    ];`)
+    const existLigadura = () =>{
+        let res = false;
+        figurasLigaduras.forEach((figuras)=>{
+            figuras.forEach((fig)=>{
+                if (fig.includes('_')){
+                    res =  true;
                 }
             })
-           
+        })
+        return res;
+    }
+
+    const getLigadurasToGraphic = (arrayIndicesLigaduras) =>{
+        res = 'const ties = [\n';
+        console.log(arrayIndicesLigaduras)
+        arrayIndicesLigaduras.forEach((ligadura)=>{
+                        let indice1 = ligadura.esAlPrincipio? ligadura.largoCompasAnterior : ligadura.figura;
+                        let indice2 = ligadura.esAlPrincipio? ligadura.figura : ligadura.figura+1;
+                        // el grafico toma los compases apartir de 1
+                        let numeroCompas1 = ligadura.esAlPrincipio ? ligadura.compas -1 : ligadura.compas;
+                        let numeroCompas2 =  ligadura.compas;
+                        res = res.concat(`
+                            new StaveTie({
+                            first_note: notesMeasure`+numeroCompas1+`[`+indice1 +`],
+                            last_note: notesMeasure`+numeroCompas2+`[`+indice2+`],
+                            first_indices: [0],
+                            last_indices: [0],
+                            }),
+                        \n`)
         })
         if (res != '') {
-            res = res.concat( `ties.forEach((t) => {
+            res = res.concat( `];\n 
+            ties.forEach((t) => {
                 t.setContext(context).draw();
-            });`)
+            });\n`)
         } 
         return res;
     }
 
     const getFigurasyDuracion = () => {
-        translateToGraphic();
+        arrayIndicesLigaduras = []
+        translateToGraphic(arrayIndicesLigaduras);
         let res = '';
         let compasActual = 1;
         let sostenido = false;
@@ -545,9 +562,9 @@ export default ({
             );
             huboTarjeta = false;
         }
-        // if (existLigadura(figuras)){
-            // res = res.concat(getLigadurasToGraphic(figuras));
-        // }
+        if (existLigadura(figurasLigaduras)){
+            res = res.concat(getLigadurasToGraphic(arrayIndicesLigaduras));
+        }
         return res;
     };
 
@@ -579,7 +596,7 @@ export default ({
       <script>
       function writeNote(){  //(tono,ritmo)
         
-            const { Renderer, Stave, Accidental, StaveNote, Beam, Formatter, Dot } = Vex.Flow;
+            const { Renderer, Stave, Accidental, StaveNote, Beam, Formatter, Dot,StaveTie } = Vex.Flow;
 
   
           // Create an SVG renderer and attach it to the DIV element named "boo".
@@ -616,7 +633,7 @@ export default ({
           <script>writeNote();</script>
   `
         );
-        // console.log(Html)
+        console.log(Html)
     }, [escalaDiatonicaRes]); 
     return (
         // <WebView source={{ uri: 'https://reactnative.dev/' }} />
