@@ -199,6 +199,27 @@ export default ({
         return res;
     };
 
+    const cantFigurasPorCompas = (compas) =>{
+        resLength = 0;
+        count = 0;
+        compas.forEach((cr)=>{
+           cr.split('').forEach(function(s){
+               if ((s != '_')&&(s != '-'))  count++;
+           })
+        })
+        return count -1
+    }
+
+    const cantLigadurasPorCompas = (compas) =>{
+        count = {};
+        compas.forEach((cr)=>{
+           cr.split('').forEach(function(s){
+               if ((s == '_'))  count++;
+           })
+        })
+        return count
+    }
+
     const translateToGraphic = (arrayIndicesLigaduras) => {
         let ultimoChar;
         let resDictado = [];
@@ -211,14 +232,6 @@ export default ({
         let figuraActual;
         let aux = [];
         let index = 0;
-        // for (let i = 0;i < figurasConCompas.length; i++){
-        //     for (let j=0;j< figurasConCompas.length;j++){
-        //         if (figurasConCompas[i][j] && figurasConCompas[i][j].includes('_')){
-        //              if (figurasConCompas[i][j][0]=='_') figurasConCompas[i][j] = figurasConCompas[i][j].substring(1);
-        //              figurasConCompas[i][j]= figurasConCompas[i][j].replace('_','-')
-        //         }
-        //     }
-        // }
         for (
             compasActual = 0;
             compasActual < figurasConCompas.length;
@@ -249,29 +262,41 @@ export default ({
                         index = index + notasSeparar.length - 1;
                         index = index + 1;
                     }else if (figurasConCompas[compasActual][figuraActual].includes('_')){
+                        // ME FALTA ARREGLAR EL CASO DOS LIGADURAS EN LA MISMA FIGURA
                         if (figurasConCompas[compasActual][figuraActual].charAt(0) === '_'){
-                            // me guardo indices para graficar la ligadura
-                            arrayIndicesLigaduras.push({
-                                compas:compasActual,
-                                figura:figuraActual,
-                                esAlPrincipio:true,
-                                largoCompasAnterior:figurasConCompas[compasActual-1].length,
-                            })
                             //caso ligaduras al principio del compas
                             let notasSeparar = figurasConCompas[compasActual][figuraActual].split('_');
                             notasSeparar.shift();
                             for (var h = 0; h < notasSeparar.length; h++) {
                                 aux.push([resDictado[index-1], notasSeparar[h]]);
                             } 
-                        }else {
-                             // me guardo indices para graficar la ligadura
-                             arrayIndicesLigaduras.push({
-                                compas:compasActual,
+                            // me guardo indices para graficar la ligadura
+                            arrayIndicesLigaduras.push({
+                                compas:compasActual+1,
                                 figura:figuraActual,
-                                esAlPrincipio:false
+                                esAlPrincipio:true,
+                                largoCompasAnterior:cantFigurasPorCompas(figurasConCompas[compasActual-1])
                             })
-                            //caso ligaduras en el medio del compas
+                            let ligaduras = cantLigadurasPorCompas(figurasConCompas[compasActual])
+                            for (var i = 0;i<ligaduras-1;i++){
+                                // me guardo indices para graficar la ligadura
+                                arrayIndicesLigaduras.push({
+                                    compas:compasActual+1,
+                                    figura:figuraActual+i,
+                                    esAlPrincipio:false
+                                })
+                            }
+                        }else {
                             let notasSeparar = figurasConCompas[compasActual][figuraActual].split('_');
+                            for (var i = 0;i<notasSeparar.length-1;i++){
+                                // me guardo indices para graficar la ligadura
+                                arrayIndicesLigaduras.push({
+                                    compas:compasActual+1,
+                                    figura:figuraActual+i,
+                                    esAlPrincipio:false
+                                })
+                            }
+                            //caso ligaduras en el medio del compas
                             for (var h = 0; h < notasSeparar.length; h++) {
                                 aux.push([resDictado[index], notasSeparar[h]]);
                             } 
@@ -321,11 +346,9 @@ export default ({
 
     const getLigadurasToGraphic = (arrayIndicesLigaduras) =>{
         res = 'const ties = [\n';
-        console.log(arrayIndicesLigaduras)
         arrayIndicesLigaduras.forEach((ligadura)=>{
                         let indice1 = ligadura.esAlPrincipio? ligadura.largoCompasAnterior : ligadura.figura;
                         let indice2 = ligadura.esAlPrincipio? ligadura.figura : ligadura.figura+1;
-                        // el grafico toma los compases apartir de 1
                         let numeroCompas1 = ligadura.esAlPrincipio ? ligadura.compas -1 : ligadura.compas;
                         let numeroCompas2 =  ligadura.compas;
                         res = res.concat(`
@@ -633,8 +656,9 @@ export default ({
           <script>writeNote();</script>
   `
         );
-        console.log(Html)
+        
     }, [escalaDiatonicaRes]); 
+    // console.log(Html)
     return (
         // <WebView source={{ uri: 'https://reactnative.dev/' }} />
         <WebView
