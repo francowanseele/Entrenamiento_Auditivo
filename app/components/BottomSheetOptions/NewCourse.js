@@ -197,7 +197,7 @@ export default function NewCourse(props) {
                 },
             }}
         >
-            <View>
+            <View style={{marginBottom: 35}}>
                 {bootomSheetType == 'createCourse' ? (
                     <View style={styles.containerConfirmation}>
                         <ScrollView
@@ -274,7 +274,7 @@ export default function NewCourse(props) {
                                     buttonStyle={styles.containerButtonCancel}
                                     title="Cancelar"
                                     onPress={() =>
-                                        refRBSheet_NewCourse.current.close()
+                                        refRBSheet.current.close()
                                     }
                                 />
                             </View>

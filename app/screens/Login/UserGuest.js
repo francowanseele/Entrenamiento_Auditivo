@@ -9,11 +9,11 @@ import {
     TouchableOpacity,
     Image,
     KeyboardAvoidingView,
+    ScrollView
 } from 'react-native';
-import { Button, Icon } from 'react-native-elements';
+import { Button, Icon, Input } from 'react-native-elements';
 import SwitchSelector from 'react-native-switch-selector';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 
 import {
     BACKGROUNDHOME,
@@ -23,8 +23,7 @@ import {
 } from '../../styles/styleValues';
 import { setStorageUserLogged } from '../../../utils/asyncStorageManagement';
 import { addUserApi, getUsuarioApi } from '../../api/user';
-import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
-import { ScrollView } from 'react-native-gesture-handler';
+import { PRIMARY_COLOR, QUARTER_COLOR, SECONDARY_COLOR, TERTIARY_COLOR } from '../../../utils/colorPalette';
 import { addCourseApi } from '../../api/course';
 import Loading from '../../components/Loading';
 
@@ -230,70 +229,90 @@ export default function UserGuest(props) {
     if (loading) return <Loading isVisible={true} text="Cargando" />;
 
     return (
-        <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <View>
+            <KeyboardAvoidingView style={styles.container} behavior="padding">
             {/* <Button title="Entrar como docente" onPress={loginDoc} /> */}
             {registerStatus ? (
-                <>
+                <ScrollView>
                     <Image
                         source={require('../../../assets/ADA_logo.png')}
                         style={styles.imgLogoRegister}
                     />
+                    <View style={styles.contentFormGuest}>
+                        <SwitchSelector
+                            initial={0}
+                            onPress={(value) => setTypeUser(value)}
+                            textColor={'black'}
+                            selectedColor={'white'}
+                            buttonColor={SECONDARY_COLOR}
+                            borderColor={PRIMARY_COLOR}
+                            hasPadding
+                            options={[
+                                {
+                                    label: 'Estudiante',
+                                    value: 'estudiante',
+                                },
+                                {
+                                    label: 'Docente',
+                                    value: 'docente',
+                                },
+                                {
+                                    label: 'Ambos',
+                                    value: 'ambos',
+                                },
+                            ]}
+                            testID="gender-switch-selector"
+                            accessibilityLabel="gender-switch-selector"
+                            style={{
+                                width: '100%',
+                                marginBottom: 10,
+                            }}
+                        />
 
-                    <SwitchSelector
-                        initial={0}
-                        onPress={(value) => setTypeUser(value)}
-                        textColor={'black'}
-                        selectedColor={'white'}
-                        buttonColor={SECONDARY_COLOR}
-                        borderColor={PRIMARY_COLOR}
-                        hasPadding
-                        options={[
-                            {
-                                label: 'Estudiante',
-                                value: 'estudiante',
-                            },
-                            {
-                                label: 'Docente',
-                                value: 'docente',
-                            },
-                            {
-                                label: 'Ambos',
-                                value: 'ambos',
-                            },
-                        ]}
-                        testID="gender-switch-selector"
-                        accessibilityLabel="gender-switch-selector"
-                        style={{
-                            width: '100%',
-                            marginBottom: 10,
-                        }}
-                    />
+                        <Input
+                            // style={styles.inputStyle}
+                            placeholder="Nombre"
+                            value={nameUser}
+                            onChangeText={(val) =>
+                                updateInputVal(val, 'nameUser')
+                            }
+                        />
+                        <Input
+                            // style={styles.inputStyle}
+                            placeholder="Apellido"
+                            value={lastNameUser}
+                            onChangeText={(val) =>
+                                updateInputVal(val, 'lastNameUser')
+                            }
+                        />
 
-                    <TextInput
-                        style={styles.inputStyle}
-                        placeholder="Nombre"
-                        value={nameUser}
-                        onChangeText={(val) => updateInputVal(val, 'nameUser')}
-                    />
-                    <TextInput
-                        style={styles.inputStyle}
-                        placeholder="Apellido"
-                        value={lastNameUser}
-                        onChangeText={(val) =>
-                            updateInputVal(val, 'lastNameUser')
-                        }
-                    />
+                        <Input
+                            // style={styles.inputStyle}
+                            placeholder="Email"
+                            value={Email}
+                            onChangeText={(val) => updateInputVal(val, 'Email')}
+                        />
 
-                    <TextInput
-                        style={styles.inputStyle}
-                        placeholder="Correo"
-                        value={Email}
-                        onChangeText={(val) => updateInputVal(val, 'Email')}
-                    />
-                    <View style={styles.inputStyle}>
-                        <TextInput
-                            style={styles.inputPass}
+                        <Input
                             placeholder="Contraseña"
+                            rightIcon={
+                                <Icon
+                                    name={
+                                        isVisiblePass
+                                            ? 'eye-off'
+                                            : 'eye-outline'
+                                    }
+                                    type="material-community"
+                                    color={
+                                        isVisiblePass
+                                            ? QUARTER_COLOR
+                                            : PRIMARY_COLOR
+                                    }
+                                    onPress={() => {
+                                        setIsVisiblePass(!isVisiblePass);
+                                    }}
+                                />
+                            }
                             value={Password}
                             onChangeText={(val) =>
                                 updateInputVal(val, 'Password')
@@ -301,24 +320,26 @@ export default function UserGuest(props) {
                             maxLength={15}
                             secureTextEntry={isVisiblePass}
                         />
-                        <TouchableOpacity
-                            style={{ alignSelf: 'flex-end' }}
-                            onPress={() => {
-                                setIsVisiblePass(!isVisiblePass);
-                            }}
-                        >
-                            <Icon
-                                name="eye-off"
-                                type="material-community"
-                                color={TEXTHOME}
-                                size={24}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.inputStyle}>
-                        <TextInput
-                            style={styles.inputPass}
+                        <Input
                             placeholder="Repetir contraseña"
+                            rightIcon={
+                                <Icon
+                                    name={
+                                        isVisiblePass
+                                            ? 'eye-off'
+                                            : 'eye-outline'
+                                    }
+                                    type="material-community"
+                                    color={
+                                        isVisiblePass
+                                            ? QUARTER_COLOR
+                                            : PRIMARY_COLOR
+                                    }
+                                    onPress={() => {
+                                        setIsVisiblePass(!isVisiblePass);
+                                    }}
+                                />
+                            }
                             value={repeatPassword}
                             onChangeText={(val) =>
                                 updateInputVal(val, 'repeatPassword')
@@ -326,50 +347,53 @@ export default function UserGuest(props) {
                             maxLength={15}
                             secureTextEntry={isVisiblePass}
                         />
-                        <TouchableOpacity
-                            style={{ alignSelf: 'flex-end' }}
-                            onPress={() => {
-                                setIsVisiblePass(!isVisiblePass);
-                            }}
-                        >
-                            <Icon
-                                name="eye-off"
-                                type="material-community"
-                                color={TEXTHOME}
-                                size={24}
-                            />
-                        </TouchableOpacity>
+
+                        <Button
+                            title="Registrarse"
+                            buttonStyle={styles.btnLogIn}
+                            onPress={register}
+                        />
+
+                        <Button
+                            type="clear"
+                            title="Iniciar sesión"
+                            titleStyle={{ color: PRIMARY_COLOR }}
+                            onPress={changeRegisterLogin}
+                        />
                     </View>
-
-                    <Button
-                        title="Registrarse"
-                        buttonStyle={styles.btnLogIn}
-                        onPress={register}
-                    />
-
-                    <Button
-                        type="clear"
-                        title="Iniciar sesión"
-                        titleStyle={{ color: PRIMARY_COLOR }}
-                        onPress={changeRegisterLogin}
-                    />
-                </>
+                </ScrollView>
             ) : (
-                <>
+                <ScrollView>
                     <Image
                         source={require('../../../assets/ADA_logo.png')}
                         style={styles.imgLogo}
                     />
-                    <TextInput
-                        style={styles.inputStyle}
-                        placeholder="Correo"
-                        value={Email}
-                        onChangeText={(val) => updateInputVal(val, 'Email')}
-                    />
-                    <View style={styles.inputStyle}>
-                        <TextInput
-                            style={styles.inputPass}
+                    <View style={styles.contentFormGuest}>
+                        <Input
+                            placeholder="Email"
+                            value={Email}
+                            onChangeText={(val) => updateInputVal(val, 'Email')}
+                        />
+                        <Input
                             placeholder="Contraseña"
+                            rightIcon={
+                                <Icon
+                                    name={
+                                        isVisiblePass
+                                            ? 'eye-off'
+                                            : 'eye-outline'
+                                    }
+                                    type="material-community"
+                                    color={
+                                        isVisiblePass
+                                            ? QUARTER_COLOR
+                                            : PRIMARY_COLOR
+                                    }
+                                    onPress={() => {
+                                        setIsVisiblePass(!isVisiblePass);
+                                    }}
+                                />
+                            }
                             value={Password}
                             onChangeText={(val) =>
                                 updateInputVal(val, 'Password')
@@ -377,59 +401,49 @@ export default function UserGuest(props) {
                             maxLength={15}
                             secureTextEntry={isVisiblePass}
                         />
-                        <TouchableOpacity
-                            style={{ alignSelf: 'flex-end' }}
-                            onPress={() => {
-                                setIsVisiblePass(!isVisiblePass);
+
+                        <SwitchSelector
+                            initial={0}
+                            onPress={(value) => setStudent(value == 'e')}
+                            textColor={'black'}
+                            selectedColor={'white'}
+                            buttonColor={SECONDARY_COLOR}
+                            borderColor={PRIMARY_COLOR}
+                            hasPadding
+                            options={[
+                                {
+                                    label: 'Estudiante',
+                                    value: 'e',
+                                },
+                                {
+                                    label: 'Docente',
+                                    value: 'd',
+                                },
+                            ]}
+                            testID="gender-switch-selector"
+                            accessibilityLabel="gender-switch-selector"
+                            style={{
+                                width: '100%',
+                                marginBottom: 10,
                             }}
-                        >
-                            <Icon
-                                name="eye-off"
-                                type="material-community"
-                                color={TEXTHOME}
-                                size={24}
-                            />
-                        </TouchableOpacity>
+                        />
+                        <Button
+                            title="Iniciar sesión"
+                            buttonStyle={styles.btnLogIn}
+                            onPress={loginFunc}
+                        />
+                        <Button
+                            type="clear"
+                            title="Registrarse"
+                            titleStyle={{ color: PRIMARY_COLOR }}
+                            onPress={changeRegisterLogin}
+                            buttonStyle={{ marginBottom: 20 }}
+                        />
                     </View>
-                    <SwitchSelector
-                        initial={0}
-                        onPress={(value) => setStudent(value == 'e')}
-                        textColor={'black'}
-                        selectedColor={'white'}
-                        buttonColor={SECONDARY_COLOR}
-                        borderColor={PRIMARY_COLOR}
-                        hasPadding
-                        options={[
-                            {
-                                label: 'Estudiante',
-                                value: 'e',
-                            },
-                            {
-                                label: 'Docente',
-                                value: 'd',
-                            },
-                        ]}
-                        testID="gender-switch-selector"
-                        accessibilityLabel="gender-switch-selector"
-                        style={{
-                            width: '100%',
-                            marginBottom: 10,
-                        }}
-                    />
-                    <Button
-                        title="Iniciar sesión"
-                        buttonStyle={styles.btnLogIn}
-                        onPress={loginFunc}
-                    />
-                    <Button
-                        type="clear"
-                        title="Registrarse"
-                        titleStyle={{ color: PRIMARY_COLOR }}
-                        onPress={changeRegisterLogin}
-                    />
-                </>
+                </ScrollView>
             )}
-        </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
+        </View>
     );
 }
 
@@ -442,28 +456,29 @@ const styles = StyleSheet.create({
     },
     imgLogoRegister: {
         marginTop: 50,
-        width: '40%',
-        height: '20%',
+        // width: 350,
+        height: 170,
         resizeMode: 'contain',
         alignSelf: 'center',
         marginBottom: 30,
     },
     imgLogo: {
         marginTop: 50,
-        width: '60%',
-        height: '40%',
+        // width: 400,
+        height: 220,
         resizeMode: 'contain',
         alignSelf: 'center',
         marginBottom: 30,
     },
     btnLogIn: {
         backgroundColor: PRIMARY_COLOR,
+        marginTop: 30,
     },
     container: {
-        backgroundColor: BACKGROUNDHOME,
+        // backgroundColor: BACKGROUNDHOME,
         // flexDirection: 'column',
         // justifyContent: 'center',
-        paddingHorizontal: 20,
+        // paddingHorizontal: 20,
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width,
     },
@@ -512,4 +527,7 @@ const styles = StyleSheet.create({
     inputPass: {
         width: '92%',
     },
+    contentFormGuest: {
+        paddingHorizontal: 10,
+    }
 });
