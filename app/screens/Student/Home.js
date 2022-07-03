@@ -82,25 +82,26 @@ export default function Home() {
 
     useEffect(() => {
         setLoading(true);
-        getAllCourse().then((result) => {
-            if (result.ok) {
-                var publicCourses = [];
-                result.cursos.forEach((curso) => {
-                    if (curso.Personal == false) {
-                        publicCourses.push({
-                            id: curso.id,
-                            Descripcion: curso.Descripcion,
-                            Nombre: curso.Nombre,
-                            Personal: curso.Personal,
-                        });
-                    }
-                });
-
-                setAllCourses(publicCourses);
-            }
-        });
 
         getStorageItem(ID_CURRENT_CURSE).then((idCurrentCurseResult) => {
+            getAllCourse(idCurrentCurseResult).then((result) => {
+                if (result.ok) {
+                    var publicCourses = [];
+                    result.cursos.forEach((curso) => {
+                        if (curso.Personal == false) {
+                            publicCourses.push({
+                                id: curso.id,
+                                Descripcion: curso.Descripcion,
+                                Nombre: curso.Nombre,
+                                Personal: curso.Personal,
+                            });
+                        }
+                    });
+    
+                    setAllCourses(publicCourses);
+                }
+            });
+
             if (idCurrentCurseResult) {
                 setCursoSeleccionado(idCurrentCurseResult);
 

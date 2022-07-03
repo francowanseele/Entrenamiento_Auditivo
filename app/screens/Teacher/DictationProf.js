@@ -147,25 +147,26 @@ export default function DictationProf() {
 
     useEffect(() => {
         setLoading(true);
-        getAllCourse().then((result) => {
-            if (result.ok) {
-                var publicCourses = [];
-                result.cursos.forEach((curso) => {
-                    if (curso.Personal == false) {
-                        publicCourses.push({
-                            id: curso.id,
-                            Descripcion: curso.Descripcion,
-                            Nombre: curso.Nombre,
-                            Personal: curso.Personal,
-                        });
-                    }
-                });
-
-                setAllCourses(publicCourses);
-            }
-        });
 
         getStorageItem(ID_USER).then((userId) => {
+            getAllCourse(userId).then((result) => {
+                if (result.ok) {
+                    var publicCourses = [];
+                    result.cursos.forEach((curso) => {
+                        if (curso.Personal == false) {
+                            publicCourses.push({
+                                id: curso.id,
+                                Descripcion: curso.Descripcion,
+                                Nombre: curso.Nombre,
+                                Personal: curso.Personal,
+                            });
+                        }
+                    });
+    
+                    setAllCourses(publicCourses);
+                }
+            });
+
             getCursoPersonal(userId).then((res) => {
                 if(res.ok) {
                     setPersonalCourseData({
@@ -236,22 +237,24 @@ export default function DictationProf() {
 
     useEffect(() => {
         setLoading(true);
-        getAllCourse().then((result) => {
-            if (result.ok) {
-                var publicCourses = [];
-                result.cursos.forEach((curso) => {
-                    if (curso.Personal == false) {
-                        publicCourses.push({
-                            id: curso.id,
-                            Descripcion: curso.Descripcion,
-                            Nombre: curso.Nombre,
-                            Personal: curso.Personal,
-                        });
-                    }
-                });
+        getStorageItem(ID_USER).then((userId) => {
+            getAllCourse(userId).then((result) => {
+                if (result.ok) {
+                    var publicCourses = [];
+                    result.cursos.forEach((curso) => {
+                        if (curso.Personal == false) {
+                            publicCourses.push({
+                                id: curso.id,
+                                Descripcion: curso.Descripcion,
+                                Nombre: curso.Nombre,
+                                Personal: curso.Personal,
+                            });
+                        }
+                    });
 
-                setAllCourses(publicCourses);
-            }
+                    setAllCourses(publicCourses);
+                }
+            });
         });
         setLoading(false);
     }, [updateAllCourses]);
