@@ -14,31 +14,31 @@ export default function CalificationCourses() {
     const [calificaciones, setCalificaciones] = useState([]);
     const navigation = useNavigation();
 
-    useEffect(() => {
-        getStorageItem(ID_USER).then((idUser) => {
-            if (idUser) {
-                getClasificaciones(idUser).then((response) => {
-                    if (response.ok) {
-                        let newArray = [];
-                        for (let current in response.calificaciones) {
-                            newArray.push({
-                                id: current,
-                                calificaciones:
-                                    response.calificaciones[current],
-                            });
-                        }
-                        setCalificaciones(newArray);
-                        setLoading(false);
-                    } else {
-                        setCalificaciones([]);
-                        // setLoading(false)
-                    }
-                });
-            }
-        });
+    // useEffect(() => {
+    //     getStorageItem(ID_USER).then((idUser) => {
+    //         if (idUser) {
+    //             getClasificaciones(idUser).then((response) => {
+    //                 if (response.ok) {
+    //                     let newArray = [];
+    //                     for (let current in response.calificaciones) {
+    //                         newArray.push({
+    //                             id: current,
+    //                             calificaciones:
+    //                                 response.calificaciones[current],
+    //                         });
+    //                     }
+    //                     setCalificaciones(newArray);
+    //                     setLoading(false);
+    //                 } else {
+    //                     setCalificaciones([]);
+    //                     // setLoading(false)
+    //                 }
+    //             });
+    //         }
+    //     });
 
-        setLoading(false);
-    }, []);
+    //     setLoading(false);
+    // }, []);
 
     const calificationIn = (idCourse) => {
         navigation.navigate('Calification', {
@@ -57,28 +57,33 @@ export default function CalificationCourses() {
         } else return styles.notaRed;
     };
 
-    if (loading) return <Loading isVisible={true} text="Cargando" />;
+    // if (loading) return <Loading isVisible={true} text="Cargando" />;
 
     return (
-        <ScrollView style={styles.container}>
-            {/* {console.log(calificaciones)} */}
-        {calificaciones.map((j,i) =>(
-                <ListItem key={i} 
-                onPress={() => {
-                    calificationIn(j.id);
-                }}
-                bottomDivider 
-                style={{flex:1}}>
-                             <ListItem.Content style={styles.container}>
-                               <ListItem.Title style={styles.title} >{j.calificaciones.nombre_curso}</ListItem.Title>
-                               <ListItem.Subtitle style={styles.calificacionesLine} >Promedio :
-                               <Text style={getStyleByState(j.calificaciones.promedio)}> {j.calificaciones.promedio.toFixed(1)}
-                               </Text></ListItem.Subtitle>
-                             </ListItem.Content>
-                 </ListItem>
-            ) 
-        )}
-        </ScrollView>
+        <View>
+            <Text>
+                Se está trabajando en esta pantalla.. disculpe las molestias :)
+            </Text>
+        </View>
+        // <ScrollView style={styles.container}>
+        //     {/* {console.log(calificaciones)} */}
+        // {calificaciones.map((j,i) =>(
+        //         <ListItem key={i}
+        //         onPress={() => {
+        //             calificationIn(j.id);
+        //         }}
+        //         bottomDivider
+        //         style={{flex:1}}>
+        //                      <ListItem.Content style={styles.container}>
+        //                        <ListItem.Title style={styles.title} >{j.calificaciones.nombre_curso}</ListItem.Title>
+        //                        <ListItem.Subtitle style={styles.calificacionesLine} >Promedio :
+        //                        <Text style={getStyleByState(j.calificaciones.promedio)}> {j.calificaciones.promedio.toFixed(1)}
+        //                        </Text></ListItem.Subtitle>
+        //                      </ListItem.Content>
+        //          </ListItem>
+        //     )
+        // )}
+        // </ScrollView>
     );
 }
 const styles = StyleSheet.create({

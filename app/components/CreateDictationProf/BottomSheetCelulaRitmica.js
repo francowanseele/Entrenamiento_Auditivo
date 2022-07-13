@@ -9,6 +9,7 @@ import {
     CheckBox,
 } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { getStorageIsAdmin } from '../../../utils/asyncStorageManagement';
 import {
     BACKGROUND_COLOR_RIGHT,
     BACKGROUND_COLOR_WRONG,
@@ -25,7 +26,7 @@ import { getCelulaRitmicaApi,eliminarCelulaRitmicaApi } from '../../api/celula_r
 
 export const getImagenFromB64String = (imagen)=>{
     return (
-        <Image style={{marginLeft:15, width:90,height:50}} source={{uri: `data:image/gif;base64,${imagen}`}} />
+        <Image style={{marginLeft:15, width:50,height:50, resizeMode: 'contain'}} source={{uri: `data:image/gif;base64,${imagen}`}} />
     )
 }
 
@@ -41,6 +42,7 @@ export default function BottomSheetCelulaRitmica(props) {
     const [renderSlider, setRenderSlider] = useState(false);
 
     const [listAllCR, setListAllCR] = useState([]);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const confirmation = () => {
         var resCR = [];
@@ -100,6 +102,7 @@ export default function BottomSheetCelulaRitmica(props) {
                     celula_ritmica: crReg.celula_ritmica,
                     simple: crReg.simple,
                     prioridad: crReg.prioridad,
+                    imagen: crReg.imagen
                 });
             }
         });
@@ -146,6 +149,10 @@ export default function BottomSheetCelulaRitmica(props) {
                 },
             ]);
         }
+
+        const isAdminFromStorage = await getStorageIsAdmin();
+
+        await setIsAdmin(isAdminFromStorage);
 
         setRenderSlider(true);
     };
@@ -322,67 +329,84 @@ export default function BottomSheetCelulaRitmica(props) {
                                     <View>
                                         {add ? (
                                             <>
-                                            <View style={{flexDirection:'row'}}>
-                                            {getImagenFromB64String(cr.imagen)}
-                                            <Button
-                                                    icon={
+                                                <View
+                                                    style={{
+                                                        flexDirection: 'row',
+                                                    }}
+                                                >
+                                                    {/* {getImagenFromB64String(cr.imagen)} */}
+                                                    {isAdmin ? (
+                                                        <Button
+                                                            icon={
+                                                                <Icon
+                                                                    name="delete-circle-outline"
+                                                                    type="material-community"
+                                                                    color={
+                                                                        TEXT_COLOR_WRONG
+                                                                    }
+                                                                />
+                                                            }
+                                                            titleStyle={
+                                                                styles.buttonDeleteTitle
+                                                            }
+                                                            title="Eliminar Permanente"
+                                                            containerStyle={
+                                                                styles.buttonDeleteContainer
+                                                            }
+                                                            buttonStyle={
+                                                                styles.buttonDelete
+                                                            }
+                                                            type="clear"
+                                                            onPress={() =>
+                                                                deleteCelulaRitmicaFromDb(
+                                                                    cr.id
+                                                                )
+                                                            }
+                                                        />
+                                                    ) : (
+                                                        <></>
+                                                    )}
+                                                </View>
+                                                <CheckBox
+                                                    // checkedIcon="dot-circle-o"
+                                                    // uncheckedIcon="circle-o"
+                                                    title={getImagenFromB64String(
+                                                        cr.imagen
+                                                    )}
+                                                    checked={cr.checked}
+                                                    containerStyle={
+                                                        styles.containerCheckbox
+                                                    }
+                                                    textStyle={
+                                                        styles.textCheckbox
+                                                    }
+                                                    iconRight
+                                                    onPress={() =>
+                                                        checkedCelulaRitmica(cr)
+                                                    }
+                                                    checkedIcon={
                                                         <Icon
-                                                            name="delete-circle-outline"
+                                                            name="check-circle"
                                                             type="material-community"
                                                             color={
-                                                                TEXT_COLOR_WRONG
+                                                                TEXT_COLOR_RIGHT
+                                                            }
+                                                            containerStyle={
+                                                                styles.containerCheckChecked
                                                             }
                                                         />
                                                     }
-                                                    titleStyle={
-                                                        styles.buttonDeleteTitle
-                                                    }
-                                                    title="Eliminar"
-                                                    containerStyle={
-                                                        styles.buttonDeleteContainer
-                                                    }
-                                                    buttonStyle={
-                                                        styles.buttonDelete
-                                                    }
-                                                    type="clear"
-                                                    onPress={() =>
-                                                        deleteCelulaRitmicaFromDb(cr.id)
+                                                    uncheckedIcon={
+                                                        <Icon
+                                                            name="check-circle"
+                                                            type="material-community"
+                                                            color={'grey'}
+                                                            containerStyle={
+                                                                styles.containerCheckUnchecked
+                                                            }
+                                                        />
                                                     }
                                                 />
-                                            </View>
-                                            <CheckBox
-                                                // checkedIcon="dot-circle-o"
-                                                // uncheckedIcon="circle-o"
-                                                checked={cr.checked}
-                                                containerStyle={
-                                                    styles.containerCheckbox
-                                                }
-                                                textStyle={styles.textCheckbox}
-                                                iconRight
-                                                onPress={() =>
-                                                    checkedCelulaRitmica(cr)
-                                                }
-                                                // checkedIcon={
-                                                //     <Icon
-                                                //         name="check-circle"
-                                                //         type="material-community"
-                                                //         color={TEXT_COLOR_RIGHT}
-                                                //         containerStyle={
-                                                //             styles.containerCheckChecked
-                                                //         }
-                                                //     />
-                                                // }
-                                                // uncheckedIcon={
-                                                //     <Icon
-                                                //         name="check-circle"
-                                                //         type="material-community"
-                                                //         color={'grey'}
-                                                //         containerStyle={
-                                                //             styles.containerCheckUnchecked
-                                                //         }
-                                                //     />
-                                                // }
-                                            />
                                             </>
                                         ) : (
                                             // <CheckBox
@@ -405,7 +429,6 @@ export default function BottomSheetCelulaRitmica(props) {
                                                     marginTop: 10,
                                                 }}
                                             >
-                                                
                                                 <Text
                                                     style={{
                                                         fontSize: 18,
@@ -509,7 +532,9 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
     },
     buttonDeleteContainer: {
-        width: '30%',
+        width: '100%',
+        alignItems: 'flex-start',
+        marginLeft: 10
     },
     buttonDeleteTitle: {
         color: TEXT_COLOR_WRONG,

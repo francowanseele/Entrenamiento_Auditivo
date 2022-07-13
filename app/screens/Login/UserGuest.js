@@ -53,7 +53,6 @@ export default function UserGuest(props) {
             setLoading(true);
 
             getUsuarioApi(data).then(async (res) => {
-                console.log(res);
                 if (res.ok) {
                     if (res.esDocente) {
                         await setStorageUserLogged(
@@ -62,6 +61,7 @@ export default function UserGuest(props) {
                             res.id_user,
                             res.personal_course,
                             res.personal_course,
+                            res.Rol
                         );
                         setIsStudent(false);
                         setLogin(true);
@@ -71,7 +71,8 @@ export default function UserGuest(props) {
                             '1',
                             res.id_user,
                             res.personal_course,
-                            res.personal_course
+                            res.personal_course,
+                            res.Rol
                         );
                         setIsStudent(true);
                         setLogin(true);
@@ -178,6 +179,7 @@ export default function UserGuest(props) {
                                 userEstudentResult.user.id,
                                 addCourseResponse.course.id,
                                 addCourseResponse.course.id,
+                                userEstudentResult.user.Rol
                             );
 
                             setIsStudent(true);
@@ -204,7 +206,8 @@ export default function UserGuest(props) {
                                 '0',
                                 userDocResult.user.id,
                                 addCourseResponse.course.id,
-                                addCourseResponse.course.id
+                                addCourseResponse.course.id,
+                                userDocResult.user.Rol
                             );
 
                             setIsStudent(false);

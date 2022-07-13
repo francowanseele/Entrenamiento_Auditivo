@@ -10,6 +10,7 @@ import {
 } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import SwitchSelector from 'react-native-switch-selector';
+import { getStorageIsAdmin } from '../../../utils/asyncStorageManagement';
 
 import {
     BACKGROUND_COLOR_RIGHT,
@@ -42,6 +43,7 @@ export default function BottomSheetGiroMelodico(props) {
     const [title, setTitle] = useState('Nuevo giro melódico');
     const [writeGiroMelodico, setWriteGiroMelodico] = useState(true);
     const [girosMelodicosDB, setGirosMelodicosDB] = useState([]);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const confirmation = () => {
         const newGiro = {
@@ -143,6 +145,11 @@ export default function BottomSheetGiroMelodico(props) {
 
             setGirosMelodicosDB(girosMelodicosDBTemp);
         }
+
+        const isAdminFromStorage = await getStorageIsAdmin();
+
+        await setIsAdmin(isAdminFromStorage);
+
         setRenderSlider(true);
     };
 
@@ -328,17 +335,20 @@ export default function BottomSheetGiroMelodico(props) {
 
     function ButtonEliminarSave() {
         if (add) {
-            // TODO: Preguntar si el usuario tiene permisos para guardar giros melódicos
-            return (
-                <Button
-                    titleStyle={styles.buttonSaveAndAddTitle}
-                    title="Agregar y guardar"
-                    containerStyle={styles.buttonDeleteContainer}
-                    buttonStyle={styles.buttonDelete}
-                    type="clear"
-                    onPress={saveGiroMelodico}
-                />
-            );
+            if (isAdmin) {
+                return (
+                    <Button
+                        titleStyle={styles.buttonSaveAndAddTitle}
+                        title="Agregar y guardar"
+                        containerStyle={styles.buttonDeleteContainer}
+                        buttonStyle={styles.buttonDelete}
+                        type="clear"
+                        onPress={saveGiroMelodico}
+                    />
+                );
+            } else {
+                return (<></>)
+            }
         } else {
             return (
                 <Button

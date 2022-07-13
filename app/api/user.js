@@ -133,6 +133,7 @@ export const getUsuarioApi = (data) => {
                         email: result.email,
                         password: result.password,
                         esDocente: result.esDocente,
+                        Rol: result.Rol,
                         id_user: result.id_user.toString(),
                         personal_course: result.personal_course.toString(),
                     };

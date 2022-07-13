@@ -5,3 +5,6 @@
 
 export const basePath = 'http://localhost:3977/api';
 // export const basePath = 'https://aplicaciondictadosarmonicos.herokuapp.com/api';
+
+// DEV
+// export const basePath = 'http://179.27.96.112:3977/api';

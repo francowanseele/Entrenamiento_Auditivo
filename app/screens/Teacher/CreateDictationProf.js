@@ -607,7 +607,7 @@ export default function CreateDictationProf({ route }) {
                             width: '80%',
                         }}
                     />
-                    <Button
+                    {/* <Button
                         icon={
                             <Icon
                                 type="material-community"
@@ -617,7 +617,7 @@ export default function CreateDictationProf({ route }) {
                         }
                         containerStyle={styles.containerButtonSearch}
                         buttonStyle={styles.buttonSearch}
-                    />
+                    /> */}
                 </View>
 
                 <NavigationConfig

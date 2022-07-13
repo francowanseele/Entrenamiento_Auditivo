@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
 import {
     ListItem,
@@ -12,11 +12,12 @@ import SelectPicker from 'react-native-form-select-picker';
 
 import ListEmpty from './ListEmpty';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
+import { getStorageIsAdmin } from '../../../utils/asyncStorageManagement';
 // import getImagenFromB64String from '../CreateDictationProf/BottomSheetCelulaRitmica'
 
  const getImagenFromB64String = (imagen)=>{
     return (
-        <Image style={{marginLeft:15, width:90,height:50}} source={{uri: `data:image/gif;base64,${imagen}`}} />
+        <Image style={{width:50,height:50, resizeMode: 'contain'}} source={{uri: `data:image/gif;base64,${imagen}`}} />
     )
 }
 
@@ -55,6 +56,15 @@ export default function ConfigRhythmic(props) {
         'cd',
         'sdf',
     ];
+
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        getStorageIsAdmin().then((admin) => {
+            setIsAdmin(admin);
+        });
+    }, []);
+    
 
     const openSetNroCompas = () => {
         refRBSheet_Picker.current.open();
@@ -284,20 +294,25 @@ export default function ConfigRhythmic(props) {
                         addCelulaRitmica();
                     }}
                 />
-                <Button
-                    icon={
-                        <Icon
-                            type="material-community"
-                            name="pencil-outline"
-                            color="white"
-                        />
-                    }
-                    containerStyle={styles.buttonRight}
-                    buttonStyle={styles.buttonAdd}
-                    onPress={() => {
-                        createCelulaRitmica();
-                    }}
-                />
+                {isAdmin ? (
+                    <Button
+                        icon={
+                            <Icon
+                                type="material-community"
+                                name="pencil-outline"
+                                color="white"
+                            />
+                        }
+                        containerStyle={styles.buttonRight}
+                        buttonStyle={styles.buttonAdd}
+                        onPress={() => {
+                            createCelulaRitmica();
+                        }}
+                    />
+                ) : (
+                    <></>
+                )}
+                
             </View>
             {cantCelulaRitmica(celula_ritmica_regla, simple) == 0 && (
                 <ListEmpty text={'Agregue Células Rítmicas presionando "+"'} />

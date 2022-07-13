@@ -32,57 +32,57 @@ export default function CalificationProf() {
         }
     };
 
-    useEffect(() => {
-        getStorageItem(ID_USER).then((idUser) => {
-            if (idUser) {
-                getTeacherCourses(idUser).then((result1) => {
-                    let cursos = result1.cursos;
-                    if (cursos.length > 0) {
-                        let newPromCurso;
-                        for (let i in cursos) {
-                            getStudentsByIdCourse(cursos[i].curso).then(
-                                (result2) => {
-                                    // curso actual
-                                    let currentStudents = result2.estudiantes;
-                                    for (let j in currentStudents) {
-                                        getClasificaciones(
-                                            currentStudents[j].id
-                                        ).then((result3) => {
-                                            for (let calif in result3.calificaciones) {
-                                                if (calif == cursos[i].curso) {
-                                                    newPromCurso = {
-                                                        cants: 1,
-                                                        idCurso:
-                                                            cursos[i].curso,
-                                                        nombre_curso:
-                                                            result3
-                                                                .calificaciones[
-                                                                calif
-                                                            ].nombre_curso,
-                                                        promedio:
-                                                            result3
-                                                                .calificaciones[
-                                                                calif
-                                                            ].promedio,
-                                                    };
-                                                    pushUpdateCalificaciones(
-                                                        newPromCurso
-                                                    );
-                                                }
-                                            }
-                                            setLoading(false);
-                                        });
-                                    }
-                                }
-                            );
-                        }
-                    } else {
-                        setLoading(false);
-                    }
-                });
-            }
-        });
-    }, [userCalificaciones]);
+    // useEffect(() => {
+    //     getStorageItem(ID_USER).then((idUser) => {
+    //         if (idUser) {
+    //             getTeacherCourses(idUser).then((result1) => {
+    //                 let cursos = result1.cursos;
+    //                 if (cursos.length > 0) {
+    //                     let newPromCurso;
+    //                     for (let i in cursos) {
+    //                         getStudentsByIdCourse(cursos[i].curso).then(
+    //                             (result2) => {
+    //                                 // curso actual
+    //                                 let currentStudents = result2.estudiantes;
+    //                                 for (let j in currentStudents) {
+    //                                     getClasificaciones(
+    //                                         currentStudents[j].id
+    //                                     ).then((result3) => {
+    //                                         for (let calif in result3.calificaciones) {
+    //                                             if (calif == cursos[i].curso) {
+    //                                                 newPromCurso = {
+    //                                                     cants: 1,
+    //                                                     idCurso:
+    //                                                         cursos[i].curso,
+    //                                                     nombre_curso:
+    //                                                         result3
+    //                                                             .calificaciones[
+    //                                                             calif
+    //                                                         ].nombre_curso,
+    //                                                     promedio:
+    //                                                         result3
+    //                                                             .calificaciones[
+    //                                                             calif
+    //                                                         ].promedio,
+    //                                                 };
+    //                                                 pushUpdateCalificaciones(
+    //                                                     newPromCurso
+    //                                                 );
+    //                                             }
+    //                                         }
+    //                                         setLoading(false);
+    //                                     });
+    //                                 }
+    //                             }
+    //                         );
+    //                     }
+    //                 } else {
+    //                     setLoading(false);
+    //                 }
+    //             });
+    //         }
+    //     });
+    // }, [userCalificaciones]);
 
     const getStyleByState = (nota) => {
         if (nota) {
@@ -96,45 +96,50 @@ export default function CalificationProf() {
         } else return styles.notaRed;
     };
 
-    if (loading) return <Loading isVisible={true} text="Cargando" />;
+    // if (loading) return <Loading isVisible={true} text="Cargando" />;
 
     return (
-        <ScrollView style={styles.container}>
-            {console.log(userCalificaciones)}
-            {userCalificaciones.length > 0 ? (
-                userCalificaciones.map(
-                    (j, i) => (
-                        // Object.keys(j).length > 0 ? (
-                        <ListItem key={i} bottomDivider style={{ flex: 1 }}>
-                            <ListItem.Content
-                                // key={userCalificaciones.length + i + 1}
-                                style={styles.container}
-                            >
-                                <Text style={styles.title}>
-                                    {j.nombre_curso}
-                                </Text>
-                                <Text
-                                    style={getStyleByState(
-                                        j.promedio / j.cants
-                                    )}
-                                >
-                                    {(j.promedio / j.cants).toFixed(2)}
-                                </Text>
-                            </ListItem.Content>
-                        </ListItem>
-                    )
-                    // ) : (
-                    //     <>
-                    //         <Text key={i}>
-                    //             No tiene calificaciones para mostrar..
-                    //         </Text>
-                    //     </>
-                    // )
-                )
-            ) : (
-                <Text>No tiene calificaciones para mostrar</Text>
-            )}
-        </ScrollView>
+        <View>
+            <Text>
+                Se está trabajando en esta pantalla.. disculpe las molestias :)
+            </Text>
+        </View>
+        // <ScrollView style={styles.container}>
+        //     {console.log(userCalificaciones)}
+        //     {userCalificaciones.length > 0 ? (
+        //         userCalificaciones.map(
+        //             (j, i) => (
+        //                 // Object.keys(j).length > 0 ? (
+        //                 <ListItem key={i} bottomDivider style={{ flex: 1 }}>
+        //                     <ListItem.Content
+        //                         // key={userCalificaciones.length + i + 1}
+        //                         style={styles.container}
+        //                     >
+        //                         <Text style={styles.title}>
+        //                             {j.nombre_curso}
+        //                         </Text>
+        //                         <Text
+        //                             style={getStyleByState(
+        //                                 j.promedio / j.cants
+        //                             )}
+        //                         >
+        //                             {(j.promedio / j.cants).toFixed(2)}
+        //                         </Text>
+        //                     </ListItem.Content>
+        //                 </ListItem>
+        //             )
+        //             // ) : (
+        //             //     <>
+        //             //         <Text key={i}>
+        //             //             No tiene calificaciones para mostrar..
+        //             //         </Text>
+        //             //     </>
+        //             // )
+        //         )
+        //     ) : (
+        //         <Text>No tiene calificaciones para mostrar</Text>
+        //     )}
+        // </ScrollView>
     );
 }
 const styles = StyleSheet.create({
