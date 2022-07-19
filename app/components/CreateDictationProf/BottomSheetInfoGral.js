@@ -7,7 +7,7 @@ import OverlayPicker from './OverlayPicker';
 import OverlayFormModule from './OverlayFormModule';
 import { getCourseInstituteApi, getInstituteApi } from '../../api/institute';
 import Loading from '../Loading';
-import { getCursoPersonal, getModulesApi } from '../../api/course';
+import { getCursoPersonal, getModulesApi, getTeacherCourses } from '../../api/course';
 import { PRIMARY_COLOR } from '../../../utils/colorPalette';
 import {
     getStorageIsStudent,
@@ -53,17 +53,17 @@ export default function BottomSheetInfoGral(props) {
 
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        setCourse({ id: null, name: '' });
-        setModule({ id: null, name: '' });
-    }, [institute]);
+    // useEffect(() => {
+    //     setCourse({ id: null, name: '' });
+    //     setModule({ id: null, name: '' });
+    // }, [institute]);
 
     useEffect(() => {
         setModule({ id: null, name: '' });
     }, [course]);
 
     const initialStateOpen = async () => {
-        setInstitute(instituteGral);
+        // setInstitute(instituteGral);
         setCourse(courseGral);
         setModule(moduleGral);
         setNameConfig(nameConfigGral);
@@ -73,7 +73,7 @@ export default function BottomSheetInfoGral(props) {
         setIsStudent(isStudentResponse);
 
         if (isStudentResponse) {
-            setInstitute({ id: '1', name: 'UTEC' });
+            // setInstitute({ id: '1', name: 'UTEC' });
 
             const idUser = await getStorageItem(ID_USER);
             const courseResult = await getCursoPersonal(idUser);
@@ -84,34 +84,45 @@ export default function BottomSheetInfoGral(props) {
         }
     };
 
-    const editInstitute = async () => {
-        setLoading(true);
+    // const editInstitute = async () => {
+    //     setLoading(true);
 
-        // Get institutes
-        const institutesResult = await getInstituteApi();
-        if (institutesResult.ok) {
-            var resInstitutes = [];
-            institutesResult.institutes.forEach((iRes) => {
-                resInstitutes.push({ id: iRes.id, name: iRes.Nombre });
-            });
-            await setInstitutes(resInstitutes);
-        }
-        await setMsjErrorOverlay('');
-        setTitleOverlay('Seleccionar Instituto');
-        await setVisibleInstitute(!visibleInstitute);
+    //     // Get institutes
+    //     const institutesResult = await getInstituteApi();
+    //     if (institutesResult.ok) {
+    //         var resInstitutes = [];
+    //         institutesResult.institutes.forEach((iRes) => {
+    //             resInstitutes.push({ id: iRes.id, name: iRes.Nombre });
+    //         });
+    //         await setInstitutes(resInstitutes);
+    //     }
+    //     await setMsjErrorOverlay('');
+    //     setTitleOverlay('Seleccionar Instituto');
+    //     await setVisibleInstitute(!visibleInstitute);
 
-        setLoading(false);
-    };
+    //     setLoading(false);
+    // };
 
     const editCourse = async () => {
         setLoading(true);
+        var idUser = await getStorageItem(ID_USER);
 
-        // Get courses
-        if (institute.id) {
-            const coursesResult = await getCourseInstituteApi(institute.id);
-            if (coursesResult.ok) {
+        Promise.all([getCursoPersonal(idUser), getTeacherCourses(idUser)]).then(async (values) => {
+            const personalCourseResult = values[0];
+            const coursesResult = values[1];
+
+            if (
+                personalCourseResult &&
+                personalCourseResult.ok &&
+                coursesResult &&
+                coursesResult.ok
+            ) {
                 var resCourses = [];
-                coursesResult.courses.forEach((cRes) => {
+                resCourses.push({
+                    id: personalCourseResult.curso_objeto.id,
+                    name: personalCourseResult.curso_objeto.Nombre,
+                });
+                coursesResult.cursos.forEach((cRes) => {
                     resCourses.push({ id: cRes.id, name: cRes.Nombre });
                 });
                 setCourses(resCourses);
@@ -120,15 +131,40 @@ export default function BottomSheetInfoGral(props) {
                     await setMsjErrorOverlay('');
                 } else {
                     await setMsjErrorOverlay(
-                        'No existen cursos para el instituto seleccionado (Vea el instituto que seleccionó).'
+                        'No existen cursos a los que esté inscripto.'
                     );
                 }
             }
-        } else {
+          }).catch(async err => {
             await setMsjErrorOverlay(
-                'No existen cursos para el instituto seleccionado (Vea el instituto que seleccionó).'
+                'No existen cursos a los que esté inscripto.'
             );
-        }
+          });
+
+        // Get courses
+        // if (institute.id) {
+            // const coursesResult = await getTeacherCourses(await getStorageItem(ID_USER));
+            // // const coursesResult = await getCourseInstituteApi(institute.id);
+            // if (coursesResult.ok) {
+            //     var resCourses = [];
+            //     coursesResult.cursos.forEach((cRes) => {
+            //         resCourses.push({ id: cRes.id, name: cRes.Nombre });
+            //     });
+            //     setCourses(resCourses);
+
+            //     if (resCourses.length > 0) {
+            //         await setMsjErrorOverlay('');
+            //     } else {
+            //         await setMsjErrorOverlay(
+            //             'No existen cursos para el instituto seleccionado (Vea el instituto que seleccionó).'
+            //         );
+            //     }
+            // }
+        // } else {
+        //     await setMsjErrorOverlay(
+        //         'No existen cursos para el instituto seleccionado (Vea el instituto que seleccionó).'
+        //     );
+        // }
 
         setTitleOverlay('Seleccionar Curso');
         await setVisibleCourse(!visibleCourse);
@@ -180,7 +216,7 @@ export default function BottomSheetInfoGral(props) {
     };
 
     const confirmation = () => {
-        setInstituteGral(institute);
+        // setInstituteGral(institute);
         setCourseGral(course);
         setModuleGral(module);
         setNameConfigGral(nameConfig);
@@ -209,7 +245,8 @@ export default function BottomSheetInfoGral(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    borderRadius: 15,
+                    borderTopRightRadius: 15,
+                    borderTopLeftRadius: 15,
                 },
             }}
         >
@@ -249,7 +286,7 @@ export default function BottomSheetInfoGral(props) {
                             />
                         </View>
 
-                        <ListItem key={0} bottomDivider>
+                        {/* <ListItem key={0} bottomDivider>
                             <ListItem.Content style={styles.content}>
                                 <View style={styles.contentListLeft}>
                                     <ListItem.Title>Instituto</ListItem.Title>
@@ -272,9 +309,9 @@ export default function BottomSheetInfoGral(props) {
                                     )}
                                 </View>
                             </ListItem.Content>
-                        </ListItem>
+                        </ListItem> */}
 
-                        <ListItem key={1} bottomDivider>
+                        <ListItem key={0} bottomDivider>
                             <ListItem.Content style={styles.content}>
                                 <View style={styles.contentListLeft}>
                                     <ListItem.Title>Courso</ListItem.Title>
@@ -299,7 +336,7 @@ export default function BottomSheetInfoGral(props) {
                             </ListItem.Content>
                         </ListItem>
 
-                        <ListItem key={2} bottomDivider>
+                        <ListItem key={1} bottomDivider>
                             <ListItem.Content style={styles.content}>
                                 <View style={styles.contentListLeftTwo}>
                                     <ListItem.Title>Módulo</ListItem.Title>
@@ -329,14 +366,14 @@ export default function BottomSheetInfoGral(props) {
                 </>
             )}
 
-            <OverlayPicker
+            {/* <OverlayPicker
                 visible={visibleInstitute}
                 setVisible={setVisibleInstitute}
                 values={institutes}
                 setValue={setInstitute}
                 msjErrorOverlay={msjErrorOverlay}
                 titleOverlay={titleOverlay}
-            />
+            /> */}
             <OverlayPicker
                 visible={visibleCourse}
                 setVisible={setVisibleCourse}

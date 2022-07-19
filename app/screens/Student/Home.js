@@ -42,6 +42,7 @@ import {
 import SelectCourse from '../../components/BottomSheetOptions/SelectCourse';
 import EditModuleConfig from '../../components/BottomSheetOptions/EditModuleConfig';
 import { DELAY_LONG_PRESS } from '../../../utils/constants';
+import NewCourse from '../../components/BottomSheetOptions/NewCourse';
 
 export default function Home() {
     const navigation = useNavigation();
@@ -75,30 +76,32 @@ export default function Home() {
     // UseRef
     const refRBSheet_SelectCourse = useRef();
     const refRBSheet_EditModuleConfig = useRef();
+    const refRBSheet_NewCourse = useRef();
 
     const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
 
     useEffect(() => {
         setLoading(true);
-        getAllCourse().then((result) => {
-            if (result.ok) {
-                var publicCourses = [];
-                result.cursos.forEach((curso) => {
-                    if (curso.Personal == false) {
-                        publicCourses.push({
-                            id: curso.id,
-                            Descripcion: curso.Descripcion,
-                            Nombre: curso.Nombre,
-                            Personal: curso.Personal,
-                        });
-                    }
-                });
-
-                setAllCourses(publicCourses);
-            }
-        });
 
         getStorageItem(ID_CURRENT_CURSE).then((idCurrentCurseResult) => {
+            getAllCourse(idCurrentCurseResult).then((result) => {
+                if (result.ok) {
+                    var publicCourses = [];
+                    result.cursos.forEach((curso) => {
+                        if (curso.Personal == false) {
+                            publicCourses.push({
+                                id: curso.id,
+                                Descripcion: curso.Descripcion,
+                                Nombre: curso.Nombre,
+                                Personal: curso.Personal,
+                            });
+                        }
+                    });
+    
+                    setAllCourses(publicCourses);
+                }
+            });
+
             if (idCurrentCurseResult) {
                 setCursoSeleccionado(idCurrentCurseResult);
 
@@ -135,11 +138,13 @@ export default function Home() {
     const selectCoursePressed = async (courseSelect, courses) => {
         const idCurrent = await getStorageItem(ID_CURRENT_CURSE);
         var encontre = false;
-        for (let i = 0; i < courses.length; i++) {
-            const c = courses[i];
-            if (c.id == idCurrent) {
-                encontre = true;
-                await setPressed(i);
+        if (courses) {
+            for (let i = 0; i < courses.length; i++) {
+                const c = courses[i];
+                if (c.id == idCurrent) {
+                    encontre = true;
+                    await setPressed(i);
+                }
             }
         }
         if (!encontre) {
@@ -409,7 +414,7 @@ export default function Home() {
         <View style={styles.container}>
             <View style={styles.cursoStories}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                    <TouchableHighlight onPress={showModal}>
+                    <TouchableHighlight onPress={() => refRBSheet_NewCourse.current.open()}>
                         <>{iconHistory(-3, { id: 'Nuevo Curso' })}</>
                     </TouchableHighlight>
                     <TouchableHighlight
@@ -585,6 +590,15 @@ export default function Home() {
                         </Modal>
                     </Portal>
                 </Provider>
+
+                <NewCourse
+                    refRBSheet={refRBSheet_NewCourse}
+                    isTeacher={false}
+                    courses={courses}
+                    allCourses={allCourses}
+                    updateCoursesStudent={updateCoursesStudent}
+                    setUpdateCoursesStudent={setUpdateCoursesStudent}
+                />
 
                 <SelectCourse
                     refRBSheet={refRBSheet_SelectCourse}

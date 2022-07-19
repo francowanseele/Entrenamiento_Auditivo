@@ -242,8 +242,8 @@ export function addModulesApi(idCourse, data) {
         });
 }
 
-export function getAllCourse() {
-    const url = `${basePath}/get-all-courses`;
+export function getAllCourse(userId) {
+    const url = `${basePath}/get-all-courses?idUser=${userId}`;
     const params = {
         method: 'GET',
         headers: {

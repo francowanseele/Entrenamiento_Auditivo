@@ -54,7 +54,8 @@ export default function BottomSheetReference(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    borderRadius: 10,
+                    borderTopRightRadius: 10,
+                    borderTopLeftRadius: 10,
                 },
             }}
         >

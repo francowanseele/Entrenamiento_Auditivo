@@ -78,7 +78,7 @@ export default function Solution({ route }) {
                     isNotaReferencia={false}
                 />
             </View>
-            <ScrollView style={styles.checkboxContainer}>
+            {/* <ScrollView style={styles.checkboxContainer}>
                 <Button
                     title={'Ningún error'}
                     type="outline"
@@ -171,17 +171,7 @@ export default function Solution({ route }) {
                     }}
                     buttonStyle={{ borderColor: PRIMARY_COLOR, borderWidth: 1 }}
                 />
-                {/* Queda redundante: más de x incorrectas y todas incorrectas aplican ambas */}
-                {/* <Button
-                    title={'Todas incorrectas'}
-                    titleStyle={{ color: TEXTHOME }}
-                    type="outline"
-                    containerStyle={styles.button}
-                    onPress={() => {
-                        setevaluacionNota(0);
-                        setModalVisible(true);
-                    }}
-                /> */}
+
                 <Overlay
                     animationType="slide"
                     visible={modalVisible}
@@ -228,7 +218,7 @@ export default function Solution({ route }) {
                     </View>
                 </Overlay>
                 <Text style={styles.textoDatos} >Al  realizar la autoevaluación  estas de acuerdo de que estos datos serán usados con fines estadísticos.</Text>
-            </ScrollView>
+            </ScrollView> */}
         </View>
     );
 }

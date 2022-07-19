@@ -104,9 +104,9 @@ export default function BottomSheetCreateCelulaRitmica(props) {
             closeOnPressMask={true}
             animationType="none"
             dragFromTopOnly={true}
-            onOpen={async () => {
-                await initialStateOpen();
-            }}
+            // onOpen={async () => {
+            //     await initialStateOpen();
+            // }}
             height={Dimensions.get('window').height * 0.75}
             customStyles={{
                 wrapper: {
@@ -116,7 +116,8 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    borderRadius: 10,
+                    borderTopRightRadius: 10,
+                    borderTopLeftRadius: 10,
                 },
             }}
         >

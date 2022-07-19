@@ -20,7 +20,6 @@ import OverlayInfo from '../../components/CreateDictationProf/OverlayInfo';
 export default function SummaryCreateDictation({ route }) {
     const {
         dictationRhythmic,
-        institute,
         course,
         module,
         nameConfig,

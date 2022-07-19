@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
     BACKGROUND_COLOR_WORNING,
     BORDER_COLOR_WORNING,

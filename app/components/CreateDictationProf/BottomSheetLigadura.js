@@ -24,7 +24,7 @@ import {
 import { getCelulaRitmicaApi } from '../../api/celula_ritmica';
  const getImagenFromB64String = (imagen)=>{
     return (
-        <Image style={{marginLeft:15, width:90,height:50}} source={{uri: `data:image/gif;base64,${imagen}`}} />
+        <Image style={{width:50,height:50, resizeMode: 'contain'}} source={{uri: `data:image/gif;base64,${imagen}`}} />
     )
 }
 
@@ -258,7 +258,8 @@ export default function BottomSheetLigadura(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    borderRadius: 10,
+                    borderTopRightRadius: 10,
+                    borderTopLeftRadius: 10,
                 },
             }}
         >
@@ -303,9 +304,9 @@ export default function BottomSheetLigadura(props) {
                             {listAllCR.map((cr, i) => (
                                 <View key={i}>
                                     <View>
-                                        {getImagenFromB64String(cr.imagen)}
+                                        {/* {getImagenFromB64String(cr.imagen)} */}
                                     <CheckBox
-                                            // title={getFigure(cr.figuras)}
+                                            title={getImagenFromB64String(cr.imagen)}
                                           
                                             // checkedIcon="dot-circle-o"
                                             // uncheckedIcon="circle-o"

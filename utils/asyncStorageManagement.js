@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { roles } from '../enums/roles';
 
 export const LOGGED = 'logged';
 export const EMAIL = 'email';
@@ -6,6 +7,7 @@ export const ID_USER = '_id';
 export const IS_STUDENT = 'isStudent';
 export const ID_CURRENT_CURSE = '_idCurrentCourse';
 export const ID_PERSONAL_COURSE = 'idPersonalCourse';
+export const ROL = '_rolADA';
 
 // Variables temporales estudiante
 export const STU_LAST_COURSE = 'stuLastCourse';
@@ -22,16 +24,27 @@ export async function setStorageUserLogged(
     isStudent,
     _id,
     _idCurrentCourse,
-    idPersonalCourse
+    idPersonalCourse,
+    rol
 ) {
     await AsyncStorage.setItem(LOGGED, '1');
     await AsyncStorage.setItem(ID_USER, _id.toString());
     await AsyncStorage.setItem(EMAIL, email);
     await AsyncStorage.setItem(IS_STUDENT, isStudent.toString());
     if (idPersonalCourse)
-        await AsyncStorage.setItem(ID_PERSONAL_COURSE, idPersonalCourse);
+        await AsyncStorage.setItem(
+            ID_PERSONAL_COURSE,
+            idPersonalCourse.toString()
+        );
     if (_idCurrentCourse)
-        await AsyncStorage.setItem(ID_CURRENT_CURSE, _idCurrentCourse);
+        await AsyncStorage.setItem(
+            ID_CURRENT_CURSE,
+            _idCurrentCourse.toString()
+        );
+    if (rol) await AsyncStorage.setItem(ROL, rol.toString());
+
+    console.log('In local sgtorage');
+    console.log(rol.toString());
 }
 
 export async function setStorageUserLogout() {
@@ -40,6 +53,7 @@ export async function setStorageUserLogout() {
     await AsyncStorage.setItem(EMAIL, '');
     await AsyncStorage.setItem(ID_CURRENT_CURSE, '');
     await AsyncStorage.setItem(ID_PERSONAL_COURSE, '');
+    await AsyncStorage.setItem(ROL, '');
 }
 export async function setStorageCurrentCourse(idCourse) {
     await AsyncStorage.setItem(ID_CURRENT_CURSE, idCourse.toString());
@@ -77,6 +91,12 @@ export async function getParams() {
     };
 
     return data;
+}
+
+// Rol
+export async function getStorageIsAdmin() {
+    const isAdminAux = await AsyncStorage.getItem(ROL);
+    return isAdminAux == roles.admin;
 }
 
 // Manage var temp Teacher

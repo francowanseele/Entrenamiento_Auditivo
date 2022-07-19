@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import { Input, Button, Icon } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { getParams, getStorageIsStudent, setStorageCurrentCourse } from '../../../utils/asyncStorageManagement';
 import { FIFTH_COLOR, PRIMARY_COLOR, QUARTER_COLOR, SECONDARY_COLOR, TERTIARY_COLOR } from '../../../utils/colorPalette';
@@ -106,7 +105,8 @@ export default function EditModuleConfig(props) {
                     backgroundColor: '#000',
                 },
                 container: {
-                    borderRadius: 30,
+                    borderTopRightRadius: 30,
+                    borderTopLeftRadius: 30,
                 },
             }}
         >
