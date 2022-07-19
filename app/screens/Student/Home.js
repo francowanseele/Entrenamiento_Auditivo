@@ -22,6 +22,7 @@ import {
     getCursoPersonal,
     getConfigDictationApi,
     hasPermissionEditCourseApi,
+    getAllCourseRegardlessInstituteUserApi,
 } from '../../api/course';
 import { Modal, Portal, Provider } from 'react-native-paper';
 
@@ -83,24 +84,42 @@ export default function Home() {
     useEffect(() => {
         setLoading(true);
 
+        getAllCourseRegardlessInstituteUserApi().then((result) => {
+            if (result.ok) {
+                var publicCourses = [];
+                result.cursos.forEach((curso) => {
+                    if (curso.Personal == false) {
+                        publicCourses.push({
+                            id: curso.id,
+                            Descripcion: curso.Descripcion,
+                            Nombre: curso.Nombre,
+                            Personal: curso.Personal,
+                        });
+                    }
+                });
+
+                setAllCourses(publicCourses);
+            }
+        });
+
         getStorageItem(ID_CURRENT_CURSE).then((idCurrentCurseResult) => {
-            getAllCourse(idCurrentCurseResult).then((result) => {
-                if (result.ok) {
-                    var publicCourses = [];
-                    result.cursos.forEach((curso) => {
-                        if (curso.Personal == false) {
-                            publicCourses.push({
-                                id: curso.id,
-                                Descripcion: curso.Descripcion,
-                                Nombre: curso.Nombre,
-                                Personal: curso.Personal,
-                            });
-                        }
-                    });
+            // getAllCourse(idCurrentCurseResult).then((result) => {
+            //     if (result.ok) {
+            //         var publicCourses = [];
+            //         result.cursos.forEach((curso) => {
+            //             if (curso.Personal == false) {
+            //                 publicCourses.push({
+            //                     id: curso.id,
+            //                     Descripcion: curso.Descripcion,
+            //                     Nombre: curso.Nombre,
+            //                     Personal: curso.Personal,
+            //                 });
+            //             }
+            //         });
     
-                    setAllCourses(publicCourses);
-                }
-            });
+            //         setAllCourses(publicCourses);
+            //     }
+            // });
 
             if (idCurrentCurseResult) {
                 setCursoSeleccionado(idCurrentCurseResult);
