@@ -42,9 +42,6 @@ export async function setStorageUserLogged(
             _idCurrentCourse.toString()
         );
     if (rol) await AsyncStorage.setItem(ROL, rol.toString());
-
-    console.log('In local sgtorage');
-    console.log(rol.toString());
 }
 
 export async function setStorageUserLogout() {

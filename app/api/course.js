@@ -785,6 +785,7 @@ export function editModuleApi(data, idCourse, idUser, idModule) {
             }
         })
         .then((result) => {
+            console.log(result);
             if (!result) {
                 return {
                     ok: false,

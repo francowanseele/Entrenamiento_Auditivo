@@ -1,54 +1,98 @@
-import React from 'react';
-import { View, Text, Button ,StyleSheet,TouchableOpacity} from 'react-native';
-import { setStorageUserLogout } from '../../../utils/asyncStorageManagement';
-import { BACKGROUNDHOME, ITEMSHOME, TEXTHOME } from '../../styles/styleValues';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { Button, Overlay } from 'react-native-elements';
+import { getParams, setStorageUserLogout } from '../../../utils/asyncStorageManagement';
+import { PRIMARY_COLOR } from '../../../utils/colorPalette';
+import { softDeleteUserApi } from '../../api/user';
 
 
 export default function ProfileProf(props) {
-    const { setLogin } = props;
+    const setLogin = props.setLogin;
+    const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 
     const logout = async () => {
-        // Si se toca el botton se tiene que recargar el emulador para que cierre sesión
-        // para hacerlo bien tendría que llegar la función setLogin (de la pantalla Start.js)
         await setStorageUserLogout();
         await setLogin(false);
     };
 
+    const deleteAccountConfirmation = () => {
+        setDeleteConfirmation(!deleteConfirmation);
+    }
+
+    const deleteAccount = async () => {
+        const { id } = await getParams();
+        const deletedResult = await softDeleteUserApi(id);
+        
+        
+        if (deletedResult.ok) {
+            await logout();
+        }
+    }
+
+    const toggleOverlay = () => {
+        setDeleteConfirmation(!deleteConfirmation);
+    };
+
     return (
-        <View style={{flex:1, flexDirection:'column-reverse'}}>
-             <TouchableOpacity style={styles.button} onPress={logout}>
-                    <Text style={styles.textLogin}>Cerrar Sesion</Text>
-             </TouchableOpacity>
+        <View
+            style={{
+                flex: 1,
+                flexDirection: 'column-reverse',
+                alignContent: 'center',
+            }}
+        >
+            <Button
+                buttonStyle={styles.mainButton}
+                title="Cerrar sesión"
+                onPress={logout}
+            />
+            <Button
+                type="clear"
+                title="Eliminar cuenta"
+                onPress={deleteAccountConfirmation}
+            />
+
+            <Overlay
+                isVisible={deleteConfirmation}
+                onBackdropPress={toggleOverlay}
+                overlayStyle={styles.overlaySelectPicker}
+            >
+                <View style={styles.content}>
+                    <Text style={styles.title}>¿Desea eliminar la cuenta?</Text>
+                    <Text style={styles.text}>
+                        La cuenta como docente será eliminada de forma permanente.
+                    </Text>
+                </View>
+                <Button
+                    title="Eliminar"
+                    type="clear"
+                    onPress={deleteAccount}
+                    titleStyle={{color: 'red'}}
+                    buttonStyle={{marginTop: 50}}
+                />
+                <Button
+                    title="Cancelar"
+                    onPress={toggleOverlay}
+                    buttonStyle={styles.mainButton}
+                />
+            </Overlay>
         </View>
     );
 }
-
 const styles = StyleSheet.create({
-    container:{
-        flex:1
-    },
-    buttonContainer: {
-        flexDirection:'column',
-        padding: 5,
-        height: '6%',
-        width: '50%',
-        alignItems: 'center',
+    mainButton: {
+        width: '95%',
+        backgroundColor: PRIMARY_COLOR,
         alignSelf: 'center',
-        borderRadius: 10,
+        marginTop: 15,
+        marginBottom: 25,
     },
-    button: {
-        flexDirection:"column-reverse",
-        borderRadius: 4,
-        height: '100%',
-        width: '100%',
-        alignSelf: 'center',
-        alignItems: 'center',
-        marginBottom:20,
-    },
-    textLogin: {
-        fontSize: 20,
+    title: {
+        fontSize: 22,
         fontWeight: 'bold',
-        color: TEXTHOME,
-        alignSelf: 'center',
+    },
+    text: {
+        marginTop: 20,
+        fontSize: 17,
     },
 });
