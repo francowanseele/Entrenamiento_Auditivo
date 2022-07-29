@@ -283,40 +283,46 @@ export default function NewCourse(props) {
                 ) : bootomSheetType == 'selectCourse' ? (
                     <View style={styles.containerConfirmation}>
                         <Text style={styles.editTitle}>Matricularme</Text>
-                        <ScrollView>
-                            {getCursesToSubscribe(allCourses).map((e, i) => (
-                                <ListItem
-                                    containerStyle={{ width: '100%' }}
-                                    key={i}
-                                    bottomDivider
-                                    onPress={() => {
-                                        courseSelected(e.id);
-                                    }}
-                                >
-                                    {/* <Icon name={item.icon} /> */}
-                                    <ListItem.Content>
-                                        <ListItem.Title
-                                            style={{
-                                                fontWeight: 'bold',
-                                                fontSize: 17,
-                                            }}
-                                        >
-                                            {e.Nombre}
-                                        </ListItem.Title>
-                                        <ListItem.Subtitle
-                                            style={{
-                                                color: 'black',
-                                                fontSize: 15,
-                                                color: PRIMARY_COLOR,
-                                            }}
-                                        >
-                                            {e.Descripcion}
-                                        </ListItem.Subtitle>
-                                    </ListItem.Content>
-                                    <ListItem.Chevron />
-                                </ListItem>
-                            ))}
-                        </ScrollView>
+                        {getCursesToSubscribe(allCourses).length == 0 ? (
+                            <View>
+                                <Text>No tiene cursos disponibles para matricularse.</Text>
+                            </View>
+                        ) : (
+                            <ScrollView>
+                                {getCursesToSubscribe(allCourses).map((e, i) => (
+                                    <ListItem
+                                        containerStyle={{ width: '100%' }}
+                                        key={i}
+                                        bottomDivider
+                                        onPress={() => {
+                                            courseSelected(e.id);
+                                        }}
+                                    >
+                                        {/* <Icon name={item.icon} /> */}
+                                        <ListItem.Content>
+                                            <ListItem.Title
+                                                style={{
+                                                    fontWeight: 'bold',
+                                                    fontSize: 17,
+                                                }}
+                                            >
+                                                {e.Nombre}
+                                            </ListItem.Title>
+                                            <ListItem.Subtitle
+                                                style={{
+                                                    color: 'black',
+                                                    fontSize: 15,
+                                                    color: PRIMARY_COLOR,
+                                                }}
+                                            >
+                                                {e.Descripcion}
+                                            </ListItem.Subtitle>
+                                        </ListItem.Content>
+                                        <ListItem.Chevron />
+                                    </ListItem>
+                                ))}
+                            </ScrollView>
+                        )}
                     </View>
                 ) : (
                     <View>

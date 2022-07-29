@@ -77,7 +77,7 @@ export default function Navigation(props) {
                             },
                         }}
                     />
-                    <Tab.Screen
+                    {/* <Tab.Screen
                         name="calification"
                         component={CalificationStack}
                         options={{
@@ -92,7 +92,7 @@ export default function Navigation(props) {
                                 return null;
                             },
                         }}
-                    />
+                    /> */}
                     <Tab.Screen
                         name="profile"
                         // component={ProfileStack}
