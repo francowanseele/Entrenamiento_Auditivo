@@ -11,9 +11,9 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		49DE8D0D8059DBFF56BD81FC /* libPods-Entrenamiento_Auditivo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEAEFF1C74CD755300ECCFA /* libPods-Entrenamiento_Auditivo.a */; };
+		80A414FC5727C31446787C3B /* libPods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C97F82E3226D0A2D38249E03 /* libPods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		B847FEC59533F5E4556710C2 /* libPods-Entrenamiento_Auditivo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DF391E858D33B49B6F464E /* libPods-Entrenamiento_Auditivo.a */; };
-		F1DFCA5521418EA491E813C3 /* libPods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A967DE4B4E63AF438E89C3 /* libPods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,14 +36,14 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Entrenamiento_Auditivo/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Entrenamiento_Auditivo/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Entrenamiento_Auditivo/main.m; sourceTree = "<group>"; };
-		3356957553716FDD01940F9F /* Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.debug.xcconfig"; path = "Target Support Files/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.debug.xcconfig"; sourceTree = "<group>"; };
-		46B2F2BC75491AD92D61E322 /* Pods-Entrenamiento_Auditivo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Entrenamiento_Auditivo.release.xcconfig"; path = "Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo.release.xcconfig"; sourceTree = "<group>"; };
+		406EB3E60485201484CE23FF /* Pods-Entrenamiento_Auditivo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Entrenamiento_Auditivo.debug.xcconfig"; path = "Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo.debug.xcconfig"; sourceTree = "<group>"; };
+		6E85ACA3CF6649FDC85EEE7F /* Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.debug.xcconfig"; path = "Target Support Files/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Entrenamiento_Auditivo/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9CBB4F51BF4A94AECA90D200 /* Pods-Entrenamiento_Auditivo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Entrenamiento_Auditivo.debug.xcconfig"; path = "Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo.debug.xcconfig"; sourceTree = "<group>"; };
-		C64EA6CFA575D4165ED0DDD1 /* Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.release.xcconfig"; path = "Target Support Files/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.release.xcconfig"; sourceTree = "<group>"; };
-		E9DF391E858D33B49B6F464E /* libPods-Entrenamiento_Auditivo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Entrenamiento_Auditivo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		86F46F960380F5229942D8C9 /* Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.release.xcconfig"; path = "Target Support Files/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.release.xcconfig"; sourceTree = "<group>"; };
+		BFEAEFF1C74CD755300ECCFA /* libPods-Entrenamiento_Auditivo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Entrenamiento_Auditivo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C97F82E3226D0A2D38249E03 /* libPods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F3A967DE4B4E63AF438E89C3 /* libPods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED95484727C03C06A49CAC03 /* Pods-Entrenamiento_Auditivo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Entrenamiento_Auditivo.release.xcconfig"; path = "Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo.release.xcconfig"; sourceTree = "<group>"; };
 		FDFCE9C6273822F800DDAB93 /* Entrenamiento_Auditivo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Entrenamiento_Auditivo-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -52,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1DFCA5521418EA491E813C3 /* libPods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.a in Frameworks */,
+				80A414FC5727C31446787C3B /* libPods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B847FEC59533F5E4556710C2 /* libPods-Entrenamiento_Auditivo.a in Frameworks */,
+				49DE8D0D8059DBFF56BD81FC /* libPods-Entrenamiento_Auditivo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,10 +100,10 @@
 		2CB8DFADBF120F428F130FE2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9CBB4F51BF4A94AECA90D200 /* Pods-Entrenamiento_Auditivo.debug.xcconfig */,
-				46B2F2BC75491AD92D61E322 /* Pods-Entrenamiento_Auditivo.release.xcconfig */,
-				3356957553716FDD01940F9F /* Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.debug.xcconfig */,
-				C64EA6CFA575D4165ED0DDD1 /* Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.release.xcconfig */,
+				406EB3E60485201484CE23FF /* Pods-Entrenamiento_Auditivo.debug.xcconfig */,
+				ED95484727C03C06A49CAC03 /* Pods-Entrenamiento_Auditivo.release.xcconfig */,
+				6E85ACA3CF6649FDC85EEE7F /* Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.debug.xcconfig */,
+				86F46F960380F5229942D8C9 /* Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -112,8 +112,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				E9DF391E858D33B49B6F464E /* libPods-Entrenamiento_Auditivo.a */,
-				F3A967DE4B4E63AF438E89C3 /* libPods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.a */,
+				BFEAEFF1C74CD755300ECCFA /* libPods-Entrenamiento_Auditivo.a */,
+				C97F82E3226D0A2D38249E03 /* libPods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -165,12 +165,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "Entrenamiento_AuditivoTests" */;
 			buildPhases = (
-				CC1C96CCDB6D6F519A972803 /* [CP] Check Pods Manifest.lock */,
+				6FAC1FCF66AB19179BDBA6BC /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				07DC39320EA76794C0478EFA /* [CP] Embed Pods Frameworks */,
-				44415405312DC1E8AA069A87 /* [CP] Copy Pods Resources */,
+				C729201A3CAE766E556FB0F5 /* [CP] Embed Pods Frameworks */,
+				469AED211A2CAB6F3E61F0CC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -186,14 +186,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Entrenamiento_Auditivo" */;
 			buildPhases = (
-				BE0DE660209ED121C481B72D /* [CP] Check Pods Manifest.lock */,
+				625388A8C75BA98C76BC554B /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				094E5A1E23B6EE4E8C6E65EE /* [CP] Embed Pods Frameworks */,
-				3272275FF3B41BEFCC0947CB /* [CP] Copy Pods Resources */,
+				E667FE025FCFD2EA6DD7CA0C /* [CP] Embed Pods Frameworks */,
+				E438D0B5FDD52279E6AA5FEE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -274,58 +274,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		07DC39320EA76794C0478EFA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		094E5A1E23B6EE4E8C6E65EE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3272275FF3B41BEFCC0947CB /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		44415405312DC1E8AA069A87 /* [CP] Copy Pods Resources */ = {
+		469AED211A2CAB6F3E61F0CC /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -342,7 +291,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BE0DE660209ED121C481B72D /* [CP] Check Pods Manifest.lock */ = {
+		625388A8C75BA98C76BC554B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -364,7 +313,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CC1C96CCDB6D6F519A972803 /* [CP] Check Pods Manifest.lock */ = {
+		6FAC1FCF66AB19179BDBA6BC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -384,6 +333,57 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C729201A3CAE766E556FB0F5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests/Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E438D0B5FDD52279E6AA5FEE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E667FE025FCFD2EA6DD7CA0C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Entrenamiento_Auditivo/Pods-Entrenamiento_Auditivo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -438,9 +438,10 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3356957553716FDD01940F9F /* Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.debug.xcconfig */;
+			baseConfigurationReference = 6E85ACA3CF6649FDC85EEE7F /* Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = R37Q2PB262;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -465,7 +466,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C64EA6CFA575D4165ED0DDD1 /* Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.release.xcconfig */;
+			baseConfigurationReference = 86F46F960380F5229942D8C9 /* Pods-Entrenamiento_Auditivo-Entrenamiento_AuditivoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -489,12 +490,14 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9CBB4F51BF4A94AECA90D200 /* Pods-Entrenamiento_Auditivo.debug.xcconfig */;
+			baseConfigurationReference = 406EB3E60485201484CE23FF /* Pods-Entrenamiento_Auditivo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R37Q2PB262;
 				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=*]" = "(EXCLUDED_ARCHS)";
 				INFOPLIST_FILE = Entrenamiento_Auditivo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -516,7 +519,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46B2F2BC75491AD92D61E322 /* Pods-Entrenamiento_Auditivo.release.xcconfig */;
+			baseConfigurationReference = ED95484727C03C06A49CAC03 /* Pods-Entrenamiento_Auditivo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -572,7 +575,8 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				"EXCLUDED_ARCHS[sdk=*]" = "(EXCLUDED_ARCHS)";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -593,12 +597,7 @@
 					/usr/lib/swift,
 					"$(inherited)",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"\"$(SDKROOT)/usr/lib/swift\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
-					"\"$(inherited)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -638,7 +637,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -652,12 +651,7 @@
 					/usr/lib/swift,
 					"$(inherited)",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"\"$(SDKROOT)/usr/lib/swift\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
-					"\"$(inherited)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
