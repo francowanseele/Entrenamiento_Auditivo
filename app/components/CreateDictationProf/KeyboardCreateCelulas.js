@@ -51,11 +51,12 @@ export default function KeyboardCreateCelulas(props) {
     const PrintArray = ({figuras}) => {
         if (figuras.length > 0) {
             return (
-             <>
+             <View style={{flexDirection:'row', width:'80%'}}>
                 {figuras.map((elem)=>{ 
                     if (elem != undefined){
                         return(
                         <Icon
+                            id={Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)}
                             name={elem}
                             type="material-community"
                             iconStyle={{ fontSize: 30, marginTop:5 }}
@@ -63,7 +64,7 @@ export default function KeyboardCreateCelulas(props) {
                     else return(
                         <Text>{elem}</Text>)
                 })}
-            </>
+            </View>
             )
         }else {return <></>}
     };
@@ -91,7 +92,8 @@ export default function KeyboardCreateCelulas(props) {
         <>
             <View style={styles.contentKeyboard}>
                 <View style={styles.contentGirosMelodicos}>
-                    <Text style={styles.textGirosMelodicos}>
+                    <Text 
+                        style={styles.textGirosMelodicos}>
                         <PrintArray figuras={figuras} />
                     </Text>
                 </View>
@@ -114,6 +116,7 @@ export default function KeyboardCreateCelulas(props) {
                 {figuresKeyboard.map((figura, i) => (
                     <View key={i}>
                         <Button
+                            disabled={figuras.length>10}
                              icon={
                                 <Icon
                                   name={getNameIcon(figura)}

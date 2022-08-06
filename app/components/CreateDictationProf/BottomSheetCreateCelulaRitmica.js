@@ -91,7 +91,7 @@ export default function BottomSheetCreateCelulaRitmica(props) {
   
     const handleChoosePhoto = () => {
         launchImageLibrary({ noData: true }, (response) => {
-          if (response) {
+          if (response && response.assets && response.assets[0]) {
             setPhoto(response.assets[0]);
           }
         });
@@ -190,6 +190,7 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                         {photo && (
                         <>
                         <Image
+                            resizeMode={'contain'}
                             source={{ uri: photo.uri }}
                             // source={{uri:}}
                             style={{ width: 380, height: 200, alignSelf:'center' }}
