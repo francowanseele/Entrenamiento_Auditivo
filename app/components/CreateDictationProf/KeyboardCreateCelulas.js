@@ -51,7 +51,7 @@ export default function KeyboardCreateCelulas(props) {
     const PrintArray = ({figuras}) => {
         if (figuras.length > 0) {
             return (
-             <>
+                <View style={{flexDirection:'row', width:'80%'}}>
                 {figuras.map((elem)=>{ 
                     if (elem != undefined){
                         return(
@@ -63,7 +63,7 @@ export default function KeyboardCreateCelulas(props) {
                     else return(
                         <Text>{elem}</Text>)
                 })}
-            </>
+            </View>
             )
         }else {return <></>}
     };
@@ -114,6 +114,7 @@ export default function KeyboardCreateCelulas(props) {
                 {figuresKeyboard.map((figura, i) => (
                     <View key={i}>
                         <Button
+                            disabled={figuras.length>10}
                              icon={
                                 <Icon
                                   name={getNameIcon(figura)}

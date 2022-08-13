@@ -92,7 +92,7 @@ export default function SelectCourse(props) {
     }
 
     const editCourse = async () => {
-        const { id } = await getParams();
+        const { id, idPersonalCourse } = await getParams();
         const data = {
             name: courseNameLocal, 
             description: courseDescriptionLocal,
@@ -104,10 +104,12 @@ export default function SelectCourse(props) {
 
         await setUpdateCoursesStudent(!updateCoursesStudent);
         await setUpdateAllCourses(!updateAllCourses);
-        await setPersonalCourseData({
-            name: courseNameLocal,
-            description: courseDescriptionLocal,
-        });
+        if (idCourse == idPersonalCourse) {
+            await setPersonalCourseData({
+                name: courseNameLocal,
+                description: courseDescriptionLocal,
+            });
+        }
     }
 
     const onChangeCourseNameLocal = (event) => {

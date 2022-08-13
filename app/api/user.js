@@ -148,6 +148,7 @@ export const getUsuarioApi = (data) => {
             }
         })
         .catch((err) => {
+            console.log(err);
             return {
                 ok: false,
                 message: err,

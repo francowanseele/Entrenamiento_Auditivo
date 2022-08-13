@@ -213,17 +213,21 @@ export default function Home() {
     useEffect(() => {
         setLoading(true);
 
-        getModulesApi(cursoSeleccionado).then((modulesResponse) => {
-            if (modulesResponse.ok) {
-                var modulesRes = [];
-                modulesResponse.modules.forEach((m) => {
-                    modulesRes.push({ module: m, open: false });
-                });
-                setModules(modulesRes);
-            } else {
-                setModules([]);
-            }
-        });
+        if (cursoSeleccionado) {
+            getModulesApi(cursoSeleccionado).then((modulesResponse) => {
+                if (modulesResponse.ok) {
+                    var modulesRes = [];
+                    modulesResponse.modules.forEach((m) => {
+                        modulesRes.push({ module: m, open: false });
+                    });
+                    setModules(modulesRes);
+                } else {
+                    setModules([]);
+                }
+            });
+        } else {
+            setModules([]);
+        }
 
         setLoading(false);
     }, [updateAllModules])
