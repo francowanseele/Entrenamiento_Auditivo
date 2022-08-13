@@ -136,6 +136,8 @@ export const getUsuarioApi = (data) => {
                         Rol: result.Rol,
                         id_user: result.id_user.toString(),
                         personal_course: result.personal_course.toString(),
+                        accessToken: result.accessToken,
+                        refreshToken: result.refreshToken,
                     };
                 } else {
                     return {
@@ -269,6 +271,8 @@ export function addUserApi(data) {
                 if (result.ok) {
                     return {
                         ok: true,
+                        accessToken: result.accessToken,
+                        refreshToken: result.refreshToken,
                         user: result.user,
                     };
                 } else {
