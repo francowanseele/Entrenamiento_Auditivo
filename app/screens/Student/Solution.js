@@ -67,8 +67,10 @@ export default function Solution({ route }) {
     return (
         <View style={styles.container}>
             <View style={styles.graficoContainer}>
+                {console.log('original',dictation.figuras)}
                 <Graphic
-                    figurasConCompas={dictation.figuras}
+                    figurasSeparadasPorLigaudra={dictation.figurasSeparadasPorLigaudra}
+                    figurasConCompas={dictation.figurasSeparadasPorLigaudra}
                     figurasSinCompas={null}
                     dictadoGeneradoTraducidoParam={dictation.notas}
                     numeradorParam={dictation.numerador}

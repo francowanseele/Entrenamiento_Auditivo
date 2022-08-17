@@ -3,6 +3,7 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 export default ({
+    figurasSeparadasPorLigaudra,
     figurasConCompas,
     figurasSinCompas,
     dictadoGeneradoTraducidoParam,
@@ -12,8 +13,9 @@ export default ({
     escalaDiatonica,
     isNotaReferencia
 }) => {
+    console.log(figurasSeparadasPorLigaudra)
     const [figuras, setfiguras] = useState([]);
-    const [ figurasLigaduras, setFigurasLigaduras ] = useState(figurasConCompas)
+    const [ figurasLigaduras, setFigurasLigaduras ] = useState(figurasSeparadasPorLigaudra)
     const [clave, setclave] = useState(claveParam); 
     const [tarjetas, setTarjetas] = useState({ 
        '16-16-16-16':`
@@ -228,6 +230,7 @@ export default ({
             actual = actual.slice(0, actual.length - 1) + '/' + ultimoChar;
             resDictado.push(actual);
         }
+        console.log('NOTAS:==>',resDictado)
         let compasActual;
         let figuraActual;
         let aux = [];
@@ -242,28 +245,29 @@ export default ({
                 figuraActual < figurasConCompas[compasActual].length;
                 figuraActual++
             ) {
+                // console.log(figurasConCompas[compasActual][figuraActual])
+                let toCheck = figurasConCompas[compasActual][figuraActual].replace('_','')
                 if (
                     typeof tarjetasNotas[
-                        figurasConCompas[compasActual][figuraActual]
+                        toCheck
                     ] == 'undefined'
-                ) {
-                    if( (!figurasConCompas[compasActual][figuraActual].includes('-')) && 
-                                (!figurasConCompas[compasActual][figuraActual].includes('_')) ){
-                        aux.push([
-                            resDictado[index],
-                            figurasConCompas[compasActual][figuraActual],
-                        ]);
+                ) { //CASO QUE NO ES UNA TARJETA O CR y no tiene ligadura
+                    if( (!figurasConCompas[compasActual][figuraActual].includes('-')) &&  (!figurasConCompas[compasActual][figuraActual].includes('_')) ){
+
+                        aux.push([resDictado[index],figurasConCompas[compasActual][figuraActual]]);
                         index = index + 1;
+
                     } else if (!figurasConCompas[compasActual][figuraActual].includes('_')) {
+
                         let notasSeparar = figurasConCompas[compasActual][figuraActual].split('-');
                         for (var h = 0; h < notasSeparar.length; h++) {
                             aux.push([resDictado[index + h], notasSeparar[h]]);
                         } 
                         index = index + notasSeparar.length - 1;
                         index = index + 1;
-                    }else if (figurasConCompas[compasActual][figuraActual].includes('_')){
-                        // ME FALTA ARREGLAR EL CASO DOS LIGADURAS EN LA MISMA FIGURA
-                        if (figurasConCompas[compasActual][figuraActual].charAt(0) === '_'){
+                    }else if ((figurasConCompas[compasActual][figuraActual].includes('_'))){
+
+                        if ((figurasConCompas[compasActual][figuraActual].charAt(0) === '_')&&(figuraActual == 0)){
                             //caso ligaduras al principio del compas
                             let notasSeparar = figurasConCompas[compasActual][figuraActual].split('_');
                             notasSeparar.shift();
@@ -288,34 +292,62 @@ export default ({
                             }
                         }else {
                             let notasSeparar = figurasConCompas[compasActual][figuraActual].split('_');
-                            for (var i = 0;i<notasSeparar.length-1;i++){
-                                // me guardo indices para graficar la ligadura
-                                arrayIndicesLigaduras.push({
-                                    compas:compasActual+1,
-                                    figura:figuraActual+i,
-                                    esAlPrincipio:false
-                                })
-                            }
+                            notasSeparar.shift();
+                            // me guardo indices para graficar la ligadura
+                            arrayIndicesLigaduras.push({
+                                compas:compasActual+1,
+                                figura:figuraActual,
+                                esAlPrincipio:false
+                            })
                             //caso ligaduras en el medio del compas
                             for (var h = 0; h < notasSeparar.length; h++) {
-                                aux.push([resDictado[index], notasSeparar[h]]);
+                                aux.push([resDictado[index-1], notasSeparar[h]]);
                             } 
-                            index = index + 1;
+                            // index = index + 1;
                         }
                     }
-                } else {
-                    tarjetasActuales.push(
-                        figurasConCompas[compasActual][figuraActual]
-                    );
-                    let notasTrj =
-                        tarjetasNotas[
-                            figurasConCompas[compasActual][figuraActual]
-                        ];
-                    for (var h = 0; h < notasTrj.length; h++) {
-                        aux.push([resDictado[index + h], '+' + notasTrj[h]]);
+                } else { // CASO ES UNA TARJETA O CR
+
+                    tarjetasActuales.push(toCheck);
+                    let notasTrj = tarjetasNotas[toCheck];
+                    if (!(figurasConCompas[compasActual][figuraActual].charAt(0) === '_') ){
+                        for (var h = 0; h < notasTrj.length; h++) {
+                            aux.push([resDictado[index + h], '+' + notasTrj[h]]);
+                        }
+                        index = index + notasTrj.length - 1;
+                        index = index + 1;
                     }
-                    index = index + notasTrj.length - 1;
-                    index = index + 1;
+                    // si tiene ligadura la tarjeta me guardo indices
+                        //caso ligaduras al principio del compas
+                    else if ((figurasConCompas[compasActual][figuraActual].charAt(0) === '_')&&(figuraActual == 0)){
+                        
+                        let notasSeparar = figurasConCompas[compasActual][figuraActual].split('_');
+                        notasSeparar.shift();
+                        // me guardo indices para graficar la ligadura
+                        arrayIndicesLigaduras.push({
+                            compas:compasActual+1,
+                            figura:figuraActual,
+                            esAlPrincipio:true,
+                            largoCompasAnterior:cantFigurasPorCompas(figurasConCompas[compasActual-1])
+                        })
+                        for (var h = 0; h < notasTrj.length; h++) {
+                            aux.push([resDictado[index + h], '+' + notasTrj[h]]);
+                        }
+                    }
+                    else {//caso ligaduras en el medio del compas
+                        let notasSeparar = figurasConCompas[compasActual][figuraActual].split('_');
+                        notasSeparar.shift();
+                        // me guardo indices para graficar la ligadura
+                        arrayIndicesLigaduras.push({
+                            compas:compasActual+1,
+                            figura:figuraActual,
+                            esAlPrincipio:false
+                        })
+                        for (var h = 0; h < notasTrj.length; h++) {
+                            aux.push([resDictado[index + h], '+' + notasTrj[h]]);
+                        }
+                    }
+                   
                 }
             }
             if (compasActual != figurasConCompas.length - 1) {
@@ -334,21 +366,23 @@ export default ({
 
     const existLigadura = () =>{
         let res = false;
-        figurasLigaduras.forEach((figuras)=>{
-            figuras.forEach((fig)=>{
-                if (fig.includes('_')){
-                    res =  true;
-                }
+        if (figurasLigaduras){
+            figurasLigaduras.forEach((figuras)=>{
+                figuras.forEach((fig)=>{
+                    if (fig.includes('_')){
+                        res =  true;
+                    }
+                })
             })
-        })
+        }
         return res;
     }
 
     const getLigadurasToGraphic = (arrayIndicesLigaduras) =>{
         res = 'const ties = [\n';
         arrayIndicesLigaduras.forEach((ligadura)=>{
-                        let indice1 = ligadura.esAlPrincipio? ligadura.largoCompasAnterior : ligadura.figura;
-                        let indice2 = ligadura.esAlPrincipio? ligadura.figura : ligadura.figura+1;
+                        let indice1 = ligadura.esAlPrincipio? ligadura.largoCompasAnterior : ligadura.figura-1;
+                        let indice2 = ligadura.esAlPrincipio? ligadura.figura : ligadura.figura;
                         let numeroCompas1 = ligadura.esAlPrincipio ? ligadura.compas -1 : ligadura.compas;
                         let numeroCompas2 =  ligadura.compas;
                         res = res.concat(`
@@ -379,6 +413,7 @@ export default ({
         let punto = false;
         let esTarjeta = false;
         let huboTarjeta = false;
+        console.log('figuras: =>>>>',figuras)
         // FIGURAS LLEGA CON UN UNDEFINE EN izquierda [[undefined, "h"]]
         for (let actual = 0; actual < figuras.length; actual++) {
             if (figuras[actual] != 'NuevoCompas') {
@@ -601,7 +636,7 @@ export default ({
     }
 
     const [Html, setHtml] = useState('');
-
+    
     useEffect(() => {
         traducirEscala(escalaDiatonica);
         // traducirClave(claveParam);
