@@ -340,7 +340,7 @@ export default ({
                             largoCompasAnterior:cantFigurasPorCompas(figurasConCompas[compasActual-1])
                         })
                         for (var h = 0; h < notasTrj.length; h++) {
-                            aux.push([resDictado[index + h -1], '+' + notasTrj[h]]);
+                            aux.push([resDictado[index + h-1], '+' + notasTrj[h]]);
                         }
                         index = index + notasTrj.length - 1;
                         figurasTotalesActual =figurasTotalesActual + notasTrj.length ;
@@ -356,7 +356,7 @@ export default ({
                             esAlPrincipio:false
                         })
                         for (var h = 0; h < notasTrj.length; h++) {
-                            aux.push([resDictado[index + h], '+' + notasTrj[h]]);
+                            aux.push([resDictado[index + h-2], '+' + notasTrj[h]]);
                         }
                         figurasTotalesActual =figurasTotalesActual +  notasTrj.length ;
                     }
