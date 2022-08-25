@@ -269,11 +269,16 @@ export default function BottomSheetLigadura(props) {
                         flexDirection: 'row',
                         paddingRight: 15,
                     }}
-                >
-                    <Text style={styles.titleBottom}>
-                        Ligaduras para:{' '}
-                        {ligaduraFirstCR && ligaduraFirstCR.figuras}
-                    </Text>
+                >   
+                    <View style={{flexDirection:'row'}}>
+                        <Text style={styles.titleBottom}>
+                            Ligaduras para:{' '}
+                        </Text>
+                        <View style={{marginTop:25}}>
+                        {ligaduraFirstCR && ligaduraFirstCR.imagen?
+                             getImagenFromB64String(ligaduraFirstCR.imagen): <></>}
+                        </View>
+                    </View>
                     <Button
                         // containerStyle={styles.okGiroMelodico}
                         buttonStyle={styles.okGiroMelodicoButton}
@@ -424,7 +429,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 20,
         marginLeft: 10,
-        width: '70%',
+        width: '50%',
     },
     buttonNotes: {
         width: 60,

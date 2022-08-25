@@ -88,6 +88,7 @@ export default function ConfigRhythmic(props) {
         await setEditLigaduraFirstCR({
             id: celula.id,
             figuras: celula.celula_ritmica,
+            imagen: celula.imagen
         });
         refRBSheet_Ligaduras.current.open();
     };
