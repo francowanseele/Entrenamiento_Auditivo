@@ -13,7 +13,7 @@ export default ({
     escalaDiatonica,
     isNotaReferencia
 }) => {
-    console.log(figurasSeparadasPorLigaudra)
+    // console.log(figurasSeparadasPorLigaudra)
     const [figuras, setfiguras] = useState([]);
     const [ figurasLigaduras, setFigurasLigaduras ] = useState(figurasSeparadasPorLigaudra)
     const [clave, setclave] = useState(claveParam); 
@@ -235,7 +235,7 @@ export default ({
             actual = actual.slice(0, actual.length - 1) + '/' + ultimoChar;
             resDictado.push(actual);
         }
-        console.log('NOTAS:==>',resDictado)
+        // console.log('NOTAS:==>',resDictado)
         let compasActual;
         let figuraActual;
         let figurasTotalesActual;
@@ -253,7 +253,7 @@ export default ({
                 figuraActual++
             ) {
                 
-                console.log('figurasTotalesActual',figurasTotalesActual)
+                // console.log('figurasTotalesActual',figurasTotalesActual)
                 // console.log(figurasConCompas[compasActual][figuraActual])
                 let toCheck = figurasConCompas[compasActual][figuraActual].replace('_','')
                 if (
@@ -262,12 +262,12 @@ export default ({
                     ] == 'undefined'
                 ) { //CASO QUE NO ES UNA TARJETA O CR y no tiene ligadura
                     if( (!figurasConCompas[compasActual][figuraActual].includes('-')) &&  (!figurasConCompas[compasActual][figuraActual].includes('_')) ){
-                        console.log('caso no Tarjeta no ligadura=> ',figurasConCompas[compasActual][figuraActual],index)
+                        // console.log('caso no Tarjeta no ligadura=> ',figurasConCompas[compasActual][figuraActual],index)
                         aux.push([resDictado[index],figurasConCompas[compasActual][figuraActual]]);
                         index = index + 1;
                         figurasTotalesActual =figurasTotalesActual + 1;
                     } else if (!figurasConCompas[compasActual][figuraActual].includes('_')) {
-                        console.log('2do caso no Tarjeta no ligadura  pero varias figuras=> ',figurasConCompas[compasActual][figuraActual],index)
+                        // console.log('2do caso no Tarjeta no ligadura  pero varias figuras=> ',figurasConCompas[compasActual][figuraActual],index)
                         let notasSeparar = figurasConCompas[compasActual][figuraActual].split('-');
                         for (var h = 0; h < notasSeparar.length; h++) {
                             aux.push([resDictado[index + h], notasSeparar[h]]);
@@ -278,7 +278,7 @@ export default ({
                     }else if ((figurasConCompas[compasActual][figuraActual].includes('_'))){
                         
                         if ((figurasConCompas[compasActual][figuraActual].charAt(0) === '_')&&(figuraActual == 0)){
-                            console.log('caso no Tarjeta SI ligadura INICIO =>',figurasConCompas[compasActual][figuraActual],index)
+                            // console.log('caso no Tarjeta SI ligadura INICIO =>',figurasConCompas[compasActual][figuraActual],index)
                             //caso ligaduras al principio del compas
                             let notasSeparar = figurasConCompas[compasActual][figuraActual].split('_');
                             notasSeparar.shift();
@@ -295,11 +295,11 @@ export default ({
                             figurasTotalesActual =figurasTotalesActual + 1;
                             
                         }else {
-                            console.log('caso no Tarjeta SI ligadura MEDIO =>',figurasConCompas[compasActual][figuraActual],index)
+                            // console.log('caso no Tarjeta SI ligadura MEDIO =>',figurasConCompas[compasActual][figuraActual],index)
                             let notasSeparar = figurasConCompas[compasActual][figuraActual].split('_');
                             notasSeparar.shift();
                             // me guardo indices para graficar la ligadura
-                            console.log('figuraActual',figuraActual)
+                            // console.log('figuraActual',figuraActual)
                             arrayIndicesLigaduras.push({
                                 compas:compasActual+1,
                                 figura:figurasTotalesActual,
@@ -318,7 +318,7 @@ export default ({
                     tarjetasActuales.push(toCheck);
                     let notasTrj = tarjetasNotas[toCheck];
                     if (!(figurasConCompas[compasActual][figuraActual].charAt(0) === '_') ){
-                        console.log('caso SI Tarjeta NO ligadura=>',figurasConCompas[compasActual][figuraActual],index)
+                        // console.log('caso SI Tarjeta NO ligadura=>',figurasConCompas[compasActual][figuraActual],index)
                         for (var h = 0; h < notasTrj.length; h++) {
                             aux.push([resDictado[index + h], '+' + notasTrj[h]]);
                         }
@@ -329,7 +329,7 @@ export default ({
                     // si tiene ligadura la tarjeta me guardo indices
                         //caso ligaduras al principio del compas
                     else if ((figurasConCompas[compasActual][figuraActual].charAt(0) === '_')&&(figuraActual == 0)){
-                        console.log('caso SI Tarjeta SI ligadura INICIO =>',figurasConCompas[compasActual][figuraActual],index)
+                        // console.log('caso SI Tarjeta SI ligadura INICIO =>',figurasConCompas[compasActual][figuraActual],index)
                         let notasSeparar = figurasConCompas[compasActual][figuraActual].split('_');
                         notasSeparar.shift();
                         // me guardo indices para graficar la ligadura
@@ -346,7 +346,7 @@ export default ({
                         figurasTotalesActual =figurasTotalesActual + notasTrj.length ;
                     }
                     else {//caso ligaduras en el medio del compas
-                        console.log('caso SI Tarjeta SI ligadura MEDIO =>',figurasConCompas[compasActual][figuraActual],index)
+                        // console.log('caso SI Tarjeta SI ligadura MEDIO =>',figurasConCompas[compasActual][figuraActual],index)
                         let notasSeparar = figurasConCompas[compasActual][figuraActual].split('_');
                         notasSeparar.shift();
                         // me guardo indices para graficar la ligadura
@@ -426,7 +426,7 @@ export default ({
         let punto = false;
         let esTarjeta = false;
         let huboTarjeta = false;
-        console.log('figuras: =>>>>',figuras)
+        // console.log('figuras: =>>>>',figuras)
         // FIGURAS LLEGA CON UN UNDEFINE EN izquierda [[undefined, "h"]]
         for (let actual = 0; actual < figuras.length; actual++) {
             if (figuras[actual] != 'NuevoCompas') {
