@@ -356,7 +356,7 @@ export default ({
                             esAlPrincipio:false
                         })
                         for (var h = 0; h < notasTrj.length; h++) {
-                            aux.push([resDictado[index + h-2], '+' + notasTrj[h]]);
+                            aux.push([resDictado[index + h-1], '+' + notasTrj[h]]);
                         }
                         figurasTotalesActual =figurasTotalesActual +  notasTrj.length ;
                     }
