@@ -85,7 +85,7 @@ export default function BottomSheetBPM(props) {
                 <View style={styles.contentTextPrioridad}>
                     <Text style={styles.textPrioridad}>
                         El rango establecido corresponde al valor de BPM que
-                        puede tomar la nota negra
+                        puede tomar la figura negra
                     </Text>
                 </View>
             </View>

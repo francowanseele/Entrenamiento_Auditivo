@@ -46,7 +46,11 @@ export default function SummaryCreateDictation({ route }) {
     const [titleEndCreate, setTitleEndCreate] = useState('');
 
     const navigation = useNavigation();
-
+     const getImagenFromB64String = (imagen)=>{
+        return (
+            <Image style={{marginLeft:15, width:50,height:50, resizeMode: 'contain'}} source={{uri: `data:image/gif;base64,${imagen}`}} />
+        )
+    }
     const printArray = (arr) => {
         var res = '';
         if (arr) {
@@ -232,7 +236,7 @@ export default function SummaryCreateDictation({ route }) {
                         </Text>
                     </View>
                     <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>Copases: </Text>
+                        <Text style={styles.textSubtitle}>Compases: </Text>
                         {compas_regla.map((compas, i) => (
                             <Text key={i} style={styles.textInfo}>
                                 [{compas.numerador}/{compas.denominador}
@@ -254,6 +258,11 @@ export default function SummaryCreateDictation({ route }) {
                         </Text>
                         {celula_ritmica_regla.map((celula, i) => (
                             <Text key={i} style={styles.textInfo}>
+                                {/* FALTA OBTENER LA IMAGEN EN LA CR
+                                no pude encontrarlo
+                                {console.log(celula)}
+                                {celula.imagen? getImagenFromB64String(celula.imagen)
+                                :<></>} */}
                                 [{celula.celula_ritmica}
                                 ](Prioridad {celula.prioridad})
                             </Text>
