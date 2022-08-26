@@ -8,6 +8,8 @@ export const IS_STUDENT = 'isStudent';
 export const ID_CURRENT_CURSE = '_idCurrentCourse';
 export const ID_PERSONAL_COURSE = 'idPersonalCourse';
 export const ROL = '_rolADA';
+export const TOKEN = '_token';
+export const REFRESH_TOKEN = '_refreshToken';
 
 // Variables temporales estudiante
 export const STU_LAST_COURSE = 'stuLastCourse';
@@ -25,12 +27,16 @@ export async function setStorageUserLogged(
     _id,
     _idCurrentCourse,
     idPersonalCourse,
-    rol
+    rol,
+    token,
+    refreshToken
 ) {
     await AsyncStorage.setItem(LOGGED, '1');
     await AsyncStorage.setItem(ID_USER, _id.toString());
     await AsyncStorage.setItem(EMAIL, email);
     await AsyncStorage.setItem(IS_STUDENT, isStudent.toString());
+    if (token) await AsyncStorage.setItem(TOKEN, token);
+    if (refreshToken) await AsyncStorage.setItem(REFRESH_TOKEN, refreshToken);
     if (idPersonalCourse)
         await AsyncStorage.setItem(
             ID_PERSONAL_COURSE,
@@ -51,7 +57,10 @@ export async function setStorageUserLogout() {
     await AsyncStorage.setItem(ID_CURRENT_CURSE, '');
     await AsyncStorage.setItem(ID_PERSONAL_COURSE, '');
     await AsyncStorage.setItem(ROL, '');
+    await AsyncStorage.setItem(TOKEN, '');
+    await AsyncStorage.setItem(REFRESH_TOKEN, '');
 }
+
 export async function setStorageCurrentCourse(idCourse) {
     await AsyncStorage.setItem(ID_CURRENT_CURSE, idCourse.toString());
 }
@@ -88,6 +97,43 @@ export async function getParams() {
     };
 
     return data;
+}
+
+// Token
+export async function getToken() {
+    const tokenLocal = await AsyncStorage.getItem(TOKEN);
+    // console.log('-------');
+    // console.log(tokenLocal);
+    return tokenLocal;
+}
+
+export async function setToken(token) {
+    await AsyncStorage.setItem(TOKEN, token);
+    return;
+}
+
+// Refresh Token
+export async function getRefreshToken() {
+    return await AsyncStorage.getItem(REFRESH_TOKEN);
+    
+}
+
+export async function setRefreshToken(refreshToken) {
+    await AsyncStorage.setItem(REFRESH_TOKEN, refreshToken);
+    return; 
+}
+
+export async function getToeknAndRefreshToken() {
+    try {
+        const tokenLocal = await AsyncStorage.getItem(TOKEN);
+        const refreshTokenLocal = await AsyncStorage.getItem(REFRESH_TOKEN);
+        return {
+            token: tokenLocal,
+            refreshToken: refreshTokenLocal,
+        };
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 // Rol
