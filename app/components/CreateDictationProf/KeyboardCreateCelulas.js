@@ -11,13 +11,16 @@ export default function KeyboardCreateCelulas(props) {
         '4',
         '8','16',
         // '32','64',
-        'd2','d4','d8','d16',
+        'd1','d2','d4','d8','d16',
+        's1','s2','s4','s8'
     ];
 
     const getNameIcon = (f) =>{
         switch (f) {
             case '1':
                return ('music-note-whole');
+            case 'd1':
+                return ('music-note-whole-dotted');
             case '2':
                 return ('music-note-half');
             case 'd2':
@@ -34,6 +37,14 @@ export default function KeyboardCreateCelulas(props) {
                 return ('music-note-sixteenth');
             case 'd16':
                 return ('music-note-sixteenth-dotted');
+            case 's2':
+                return ('music-rest-half');
+            case 's4':
+                return ('music-rest-quarter');
+            case 's8':
+                return ('music-rest-eighth');
+            case 's1':
+                return ('music-rest-whole');
         }
     };
     
