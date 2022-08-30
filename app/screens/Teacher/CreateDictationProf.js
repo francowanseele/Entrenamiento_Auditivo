@@ -39,6 +39,7 @@ import {
 } from '../../../utils/asyncStorageManagement';
 import { getCursoPersonal } from '../../api/course';
 import BottomSheetLigadura from '../../components/CreateDictationProf/BottomSheetLigadura';
+import Loading from '../../components/Loading';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -66,6 +67,7 @@ export default function CreateDictationProf({ route }) {
     const [module, setModule] = useState({ id: null, name: '' });
     const [nameConfig, setNameConfig] = useState('');
     const [descriptionConfig, setDescriptionConfig] = useState('');
+    const [loading, setLoading] = useState(false);
 
     // Melodic
     const [dictationRhythmic, setDictationhythmic] = useState(false);
@@ -419,6 +421,8 @@ export default function CreateDictationProf({ route }) {
     };
 
     const createConfigDictation = async () => {
+        setLoading(true);
+
         var allOk = true;
 
         // Verify empty fields
@@ -560,6 +564,7 @@ export default function CreateDictationProf({ route }) {
                 setVisibleErrorConfig(true);
             }
         }
+        setLoading(false);
         // else {
         //     setTitleErrorConfig('No es posible crear la configuración.');
         //     setTextErrorConfig(
@@ -571,6 +576,8 @@ export default function CreateDictationProf({ route }) {
 
     // if (lastInstitute === null || lastCourse === null || lastModule === null)
     //     return <Loading isVisible={true} text="Cargando" />;
+
+    if (loading) return <Loading isVisible={true} text="Cargando.. podría tomar varios minutos" />;
 
     return (
         <>
