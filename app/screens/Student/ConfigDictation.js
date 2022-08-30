@@ -333,7 +333,7 @@ export default function ConfigDictation({ route }) {
     };
 
     if (dictations.length < 1)
-        return <Loading isVisible={true} text="Cargando" />;
+        return <Loading isVisible={true} text="Cargando.. podría llevar varios minutos" />;
 
     return (
         <View style={styles.container}>
@@ -405,7 +405,7 @@ export default function ConfigDictation({ route }) {
                     size={50}
                 />
             </TouchableOpacity> */}
-            {loading && <Loading isVisible={true} text="Cargando" />}
+            {loading && <Loading isVisible={true} text="Cargando.. podría llevar varios minutos" />}
         </View>
     );
 }
