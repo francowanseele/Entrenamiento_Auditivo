@@ -51,7 +51,24 @@ const KeyBoardValuesFigures = [
   {name:'music-note-sixteenth',
   value:'16'},
    {name:'music-note-sixteenth-dotted',
-   value:'d16'} ]
+   value:'d16'},
+     // silencios
+     {value:'1S',name:'music-rest-whole'},
+     {value:'2S',name:'music-rest-half'},
+     {value:'4S',name:'music-rest-quarter'},
+     {value:'8S',name:'music-rest-eighth'},
+     {value:'16S',name:'music-rest-sixteenth'}, 
+     // Silencios compuestos
+     {value:'d1S',name:'d1S'},
+     {value:'d2S',name:'d2S'},
+     {value:'d4S',name:'d4S'},
+     {value:'d8S',name:'d8S'},
+     {value:'d16S',name:'d16S'},
+     // mas figuras agregadas
+     {value:'32',name:'32'},
+     {value:'64',name:'64'},
+    
+  ]
 
 export default function BottomSheetCreateCelulaRitmica(props) {
     const {
@@ -69,8 +86,13 @@ export default function BottomSheetCreateCelulaRitmica(props) {
     const confirmation = async () => {
         let valorOriginal = [];
         figuras.map((figura)=>{
-            let res = KeyBoardValuesFigures.find((fig)=> fig.name === figura)
-            valorOriginal.push(res.value)
+            if (figura != 'null'){
+                let res = KeyBoardValuesFigures.find((fig)=> fig.name === figura)
+                valorOriginal.push(res.value)
+            }else {
+                sefasgdsagdfagdfgadf
+            }
+            
         })
         
         const photo64 = await ImgToBase64.getBase64String(photo.uri)
