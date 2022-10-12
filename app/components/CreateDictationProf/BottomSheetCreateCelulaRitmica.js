@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, Text, Image, Alert, Dimensions  } from 'react-native';
+import {
+    StyleSheet,
+    ScrollView,
+    View,
+    Text,
+    Image,
+    Alert,
+    Dimensions,
+} from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import ImgToBase64 from 'react-native-image-base64';
-
 
 import {
     ListItem,
@@ -32,43 +39,35 @@ import KeyboardCreateCelulas from './KeyboardCreateCelulas';
 import getValueFromIcon from './KeyboardCreateCelulas';
 import { addCelulaRitmicaApi } from '../../api/celula_ritmica';
 
-const KeyBoardValuesFigures = [ 
+const KeyBoardValuesFigures = [
     {
-     name:'music-note-whole',
-     value:'1'},
-     {name:'music-note-half',
-     value:'2'},
-   {name:'music-note-half-dotted',
-   value:'d2'},
-  {name:'music-note-quarter',
-  value:'4'},
-  {name:'music-note-quarter-dotted',
-  value:'d4'},
-  {name:'music-note-eighth',
-  value:'8'},
-  {name:'music-note-eighth-dotted',
-  value:'d8'},
-  {name:'music-note-sixteenth',
-  value:'16'},
-   {name:'music-note-sixteenth-dotted',
-   value:'d16'},
-     // silencios
-     {value:'1S',name:'music-rest-whole'},
-     {value:'2S',name:'music-rest-half'},
-     {value:'4S',name:'music-rest-quarter'},
-     {value:'8S',name:'music-rest-eighth'},
-     {value:'16S',name:'music-rest-sixteenth'}, 
-     // Silencios compuestos
-     {value:'d1S',name:'d1S'},
-     {value:'d2S',name:'d2S'},
-     {value:'d4S',name:'d4S'},
-     {value:'d8S',name:'d8S'},
-     {value:'d16S',name:'d16S'},
-     // mas figuras agregadas
-     {value:'32',name:'32'},
-     {value:'64',name:'64'},
-    
-  ]
+        name: 'music-note-whole',
+        value: '1',
+    },
+    { name: 'music-note-half', value: '2' },
+    { name: 'music-note-half-dotted', value: 'd2' },
+    { name: 'music-note-quarter', value: '4' },
+    { name: 'music-note-quarter-dotted', value: 'd4' },
+    { name: 'music-note-eighth', value: '8' },
+    { name: 'music-note-eighth-dotted', value: 'd8' },
+    { name: 'music-note-sixteenth', value: '16' },
+    { name: 'music-note-sixteenth-dotted', value: 'd16' },
+    // silencios
+    { value: '1S', name: 'music-rest-whole' },
+    { value: '2S', name: 'music-rest-half' },
+    { value: '4S', name: 'music-rest-quarter' },
+    { value: '8S', name: 'music-rest-eighth' },
+    { value: '16S', name: 'music-rest-sixteenth' },
+    // Silencios compuestos
+    { value: 'd1S', name: 'd1S' },
+    { value: 'd2S', name: 'd2S' },
+    { value: 'd4S', name: 'd4S' },
+    { value: 'd8S', name: 'd8S' },
+    { value: 'd16S', name: 'd16S' },
+    // mas figuras agregadas
+    { value: '32', name: '32' },
+    { value: '64', name: '64' },
+];
 
 export default function BottomSheetCreateCelulaRitmica(props) {
     const {
@@ -78,46 +77,50 @@ export default function BottomSheetCreateCelulaRitmica(props) {
         setPhoto,
         photo,
         setFiguras,
-        figuras
+        figuras,
     } = props;
-    
+
     const [title, setTitle] = useState('Nueva celula ritmica');
-    
+
     const confirmation = async () => {
         let valorOriginal = [];
-        figuras.map((figura)=>{
-            if (figura != 'null'){
-                let res = KeyBoardValuesFigures.find((fig)=> fig.name === figura)
-                valorOriginal.push(res.value)
-            }else {
-                sefasgdsagdfagdfgadf
+        figuras.map((figura) => {
+            if (figura != 'null') {
+                let res = KeyBoardValuesFigures.find(
+                    (fig) => fig.name === figura
+                );
+                valorOriginal.push(res.value);
+            } else {
+                sefasgdsagdfagdfgadf;
             }
-            
-        })
-        
-        const photo64 = await ImgToBase64.getBase64String(photo.uri)
+        });
+
+        const photo64 = await ImgToBase64.getBase64String(photo.uri);
         const data = {
             profileImage: photo64,
-            valor:valorOriginal,
-            simple:simple,
-        }
-        if ( photo &&  valorOriginal.length > 0 ){ 
-            await addCelulaRitmicaApi(data)
+            valor: valorOriginal,
+            simple: simple,
+        };
+        if (photo && valorOriginal.length > 0) {
+            await addCelulaRitmicaApi(data);
             refRBSheet.current.close();
             setPhoto(null);
-            setFiguras([])
-        }else
-             Alert.alert('Campos incompletos','Debes llenar todos los campos','ok')
+            setFiguras([]);
+        } else
+            Alert.alert(
+                'Campos incompletos',
+                'Debes llenar todos los campos',
+                'ok'
+            );
     };
 
-  
     const handleChoosePhoto = () => {
         launchImageLibrary({ noData: true }, (response) => {
             if (response && response.assets && response.assets[0]) {
                 setPhoto(response.assets[0]);
-          }
+            }
         });
-      };
+    };
 
     return (
         <RBSheet
@@ -144,24 +147,23 @@ export default function BottomSheetCreateCelulaRitmica(props) {
             }}
         >
             <View>
-                
-                    <View>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                paddingRight: 15,
-                            }}
-                        >
-                            <Text style={styles.titleBottom}>{title}</Text>
-                            <Button
-                                style={styles.okGiroMelodico}
-                                buttonStyle={styles.okGiroMelodicoButton}
-                                title={ 'Guardar Celula'}
-                                onPress={() => confirmation()}
-                                containerStyle={styles.okGiroMelodicoContainer}
-                            />
-                        </View>
-                        <SwitchSelector
+                <View>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            paddingRight: 15,
+                        }}
+                    >
+                        <Text style={styles.titleBottom}>{title}</Text>
+                        <Button
+                            style={styles.okGiroMelodico}
+                            buttonStyle={styles.okGiroMelodicoButton}
+                            title={'Guardar Celula'}
+                            onPress={() => confirmation()}
+                            containerStyle={styles.okGiroMelodicoContainer}
+                        />
+                    </View>
+                    <SwitchSelector
                         initial={0}
                         onPress={(value) => setSimple(value == 'e')}
                         textColor={'black'}
@@ -186,61 +188,60 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                             width: '95%',
                         }}
                     />
-                        <ScrollView>
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    paddingRight: 20,
-                                }}
-                            >
-                                <Text style={styles.textPrioridad}>
-                                    Figuras: 
-                                </Text>
+                    <ScrollView>
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                paddingRight: 20,
+                            }}
+                        >
+                            <Text style={styles.textPrioridad}>Figuras:</Text>
+                        </View>
 
-                            </View>
-
-                            <Divider orientation="horizontal" />
-
-                            <KeyboardCreateCelulas
-                                figuras={figuras}
-                                setFiguras={setFiguras}
-                                // mayor={mayor}
-                            />
-                        </ScrollView>
                         <Divider orientation="horizontal" />
 
-                        {photo && (
-                        <>
-                        <Image
-                            resizeMode={'contain'}
-                            source={{ uri: photo.uri }}
-                            // source={{uri:}}
-                            style={{ width: 380, height: 200, alignSelf:'center' }}
+                        <KeyboardCreateCelulas
+                            figuras={figuras}
+                            setFiguras={setFiguras}
+                            // mayor={mayor}
                         />
-                        {/* <Button title="Upload Photo" onPress={handleUploadPhoto} /> */}
+                    </ScrollView>
+                    <Divider orientation="horizontal" />
+
+                    {photo && (
+                        <>
+                            <Image
+                                resizeMode={'contain'}
+                                source={{ uri: photo.uri }}
+                                // source={{uri:}}
+                                style={{
+                                    width: 380,
+                                    height: 200,
+                                    alignSelf: 'center',
+                                }}
+                            />
+                            {/* <Button title="Upload Photo" onPress={handleUploadPhoto} /> */}
                         </>
                     )}
-                     <Divider orientation="horizontal" />
+                    <Divider orientation="horizontal" />
 
                     <Button title="Subir imagen" onPress={handleChoosePhoto} />
-                 </View>
+                </View>
             </View>
         </RBSheet>
     );
 }
 
 const styles = StyleSheet.create({
-   
-   
     buttonDelete: {
         borderStyle: 'solid',
         alignSelf: 'flex-end',
     },
-  
+
     okGiroMelodico: {
         marginTop: 10,
-        marginBottom:10,
-        borderRadius:29,
+        marginBottom: 10,
+        borderRadius: 29,
     },
     okGiroMelodicoContainer: {
         width: '30%',
@@ -257,7 +258,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         width: '70%',
     },
-   
+
     textPrioridad: {
         fontSize: 18,
         fontWeight: 'bold',
@@ -265,5 +266,4 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         width: '50%',
     },
-   
 });

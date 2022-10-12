@@ -280,6 +280,11 @@ export default function DictationProf() {
                 }
             }
         }
+
+        return {
+            name: '',
+            description: '',
+        };
     };
 
     const getCurso = (idCourse) => {

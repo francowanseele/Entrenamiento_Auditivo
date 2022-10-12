@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, Text, Animated, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, ScrollView, View, Text, Dimensions, Alert } from 'react-native';
 import {
     ListItem,
     Icon,
@@ -73,16 +73,26 @@ export default function BottomSheetGiroMelodico(props) {
     };
 
     const saveGiroMelodico = async () => {
-        const data = {
-            giro_melodico: giro,
-            mayor: mayor,
-        };
+        if (giro.length === 0) {
+            Alert.alert('Debe escribir un giro melódico');
+        } else {
+            const data = {
+                giro_melodico: giro,
+                mayor: mayor,
+            };
+    
+            const addGiroMelodicoResult = await addGiroMelodicoApi(data);
+    
+            if (!addGiroMelodicoResult.ok) {
+                Alert.alert('No se pudo guardar el giro melódico');
+            } 
 
-        const addGiroMelodicoResult = await addGiroMelodicoApi(data);
-
-        if (addGiroMelodicoResult.ok) {
-            confirmation();
+            refRBSheet.current.close();
         }
+
+        // if (addGiroMelodicoResult.ok) {
+        //     confirmation();
+        // }
     };
 
     const deleteGiro = () => {
@@ -339,7 +349,7 @@ export default function BottomSheetGiroMelodico(props) {
                 return (
                     <Button
                         titleStyle={styles.buttonSaveAndAddTitle}
-                        title="Agregar y guardar"
+                        title="Guardar en lista"
                         containerStyle={styles.buttonDeleteContainer}
                         buttonStyle={styles.buttonDelete}
                         type="clear"
