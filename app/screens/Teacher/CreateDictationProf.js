@@ -108,8 +108,6 @@ export default function CreateDictationProf({ route }) {
     const [claveEdit, setClaveEdit] = useState('Sol');
 
     //new celula ritmica
-    const [ valorCelula, setValorCelula ] = useState('0');
-    const [createCelulaRitmica, setCreateCelulaRitmica] = useState(true);
     const [photo, setPhoto] = useState(null);
     const [figuras, setFiguras] = useState([]);
 
@@ -327,7 +325,6 @@ export default function CreateDictationProf({ route }) {
         });
         setAddCompas(true);
         setAddCelulaRitmica(true);
-        setCreateCelulaRitmica(true);
         setEditCompas_regla(null);
         setEditCelula_ritmica(null);
         setNotesStart(true);
@@ -654,7 +651,6 @@ export default function CreateDictationProf({ route }) {
                     setGiro_melodico_reglaEdit={setGiro_melodico_reglaEdit}
                     setClaveEdit={setClaveEdit}
                     setAddCelulaRitmica={setAddCelulaRitmica}
-                    setCreateCelulaRitmica={setCreateCelulaRitmica}
                     setAddCompas={setAddCompas}
                     setEditCompas_regla={setEditCompas_regla}
                     setEditCelula_ritmica={setEditCelula_ritmica}

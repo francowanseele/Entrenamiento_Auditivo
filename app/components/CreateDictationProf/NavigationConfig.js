@@ -28,7 +28,6 @@ export default function NavigationConfig(props) {
         setGiro_melodico_reglaEdit,
         setClaveEdit,
         setAddCelulaRitmica,
-        setCreateCelulaRitmica,
         setAddCompas,
         setEditCompas_regla,
         setEditCelula_ritmica,
@@ -100,7 +99,6 @@ export default function NavigationConfig(props) {
                         celula_ritmica_regla={celula_ritmica_regla}
                         BPM={BPM}
                         setAddCelulaRitmica={setAddCelulaRitmica}
-                        setCreateCelulaRitmica={setCreateCelulaRitmica}
                         setAddCompas={setAddCompas}
                         setEditCompas_regla={setEditCompas_regla}
                         setEditCelula_ritmica={setEditCelula_ritmica}

@@ -39,35 +39,35 @@ import KeyboardCreateCelulas from './KeyboardCreateCelulas';
 import getValueFromIcon from './KeyboardCreateCelulas';
 import { addCelulaRitmicaApi } from '../../api/celula_ritmica';
 
-const KeyBoardValuesFigures = [
-    {
-        name: 'music-note-whole',
-        value: '1',
-    },
-    { name: 'music-note-half', value: '2' },
-    { name: 'music-note-half-dotted', value: 'd2' },
-    { name: 'music-note-quarter', value: '4' },
-    { name: 'music-note-quarter-dotted', value: 'd4' },
-    { name: 'music-note-eighth', value: '8' },
-    { name: 'music-note-eighth-dotted', value: 'd8' },
-    { name: 'music-note-sixteenth', value: '16' },
-    { name: 'music-note-sixteenth-dotted', value: 'd16' },
-    // silencios
-    { value: '1S', name: 'music-rest-whole' },
-    { value: '2S', name: 'music-rest-half' },
-    { value: '4S', name: 'music-rest-quarter' },
-    { value: '8S', name: 'music-rest-eighth' },
-    { value: '16S', name: 'music-rest-sixteenth' },
-    // Silencios compuestos
-    { value: 'd1S', name: 'd1S' },
-    { value: 'd2S', name: 'd2S' },
-    { value: 'd4S', name: 'd4S' },
-    { value: 'd8S', name: 'd8S' },
-    { value: 'd16S', name: 'd16S' },
-    // mas figuras agregadas
-    { value: '32', name: '32' },
-    { value: '64', name: '64' },
-];
+// const KeyBoardValuesFigures = [
+//     {
+//         name: 'music-note-whole',
+//         value: '1',
+//     },
+//     { name: 'music-note-half', value: '2' },
+//     { name: 'music-note-half-dotted', value: 'd2' },
+//     { name: 'music-note-quarter', value: '4' },
+//     { name: 'music-note-quarter-dotted', value: 'd4' },
+//     { name: 'music-note-eighth', value: '8' },
+//     { name: 'music-note-eighth-dotted', value: 'd8' },
+//     { name: 'music-note-sixteenth', value: '16' },
+//     { name: 'music-note-sixteenth-dotted', value: 'd16' },
+//     // silencios
+//     { value: '1S', name: 'music-rest-whole' },
+//     { value: '2S', name: 'music-rest-half' },
+//     { value: '4S', name: 'music-rest-quarter' },
+//     { value: '8S', name: 'music-rest-eighth' },
+//     { value: '16S', name: 'music-rest-sixteenth' },
+//     // Silencios compuestos
+//     { value: 'd1S', name: 'd1S' },
+//     { value: 'd2S', name: 'd2S' },
+//     { value: 'd4S', name: 'd4S' },
+//     { value: 'd8S', name: 'd8S' },
+//     { value: 'd16S', name: 'd16S' },
+//     // mas figuras agregadas
+//     { value: '32', name: '32' },
+//     { value: '64', name: '64' },
+// ];
 
 export default function BottomSheetCreateCelulaRitmica(props) {
     const {
@@ -80,38 +80,32 @@ export default function BottomSheetCreateCelulaRitmica(props) {
         figuras,
     } = props;
 
-    const [title, setTitle] = useState('Nueva celula ritmica');
+    const initialStateOpen = () => {
+        setPhoto(null);
+        setFiguras([]);
+    }
 
     const confirmation = async () => {
-        let valorOriginal = [];
-        figuras.map((figura) => {
-            if (figura != 'null') {
-                let res = KeyBoardValuesFigures.find(
-                    (fig) => fig.name === figura
-                );
-                valorOriginal.push(res.value);
-            } else {
-                sefasgdsagdfagdfgadf;
-            }
-        });
-
-        const photo64 = await ImgToBase64.getBase64String(photo.uri);
-        const data = {
-            profileImage: photo64,
-            valor: valorOriginal,
-            simple: simple,
-        };
-        if (photo && valorOriginal.length > 0) {
-            await addCelulaRitmicaApi(data);
-            refRBSheet.current.close();
-            setPhoto(null);
-            setFiguras([]);
-        } else
+        console.log(figuras);
+        if (!photo || figuras.length == 0) {
             Alert.alert(
                 'Campos incompletos',
                 'Debes llenar todos los campos',
                 'ok'
             );
+        } else {
+            const photo64 = await ImgToBase64.getBase64String(photo.uri);
+            const data = {
+                profileImage: photo64,
+                valor: figuras,
+                simple: simple,
+            };
+            if (photo && figuras.length > 0) {
+                await addCelulaRitmicaApi(data);
+                refRBSheet.current.close();
+            }
+        }
+
     };
 
     const handleChoosePhoto = () => {
@@ -129,9 +123,9 @@ export default function BottomSheetCreateCelulaRitmica(props) {
             closeOnPressMask={true}
             animationType="none"
             dragFromTopOnly={true}
-            // onOpen={async () => {
-            //     await initialStateOpen();
-            // }}
+            onOpen={async () => {
+                await initialStateOpen();
+            }}
             height={Dimensions.get('window').height * 0.75}
             customStyles={{
                 wrapper: {
@@ -154,7 +148,7 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                             paddingRight: 15,
                         }}
                     >
-                        <Text style={styles.titleBottom}>{title}</Text>
+                        <Text style={styles.titleBottom}>Nueva celula ritmica</Text>
                         <Button
                             style={styles.okGiroMelodico}
                             buttonStyle={styles.okGiroMelodicoButton}

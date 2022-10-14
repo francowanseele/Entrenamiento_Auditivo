@@ -137,6 +137,8 @@ export default function KeyboardCreateCelulas(props) {
                 return 'music-rest-eighth';
             case '1S':
                 return 'music-rest-whole';
+            default:
+                return null;
             // case '16S':
             //     return ('16S');
             // case 'd1S': return('d1S');
@@ -147,24 +149,25 @@ export default function KeyboardCreateCelulas(props) {
         }
     };
 
-    const getFigure = (fig) => {
-        return getNameIcon(fig);
-    };
+    // const getFigure = (fig) => {
+    //     return getNameIcon(fig);
+    // };
 
-    const alterar = (nota, alteracion) => {
-        return nota.slice(0, 1) + alteracion + nota.slice(1, 2);
-    };
+    // const alterar = (nota, alteracion) => {
+    //     return nota.slice(0, 1) + alteracion + nota.slice(1, 2);
+    // };
 
     const PrintArray = ({ figuras }) => {
         if (figuras.length > 0) {
             return (
                 <View style={{ flexDirection: 'row', width: '80%' }}>
                     {figuras.map((elem, key) => {
-                        if (elem != undefined && elem.length > 5) {
+                        const inconName = getNameIcon(elem);
+                        if (inconName) {
                             return (
                                 <Icon
                                     key={key}
-                                    name={elem}
+                                    name={inconName}
                                     type="material-community"
                                     iconStyle={{ fontSize: 30, marginTop: 5 }}
                                 />
@@ -250,7 +253,7 @@ export default function KeyboardCreateCelulas(props) {
                                     />
                                 }
                                 title={getNameIcon(figura) ? '' : figura}
-                                onPress={() => writeFigura(getFigure(figura))}
+                                onPress={() => writeFigura(figura)}
                                 containerStyle={styles.buttonNotes}
                             />
                         ) : (
