@@ -193,6 +193,7 @@ export default function ConfigRhythmic(props) {
         <View>
             <View style={styles.contentSimpleCompuesto}>
                 <SwitchSelector
+                    value={simple ? 0 : 1}
                     initial={0}
                     onPress={(value) => setSimple(value == 's')}
                     textColor={'black'}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Button, Overlay } from 'react-native-elements';
-import { PRIMARY_COLOR } from '../../utils/colorPalette';
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../utils/colorPalette';
 
 export default function OverlayConfirmation(props) {
     const { visible, setVisible, title, text, functionOk } = props;
@@ -10,7 +10,7 @@ export default function OverlayConfirmation(props) {
         if (functionOk) {
             functionOk();
         }
-        setVisible(!visible);
+        setVisible(false);
     };
 
     return (
@@ -29,9 +29,10 @@ export default function OverlayConfirmation(props) {
                 onPress={toggleOverlay}
             />
             <Button
-                buttonStyle={styles.containerButtonOk}
                 title="Cancelar"
-                onPress={toggleOverlay}
+                type="clear"
+                onPress={() => setVisible(false)}
+                titleStyle={{ color: SECONDARY_COLOR }}
             />
         </Overlay>
     );

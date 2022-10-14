@@ -40,6 +40,7 @@ import {
 import { getCursoPersonal } from '../../api/course';
 import BottomSheetLigadura from '../../components/CreateDictationProf/BottomSheetLigadura';
 import Loading from '../../components/Loading';
+import BottomSheetSearchConfigDictation from '../../components/CreateDictationProf/BottomSheetSearchConfigDictation';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -48,6 +49,7 @@ export default function CreateDictationProf({ route }) {
 
     // Ref
     const refRBSheet = useRef();
+    const refRBSheet_SearchConfigDictation = useRef();
     const refRBSheet_GiroMelodico = useRef();
     const refRBSheet_Picker = useRef();
     const refRBSheet_NotesStartEnd = useRef();
@@ -548,7 +550,7 @@ export default function CreateDictationProf({ route }) {
                     nro_compases,
                     simple,
                     compas_regla,
-                    celula_ritmica_regla:getTarjetas(celula_ritmica_regla),
+                    celula_ritmica_regla: getTarjetas(celula_ritmica_regla),
                     BPM,
                     tesitura,
                     mayor,
@@ -565,6 +567,10 @@ export default function CreateDictationProf({ route }) {
             }
         }
         setLoading(false);
+
+
+
+
         // else {
         //     setTitleErrorConfig('No es posible crear la configuración.');
         //     setTextErrorConfig(
@@ -574,8 +580,9 @@ export default function CreateDictationProf({ route }) {
         // }
     };
 
-    // if (lastInstitute === null || lastCourse === null || lastModule === null)
-    //     return <Loading isVisible={true} text="Cargando" />;
+    const loadConfigDictation = () => {
+        refRBSheet_SearchConfigDictation.current.open();
+    }
 
     if (loading) return <Loading isVisible={true} text="Cargando.. podría tomar varios minutos" />;
 
@@ -592,6 +599,7 @@ export default function CreateDictationProf({ route }) {
                 />
                 <View style={styles.contentConfigGral}>
                     <SwitchSelector
+                        value={dictationRhythmic ? 1 : 0}
                         initial={0}
                         onPress={(value) => setDictationhythmic(value == 'r')}
                         textColor={'black'}
@@ -615,7 +623,7 @@ export default function CreateDictationProf({ route }) {
                             width: '80%',
                         }}
                     />
-                    {/* <Button
+                    <Button
                         icon={
                             <Icon
                                 type="material-community"
@@ -625,7 +633,8 @@ export default function CreateDictationProf({ route }) {
                         }
                         containerStyle={styles.containerButtonSearch}
                         buttonStyle={styles.buttonSearch}
-                    /> */}
+                        onPress={loadConfigDictation}
+                    />
                 </View>
 
                 <NavigationConfig
@@ -707,6 +716,26 @@ export default function CreateDictationProf({ route }) {
                     refRBSheet={refRBSheet}
                 />
             )}
+
+            <BottomSheetSearchConfigDictation 
+                refRBSheet={refRBSheet_SearchConfigDictation}
+                setDictationhythmic={setDictationhythmic}
+                setGiro_melodico_regla={setGiro_melodico_regla}
+                setNotas_inicio={setNotas_inicio}
+                setNotas_fin={setNotas_fin}
+                setClave_prioridad={setClave_prioridad}
+                setEscala_diatonica_regla={setEscala_diatonica_regla}
+                setNota_base={setNota_base}
+                setMayor={setMayor}
+                setNro_compases={setNro_compases}
+                setSimple={setSimple}
+                setCompas_regla={setCompas_regla}
+                setCelula_ritmica_regla={setCelula_ritmica_regla}
+                setLigadura_regla={setLigadura_regla}
+                setBPM={setBPM}
+                setNameConfig={setNameConfig}
+                setDescriptionConfig={setDescriptionConfig}
+            />
 
             {/* Melodic */}
             <BottomSheetGiroMelodico

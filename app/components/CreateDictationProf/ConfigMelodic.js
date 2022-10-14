@@ -126,6 +126,7 @@ export default function ConfigMelodic(props) {
         <View>
             <View style={styles.contentSimpleCompuesto}>
                 <SwitchSelector
+                    value={mayor ? 0 : 1}
                     initial={0}
                     onPress={(value) => setMayor(value == 'mayor')}
                     textColor={'black'}
