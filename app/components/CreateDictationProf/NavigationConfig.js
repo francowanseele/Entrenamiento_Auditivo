@@ -1,6 +1,4 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Text, View } from 'react-native';
-import { ListItem, Icon } from 'react-native-elements';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import ConfigMelodic from './ConfigMelodic';
@@ -11,6 +9,8 @@ const Tab = createMaterialTopTabNavigator();
 export default function NavigationConfig(props) {
     const {
         refRBSheet_GiroMelodico,
+        refRBSheet_GiroMelodico_Admin,
+        refRBSheet_GiroMelodicoGrupo_Admin,
         giro_melodico_regla,
         notas_inicio,
         notas_fin,
@@ -74,6 +74,8 @@ export default function NavigationConfig(props) {
                             setMayor={setMayor}
                             mayor={mayor}
                             refRBSheet_GiroMelodico={refRBSheet_GiroMelodico}
+                            refRBSheet_GiroMelodico_Admin={refRBSheet_GiroMelodico_Admin}
+                            refRBSheet_GiroMelodicoGrupo_Admin={refRBSheet_GiroMelodicoGrupo_Admin}
                             refRBSheet_NotesStartEnd={refRBSheet_NotesStartEnd}
                             refRBSheet_Clave={refRBSheet_Clave}
                             refRBSheet_Tonalidad={refRBSheet_Tonalidad}

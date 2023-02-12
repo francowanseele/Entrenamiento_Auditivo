@@ -1,22 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import {
     StyleSheet,
-    ScrollView,
     View,
     Text,
-    Animated,
-    Platform,
 } from 'react-native';
 import {
-    ListItem,
-    Icon,
-    Slider,
     Button,
-    Divider,
     Overlay,
 } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
-import SwipePicker from 'react-native-swipe-picker';
 import { FIFTH_COLOR } from '../../../utils/colorPalette';
 
 export default function OverlayPicker(props) {
@@ -37,13 +29,15 @@ export default function OverlayPicker(props) {
         var arr = [];
         values.forEach((v) => {
             arr.push({
-                value: v.name,
-                label: v.name,
+                value: v.name ? v.name : v.Nombre,
+                label: v.name ? v.name : v.Nombre,
             });
         });
 
         setValuesToPicker(arr);
+        setValueLocal({ id: null, name: '' });
     }, [values]);
+    
 
     const toggleOverlay = () => {
         setVisible(!visible);
@@ -81,7 +75,7 @@ export default function OverlayPicker(props) {
                     <View style={styles.screen}>
                         <Picker
                             ref={pickerRef}
-                            selectedValue={valueLocal.name}
+                            selectedValue={valueLocal.name ? valueLocal.name : valueLocal.Nombre}
                             onValueChange={(itemValue, itemIndex) =>
                                 setValuesPicker(itemValue, itemIndex)
                             }
@@ -91,8 +85,8 @@ export default function OverlayPicker(props) {
                             {values.map((val, i) => (
                                 <Picker.Item
                                     key={i}
-                                    label={val.name}
-                                    value={val.name}
+                                    label={val.name ? val.name : val.Nombre}
+                                    value={val.name ? val.name : val.Nombre}
                                 />
                             ))}
                         </Picker>

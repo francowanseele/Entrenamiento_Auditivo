@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Button, Overlay } from 'react-native-elements';
-import { Picker } from '@react-native-picker/picker';
 import { PRIMARY_COLOR } from '../../../utils/colorPalette';
 
 export default function OverlayInfo(props) {

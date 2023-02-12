@@ -296,13 +296,7 @@ export default function ConfigRhythmic(props) {
                 />
                 {isAdmin ? (
                     <Button
-                        icon={
-                            <Icon
-                                type="material-community"
-                                name="pencil-outline"
-                                color="white"
-                            />
-                        }
+                        title={'Administrar'}
                         containerStyle={styles.buttonRight}
                         buttonStyle={styles.buttonAdd}
                         onPress={() => {

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView, Text, View, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import { Input, Button, Icon } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { getParams, getStorageIsStudent, setStorageCurrentCourse } from '../../../utils/asyncStorageManagement';
-import { FIFTH_COLOR, PRIMARY_COLOR, QUARTER_COLOR, SECONDARY_COLOR, TERTIARY_COLOR } from '../../../utils/colorPalette';
+import { getParams, setStorageCurrentCourse } from '../../../utils/asyncStorageManagement';
+import { PRIMARY_COLOR, QUARTER_COLOR } from '../../../utils/colorPalette';
 import { CLOSE_BOTTOM_SHEET } from '../../../utils/constants';
 import { editCourseApi, unregisterStudentFromCourseApi, unregisterTeacherFromCourseApi } from '../../api/course';
 

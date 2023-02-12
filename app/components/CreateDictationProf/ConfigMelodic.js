@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import { ListItem, Icon, Button } from 'react-native-elements';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
@@ -7,10 +7,13 @@ import SwitchSelector from 'react-native-switch-selector';
 import AlertValidator from './AlertValidator';
 import ListEmpty from './ListEmpty';
 import OverlayInfo from './OverlayInfo';
+import { getStorageIsAdmin } from '../../../utils/asyncStorageManagement';
 
 export default function ConfigMelodic(props) {
     const {
         refRBSheet_GiroMelodico,
+        refRBSheet_GiroMelodico_Admin,
+        refRBSheet_GiroMelodicoGrupo_Admin,
         giro_melodico_regla,
         notas_inicio,
         notas_fin,
@@ -62,6 +65,14 @@ export default function ConfigMelodic(props) {
     const TITLE_INFO_REFERENCE_NOTE =
         'La nota de referencia no coincide con ninguna nota establecida en los Giros Melódicos';
 
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        getStorageIsAdmin().then((admin) => {
+            setIsAdmin(admin);
+        });
+    }, []);
+
     const printArray = (arr) => {
         var res = '';
         for (let i = 0; i < arr.length - 1; i++) {
@@ -98,6 +109,14 @@ export default function ConfigMelodic(props) {
         await setGiro_melodico_reglaEdit(giro);
         refRBSheet_GiroMelodico.current.open();
     };
+
+    const addGiroMelodicoAdmin = async () => {
+        refRBSheet_GiroMelodico_Admin.current.open();
+    }
+
+    const manageGrupos = async () => {
+        refRBSheet_GiroMelodicoGrupo_Admin.current.open();
+    }
 
     const editNotasIncio = async () => {
         await setNotesStart(true);
@@ -162,11 +181,30 @@ export default function ConfigMelodic(props) {
                             color="white"
                         />
                     }
-                    containerStyle={styles.buttonRight}
                     buttonStyle={styles.buttonAdd}
                     onPress={addGiroMelodicoRegla}
                 />
+                {isAdmin ? (
+                    <Button
+                        title={'Administrar'}
+                        containerStyle={styles.buttonRight}
+                        buttonStyle={styles.buttonAdd}
+                        onPress={addGiroMelodicoAdmin}
+                    />
+                ) : (
+                    <></>
+                )}
             </View>
+            {isAdmin && (
+                <View style={{ flexDirection: 'row', paddingLeft: 15 }}>
+                    <Button
+                        title="Administrar grupos en ADA"
+                        type="clear"
+                        buttonStyle={{paddingTop: 0}}
+                        onPress={() => manageGrupos()}
+                    />
+                </View>
+            )}
             {giro_melodico_regla.length == 0 && (
                 <ListEmpty text={'Agregue Giros Melódicos presionando "+"'} />
             )}
@@ -438,6 +476,7 @@ const styles = StyleSheet.create({
     },
     buttonRight: {
         textAlign: 'right',
+        marginLeft: 10,
     },
     content: {
         flexDirection: 'row',

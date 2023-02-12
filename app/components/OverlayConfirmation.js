@@ -16,7 +16,7 @@ export default function OverlayConfirmation(props) {
     return (
         <Overlay
             isVisible={visible}
-            onBackdropPress={toggleOverlay}
+            onBackdropPress={() => setVisible(false)}
             overlayStyle={styles.overlaySelectPicker}
         >
             <View style={styles.content}>

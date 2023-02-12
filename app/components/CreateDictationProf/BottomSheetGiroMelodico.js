@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView, View, Text, Dimensions, Alert } from 'react-native';
 import {
     ListItem,
@@ -17,15 +17,21 @@ import {
     BORDER_COLOR_RIGHT,
     FIFTH_COLOR,
     PRIMARY_COLOR,
+    QUARTER_COLOR,
     SECONDARY_COLOR,
     TEXT_COLOR_RIGHT,
     TEXT_COLOR_WRONG,
 } from '../../../utils/colorPalette';
+import { CLOSE_BOTTOM_SHEET } from '../../../utils/constants';
 import {
-    addGiroMelodicoApi,
+    deleteGiroMelodicoApi,
+    editGiroMelodicoApi,
     getGiroMelodicoApi,
 } from '../../api/giro_melodico';
+import { getAll } from '../../api/giro_melodico_grupo';
+import OverlayConfirmation from '../OverlayConfirmation';
 import KeyboardIntervals from './KeyboardIntervals';
+import OverlayPicker from './OverlayPicker';
 
 export default function BottomSheetGiroMelodico(props) {
     const {
@@ -44,6 +50,35 @@ export default function BottomSheetGiroMelodico(props) {
     const [writeGiroMelodico, setWriteGiroMelodico] = useState(true);
     const [girosMelodicosDB, setGirosMelodicosDB] = useState([]);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [height, setHeight] = useState(0.75);
+    const [grupos, setGrupos] = useState([]);
+    const [grupoSelected, setGrupoSelected] = useState(null);
+    const [showGirosMelodicos, setShowGirosMelodicos] = useState(false);
+
+    // Editar GM
+    const [editarGiroMelodico, setEditarGiroMelodico] = useState(null);
+    const [grupoEditarGM, setGrupoEditarGM] = useState(null);
+    const [subGrupoEditarGM, setSubGrupoEditarGM] = useState(null);
+    const [subGrupos, setSubGrupos] = useState([]);
+    const [visibleGrupo, setVisibleGrupo] = useState(false);
+    const [visibleSubgrupo, setVisibleSubgrupo] = useState(false);
+    const [msjErrorOverlay, setMsjErrorOverlay] = useState('');
+    const [titleOverlay, setTitleOverlay] = useState('');
+
+    // Delete GM
+    const [modalConfirmationVisible, setModalConfirmationVisible] = useState(false);
+    const [modalConfirmationTitle, setModalConfirmationTitle] = useState('');
+    const [modalConfirmationText, setModalConfirmationText] = useState('');
+    const [giroMelodicoToDelete, setGiroMelodicoToDelete] = useState(null);
+
+    useEffect(() => {
+        setSubGrupoEditarGM(null);
+        if (grupoEditarGM) {
+            setSubGrupos(grupoEditarGM.subGrupo);
+        } else {
+            setSubGrupos([]);
+        }
+    }, [grupoEditarGM])
 
     const confirmation = () => {
         const newGiro = {
@@ -72,29 +107,6 @@ export default function BottomSheetGiroMelodico(props) {
         refRBSheet.current.close();
     };
 
-    const saveGiroMelodico = async () => {
-        if (giro.length === 0) {
-            Alert.alert('Debe escribir un giro melódico');
-        } else {
-            const data = {
-                giro_melodico: giro,
-                mayor: mayor,
-            };
-    
-            const addGiroMelodicoResult = await addGiroMelodicoApi(data);
-    
-            if (!addGiroMelodicoResult.ok) {
-                Alert.alert('No se pudo guardar el giro melódico');
-            } 
-
-            refRBSheet.current.close();
-        }
-
-        // if (addGiroMelodicoResult.ok) {
-        //     confirmation();
-        // }
-    };
-
     const deleteGiro = () => {
         var newGiroMelodicoRegla = [];
         giro_melodico_regla.forEach((gm_regla) => {
@@ -108,7 +120,13 @@ export default function BottomSheetGiroMelodico(props) {
     };
 
     const initialStateOpen = async () => {
+        setHeight(0.75);
+        setShowGirosMelodicos(false);
         setRenderSlider(false);
+        setEditarGiroMelodico(null);
+        setGrupoEditarGM(null);
+        setSubGrupoEditarGM(null);
+
         if (add) {
             setGiro([]);
             setPrio(1);
@@ -150,10 +168,22 @@ export default function BottomSheetGiroMelodico(props) {
                     prioridad: prio,
                     add: encontrado,
                     lecturaAmbasDirecciones: lecturaAmbasDireccionesAux,
+                    grupoId: gm[0].GrupoId,
+                    id: gm[0].id
                 });
             });
 
             setGirosMelodicosDB(girosMelodicosDBTemp);
+        }
+
+        const gruposResult = await getAll();
+        if (gruposResult.ok) {
+            let gruposRes = [];
+            gruposResult.girosMelodicosGrupo.forEach(g => {
+                gruposRes.push({...g, expanded: false});
+            });
+
+            setGrupos(gruposRes);
         }
 
         const isAdminFromStorage = await getStorageIsAdmin();
@@ -162,6 +192,154 @@ export default function BottomSheetGiroMelodico(props) {
 
         setRenderSlider(true);
     };
+
+    const openCloseGrupo = (grupo) => {
+        let res = [];
+        grupos.forEach(gr => {
+            if(gr.id == grupo.id) {
+                res.push({
+                    id: gr.id,
+                    Nombre: gr.Nombre,
+                    Nivel: gr.Nivel,
+                    subGrupo: gr.subGrupo,
+                    expanded: !gr.expanded,
+                })
+            } else {
+                res.push(gr);
+            }
+        });
+
+        setGrupos(res);
+    }
+
+    const showListGirosMelodicos = (subG) => {
+        refRBSheet.current.close();
+        setTimeout(async () => {
+            await setHeight(0.9);
+            refRBSheet.current.open();
+            setTimeout(async () => {
+                await setShowGirosMelodicos(true);
+                await setGrupoSelected(subG);
+            }, 10);
+        }, CLOSE_BOTTOM_SHEET);
+    }
+
+    const showGirosMelodicosSinGurpo = () => {
+        refRBSheet.current.close();
+        setTimeout(async () => {
+            await setHeight(0.9);
+            refRBSheet.current.open();
+            setTimeout(async () => {
+                await setShowGirosMelodicos(true);
+                await setGrupoSelected(null);
+            }, 10);
+        }, CLOSE_BOTTOM_SHEET);
+    }
+
+    const existGirosMelodicosWithoutGrupo = () => {
+        return girosMelodicosDB.filter(gm => gm.grupoId == undefined).length > 0;
+    }
+
+    const subGrupoHasGirosMelodicos = (subG) => {
+        return girosMelodicosDB.filter(gm => gm.grupoId == subG.id).length > 0; 
+    }
+
+    const grupoHasGirosMelodicos = (g) => {
+        let res = false;
+        g.subGrupo.forEach(subG => {
+            res = res || subGrupoHasGirosMelodicos(subG);
+        });
+
+        return res;
+    }
+
+    const getGirosMelodicosToShow = (girosMelodicosList) => {
+        return girosMelodicosList.filter(gm => gm.grupoId == grupoSelected?.id);
+    }
+
+    const atras = async () => {
+        refRBSheet.current.close();
+        setTimeout(async () => {
+            await setHeight(0.75);
+            refRBSheet.current.open();
+            setTimeout(async () => {
+                await setHeight(0.75);
+                await setShowGirosMelodicos(false);
+                await setRenderSlider(false);
+            }, 10);
+        }, CLOSE_BOTTOM_SHEET);
+    }
+
+    const editGiroMelodico = (gm) => {
+        const gmEditando = {
+            giroMelodico: gm,
+        };
+        setEditarGiroMelodico(gmEditando);
+    }
+
+    const deleteGiroMelodico = (gm) => {
+        setGiroMelodicoToDelete(gm);
+        setModalConfirmationVisible(true);
+        setModalConfirmationTitle('Eliminar giro melódico del sistema ADA')
+        setModalConfirmationText(`¿Desea eliminar el giro melódico ${printArray(gm.giros_melodicos)} del sistema? Este ya no podrá ser utilizado para crear nuevos generadores de dictado.`)
+    }
+
+    const confirmDeleted = async () => {
+        const response = await deleteGiroMelodicoApi(giroMelodicoToDelete.id);
+
+        if (response.ok) {
+            Alert.alert('Giro melódico eliminado correctamente.')
+        } else {
+            Alert.alert('No se pudo eliminar el giro melódico.')
+        }
+
+        refRBSheet.current.close();
+    }
+
+    const editGrupo = async () => {
+        if (grupos && grupos.length) {
+            await setMsjErrorOverlay('');
+            await setTitleOverlay('Seleccionar Grupo');
+        } else {
+            await setMsjErrorOverlay('No hay grupos disponibles. Si es un usuario administrador puede agregar nuevos en "Administrar grupos en ADA". De lo contrario puede ponerse en contacto con administradores.');
+        }
+        setVisibleGrupo(true);
+    };
+
+    const editSubGrupo = async () => {
+        if (subGrupos && subGrupos.length) {
+            await setMsjErrorOverlay('');
+            await setTitleOverlay('Seleccionar Subgrupo');
+        } else {
+            if (grupoEditarGM) {
+                await setMsjErrorOverlay('No hay subgrupos disponibles. Si es un usuario administrador puede agregar nuevos en "Administrar grupos en ADA". De lo contrario puede ponerse en contacto con administradores.');
+            } else {
+                await setMsjErrorOverlay('No hay grupo seleccionado. Por favor seleccione un grupo antes de seleccionar un subgrupo.');
+            }
+        }
+        setVisibleSubgrupo(true);
+    }
+
+    const confirmarEditarGiroMelodico = async () => {
+        if (subGrupoEditarGM?.id) {
+            const gmId = editarGiroMelodico.giroMelodico.id;
+            const data = {
+                grupoId: subGrupoEditarGM.id,
+            };
+    
+            const response = await editGiroMelodicoApi(gmId, data);
+
+            if (response.ok) {
+                Alert.alert(`El giro melódico fue establecido en el grupo ${grupoEditarGM.Nombre}/${subGrupoEditarGM.Nombre}.`)
+            } else {
+                Alert.alert(`No se pudo modificar el giro melódico.`)
+            }
+            
+            refRBSheet.current.close();
+        } else {
+            Alert.alert('Debe seleccionar un grupo y un subgrupo.')
+        }
+    }
 
     const printArray = (arr) => {
         var res = '';
@@ -345,20 +523,7 @@ export default function BottomSheetGiroMelodico(props) {
 
     function ButtonEliminarSave() {
         if (add) {
-            if (isAdmin) {
-                return (
-                    <Button
-                        titleStyle={styles.buttonSaveAndAddTitle}
-                        title="Guardar en lista"
-                        containerStyle={styles.buttonDeleteContainer}
-                        buttonStyle={styles.buttonDelete}
-                        type="clear"
-                        onPress={saveGiroMelodico}
-                    />
-                );
-            } else {
                 return (<></>)
-            }
         } else {
             return (
                 <Button
@@ -384,14 +549,14 @@ export default function BottomSheetGiroMelodico(props) {
         <RBSheet
             ref={refRBSheet}
             closeOnDragDown={true}
-            // closeOnPressMask={false}
             closeOnPressMask={true}
             animationType="none"
             dragFromTopOnly={true}
             onOpen={async () => {
                 await initialStateOpen();
             }}
-            height={Dimensions.get('window').height * 0.75}
+            height={Dimensions.get('window').height * height}
+            closeDuration={CLOSE_BOTTOM_SHEET}
             customStyles={{
                 wrapper: {
                     backgroundColor: 'rgba(0,0,0,.25)',
@@ -406,7 +571,7 @@ export default function BottomSheetGiroMelodico(props) {
             }}
         >
             <View>
-                {add ? (
+                {add && !showGirosMelodicos ? (
                     <SwitchSelector
                         initial={!add || writeGiroMelodico ? 0 : 1}
                         onPress={(value) => setWriteGiroMelodico(value == 'e')}
@@ -449,7 +614,7 @@ export default function BottomSheetGiroMelodico(props) {
                                 buttonStyle={styles.okGiroMelodicoButton}
                                 title={add ? 'Agregar' : 'Confirmar'}
                                 onPress={() => confirmation()}
-                                containerStyle={styles.okGiroMelodicoContainer}
+                                containerStyle={styles.okGiroMelodicoContainerEscribir}
                             />
                         </View>
                         <ScrollView>
@@ -513,16 +678,133 @@ export default function BottomSheetGiroMelodico(props) {
                             />
                         </ScrollView>
                     </View>
+                ) : !showGirosMelodicos ? (
+                    <ScrollView>
+                        <View style={{ marginBottom: 300 }}>
+                            {grupos.map((g, key) => 
+                                grupoHasGirosMelodicos(g) && (
+                                    <ListItem.Accordion
+                                        content={
+                                            <>
+                                                <Icon name="code-brackets" size={25} type="material-community" style={{marginRight:15}} />
+                                                <ListItem.Content>
+                                                    <ListItem.Title>{g.Nombre}</ListItem.Title>
+                                                </ListItem.Content>
+                                            </>
+                                        }
+                                        isExpanded={g.expanded}
+                                        onPress={() => {
+                                            openCloseGrupo(g)
+                                        }}
+                                        key={key}
+                                    >
+                                        {g.subGrupo.map((subG, i) => 
+                                            subGrupoHasGirosMelodicos(subG) && (
+                                                <ListItem key={i} bottomDivider onPress={() => showListGirosMelodicos(subG)}>
+                                                    <ListItem.Content>
+                                                        <ListItem.Title> - {subG.Nombre}</ListItem.Title>
+                                                    </ListItem.Content>
+                                                    <ListItem.Chevron />
+                                                </ListItem>
+                                            )
+                                        )}
+                                    </ListItem.Accordion>
+                                )
+                            )}
+                            {existGirosMelodicosWithoutGrupo() && (
+                                <ListItem onPress={() => {
+                                    showGirosMelodicosSinGurpo()
+                                }}>
+                                    <Icon name="code-brackets" size={25} type="material-community" />
+                                    <ListItem.Content>
+                                        <ListItem.Title>Sin grupo</ListItem.Title>
+                                    </ListItem.Content>
+                                    <ListItem.Chevron />
+                                </ListItem>
+                            )}
+                        </View>
+                    </ScrollView>
+                ) : editarGiroMelodico ? (
+                    <View>
+                         <View
+                            style={{
+                                flexDirection: 'row',
+                                paddingRight: 15,
+                            }}
+                        >
+                            <Text style={styles.titleBottomModificarGrupo}>Modificar grupo en ADA</Text>
+                            <Button
+                                style={styles.okGiroMelodico}
+                                buttonStyle={styles.okGiroMelodicoButton}
+                                title={'Confirmar'}
+                                onPress={() => confirmarEditarGiroMelodico()}
+                                containerStyle={styles.confirmarButtonModificarGrupo}
+                            />
+                        </View>
+                        <ScrollView>
+                            <View style={styles.contentTextPrioridad}>
+                                <Text style={styles.textPrioridadModificarGiroUp}>{`El giro melódico ${printArray(editarGiroMelodico.giroMelodico.giros_melodicos)} pasará a formar parte del grupo que se especifique a continuación.`}</Text>
+                                <Text style={styles.textPrioridadModificarGiro}>Solo es posible modificar el grupo al que pertenece el giro melódico. Si desea modificar los elementos que lo componen, deberá eliminar dicho giro melódico y crear uno nuevo.</Text>
+                            </View>
+                            <ListItem key={0} bottomDivider>
+                                <ListItem.Content style={styles.content}>
+                                    <View style={styles.contentListLeft}>
+                                        <ListItem.Title>Grupo</ListItem.Title>
+                                        <ListItem.Subtitle>
+                                            {grupoEditarGM?.Nombre
+                                                ? grupoEditarGM.Nombre
+                                                : 'Sin definir'}
+                                        </ListItem.Subtitle>
+                                    </View>
+                                    <View style={styles.contentListRight}>
+                                        <Icon
+                                            type="material-community"
+                                            name="pencil-outline"
+                                            onPress={() => editGrupo()}
+                                            containerStyle={{ width: '100%' }}
+                                        />
+                                    </View>
+                                </ListItem.Content>
+                            </ListItem>
+
+                            <ListItem key={1} bottomDivider>
+                                <ListItem.Content style={styles.content}>
+                                    <View style={styles.contentListLeft}>
+                                        <ListItem.Title>Subgrupo</ListItem.Title>
+                                        <ListItem.Subtitle>
+                                            {subGrupoEditarGM?.Nombre
+                                                ? subGrupoEditarGM.Nombre
+                                                : 'Sin definir'}
+                                        </ListItem.Subtitle>
+                                    </View>
+                                    <View style={styles.contentListRight}>
+                                        <Icon
+                                            type="material-community"
+                                            name="pencil-outline"
+                                            onPress={() => editSubGrupo()}
+                                            containerStyle={{ width: '100%' }}
+                                        />
+                                    </View>
+                                </ListItem.Content>
+                            </ListItem>
+                        </ScrollView>
+                    </View>
                 ) : (
                     // listar giros melódicos
                     <View>
                         <View
                             style={{
                                 flexDirection: 'row',
-                                paddingRight: 15,
+                                paddingHorizontal: 15,
                             }}
                         >
-                            <Text style={styles.titleBottom}>{title}</Text>
+                            <Button
+                                style={styles.atrasGiroMelodico}
+                                buttonStyle={styles.atrasGiroMelodicoButton}
+                                title={'<'}
+                                onPress={async () => await atras()}
+                                containerStyle={styles.atrasGiroMelodicoContainer}
+                            />
                             <Button
                                 style={styles.okGiroMelodico}
                                 buttonStyle={styles.okGiroMelodicoButton}
@@ -534,16 +816,13 @@ export default function BottomSheetGiroMelodico(props) {
                         <ScrollView>
                             <View style={{ marginBottom: 300 }}>
                                 {renderSlider ? (
-                                    girosMelodicosDB.map((gm, i) => (
+                                    getGirosMelodicosToShow(girosMelodicosDB).map((gm, i) => (
                                         <View key={i}>
                                             <View>
-                                                {/* <Text>{printArray(gm)}</Text> */}
                                                 <CheckBox
                                                     title={printArray(
                                                         gm.giros_melodicos
                                                     )}
-                                                    // checkedIcon="dot-circle-o"
-                                                    // uncheckedIcon="circle-o"
                                                     checked={gm.add}
                                                     containerStyle={
                                                         styles.containerCheckbox
@@ -580,6 +859,25 @@ export default function BottomSheetGiroMelodico(props) {
                                                         />
                                                     }
                                                 />
+
+                                                {isAdmin && (
+                                                    <View style={{flexDirection:'row'}}>
+                                                        <Button
+                                                            title="Editar en ADA"
+                                                            onPress={() => editGiroMelodico(gm)}
+                                                            titleStyle={{color: PRIMARY_COLOR, textDecorationLine: 'underline'}}
+                                                            type='clear'
+                                                            containerStyle={{width: '50%'}}
+                                                        />
+                                                        <Button
+                                                            title="Eliminar de ADA"
+                                                            onPress={() => deleteGiroMelodico(gm)}
+                                                            titleStyle={{color: 'darkred', textDecorationLine: 'underline'}}
+                                                            type='clear'
+                                                            containerStyle={{width: '50%'}}
+                                                        />
+                                                    </View>
+                                                )}
 
                                                 <ReadingDirection
                                                     giroMelodico={gm}
@@ -642,6 +940,32 @@ export default function BottomSheetGiroMelodico(props) {
                     </View>
                 )}
             </View>
+
+            <OverlayPicker
+                visible={visibleGrupo}
+                setVisible={setVisibleGrupo}
+                values={grupos}
+                setValue={setGrupoEditarGM}
+                msjErrorOverlay={msjErrorOverlay}
+                titleOverlay={titleOverlay}
+            />
+
+            <OverlayPicker
+                visible={visibleSubgrupo}
+                setVisible={setVisibleSubgrupo}
+                values={subGrupos}
+                setValue={setSubGrupoEditarGM}
+                msjErrorOverlay={msjErrorOverlay}
+                titleOverlay={titleOverlay}
+            />
+
+            <OverlayConfirmation
+                visible={modalConfirmationVisible}
+                setVisible={setModalConfirmationVisible}
+                title={modalConfirmationTitle}
+                text={modalConfirmationText}
+                functionOk={confirmDeleted}
+            />
         </RBSheet>
     );
 }
@@ -672,13 +996,37 @@ const styles = StyleSheet.create({
     okGiroMelodico: {
         marginTop: 10,
     },
+    atrasGiroMelodico: {
+        marginTop: 10,
+    },
     okGiroMelodicoContainer: {
+        width: '50%',
+    },
+    okGiroMelodicoContainerEscribir: {
         width: '30%',
+    },
+    confirmarButtonModificarGrupo: {
+        width: '30%',
+    },
+    atrasGiroMelodicoContainer: {
+        width: '50%',
     },
     okGiroMelodicoButton: {
         backgroundColor: PRIMARY_COLOR,
     },
+    atrasGiroMelodicoButton: {
+        backgroundColor: QUARTER_COLOR,
+    },
     titleBottom: {
+        fontSize: 20,
+        color: PRIMARY_COLOR,
+        fontWeight: 'bold',
+        marginTop: 20,
+        marginBottom: 20,
+        marginLeft: 10,
+        width: '70%',
+    },
+    titleBottomModificarGrupo: {
         fontSize: 20,
         color: PRIMARY_COLOR,
         fontWeight: 'bold',
@@ -752,5 +1100,34 @@ const styles = StyleSheet.create({
     },
     divider: {
         marginBottom: 15,
+    },
+    content: {
+        flexDirection: 'row',
+        width: '100%',
+    },
+    contentListLeft: {
+        textAlign: 'left',
+        width: '80%',
+    },
+    contentListRight: {
+        textAlign: 'right',
+        width: '20%',
+    }, 
+    contentTextPrioridad: {
+        marginHorizontal: 20,
+        marginVertical: 5,
+        borderLeftWidth: 2,
+        borderStyle: 'solid',
+        borderColor: PRIMARY_COLOR,
+        backgroundColor: FIFTH_COLOR,
+        padding: 10,
+        borderRadius: 5,
+    },
+    textPrioridadModificarGiro: {
+        fontSize: 17,
+    },
+    textPrioridadModificarGiroUp: {
+        fontSize: 17,
+        marginBottom: 10,
     },
 });

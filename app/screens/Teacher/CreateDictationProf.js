@@ -1,14 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Button, CheckBox } from 'react-native-elements';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { View, StyleSheet } from 'react-native';
+import { Button } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import SwitchSelector from 'react-native-switch-selector';
 
 import InfoGral from '../../components/CreateDictationProf/InfoGral';
 
-import ConfigMelodic from '../../components/CreateDictationProf/ConfigMelodic';
-import ConfigRhythmic from '../../components/CreateDictationProf/ConfigRhythmic';
 import NavigationConfig from '../../components/CreateDictationProf/NavigationConfig';
 import BottomSheetInfoGral from '../../components/CreateDictationProf/BottomSheetInfoGral';
 import BottomSheetGiroMelodico from '../../components/CreateDictationProf/BottomSheetGiroMelodico';
@@ -32,7 +30,6 @@ import { Icon } from 'react-native-elements/dist/icons/Icon';
 import OverlayInfo from '../../components/CreateDictationProf/OverlayInfo';
 import { generateDictationApi } from '../../api/user';
 import {
-    getParams,
     getStorageIsStudent,
     getStorageItem,
     ID_USER,
@@ -41,6 +38,8 @@ import { getCursoPersonal } from '../../api/course';
 import BottomSheetLigadura from '../../components/CreateDictationProf/BottomSheetLigadura';
 import Loading from '../../components/Loading';
 import BottomSheetSearchConfigDictation from '../../components/CreateDictationProf/BottomSheetSearchConfigDictation';
+import { GiroMelodico as BottomSheetAdminGiroMelodico } from '../../components/BottomSheetAdmin/GiroMelodico';
+import ManageGirosMelodicosGrupos from '../../components/BottomSheetAdmin/ManageGirosMelodicosGrupos';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -51,6 +50,8 @@ export default function CreateDictationProf({ route }) {
     const refRBSheet = useRef();
     const refRBSheet_SearchConfigDictation = useRef();
     const refRBSheet_GiroMelodico = useRef();
+    const refRBSheet_GiroMelodico_Admin = useRef();
+    const refRBSheet_GiroMelodicoGrupo_Admin = useRef();
     const refRBSheet_Picker = useRef();
     const refRBSheet_NotesStartEnd = useRef();
     const refRBSheet_Clave = useRef();
@@ -659,6 +660,8 @@ export default function CreateDictationProf({ route }) {
                     setEditLigaduraFirstCR={setEditLigaduraFirstCR}
                     refRBSheet_Picker={refRBSheet_Picker}
                     refRBSheet_GiroMelodico={refRBSheet_GiroMelodico}
+                    refRBSheet_GiroMelodico_Admin={refRBSheet_GiroMelodico_Admin}
+                    refRBSheet_GiroMelodicoGrupo_Admin={refRBSheet_GiroMelodicoGrupo_Admin}
                     refRBSheet_NotesStartEnd={refRBSheet_NotesStartEnd}
                     refRBSheet_Clave={refRBSheet_Clave}
                     refRBSheet_Tonalidad={refRBSheet_Tonalidad}
@@ -741,6 +744,17 @@ export default function CreateDictationProf({ route }) {
                 add={add}
                 giro_melodico_reglaEdit={giro_melodico_reglaEdit}
                 mayor={mayor}
+            />
+            <BottomSheetAdminGiroMelodico
+                giro_melodico_regla={giro_melodico_regla}
+                setGiro_melodico_regla={setGiro_melodico_regla}
+                refRBSheet={refRBSheet_GiroMelodico_Admin}
+                add={add}
+                giro_melodico_reglaEdit={giro_melodico_reglaEdit}
+                mayor={mayor}
+            />
+            <ManageGirosMelodicosGrupos
+                refRBSheet={refRBSheet_GiroMelodicoGrupo_Admin}
             />
             <BottomSheetNoteStartEnd
                 start={notesStart}

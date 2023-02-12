@@ -152,7 +152,7 @@ export default function BottomSheetCreateCelulaRitmica(props) {
                         <Button
                             style={styles.okGiroMelodico}
                             buttonStyle={styles.okGiroMelodicoButton}
-                            title={'Guardar Celula'}
+                            title={'Guardar en ADA'}
                             onPress={() => confirmation()}
                             containerStyle={styles.okGiroMelodicoContainer}
                         />
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
         borderRadius: 29,
     },
     okGiroMelodicoContainer: {
-        width: '30%',
+        width: '40%',
     },
     okGiroMelodicoButton: {
         backgroundColor: PRIMARY_COLOR,
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 20,
         marginLeft: 10,
-        width: '70%',
+        width: '60%',
     },
 
     textPrioridad: {
