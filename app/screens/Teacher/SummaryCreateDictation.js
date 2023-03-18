@@ -16,6 +16,8 @@ import {
 } from '../../../utils/colorPalette';
 import { addConfigDictationApi } from '../../api/course';
 import OverlayInfo from '../../components/CreateDictationProf/OverlayInfo';
+import { dictationType } from '../../../enums/dictationType';
+import { addConfigAcordeJazzApi } from '../../api/acordes';
 
 export default function SummaryCreateDictation({ route }) {
     const {
@@ -39,6 +41,8 @@ export default function SummaryCreateDictation({ route }) {
         mayor,
         isOnlyView,
         ligadura_regla,
+        generatorType,
+        dataCAJ,
     } = route.params;
 
     const [visibleEndCreate, setVisibleEndCreate] = useState(false);
@@ -84,50 +88,61 @@ export default function SummaryCreateDictation({ route }) {
     };
 
     const createConfigDictation = async () => {
-        setTitleEndCreate('Configuración exitosa!!');
-        setTextEndCreate('Su configuración fue creada con éxito.');
-        setVisibleEndCreate(true);
-
         const dataStorage = await getParams();
         const logged = await getStorageIsLogged();
 
         if (logged) {
-            const data = {
-                name: nameConfig,
-                description: descriptionConfig,
-                giroMelodicoRegla: giro_melodico_regla,
-                tesitura: tesitura,
-                startNotes: notas_inicio,
-                endNotes: notas_fin,
-                clefPriority: clave_prioridad,
-                escalaDiatonicaRegla: escala_diatonica_regla,
-                celulaRitmicaRegla: celula_ritmica_regla,
-                nroCompases: parseInt(nro_compases),
-                compasRegla: compas_regla,
-                simple: simple,
-                notaBase: nota_base[0],
-                bpm: BPM,
-                dictado_ritmico: dictationRhythmic,
-                mayor: mayor,
-                ligaduraRegla: ligadura_regla,
-            };
+            if (generatorType == dictationType.melodic || generatorType == dictationType.rhythmic) {
+                const data = {
+                    name: nameConfig,
+                    description: descriptionConfig,
+                    giroMelodicoRegla: giro_melodico_regla,
+                    tesitura: tesitura,
+                    startNotes: notas_inicio,
+                    endNotes: notas_fin,
+                    clefPriority: clave_prioridad,
+                    escalaDiatonicaRegla: escala_diatonica_regla,
+                    celulaRitmicaRegla: celula_ritmica_regla,
+                    nroCompases: parseInt(nro_compases),
+                    compasRegla: compas_regla,
+                    simple: simple,
+                    notaBase: nota_base[0],
+                    bpm: BPM,
+                    dictado_ritmico: dictationRhythmic,
+                    mayor: mayor,
+                    ligaduraRegla: ligadura_regla,
+                };
+    
+                const resultNewConfig = await addConfigDictationApi(
+                    course.id,
+                    module.id,
+                    dataStorage.id,
+                    data
+                );
+    
+                if (resultNewConfig.ok) {
+                    setTitleEndCreate('Configuración exitosa!!');
+                    setTextEndCreate('Su configuración fue creada con éxito.');
+                    setVisibleEndCreate(true);
+                } else {
+                    setTitleEndCreate('Lo sentimos, algo salio mal..');
+                    setTextEndCreate('Por favor intentelo más tarde.');
+                    setVisibleEndCreate(true);
+                    console.log('Error al crear la configuración');
+                }
+            } else if (generatorType == dictationType.jazzChrods) {
+                const result = await addConfigAcordeJazzApi(dataCAJ, module.id);
 
-            const resultNewConfig = await addConfigDictationApi(
-                course.id,
-                module.id,
-                dataStorage.id,
-                data
-            );
-
-            if (resultNewConfig.ok) {
-                setTitleEndCreate('Configuración exitosa!!');
-                setTextEndCreate('Su configuración fue creada con éxito.');
-                setVisibleEndCreate(true);
-            } else {
-                setTitleEndCreate('Lo sentimos, algo salio mal..');
-                setTextEndCreate('Por favor intentelo más tarde.');
-                setVisibleEndCreate(true);
-                console.log('Error al crear la configuración');
+                if (result.ok) {
+                    setTitleEndCreate('Configuración exitosa!!');
+                    setTextEndCreate('Su configuración fue creada con éxito.');
+                    setVisibleEndCreate(true);
+                } else {
+                    setTitleEndCreate('Lo sentimos, algo salio mal..');
+                    setTextEndCreate('Por favor intentelo más tarde.');
+                    setVisibleEndCreate(true);
+                    console.log('Error al crear la configuración');
+                }
             }
         } else {
             // TODO: user no logged
@@ -136,149 +151,159 @@ export default function SummaryCreateDictation({ route }) {
 
     return (
         <ScrollView>
-            <View style={styles.contentAll}>
-                <View style={styles.contentInfoGral}>
-                    <View style={styles.contentTitleSection}>
+            {generatorType == dictationType.jazzChrods ? (
+                <View style={styles.contentAll}>
+                    <View style={styles.contentInfoGral}>
                         <Text style={styles.titleSection}>
-                            Configuración general
+                            Crear acorde jazz
                         </Text>
-                    </View>
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>Curso: </Text>
-                        <Text style={styles.textInfo}>{course.name}</Text>
-                    </View>
-
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>Módulo: </Text>
-                        <Text style={styles.textInfo}>{module.name}</Text>
-                    </View>
-
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>
-                            Nombre Nueva configuración:{' '}
-                        </Text>
-                        <Text style={styles.textInfo}>{nameConfig}</Text>
-                    </View>
-
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>
-                            Descripción Nueva configuración:{' '}
-                        </Text>
-                        <Text style={styles.textInfo}>{descriptionConfig}</Text>
                     </View>
                 </View>
-
-                {/* -------------------------------------- */}
-
-                <View style={styles.contentInfoGral}>
-                    <View style={styles.contentTitleSection}>
-                        <Text style={styles.titleSection}>
-                            Configuración Melódica
-                        </Text>
-                    </View>
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>
-                            Giros melódicos:{' '}
-                        </Text>
-                        {giro_melodico_regla.map((giro, i) => (
-                            <Text key={i} style={styles.textInfo}>
-                                [{printArray(giro.giros_melodicos)}](Prioridad{' '}
-                                {giro.prioridad})
+            ) : (
+                <View style={styles.contentAll}>
+                    <View style={styles.contentInfoGral}>
+                        <View style={styles.contentTitleSection}>
+                            <Text style={styles.titleSection}>
+                                Configuración general
                             </Text>
-                        ))}
+                        </View>
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>Curso: </Text>
+                            <Text style={styles.textInfo}>{course.name}</Text>
+                        </View>
+
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>Módulo: </Text>
+                            <Text style={styles.textInfo}>{module.name}</Text>
+                        </View>
+
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>
+                                Nombre Nueva configuración:{' '}
+                            </Text>
+                            <Text style={styles.textInfo}>{nameConfig}</Text>
+                        </View>
+
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>
+                                Descripción Nueva configuración:{' '}
+                            </Text>
+                            <Text style={styles.textInfo}>{descriptionConfig}</Text>
+                        </View>
                     </View>
 
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>
-                            Notas de inicio:{' '}
-                        </Text>
-                        <Text style={styles.textInfo}>
-                            [{printArray(notas_inicio)}]
-                        </Text>
+                    {/* -------------------------------------- */}
+
+                    <View style={styles.contentInfoGral}>
+                        <View style={styles.contentTitleSection}>
+                            <Text style={styles.titleSection}>
+                                Configuración Melódica
+                            </Text>
+                        </View>
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>
+                                Giros melódicos:{' '}
+                            </Text>
+                            {giro_melodico_regla.map((giro, i) => (
+                                <Text key={i} style={styles.textInfo}>
+                                    [{printArray(giro.giros_melodicos)}](Prioridad{' '}
+                                    {giro.prioridad})
+                                </Text>
+                            ))}
+                        </View>
+
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>
+                                Notas de inicio:{' '}
+                            </Text>
+                            <Text style={styles.textInfo}>
+                                [{printArray(notas_inicio)}]
+                            </Text>
+                        </View>
+
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>Notas de fin: </Text>
+                            <Text style={styles.textInfo}>
+                                [{printArray(notas_fin)}]
+                            </Text>
+                        </View>
+
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>Clave Sol</Text>
+                            <Text style={styles.textInfo}>
+                                (Prioridad{' '}
+                                {printPrioridadClave('Sol', clave_prioridad)})
+                            </Text>
+                        </View>
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>Clave Fa</Text>
+                            <Text style={styles.textInfo}>
+                                (Prioridad{' '}
+                                {printPrioridadClave('Fa', clave_prioridad)})
+                            </Text>
+                        </View>
+
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>
+                                Nota de referencia
+                            </Text>
+                            <Text style={styles.textInfo}>{nota_base}</Text>
+                        </View>
                     </View>
 
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>Notas de fin: </Text>
-                        <Text style={styles.textInfo}>
-                            [{printArray(notas_fin)}]
-                        </Text>
-                    </View>
+                    {/* -------------------------------------- */}
 
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>Clave Sol</Text>
-                        <Text style={styles.textInfo}>
-                            (Prioridad{' '}
-                            {printPrioridadClave('Sol', clave_prioridad)})
-                        </Text>
-                    </View>
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>Clave Fa</Text>
-                        <Text style={styles.textInfo}>
-                            (Prioridad{' '}
-                            {printPrioridadClave('Fa', clave_prioridad)})
-                        </Text>
-                    </View>
+                    <View style={styles.contentInfoGral}>
+                        <View style={styles.contentTitleSection}>
+                            <Text style={styles.titleSection}>
+                                Configuración Rítmica
+                            </Text>
+                        </View>
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>Compases: </Text>
+                            {compas_regla.map((compas, i) => (
+                                <Text key={i} style={styles.textInfo}>
+                                    [{compas.numerador}/{compas.denominador}
+                                    ](Prioridad {compas.prioridad})
+                                </Text>
+                            ))}
+                        </View>
 
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>
-                            Nota de referencia
-                        </Text>
-                        <Text style={styles.textInfo}>{nota_base}</Text>
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>
+                                Número de compases:{' '}
+                            </Text>
+                            <Text style={styles.textInfo}>{nro_compases}</Text>
+                        </View>
+
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>
+                                Células rítmicas:{' '}
+                            </Text>
+                            {celula_ritmica_regla.map((celula, i) => (
+                                <Text key={i} style={styles.textInfo}>
+                                    {/* FALTA OBTENER LA IMAGEN EN LA CR
+                                    no pude encontrarlo
+                                    {console.log(celula)}
+                                    {celula.imagen? getImagenFromB64String(celula.imagen)
+                                    :<></>} */}
+                                    [{celula.celula_ritmica}
+                                    ](Prioridad {celula.prioridad})
+                                </Text>
+                            ))}
+                        </View>
+
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>BPM menor: </Text>
+                            <Text style={styles.textInfo}>{BPM.menor} bpm</Text>
+                        </View>
+                        <View style={styles.contentTexts}>
+                            <Text style={styles.textSubtitle}>BPM mayor: </Text>
+                            <Text style={styles.textInfo}>{BPM.mayor} bpm</Text>
+                        </View>
                     </View>
                 </View>
-
-                {/* -------------------------------------- */}
-
-                <View style={styles.contentInfoGral}>
-                    <View style={styles.contentTitleSection}>
-                        <Text style={styles.titleSection}>
-                            Configuración Rítmica
-                        </Text>
-                    </View>
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>Compases: </Text>
-                        {compas_regla.map((compas, i) => (
-                            <Text key={i} style={styles.textInfo}>
-                                [{compas.numerador}/{compas.denominador}
-                                ](Prioridad {compas.prioridad})
-                            </Text>
-                        ))}
-                    </View>
-
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>
-                            Número de compases:{' '}
-                        </Text>
-                        <Text style={styles.textInfo}>{nro_compases}</Text>
-                    </View>
-
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>
-                            Células rítmicas:{' '}
-                        </Text>
-                        {celula_ritmica_regla.map((celula, i) => (
-                            <Text key={i} style={styles.textInfo}>
-                                {/* FALTA OBTENER LA IMAGEN EN LA CR
-                                no pude encontrarlo
-                                {console.log(celula)}
-                                {celula.imagen? getImagenFromB64String(celula.imagen)
-                                :<></>} */}
-                                [{celula.celula_ritmica}
-                                ](Prioridad {celula.prioridad})
-                            </Text>
-                        ))}
-                    </View>
-
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>BPM menor: </Text>
-                        <Text style={styles.textInfo}>{BPM.menor} bpm</Text>
-                    </View>
-                    <View style={styles.contentTexts}>
-                        <Text style={styles.textSubtitle}>BPM mayor: </Text>
-                        <Text style={styles.textInfo}>{BPM.mayor} bpm</Text>
-                    </View>
-                </View>
-            </View>
+            )}
 
             <Button
                 title="Finalizar"

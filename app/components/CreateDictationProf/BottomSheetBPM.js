@@ -24,7 +24,6 @@ export default function BottomSheetBPM(props) {
     };
 
     const onChangeMayor = (event) => {
-        console.log(event.nativeEvent);
         setBPMLocal({
             menor: BPMLocal.menor,
             mayor:

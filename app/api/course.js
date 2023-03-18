@@ -333,8 +333,8 @@ export function getAllCourseRegardlessInstituteUserApi() {
         });
 }
 
-export function getAllCourse(userId) {
-    const url = `${basePath}/get-all-courses?idUser=${userId}`;
+export function getAllCourse() {
+    const url = `${basePath}/get-all-courses`;
     const params = {
         method: 'GET',
         headers: {
@@ -831,7 +831,6 @@ export function editModuleApi(data, idCourse, idUser, idModule) {
             }
         })
         .then((result) => {
-            console.log(result);
             if (!result) {
                 return {
                     ok: false,

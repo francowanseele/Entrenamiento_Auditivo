@@ -3,6 +3,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 import ConfigMelodic from './ConfigMelodic';
 import ConfigRhythmic from './ConfigRhythmic';
+import { dictationType } from '../../../enums/dictationType';
+import ConfigJazzChords from './ConfigJazzChords';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -47,15 +49,15 @@ export default function NavigationConfig(props) {
         okClefs,
         okTonality,
         okReferenceNote,
-        dictationRhythmic,
+        generatorType,
         refRBSheet_Ligaduras,
+        camposArmonicosToSend,
+        setCamposArmonicosToSend,
     } = props;
 
     return (
         <Tab.Navigator>
-            {dictationRhythmic ? (
-                <></>
-            ) : (
+            {generatorType == dictationType.melodic && (
                 <Tab.Screen
                     name="Config. Melódica"
                     children={() => (
@@ -90,30 +92,46 @@ export default function NavigationConfig(props) {
                 />
             )}
 
-            <Tab.Screen
-                name="Config. Rítmica"
+            {(generatorType == dictationType.melodic || generatorType == dictationType.rhythmic) && (
+                <Tab.Screen
+                    name="Config. Rítmica"
+                    children={() => (
+                        <ConfigRhythmic
+                            nro_compases={nro_compases}
+                            simple={simple}
+                            setSimple={setSimple}
+                            compas_regla={compas_regla}
+                            celula_ritmica_regla={celula_ritmica_regla}
+                            BPM={BPM}
+                            setAddCelulaRitmica={setAddCelulaRitmica}
+                            setAddCompas={setAddCompas}
+                            setEditCompas_regla={setEditCompas_regla}
+                            setEditCelula_ritmica={setEditCelula_ritmica}
+                            setEditLigaduraFirstCR={setEditLigaduraFirstCR}
+                            refRBSheet_Picker={refRBSheet_Picker}
+                            refRBSheet_Compas={refRBSheet_Compas}
+                            refRBSheet_CelulaRitmica={refRBSheet_CelulaRitmica}
+                            refRBSheet_CreateRitmica={refRBSheet_CreateRitmica}
+                            refRBSheet_BPM={refRBSheet_BPM}
+                            refRBSheet_Ligaduras={refRBSheet_Ligaduras}
+                        />
+                    )}
+                />
+            )}
+
+            {generatorType == dictationType.jazzChrods && (
+                <Tab.Screen
+                name="Config. Acorde"
                 children={() => (
-                    <ConfigRhythmic
-                        nro_compases={nro_compases}
-                        simple={simple}
-                        setSimple={setSimple}
-                        compas_regla={compas_regla}
-                        celula_ritmica_regla={celula_ritmica_regla}
-                        BPM={BPM}
-                        setAddCelulaRitmica={setAddCelulaRitmica}
-                        setAddCompas={setAddCompas}
-                        setEditCompas_regla={setEditCompas_regla}
-                        setEditCelula_ritmica={setEditCelula_ritmica}
-                        setEditLigaduraFirstCR={setEditLigaduraFirstCR}
-                        refRBSheet_Picker={refRBSheet_Picker}
-                        refRBSheet_Compas={refRBSheet_Compas}
-                        refRBSheet_CelulaRitmica={refRBSheet_CelulaRitmica}
-                        refRBSheet_CreateRitmica={refRBSheet_CreateRitmica}
-                        refRBSheet_BPM={refRBSheet_BPM}
-                        refRBSheet_Ligaduras={refRBSheet_Ligaduras}
+                    <ConfigJazzChords
+                        refRBSheet_Tonalidad={refRBSheet_Tonalidad}
+                        okTonality={okTonality}
+                        camposArmonicosToSend={camposArmonicosToSend}
+                        setCamposArmonicosToSend={setCamposArmonicosToSend}
                     />
                 )}
             />
+            )}
         </Tab.Navigator>
     );
 }

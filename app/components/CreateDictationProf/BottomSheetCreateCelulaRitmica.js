@@ -86,7 +86,6 @@ export default function BottomSheetCreateCelulaRitmica(props) {
     }
 
     const confirmation = async () => {
-        console.log(figuras);
         if (!photo || figuras.length == 0) {
             Alert.alert(
                 'Campos incompletos',

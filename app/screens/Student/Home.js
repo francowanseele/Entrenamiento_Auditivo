@@ -44,6 +44,7 @@ import SelectCourse from '../../components/BottomSheetOptions/SelectCourse';
 import EditModuleConfig from '../../components/BottomSheetOptions/EditModuleConfig';
 import { DELAY_LONG_PRESS } from '../../../utils/constants';
 import NewCourse from '../../components/BottomSheetOptions/NewCourse';
+import { getConfigAcordeJazzApi } from '../../api/acordes';
 
 export default function Home() {
     const navigation = useNavigation();
@@ -246,17 +247,24 @@ export default function Home() {
     };
 
     const configDictationIn = async (config, module) => {
-        // setLoading(true);
-
-        const configResut = await getConfigDictationApi(config.id);
-
-        // setLoading(false);
-
-        if (configResut.ok) {
-            navigation.navigate('config_dictation', {
-                configDictation: configResut.config,
-                module: module,
-            });
+        if (config.Tipo == 'ConfiguracionDictado') {
+            const configResut = await getConfigDictationApi(config.id);
+        
+            if (configResut.ok) {
+                navigation.navigate('config_dictation', {
+                    configDictation: configResut.config,
+                    module: module,
+                });
+            }
+        } else if (config.Tipo == 'ConfiguracionAcordeJazz') {
+            const result = await getConfigAcordeJazzApi(config.id);
+            if (result.ok) {
+                navigation.navigate('config_acordes_jazz', {
+                    configAcordesJazz: result.configAcordeJazz,
+                    module: module,
+                    idCAJ: config.id,
+                });
+            }
         }
     };
     const addStudentToCourse = (idCourse) => {
@@ -503,36 +511,38 @@ export default function Home() {
                             >
                                 {module.module.configuracion_dictado.map(
                                     (config, j) => (
-                                        <ListItem
-                                            containerStyle={styles.subcontent}
-                                            key={j}
-                                            onPress={() => {
-                                                configDictationIn(
-                                                    config,
-                                                    module.module
-                                                );
-                                            }}
-                                            onLongPress={() => openEditConfigDictationOptions(config)}
-                                            delayLongPress={DELAY_LONG_PRESS}
-                                            bottomDivider
-                                        >
-                                            <ListItem.Content
-                                                style={styles.subitems}
-                                            >
-                                                <ListItem.Title
-                                                    style={styles.title}
+                                        <View key={j}>
+                                            {config.id && (
+                                                <ListItem
+                                                    containerStyle={styles.subcontent}
+                                                    onPress={() => {
+                                                        configDictationIn(
+                                                            config,
+                                                            module.module
+                                                        );
+                                                    }}
+                                                    onLongPress={() => openEditConfigDictationOptions(config)}
+                                                    delayLongPress={DELAY_LONG_PRESS}
+                                                    bottomDivider
                                                 >
-                                                    {'      ' + config.Nombre}
-                                                </ListItem.Title>
-                                                <ListItem.Subtitle
-                                                    style={{ color: 'black' }}
-                                                >
-                                                    {'    ' +
-                                                        config.Descripcion}
-                                                </ListItem.Subtitle>
-                                            </ListItem.Content>
-                                            <ListItem.Chevron />
-                                        </ListItem>
+                                                    <ListItem.Content
+                                                        style={styles.subitems}
+                                                    >
+                                                        <ListItem.Title
+                                                            style={styles.title}
+                                                        >
+                                                            {config.id ? '      ' + config.Nombre : '      Sin contenido'}
+                                                        </ListItem.Title>
+                                                        <ListItem.Subtitle
+                                                            style={{ color: 'black' }}
+                                                        >
+                                                            {'    ' + config.id && config.Descripcion}
+                                                        </ListItem.Subtitle>
+                                                    </ListItem.Content>
+                                                    <ListItem.Chevron />
+                                                </ListItem>
+                                            )}
+                                        </View>
                                     )
                                 )}
                             </ListItem.Accordion>

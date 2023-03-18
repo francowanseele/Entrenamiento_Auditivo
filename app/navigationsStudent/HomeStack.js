@@ -12,6 +12,9 @@ import {
     TABSCREENHOMETEXT,
     TOPSCREENHOME,
 } from '../styles/styleValues';
+import ConfigAcordesJazz from '../screens/Student/ConfigAcordesJazz';
+import AcordesPlay from '../screens/Student/AcordesPlay';
+import SolutionAcorde from '../screens/Student/SolutionAcorde';
 
 const Stack = createStackNavigator();
 
@@ -58,6 +61,32 @@ export default function () {
                 }}
             />
             <Stack.Screen
+                name="config_acordes_jazz"
+                component={ConfigAcordesJazz}
+                options={{
+                    title: 'Acordes jazz',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="acordes_play"
+                component={AcordesPlay}
+                options={{
+                    title: 'Acorde',
+                    // headerStyle: {
+                    //     backgroundColor: TOPSCREENHOME,
+                    // },
+                    // headerTintColor: TEXTHOME,
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                    },
+                }}
+            />
+            <Stack.Screen
                 name="dictation"
                 component={Dictation}
                 options={{
@@ -77,6 +106,21 @@ export default function () {
                 component={Solution}
                 options={{
                     title: 'Solucion',
+                    // headerStyle: {
+                    //     backgroundColor: TOPSCREENHOME,
+                    // },
+                    // headerTintColor: TEXTHOME,
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="solution_acorde"
+                component={SolutionAcorde}
+                options={{
+                    title: 'Solución',
                     // headerStyle: {
                     //     backgroundColor: TOPSCREENHOME,
                     // },

@@ -350,7 +350,7 @@ export default function ConfigDictation({ route }) {
                         {/* <Icon name={item.icon} /> */}
                         <ListItem.Content>
                             <ListItem.Title style={styles.subtitle}>
-                                Dictado #{i}
+                                Dictado #{i + 1}
                             </ListItem.Title>
                             <ListItem.Subtitle style={{ color: 'black' }}>
                                 Clave {dict.clave} | Escala diatónica{' '}

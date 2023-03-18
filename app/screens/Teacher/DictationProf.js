@@ -149,7 +149,7 @@ export default function DictationProf() {
         setLoading(true);
 
         getStorageItem(ID_USER).then((userId) => {
-            getAllCourse(userId).then((result) => {
+            getAllCourse().then((result) => {
                 if (result.ok) {
                     var publicCourses = [];
                     result.cursos.forEach((curso) => {
@@ -177,7 +177,7 @@ export default function DictationProf() {
             })
 
             // Get institutes of the current user
-            getInstituteByUserApi(userId).then((institutesResult) => {
+            getInstituteByUserApi().then((institutesResult) => {
                 if(institutesResult.ok){
                     var res = [];
                     res.push({
@@ -241,8 +241,8 @@ export default function DictationProf() {
 
     useEffect(() => {
         setLoading(true);
-        getStorageItem(ID_USER).then((userId) => {
-            getAllCourse(userId).then((result) => {
+        // getStorageItem(ID_USER).then((userId) => {
+            getAllCourse().then((result) => {
                 if (result.ok) {
                     var publicCourses = [];
                     result.cursos.forEach((curso) => {
@@ -259,7 +259,7 @@ export default function DictationProf() {
                     setAllCourses(publicCourses);
                 }
             });
-        });
+        // });
         setLoading(false);
     }, [updateAllCourses]);
 
@@ -565,36 +565,39 @@ export default function DictationProf() {
                             >
                                 {module.module.configuracion_dictado.map(
                                     (config, j) => (
-                                        <ListItem
-                                            containerStyle={styles.subcontent}
-                                            key={j}
-                                            onPress={() => {
-                                                open_summaryCreateDictation(
-                                                    config,
-                                                    module.module
-                                                );
-                                            }}
-                                            onLongPress={() => openEditConfigDictationOptions(config)}
-                                            delayLongPress={DELAY_LONG_PRESS}
-                                            bottomDivider
-                                        >
-                                            <ListItem.Content
-                                                style={styles.subitems}
-                                            >
-                                                <ListItem.Title
-                                                    style={styles.title}
+                                        <View key={j}>
+                                            {config.id && (
+                                                <ListItem
+                                                    containerStyle={styles.subcontent}
+                                                    onPress={() => {
+                                                        open_summaryCreateDictation(
+                                                            config,
+                                                            module.module
+                                                        );
+                                                    }}
+                                                    onLongPress={() => openEditConfigDictationOptions(config)}
+                                                    delayLongPress={DELAY_LONG_PRESS}
+                                                    bottomDivider
                                                 >
-                                                    {'      ' + config.Nombre}
-                                                </ListItem.Title>
-                                                <ListItem.Subtitle
-                                                    style={{ color: 'black' }}
-                                                >
-                                                    {'    ' +
-                                                        config.Descripcion}
-                                                </ListItem.Subtitle>
-                                            </ListItem.Content>
-                                            <ListItem.Chevron />
-                                        </ListItem>
+                                                    <ListItem.Content
+                                                        style={styles.subitems}
+                                                    >
+                                                        <ListItem.Title
+                                                            style={styles.title}
+                                                        >
+                                                            {'      ' + config.Nombre}
+                                                        </ListItem.Title>
+                                                        <ListItem.Subtitle
+                                                            style={{ color: 'black' }}
+                                                        >
+                                                            {'    ' +
+                                                                config.Descripcion}
+                                                        </ListItem.Subtitle>
+                                                    </ListItem.Content>
+                                                    <ListItem.Chevron />
+                                                </ListItem>
+                                            )}
+                                        </View>
                                     )
                                 )}
                             </ListItem.Accordion>

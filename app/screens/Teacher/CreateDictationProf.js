@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import SwitchSelector from 'react-native-switch-selector';
+import { Dropdown } from 'react-native-element-dropdown';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import InfoGral from '../../components/CreateDictationProf/InfoGral';
 
@@ -40,11 +40,748 @@ import Loading from '../../components/Loading';
 import BottomSheetSearchConfigDictation from '../../components/CreateDictationProf/BottomSheetSearchConfigDictation';
 import { GiroMelodico as BottomSheetAdminGiroMelodico } from '../../components/BottomSheetAdmin/GiroMelodico';
 import ManageGirosMelodicosGrupos from '../../components/BottomSheetAdmin/ManageGirosMelodicosGrupos';
-
-const Tab = createMaterialTopTabNavigator();
+import { dictationType } from '../../../enums/dictationType';
+import { generateAcordeJazzApi } from '../../api/acordes';
+import { acordeType, escalaCampoArmonico, intervaloTensiones, nombreCifrado_TetradaTriada } from '../../../enums/camposArmonicosEnum';
+import { estadoAcorde } from '../../../enums/estadoAcorde';
 
 export default function CreateDictationProf({ route }) {
     var cleanAll = route.params ? route.params.cleanAll : false;
+
+    const initializeDataCamposArmonicosToSend = () => {
+        return [
+            // C
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'C',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_Maj7,
+                Tension:
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.tercenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,  
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'C',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                Tension: intervaloTensiones.novenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'C',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                Tension: '',
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'C',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus2,
+                Tension: intervaloTensiones.tercenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'C',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus4,
+                Tension: intervaloTensiones.novenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'C',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus4,
+                Tension: intervaloTensiones.novenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'C',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                Tension: 'add ' + intervaloTensiones.novenaMayor,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'C',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                Tension: '',
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'C',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                Tension: 'add ' + intervaloTensiones.novenaMayor,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // D
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
+                Tension:
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaJusta,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m6,
+                Tension:
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaJusta,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                Tension: '',
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                Tension: '',
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus4,
+                Tension: intervaloTensiones.novenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                Tension: intervaloTensiones.novenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                Tension:
+                    'add ' +
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaJusta,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                Tension: '',
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                Tension: 'add ' + intervaloTensiones.novenaMayor,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // E
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'E',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
+                Tension: intervaloTensiones.oncenaJusta,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'E',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                Tension: '',
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'E',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                Tension: 'add ' + intervaloTensiones.oncenaJusta,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'E',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                Tension: '',
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // F
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'F',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_Maj7,
+                Tension:
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaAumentada +
+                    ', ' +
+                    intervaloTensiones.tercenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'F',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                Tension: intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'F',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus2,
+                Tension:
+                    intervaloTensiones.oncenaAumentada +
+                    ', ' +
+                    intervaloTensiones.tercenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'F',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                Tension:
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'F',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                Tension:
+                    'add ' +
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'F',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                Tension: 'add ' + intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // G
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'G',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
+                Tension:
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.tercenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'G',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                Tension: intervaloTensiones.novenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'G',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                Tension: '',
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'G',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                Tension: intervaloTensiones.tercenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'G',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus4,
+                Tension: intervaloTensiones.novenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'G',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                Tension:
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.tercenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'G',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                Tension: 'add ' + intervaloTensiones.novenaMayor,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'G',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                Tension: '',
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'G',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                Tension: 'add ' + intervaloTensiones.novenaMayor,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // A
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'A',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
+                Tension:
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaJusta,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'A',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                Tension: intervaloTensiones.oncenaJusta,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'A',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                Tension: intervaloTensiones.novenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'A',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                Tension:
+                    'add ' +
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaJusta,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'A',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                Tension: '',
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'A',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                Tension: 'add ' + intervaloTensiones.novenaMayor,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // B
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'B',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7b5,
+                Tension:
+                    intervaloTensiones.oncenaJusta +
+                    ', ' +
+                    intervaloTensiones.tercenaMenor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.mayor,
+                EscalaPrioridad: 1,
+                KeyNote: 'B',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Disminuido,
+                Tension:
+                    'add ' +
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.tercenaMenor,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+        ];
+    }
 
     // Ref
     const refRBSheet = useRef();
@@ -71,9 +808,14 @@ export default function CreateDictationProf({ route }) {
     const [nameConfig, setNameConfig] = useState('');
     const [descriptionConfig, setDescriptionConfig] = useState('');
     const [loading, setLoading] = useState(false);
+    const [generatorType, setGeneratorType] = useState(dictationType.melodic);
+    const [isFocus, setIsFocus] = useState(false);
+
+    // Harmony
+    const [camposArmonicosToSend, setCamposArmonicosToSend] = useState(initializeDataCamposArmonicosToSend());
 
     // Melodic
-    const [dictationRhythmic, setDictationhythmic] = useState(false);
+    // const [dictationRhythmic, setDictationhythmic] = useState(false);
     const [giro_melodico_regla, setGiro_melodico_regla] = useState([]);
     const [giro_melodico_reglaEdit, setGiro_melodico_reglaEdit] =
         useState(null);
@@ -139,6 +881,12 @@ export default function CreateDictationProf({ route }) {
 
     const navigation = useNavigation();
 
+    const dataGeneratorType = [
+        { label: 'Dictados Melódicos', value: dictationType.melodic },
+        { label: 'Dictados Rítmicos', value: dictationType.rhythmic },
+        { label: 'Acordes Jazz', value: dictationType.jazzChrods },
+      ];
+
     useEffect(() => {
         getStorageIsStudent().then((result) => {
             if (result) {
@@ -162,17 +910,24 @@ export default function CreateDictationProf({ route }) {
         // Cargar del local storage el último instituto, curso y módulo para el que configuró algo
 
         // VALIDATIONS ---------------------
-        // Start notes
-        setOkStartNotes(notesInNoteRule(notas_inicio, giro_melodico_regla));
-
-        // End notes
-        setOkEndNotes(notesInNoteRule(notas_fin, giro_melodico_regla));
-
-        // At least one clef
-        setOkClefs(atLeastOneClef(clave_prioridad));
-
-        // At least one tonality
-        setOkTonality(atLeastOneTonality(escala_diatonica_regla));
+        if (generatorType == dictationType.melodic) {
+            // Start notes
+            setOkStartNotes(notesInNoteRule(notas_inicio, giro_melodico_regla));
+            // End notes
+            setOkEndNotes(notesInNoteRule(notas_fin, giro_melodico_regla));
+            // At least one clef
+            setOkClefs(atLeastOneClef(clave_prioridad));
+            // At least one tonality
+            setOkTonality(atLeastOneTonality(escala_diatonica_regla));
+        } else if (generatorType == dictationType.jazzChrods) {
+            // At least one tonality
+            setOkTonality(atLeastOneTonality(escala_diatonica_regla));
+        } else {
+            setOkStartNotes(true)
+            setOkEndNotes(true)
+            setOkClefs(true)
+            setOkTonality(true)
+        }
     }, [
         giro_melodico_regla,
         notas_inicio,
@@ -207,101 +962,143 @@ export default function CreateDictationProf({ route }) {
     }, [celula_ritmica_regla]);
 
     useEffect(() => {
-        if (dictationRhythmic) {
-            setGiro_melodico_regla([
-                {
-                    giros_melodicos: ['C4', 'C4', 'C4'],
-                    prioridad: 1,
-                },
-            ]);
-
-            setNotas_inicio(['C4']);
-            setNotas_fin(['C4']);
-            setClave_prioridad([
-                {
-                    clave: 'Sol',
-                    prioridad: 1,
-                },
-                {
-                    clave: 'Fa',
-                    prioridad: 0,
-                },
-            ]);
-            setEscala_diatonica_regla([
-                {
-                    escala_diatonica: 'Do',
-                    prioridad: 1,
-                },
-                {
-                    escala_diatonica: 'Sol',
-                    prioridad: 0,
-                },
-                {
-                    escala_diatonica: 'Re',
-                    prioridad: 0,
-                },
-                {
-                    escala_diatonica: 'La',
-                    prioridad: 0,
-                },
-                {
-                    escala_diatonica: 'Mi',
-                    prioridad: 0,
-                },
-                {
-                    escala_diatonica: 'Si',
-                    prioridad: 0,
-                },
-                {
-                    escala_diatonica: 'Fa#',
-                    prioridad: 0,
-                },
-                {
-                    escala_diatonica: 'Solb',
-                    prioridad: 0,
-                },
-                {
-                    escala_diatonica: 'Reb',
-                    prioridad: 0,
-                },
-                {
-                    escala_diatonica: 'Lab',
-                    prioridad: 0,
-                },
-                {
-                    escala_diatonica: 'Mib',
-                    prioridad: 0,
-                },
-                {
-                    escala_diatonica: 'Sib',
-                    prioridad: 0,
-                },
-                {
-                    escala_diatonica: 'Fa',
-                    prioridad: 0,
-                },
-            ]);
-            setNota_base(['C4']);
-        } else {
-            setGiro_melodico_regla([]);
-            setNotas_inicio([]);
-            setNotas_fin([]);
-            setClave_prioridad([
-                { clave: 'Sol', prioridad: 1 },
-                { clave: 'Fa', prioridad: 1 },
-            ]);
-            setEscala_diatonica_regla(defoultValue_EscalaDiatonica());
-            setNota_base(null);
+        if (generatorType == dictationType.rhythmic) {
+            setFieldsMelodicForRhythmicDictation();
+        } else if (generatorType == dictationType.melodic) {
+            clearFieldsMelodic()
+        } else if (generatorType == dictationType.jazzChrods) {
+            clearFieldsMelodic();
+            clearFieldsRhythmic();
+            clearFieldsHarmonic();
         }
-    }, [dictationRhythmic]);
+    }, [generatorType]);
+
+    const setFieldsMelodicForRhythmicDictation = () => {
+        setGiro_melodico_regla([
+            {
+                giros_melodicos: ['C4', 'C4', 'C4'],
+                prioridad: 1,
+            },
+        ]);
+
+        setNotas_inicio(['C4']);
+        setNotas_fin(['C4']);
+        setClave_prioridad([
+            {
+                clave: 'Sol',
+                prioridad: 1,
+            },
+            {
+                clave: 'Fa',
+                prioridad: 0,
+            },
+        ]);
+        setEscala_diatonica_regla([
+            {
+                escala_diatonica: 'Do',
+                prioridad: 1,
+            },
+            {
+                escala_diatonica: 'Sol',
+                prioridad: 0,
+            },
+            {
+                escala_diatonica: 'Re',
+                prioridad: 0,
+            },
+            {
+                escala_diatonica: 'La',
+                prioridad: 0,
+            },
+            {
+                escala_diatonica: 'Mi',
+                prioridad: 0,
+            },
+            {
+                escala_diatonica: 'Si',
+                prioridad: 0,
+            },
+            {
+                escala_diatonica: 'Fa#',
+                prioridad: 0,
+            },
+            {
+                escala_diatonica: 'Solb',
+                prioridad: 0,
+            },
+            {
+                escala_diatonica: 'Reb',
+                prioridad: 0,
+            },
+            {
+                escala_diatonica: 'Lab',
+                prioridad: 0,
+            },
+            {
+                escala_diatonica: 'Mib',
+                prioridad: 0,
+            },
+            {
+                escala_diatonica: 'Sib',
+                prioridad: 0,
+            },
+            {
+                escala_diatonica: 'Fa',
+                prioridad: 0,
+            },
+        ]);
+        setNota_base(['C4']);
+    }
+
+    const clearFieldsHarmonic = () => {
+        setCamposArmonicosToSend(initializeDataCamposArmonicosToSend());
+    }
+
+    const clearFieldsMelodic = () => {
+        setGiro_melodico_regla([]);
+        setGiro_melodico_reglaEdit(null);
+        setNotas_inicio([]);
+        setNotas_fin([]);
+        setClave_prioridad([
+            { clave: 'Sol', prioridad: 1 },
+            { clave: 'Fa', prioridad: 1 },
+        ]);
+        setEscala_diatonica_regla(defoultValue_EscalaDiatonica());
+        setNota_base(null);
+        setAdd(true);
+    }
+
+    const clearFieldsRhythmic = () => {
+        setNro_compases(1);
+        setSimple(true);
+        setCompas_regla([]);
+        setCelula_ritmica_regla([]);
+        setLigadura_regla([]);
+        setBPM({
+            menor: 128,
+            mayor: 128,
+        });
+        setAddCompas(true);
+        setAddCelulaRitmica(true);
+        setEditCompas_regla(null);
+        setEditCelula_ritmica(null);
+        setNotesStart(true);
+    }
+
+    const clearFieldsValidators = () => {
+        setOkStartNotes(true);
+        setOkEndNotes(true);
+        setOkClefs(true);
+        setOkTonality(true);
+    }
 
     const clearAllFields = () => {
         // General config
         setNameConfig('');
         setDescriptionConfig('');
+        setGeneratorType(dictationType.melodic);
 
         // Melodic
-        setDictationhythmic(false);
         setGiro_melodico_regla([]);
         setGiro_melodico_reglaEdit(null);
         setNotas_inicio([]);
@@ -424,25 +1221,42 @@ export default function CreateDictationProf({ route }) {
         setLoading(true);
 
         var allOk = true;
-
+        
         // Verify empty fields
         const okConfigGral =
             course.id != null &&
             module.id != null &&
             nameConfig != '' &&
             descriptionConfig != '';
-        const okGiroMelodico = giro_melodico_regla.length > 0;
-        const okStartEndNotes = notas_inicio.length > 0 && notas_fin.length > 0;
-        // const okRefNote = nota_base != null || nota_base != '';
-        var okCompas = false;
-        compas_regla.forEach((cr) => {
-            okCompas = okCompas || cr.simple == simple;
-        });
-        var okCelula = false;
-        celula_ritmica_regla.forEach((crr) => {
-            okCelula = okCelula || crr.simple == simple;
-        });
-        const okBPM = BPM.menor > 0 && BPM.mayor > 0;
+
+        let okGiroMelodico = true;
+        let okStartEndNotes = true;
+        let okCompas = true;
+        let okCelula = true;
+        let okBPM = true;
+        
+        if (generatorType == dictationType.melodic) {
+            okGiroMelodico = giro_melodico_regla.length > 0;
+            okStartEndNotes = notas_inicio.length > 0 && notas_fin.length > 0;
+        }
+
+        if (generatorType == dictationType.melodic || generatorType == dictationType.rhythmic) {
+            okCompas = false;
+            compas_regla.forEach((cr) => {
+                okCompas = okCompas || cr.simple == simple;
+            });
+
+            okCelula = false;
+            celula_ritmica_regla.forEach((crr) => {
+                okCelula = okCelula || crr.simple == simple;
+            });
+
+            okBPM = BPM.menor > 0 && BPM.mayor > 0;
+        }
+
+        if (generatorType == dictationType.melodic || generatorType.jazzChrods) {
+            
+        }
 
         if (
             allOk &&
@@ -475,112 +1289,182 @@ export default function CreateDictationProf({ route }) {
             setVisibleErrorConfig(true);
         }
 
-        // Verify Validations (useEffect)
-        // Start notes
-        setOkStartNotes(notesInNoteRule(notas_inicio, giro_melodico_regla));
-        // End notes
-        setOkEndNotes(notesInNoteRule(notas_fin, giro_melodico_regla));
-        // At least one clef
-        setOkClefs(atLeastOneClef(clave_prioridad));
-        // At least one tonality
-        setOkTonality(atLeastOneTonality(escala_diatonica_regla));
+        if (generatorType == dictationType.melodic) {
 
-        if (
-            allOk &&
-            (!okStartNotes || !okEndNotes || !okClefs || !okTonality)
-        ) {
-            allOk = false;
-            setTitleErrorConfig(
-                'Existen algunas advertencias que debe revisar.'
-            );
-            setTextErrorConfig(
-                `Revise sobe la izquierda de cada configuración si aparece alguna alerta. Para más información puede presionar sobre dicha alerta.`
-            );
-            setVisibleErrorConfig(true);
-        }
+            // TODO: Esto creo que se iría la parte de setBLABLA porque 
+            // se hace en el useEffect
+            // TODO: Revisar....
 
-        // try to create dictation
-        if (allOk) {
-            const resGirosMelodicos = getGirosMelodicos(giro_melodico_regla);
+            // Verify Validations (useEffect)
+            // Start notes
+            // setOkStartNotes(notesInNoteRule(notas_inicio, giro_melodico_regla));
+            // // End notes
+            // setOkEndNotes(notesInNoteRule(notas_fin, giro_melodico_regla));
+            // // At least one clef
+            // setOkClefs(atLeastOneClef(clave_prioridad));
+            // // At least one tonality
+            // setOkTonality(atLeastOneTonality(escala_diatonica_regla));
 
-            const data = {
-                tarjetas: getTarjetas(celula_ritmica_regla),
-                nroCompases: nro_compases,
-                compas: getCompas(compas_regla),
-                simple: simple ? 'simples' : 'compuestas',
-                notasRegla: resGirosMelodicos[0],
-                nivelPrioridadRegla: resGirosMelodicos[1],
-                intervaloNotas: getTesitura(tesitura),
-                notasBase: notas_inicio,
-                notasFin: notas_fin,
-                nivelPrioridadClave: getPrioridadClave(clave_prioridad),
-                escalaDiatonicaRegla: getEscalasDiatonicas(
-                    escala_diatonica_regla
-                ),
-                notaBase: nota_base ? nota_base[0] : null,
-                bpm: BPM,
-                dictado_ritmico: dictationRhythmic,
-                ligaduraRegla: ligadura_regla,
-            };
-            const resGenerate = await generateDictationApi(
-                null,
-                null,
-                null,
-                null,
-                1,
-                data,
-                true
-            );
-
-            if (resGenerate.ok) {
-                navigation.navigate('summaryCreateDictation', {
-                    dictationRhythmic,
-                    course,
-                    module,
-                    nameConfig,
-                    descriptionConfig,
-                    giro_melodico_regla,
-                    notas_inicio,
-                    notas_fin,
-                    clave_prioridad,
-                    escala_diatonica_regla,
-                    nota_base,
-                    nro_compases,
-                    simple,
-                    compas_regla,
-                    celula_ritmica_regla: getTarjetas(celula_ritmica_regla),
-                    BPM,
-                    tesitura,
-                    mayor,
-                    ligadura_regla,
-                });
-            } else {
+            if (
+                allOk &&
+                (!okStartNotes || !okEndNotes || !okClefs || !okTonality)
+            ) {
+                allOk = false;
                 setTitleErrorConfig(
-                    'No es posible crear ningún dictado a partir de la configuración'
+                    'Existen algunas advertencias que debe revisar.'
                 );
                 setTextErrorConfig(
-                    `Por favor revise los parámetros en la configuración establecida. Puede que tenga que agregar una mayor cantidad de opciones en su configuración como pueden ser más giros melódicos, células ritmicas, entre otros.`
+                    `Revise sobe la izquierda de cada configuración si aparece alguna alerta. Para más información puede presionar sobre dicha alerta.`
+                );
+                setVisibleErrorConfig(true);
+            }
+
+        }
+
+        if (generatorType == dictationType.jazzChrods) {
+            if (allOk && !okTonality) {
+                allOk = false;
+                setTitleErrorConfig(
+                    'Existen algunas advertencias que debe revisar.'
+                );
+                setTextErrorConfig(
+                    `Revise sobe la izquierda de cada configuración si aparece alguna alerta. Para más información puede presionar sobre dicha alerta.`
                 );
                 setVisibleErrorConfig(true);
             }
         }
+
+        // try to create dictation
+        if (allOk) {
+            if (generatorType == dictationType.melodic || generatorType == dictationType.rhythmic) {
+                const resGirosMelodicos = getGirosMelodicos(giro_melodico_regla);
+    
+                const data = {
+                    tarjetas: getTarjetas(celula_ritmica_regla),
+                    nroCompases: nro_compases,
+                    compas: getCompas(compas_regla),
+                    simple: simple ? 'simples' : 'compuestas',
+                    notasRegla: resGirosMelodicos[0],
+                    nivelPrioridadRegla: resGirosMelodicos[1],
+                    intervaloNotas: getTesitura(tesitura),
+                    notasBase: notas_inicio,
+                    notasFin: notas_fin,
+                    nivelPrioridadClave: getPrioridadClave(clave_prioridad),
+                    escalaDiatonicaRegla: getEscalasDiatonicas(
+                        escala_diatonica_regla
+                    ),
+                    notaBase: nota_base ? nota_base[0] : null,
+                    bpm: BPM,
+                    dictado_ritmico: generatorType == dictationType.rhythmic,
+                    ligaduraRegla: ligadura_regla,
+                };
+                const resGenerate = await generateDictationApi(
+                    null,
+                    null,
+                    null,
+                    null,
+                    1,
+                    data,
+                    true
+                );
+    
+                if (resGenerate.ok) {
+                    navigation.navigate('summaryCreateDictation', {
+                        dictationRhythmic: generatorType == dictationType.rhythmic,
+                        course,
+                        module,
+                        nameConfig,
+                        descriptionConfig,
+                        giro_melodico_regla,
+                        notas_inicio,
+                        notas_fin,
+                        clave_prioridad,
+                        escala_diatonica_regla,
+                        nota_base,
+                        nro_compases,
+                        simple,
+                        compas_regla,
+                        celula_ritmica_regla: getTarjetas(celula_ritmica_regla),
+                        BPM,
+                        tesitura,
+                        mayor,
+                        ligadura_regla,
+                        generatorType,
+                    });
+                } else {
+                    setTitleErrorConfig(
+                        'No es posible crear ningún dictado a partir de la configuración'
+                    );
+                    setTextErrorConfig(
+                        `Por favor revise los parámetros en la configuración establecida. Puede que tenga que agregar una mayor cantidad de opciones en su configuración como pueden ser más giros melódicos, células ritmicas, entre otros.`
+                    );
+                    setVisibleErrorConfig(true);
+                }
+            } else if (generatorType == dictationType.jazzChrods) {
+                const data = {
+                    dataCamposArmonicos: getCamposArmonicosChecked(camposArmonicosToSend), 
+                    escalaDiatonicaRegla: getEscalasDiatonicas(escala_diatonica_regla),
+                };
+
+                const result = await generateAcordeJazzApi(data, null, null, true);
+
+                const dataCAJ = {
+                    name: nameConfig, 
+                    description: descriptionConfig, 
+                    dataCamposArmonicos: getCamposArmonicosChecked(camposArmonicosToSend), 
+                    escalaDiatonicaRegla: getEscalasDiatonicas(escala_diatonica_regla),
+                };
+
+                if (result.ok) {
+                    navigation.navigate('summaryCreateDictation', {
+                        module,
+                        dataCAJ,
+                        generatorType,
+                    });
+                } else {
+                    setTitleErrorConfig(
+                        'No es posible crear ningún acorde de jazz a partir de la configuración'
+                    );
+                    setTextErrorConfig(
+                        `Por favor revise los parámetros en la configuración establecida y pruebe establecer nuevos parámetros.`
+                    );
+                    setVisibleErrorConfig(true);
+                }
+            }
+        }
         setLoading(false);
-
-
-
-
-        // else {
-        //     setTitleErrorConfig('No es posible crear la configuración.');
-        //     setTextErrorConfig(
-        //         `Por favor revise los parámetros en la configuración establecida. Puede que tenga que agregar una mayor cantidad de opciones en su configuración como pueden ser más giros melódicos, células ritmicas, entre otros..`
-        //     );
-        //     setVisibleErrorConfig(true);
-        // }
     };
+
+    const getCamposArmonicosChecked = (dataCA) => {
+        let result = dataCA.filter((x) => x.CheckEscala && x.CheckKeyNote && x.CheckNombreCifrado);
+
+        return result.map(({ByDefault, CheckEscala, CheckKeyNote, CheckNombreCifrado, CheckTension, ...x}) => {
+            if (CheckTension) {
+                return x;
+            } else {
+                return {
+                    ...x,
+                    Tension: ''
+                }
+            }
+        })
+
+    }
 
     const loadConfigDictation = () => {
         refRBSheet_SearchConfigDictation.current.open();
     }
+
+    const renderLabel = () => {
+        if (generatorType != null || isFocus) {
+          return (
+            <Text style={[styles.label, isFocus && { color: PRIMARY_COLOR }]}>
+              Tipo de dictado
+            </Text>
+          );
+        }
+        return null;
+      };
 
     if (loading) return <Loading isVisible={true} text="Cargando.. podría tomar varios minutos" />;
 
@@ -595,32 +1479,37 @@ export default function CreateDictationProf({ route }) {
                     descriptionConfig={descriptionConfig}
                     refRBSheet={refRBSheet}
                 />
-                <View style={styles.contentConfigGral}>
-                    <SwitchSelector
-                        value={dictationRhythmic ? 1 : 0}
-                        initial={0}
-                        onPress={(value) => setDictationhythmic(value == 'r')}
-                        textColor={'black'}
-                        selectedColor={'white'}
-                        buttonColor={SECONDARY_COLOR}
-                        borderColor={PRIMARY_COLOR}
-                        hasPadding
-                        options={[
-                            {
-                                label: 'Dictado Melódico',
-                                value: 'm',
-                            },
-                            {
-                                label: 'Dictado Rítmico',
-                                value: 'r',
-                            },
-                        ]}
-                        testID="gender-switch-selector"
-                        accessibilityLabel="gender-switch-selector"
-                        style={{
-                            width: '80%',
-                        }}
-                    />
+                <View style={{flexDirection: 'row', backgroundColor: 'white', display: 'flex', alignItems: 'center'}}>
+                    <View style={styles.container}>
+                        {renderLabel()}
+                        <Dropdown
+                            style={[styles.dropdown, isFocus && { borderColor: PRIMARY_COLOR }]}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+                            data={dataGeneratorType}
+                            maxHeight={300}
+                            labelField="label"
+                            valueField="value"
+                            placeholder={!isFocus ? 'Seleccionar' : '...'}
+                            value={generatorType}
+                            onFocus={() => setIsFocus(true)}
+                            onBlur={() => setIsFocus(false)}
+                            onChange={item => {
+                                setGeneratorType(item.value);
+                                setIsFocus(false);
+                            }}
+                            renderLeftIcon={() => (
+                                <AntDesign
+                                style={styles.icon}
+                                color={isFocus ? PRIMARY_COLOR : 'black'}
+                                name="Safety"
+                                size={20}
+                                />
+                            )}
+                        />
+                    </View>
                     <Button
                         icon={
                             <Icon
@@ -633,8 +1522,10 @@ export default function CreateDictationProf({ route }) {
                         buttonStyle={styles.buttonSearch}
                         onPress={loadConfigDictation}
                     />
+
                 </View>
 
+               
                 <NavigationConfig
                     giro_melodico_regla={giro_melodico_regla}
                     notas_inicio={notas_inicio}
@@ -660,8 +1551,12 @@ export default function CreateDictationProf({ route }) {
                     setEditLigaduraFirstCR={setEditLigaduraFirstCR}
                     refRBSheet_Picker={refRBSheet_Picker}
                     refRBSheet_GiroMelodico={refRBSheet_GiroMelodico}
-                    refRBSheet_GiroMelodico_Admin={refRBSheet_GiroMelodico_Admin}
-                    refRBSheet_GiroMelodicoGrupo_Admin={refRBSheet_GiroMelodicoGrupo_Admin}
+                    refRBSheet_GiroMelodico_Admin={
+                        refRBSheet_GiroMelodico_Admin
+                    }
+                    refRBSheet_GiroMelodicoGrupo_Admin={
+                        refRBSheet_GiroMelodicoGrupo_Admin
+                    }
                     refRBSheet_NotesStartEnd={refRBSheet_NotesStartEnd}
                     refRBSheet_Clave={refRBSheet_Clave}
                     refRBSheet_Tonalidad={refRBSheet_Tonalidad}
@@ -675,8 +1570,10 @@ export default function CreateDictationProf({ route }) {
                     okClefs={okClefs}
                     okTonality={okTonality}
                     okReferenceNote={true} // No control in reference note
-                    dictationRhythmic={dictationRhythmic}
+                    generatorType={generatorType}
                     refRBSheet_Ligaduras={refRBSheet_Ligaduras}
+                    camposArmonicosToSend={camposArmonicosToSend}
+                    setCamposArmonicosToSend={setCamposArmonicosToSend}
                 />
             </ScrollView>
             <Button
@@ -716,9 +1613,9 @@ export default function CreateDictationProf({ route }) {
                 />
             )}
 
-            <BottomSheetSearchConfigDictation 
+            <BottomSheetSearchConfigDictation
                 refRBSheet={refRBSheet_SearchConfigDictation}
-                setDictationhythmic={setDictationhythmic}
+                setGeneratorType={setGeneratorType}
                 setGiro_melodico_regla={setGiro_melodico_regla}
                 setNotas_inicio={setNotas_inicio}
                 setNotas_fin={setNotas_fin}
@@ -824,7 +1721,7 @@ export default function CreateDictationProf({ route }) {
                 editCelula_ritmica={editCelula_ritmica}
                 refRBSheet={refRBSheet_CelulaRitmica}
             />
-             <BottomSheetCreateCelulaRitmica
+            <BottomSheetCreateCelulaRitmica
                 setSimple={setSimple}
                 simple={simple}
                 refRBSheet={refRBSheet_CreateRitmica}
@@ -856,47 +1753,6 @@ export default function CreateDictationProf({ route }) {
         </>
     );
 }
-
-// function clearAllFields() {
-//     // General config
-//     setNameConfig('');
-//     setDescriptionConfig('');
-
-//     // Melodic
-//     setDictationhythmic(false);
-//     setGiro_melodico_regla([]);
-//     setGiro_melodico_reglaEdit(null);
-//     setNotas_inicio([]);
-//     setNotas_fin([]);
-//     setClave_prioridad([
-//         { clave: 'Sol', prioridad: 1 },
-//         { clave: 'Fa', prioridad: 1 },
-//     ]);
-//     setEscala_diatonica_regla(defoultValue_EscalaDiatonica());
-//     setNota_base(null);
-//     setAdd(true);
-
-//     // Rhythmic
-//     setNro_compases(1);
-//     setSimple(true);
-//     setCompas_regla([]);
-//     setCelula_ritmica_regla([]);
-//     setBPM({
-//         menor: 128,
-//         mayor: 128,
-//     });
-//     setAddCompas(true);
-//     setAddCelulaRitmica(true);
-//     setEditCompas_regla(null);
-//     setEditCelula_ritmica(null);
-//     setNotesStart(true);
-
-//     // Validators
-//     setOkStartNotes(true);
-//     setOkEndNotes(true);
-//     setOkClefs(true);
-//     setOkTonality(true);
-// }
 
 function defoultValue_EscalaDiatonica() {
     return [
@@ -963,7 +1819,8 @@ const styles = StyleSheet.create({
     },
     containerButtonSearch: {
         width: '20%',
-        paddingLeft: 10,
+        paddingHorizontal: 7,
+        // paddingTop: 18
     },
     buttonSearch: {
         backgroundColor: SECONDARY_COLOR,
@@ -972,4 +1829,44 @@ const styles = StyleSheet.create({
     buttonCreate: {
         backgroundColor: PRIMARY_COLOR,
     },
+    container: {
+        // backgroundColor: 'white',
+        paddingLeft: 16,
+        paddingTop: 16,
+        paddingBottom: 16,
+        width: '80%'
+      },
+      dropdown: {
+        height: 50,
+        borderColor: 'gray',
+        borderWidth: 0.5,
+        borderRadius: 8,
+        paddingHorizontal: 8,
+      },
+      icon: {
+        marginRight: 5,
+      },
+      label: {
+        position: 'absolute',
+        backgroundColor: 'white',
+        left: 22,
+        top: 8,
+        zIndex: 999,
+        paddingHorizontal: 8,
+        fontSize: 14,
+      },
+      placeholderStyle: {
+        fontSize: 16,
+      },
+      selectedTextStyle: {
+        fontSize: 16,
+      },
+      iconStyle: {
+        width: 20,
+        height: 20,
+      },
+      inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+      },
 });

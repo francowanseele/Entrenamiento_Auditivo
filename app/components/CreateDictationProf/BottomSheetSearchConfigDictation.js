@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, ScrollView, View, Text, Animated, Dimensions, Alert } from 'react-native';
 import { ListItem, Icon, Slider, Button, Divider, SearchBar, Image } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { dictationType } from '../../../enums/dictationType';
 import { FIFTH_COLOR, PRIMARY_COLOR, QUARTER_COLOR, SECONDARY_COLOR, TERTIARY_COLOR } from '../../../utils/colorPalette';
 import { getConfigDictationApi, getConfigDictationByStringApi } from '../../api/course';
 import Loading from '../../components/Loading';
@@ -10,7 +11,7 @@ import OverlayConfirmation from '../OverlayConfirmation';
 export default function BottomSheetSearchConfigDictation(props) {
     const {
         refRBSheet,
-        setDictationhythmic,
+        setGeneratorType,
         setGiro_melodico_regla,
         setNotas_inicio,
         setNotas_fin,
@@ -97,7 +98,8 @@ export default function BottomSheetSearchConfigDictation(props) {
                 if (result.ok) {
                     const configLoaded = result.config;
 
-                    setDictationhythmic(configLoaded.dictado_ritmico);
+                    // TODO: Asumo que es configuracion de dictado melódico o rítmico
+                    setGeneratorType(configLoaded.dictado_ritmico ? dictationType.rhythmic : dictationType.melodic);
                     setGiro_melodico_regla(
                         configLoaded.giro_melodico_regla.map((o) => ({
                             giros_melodicos: o.giros_melodicos,
