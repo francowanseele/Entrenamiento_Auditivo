@@ -46,11 +46,11 @@ export default function ProfileProf(props) {
                 title="Cerrar sesión"
                 onPress={logout}
             />
-            <Button
+            {/* <Button
                 type="clear"
                 title="Eliminar cuenta"
                 onPress={deleteAccountConfirmation}
-            />
+            /> */}
 
             <Overlay
                 isVisible={deleteConfirmation}

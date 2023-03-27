@@ -15,11 +15,11 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import ScreenPlaying from '../../components/ScreenPlaying';
 import TrackPlayer, { Event, Capability } from 'react-native-track-player';
 
-export default function AcordesPlay({ route }) {
+export default function IntervalosPlay({ route }) {
+    const { intervalo } = route.params;
+
     const [reproduciendo, setReproduciendo] = useState(false);
     const [playingNoteRef, setPlayingNoteRef] = useState(false);
-
-    const { acorde } = route.params;
 
     const navigation = useNavigation();
 
@@ -90,7 +90,7 @@ export default function AcordesPlay({ route }) {
         await TrackPlayer.play();
     };
 
-    const playAcorde = async () => {
+    const playIntervalo = async () => {
         try {
             setReproduciendo(true);
             const id = await getStorageItem(ID_USER);
@@ -108,18 +108,18 @@ export default function AcordesPlay({ route }) {
     };
 
     const openSolution = () => {
-        navigation.navigate('solution_acorde', {
-            acorde
+        navigation.navigate('solution_intervalo', {
+            intervalo: intervalo
         })
     }
 
     return (
         <>
             <View style={styles.container}>
-                {/* <View style={styles.graficoContainer}> */}
-                {/* </View> */}
-                <View style={{marginVertical: 30, alignItems: 'center'}}>
-                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>Nota de referencia: {acorde.NotaReferencia}</Text>
+                <View style={{ marginVertical: 30, alignItems: 'center' }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+                        Nota de referencia: {intervalo.NotaReferencia}
+                    </Text>
                 </View>
                 <Button
                     title={
@@ -136,7 +136,7 @@ export default function AcordesPlay({ route }) {
                     type="material-community"
                     name="play-circle-outline"
                     iconStyle={styles.iconPlay}
-                    onPress={playAcorde}
+                    onPress={playIntervalo}
                 />
             </View>
             <Button

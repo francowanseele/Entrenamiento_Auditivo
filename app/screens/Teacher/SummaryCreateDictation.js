@@ -18,6 +18,7 @@ import { addConfigDictationApi } from '../../api/course';
 import OverlayInfo from '../../components/CreateDictationProf/OverlayInfo';
 import { dictationType } from '../../../enums/dictationType';
 import { addConfigAcordeJazzApi } from '../../api/acordes';
+import { addConfigIntervaloApi } from '../../api/intervalos';
 
 export default function SummaryCreateDictation({ route }) {
     const {
@@ -43,6 +44,8 @@ export default function SummaryCreateDictation({ route }) {
         ligadura_regla,
         generatorType,
         dataCAJ,
+        dataIntervalo,
+        dataConfig,
     } = route.params;
 
     const [visibleEndCreate, setVisibleEndCreate] = useState(false);
@@ -141,7 +144,18 @@ export default function SummaryCreateDictation({ route }) {
                     setTitleEndCreate('Lo sentimos, algo salio mal..');
                     setTextEndCreate('Por favor intentelo más tarde.');
                     setVisibleEndCreate(true);
-                    console.log('Error al crear la configuración');
+                }
+            } else if (generatorType == dictationType.interval) {
+                const result = await addConfigIntervaloApi(dataIntervalo, module.id);
+
+                if (result.ok) {
+                    setTitleEndCreate('Configuración exitosa!!');
+                    setTextEndCreate('Su configuración fue creada con éxito.');
+                    setVisibleEndCreate(true);
+                } else {
+                    setTitleEndCreate('Lo sentimos, algo salio mal..');
+                    setTextEndCreate('Por favor intentelo más tarde.');
+                    setVisibleEndCreate(true);
                 }
             }
         } else {
@@ -153,11 +167,85 @@ export default function SummaryCreateDictation({ route }) {
         <ScrollView>
             {generatorType == dictationType.jazzChrods ? (
                 <View style={styles.contentAll}>
-                    <View style={styles.contentInfoGral}>
-                        <Text style={styles.titleSection}>
-                            Crear acorde jazz
-                        </Text>
-                    </View>
+                    {!isOnlyView ? (
+                        <View style={styles.contentInfoGral}>
+                            <Text style={styles.titleSection}>
+                                Crear generador de Acorde
+                            </Text>
+                        </View>
+                    ) : (
+                        <View style={styles.contentInfoGral}>
+                            <View style={styles.contentTitleSection}>
+                                <Text style={styles.titleSection}>
+                                    Configuración general
+                                </Text>
+                            </View>
+                            <View style={styles.contentTexts}>
+                                <Text style={styles.textSubtitle}>Curso: </Text>
+                                <Text style={styles.textInfo}>{course?.name}</Text>
+                            </View>
+
+                            <View style={styles.contentTexts}>
+                                <Text style={styles.textSubtitle}>Módulo: </Text>
+                                <Text style={styles.textInfo}>{module?.name}</Text>
+                            </View>
+
+                            <View style={styles.contentTexts}>
+                                <Text style={styles.textSubtitle}>
+                                    Nombre Nueva configuración:{' '}
+                                </Text>
+                                <Text style={styles.textInfo}>{dataConfig.configAcorde.Nombre}</Text>
+                            </View>
+
+                            <View style={styles.contentTexts}>
+                                <Text style={styles.textSubtitle}>
+                                    Descripción Nueva configuración:{' '}
+                                </Text>
+                                <Text style={styles.textInfo}>{dataConfig.configAcorde.Descripcion}</Text>
+                            </View>
+                        </View>
+                    )}
+                </View>
+            ) : generatorType == dictationType.interval ? (
+                <View style={styles.contentAll}>
+                    {!isOnlyView ? (
+                        <View style={styles.contentInfoGral}>
+                            <Text style={styles.titleSection}>
+                                Crear generador de Intervalo
+                            </Text>
+                        </View>
+                    ) : (
+                        <View style={styles.contentInfoGral}>
+                            <View style={styles.contentTitleSection}>
+                                <Text style={styles.titleSection}>
+                                    Configuración general
+                                </Text>
+                            </View>
+                            <View style={styles.contentTexts}>
+                                <Text style={styles.textSubtitle}>Curso: </Text>
+                                <Text style={styles.textInfo}>{course?.name}</Text>
+                            </View>
+
+                            <View style={styles.contentTexts}>
+                                <Text style={styles.textSubtitle}>Módulo: </Text>
+                                <Text style={styles.textInfo}>{module?.name}</Text>
+                            </View>
+
+                            <View style={styles.contentTexts}>
+                                <Text style={styles.textSubtitle}>
+                                    Nombre Nueva configuración:{' '}
+                                </Text>
+                                <Text style={styles.textInfo}>{dataConfig.configIntervalo.Nombre}</Text>
+                            </View>
+
+                            <View style={styles.contentTexts}>
+                                <Text style={styles.textSubtitle}>
+                                    Descripción Nueva configuración:{' '}
+                                </Text>
+                                <Text style={styles.textInfo}>{dataConfig.configIntervalo.Descripcion}</Text>
+                            </View>
+                        </View>
+                    )}
                 </View>
             ) : (
                 <View style={styles.contentAll}>
@@ -306,7 +394,7 @@ export default function SummaryCreateDictation({ route }) {
             )}
 
             <Button
-                title="Finalizar"
+                title={isOnlyView ? "Volver" : "Finalizar"}
                 onPress={async () => {
                     if (!isOnlyView) {
                         await createConfigDictation();

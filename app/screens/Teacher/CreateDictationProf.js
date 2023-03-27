@@ -21,6 +21,7 @@ import BottomSheetCreateCelulaRitmica from '../../components/CreateDictationProf
 import BottomSheetBPM from '../../components/CreateDictationProf/BottomSheetBPM';
 import {
     atLeastOneClef,
+    atLeastOneInterval,
     atLeastOneTonality,
     notesInNoteRule,
 } from '../../../utils/validator';
@@ -44,6 +45,10 @@ import { dictationType } from '../../../enums/dictationType';
 import { generateAcordeJazzApi } from '../../api/acordes';
 import { acordeType, escalaCampoArmonico, intervaloTensiones, nombreCifrado_TetradaTriada } from '../../../enums/camposArmonicosEnum';
 import { estadoAcorde } from '../../../enums/estadoAcorde';
+import BottomSheetInterval from '../../components/CreateIntervalProf/BottomSheetInterval';
+import { tipoIntervalo } from '../../../enums/tipoIntervalo';
+import { direccionIntervalo } from '../../../enums/direccionIntervalo';
+import { generateIntervaloApi } from '../../api/intervalos';
 
 export default function CreateDictationProf({ route }) {
     var cleanAll = route.params ? route.params.cleanAll : false;
@@ -794,6 +799,7 @@ export default function CreateDictationProf({ route }) {
     const refRBSheet_Clave = useRef();
     const refRBSheet_Reference = useRef();
     const refRBSheet_Tonalidad = useRef();
+    const refRBSheet_Intervals = useRef();
     const refRBSheet_Compas = useRef();
     const refRBSheet_CelulaRitmica = useRef();
     const refRBSheet_CreateRitmica = useRef();
@@ -810,6 +816,11 @@ export default function CreateDictationProf({ route }) {
     const [loading, setLoading] = useState(false);
     const [generatorType, setGeneratorType] = useState(dictationType.melodic);
     const [isFocus, setIsFocus] = useState(false);
+
+    // Intervals
+    const [intervaloRegla, setIntervaloRegla] = useState(initializeIntervaloRegla());
+    const [intervalType, setIntervalType] = useState(tipoIntervalo.melodico);
+    const [directionInterval, setDirectionInterval] = useState(direccionIntervalo.ascendente);
 
     // Harmony
     const [camposArmonicosToSend, setCamposArmonicosToSend] = useState(initializeDataCamposArmonicosToSend());
@@ -873,6 +884,7 @@ export default function CreateDictationProf({ route }) {
     const [okEndNotes, setOkEndNotes] = useState(true);
     const [okClefs, setOkClefs] = useState(true);
     const [okTonality, setOkTonality] = useState(true);
+    const [okIntervals, setOkIntervals] = useState(true);
 
     // Overlay
     const [visibleErrorConfig, setVisibleErrorConfig] = useState(false);
@@ -884,7 +896,8 @@ export default function CreateDictationProf({ route }) {
     const dataGeneratorType = [
         { label: 'Dictados Melódicos', value: dictationType.melodic },
         { label: 'Dictados Rítmicos', value: dictationType.rhythmic },
-        { label: 'Acordes Jazz', value: dictationType.jazzChrods },
+        { label: 'Acordes', value: dictationType.jazzChrods },
+        { label: 'Intervalos', value: dictationType.interval },
       ];
 
     useEffect(() => {
@@ -922,11 +935,17 @@ export default function CreateDictationProf({ route }) {
         } else if (generatorType == dictationType.jazzChrods) {
             // At least one tonality
             setOkTonality(atLeastOneTonality(escala_diatonica_regla));
+        } else if (generatorType == dictationType.interval) {
+            // At least one clef
+            setOkClefs(atLeastOneClef(clave_prioridad));
+            // At least one interval
+            setOkIntervals(atLeastOneInterval(intervaloRegla))
         } else {
             setOkStartNotes(true)
             setOkEndNotes(true)
             setOkClefs(true)
             setOkTonality(true)
+            setOkIntervals(true)
         }
     }, [
         giro_melodico_regla,
@@ -934,6 +953,7 @@ export default function CreateDictationProf({ route }) {
         notas_fin,
         clave_prioridad,
         escala_diatonica_regla,
+        intervaloRegla,
     ]);
 
     useEffect(() => {
@@ -970,6 +990,8 @@ export default function CreateDictationProf({ route }) {
             clearFieldsMelodic();
             clearFieldsRhythmic();
             clearFieldsHarmonic();
+        } else if (generatorType == dictationType.interval) {
+            clearFieldsInvervals();
         }
     }, [generatorType]);
 
@@ -1048,6 +1070,16 @@ export default function CreateDictationProf({ route }) {
             },
         ]);
         setNota_base(['C4']);
+    }
+
+    const clearFieldsInvervals = () => {
+        setIntervaloRegla(initializeIntervaloRegla());
+        setClave_prioridad([
+            { clave: 'Sol', prioridad: 1 },
+            { clave: 'Fa', prioridad: 1 },
+        ]);
+        setIntervalType(tipoIntervalo.melodico);
+        setDirectionInterval(direccionIntervalo.ascendente);
     }
 
     const clearFieldsHarmonic = () => {
@@ -1132,6 +1164,7 @@ export default function CreateDictationProf({ route }) {
         setOkEndNotes(true);
         setOkClefs(true);
         setOkTonality(true);
+        setOkIntervals(true);
     };
 
     const getTarjetas = (celulaRitmica) => {
@@ -1334,6 +1367,19 @@ export default function CreateDictationProf({ route }) {
             }
         }
 
+        if (generatorType == dictationType.interval) {
+            if (allOk && (!okClefs || !okIntervals)) {
+                allOk = false;
+                setTitleErrorConfig(
+                    'Existen algunas advertencias que debe revisar.'
+                );
+                setTextErrorConfig(
+                    `Revise sobe la izquierda de cada configuración si aparece alguna alerta. Para más información puede presionar sobre dicha alerta.`
+                );
+                setVisibleErrorConfig(true);
+            }
+        }
+
         // try to create dictation
         if (allOk) {
             if (generatorType == dictationType.melodic || generatorType == dictationType.rhythmic) {
@@ -1424,6 +1470,44 @@ export default function CreateDictationProf({ route }) {
                 } else {
                     setTitleErrorConfig(
                         'No es posible crear ningún acorde de jazz a partir de la configuración'
+                    );
+                    setTextErrorConfig(
+                        `Por favor revise los parámetros en la configuración establecida y pruebe establecer nuevos parámetros.`
+                    );
+                    setVisibleErrorConfig(true);
+                }
+            } else if (generatorType == dictationType.interval) {
+                const data = {
+                    dataIntervalos: {
+                        PrioridadClaveSol: clave_prioridad.find((x) => x.clave == 'Sol').prioridad,
+                        PrioridadClaveFa: clave_prioridad.find((x) => x.clave == 'Fa').prioridad,
+                        Direccion: directionInterval,
+                        Tipo: intervalType,
+                    },
+                    intervaloRegla: intervaloRegla.map((x) => {return {
+                        Intervalo: x.Intervalo,
+                        Prioridad: x.Prioridad,
+                    }}),
+                };
+
+                const result = await generateIntervaloApi(data, null, null, true);
+
+                if (result.ok) {
+                    const dataIntervaloToSend = {
+                        name: nameConfig, 
+                        description: descriptionConfig, 
+                        dataIntervalos: data.dataIntervalos,
+                        intervaloRegla: data.intervaloRegla
+                    };
+
+                    navigation.navigate('summaryCreateDictation', {
+                        module,
+                        dataIntervalo: dataIntervaloToSend,
+                        generatorType,
+                    });
+                } else {
+                    setTitleErrorConfig(
+                        'No es posible crear ningún Intervalo a partir de la configuración'
                     );
                     setTextErrorConfig(
                         `Por favor revise los parámetros en la configuración establecida y pruebe establecer nuevos parámetros.`
@@ -1560,6 +1644,7 @@ export default function CreateDictationProf({ route }) {
                     refRBSheet_NotesStartEnd={refRBSheet_NotesStartEnd}
                     refRBSheet_Clave={refRBSheet_Clave}
                     refRBSheet_Tonalidad={refRBSheet_Tonalidad}
+                    refRBSheet_Intervals={refRBSheet_Intervals}
                     refRBSheet_Reference={refRBSheet_Reference}
                     refRBSheet_Compas={refRBSheet_Compas}
                     refRBSheet_CelulaRitmica={refRBSheet_CelulaRitmica}
@@ -1574,6 +1659,11 @@ export default function CreateDictationProf({ route }) {
                     refRBSheet_Ligaduras={refRBSheet_Ligaduras}
                     camposArmonicosToSend={camposArmonicosToSend}
                     setCamposArmonicosToSend={setCamposArmonicosToSend}
+                    intervalType={intervalType}
+                    setIntervalType={setIntervalType}
+                    directionInterval={directionInterval}
+                    setDirectionInterval={setDirectionInterval}
+                    okIntervals={okIntervals}
                 />
             </ScrollView>
             <Button
@@ -1673,6 +1763,11 @@ export default function CreateDictationProf({ route }) {
                 setEscala_diatonica_regla={setEscala_diatonica_regla}
                 refRBSheet={refRBSheet_Tonalidad}
             />
+            <BottomSheetInterval
+                intervaloRegla={intervaloRegla}
+                setIntervaloRegla={setIntervaloRegla}
+                refRBSheet={refRBSheet_Intervals}
+            />
             <BottomSheetReference
                 nota_base={nota_base}
                 setNota_base={setNota_base}
@@ -1752,6 +1847,211 @@ export default function CreateDictationProf({ route }) {
             />
         </>
     );
+}
+
+function initializeIntervaloRegla() {
+    return [
+        {
+            Intervalo: '2m',
+            Prioridad: 1,
+            Checked: true,
+        },
+        {
+            Intervalo: '1A',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '2M',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '3m',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '2A',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '3M',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '4d',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '4P',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '4A',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '5d',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '5P',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '6m',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '5A',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '6M',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '7m',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '6A',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '7M',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '8d',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '8P',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '7A',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '9m',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '8A',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '9M',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '10m',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '9A',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '10M',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '11d',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '11P',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '11A',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '12d',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '12P',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '13m',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '12A',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '13M',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '14m',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '13A',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '14M',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '15d',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '15P',
+            Prioridad: 0,
+            Checked: false,
+        },
+        {
+            Intervalo: '14A',
+            Prioridad: 0,
+            Checked: false,
+        },
+    ]
 }
 
 function defoultValue_EscalaDiatonica() {

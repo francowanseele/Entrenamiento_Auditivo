@@ -22,7 +22,8 @@ export default function EditModuleConfig(props) {
         updateCoursesStudent,
         updateAllModules,
         setUpdateAllModules,
-        permissionToEdit
+        permissionToEdit,
+        tipoConfigToEdit,
     } = props;
 
     const [bootomSheetType, setBootomSheetType] = useState('');
@@ -67,7 +68,7 @@ export default function EditModuleConfig(props) {
                 await setUpdateAllModules(!updateAllModules);
             }
         } else {
-            const edited = await editConfigDictationApi(data, idCourse, id, idConfigDictation);
+            const edited = await editConfigDictationApi(data, idCourse, id, idConfigDictation, tipoConfigToEdit);
             if (edited.ok) {
                 refRBSheet.current.close();
                 await setUpdateAllModules(!updateAllModules);

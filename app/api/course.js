@@ -46,8 +46,8 @@ export function getModulesApi(idCourse) {
         });
 }
 
-export function getConfigDictationApi(idConfig) {
-    const url = `${basePath}/get-config-dictation/${idConfig}`;
+export function getConfigDictationApi(idConfig, tipo) {
+    const url = `${basePath}/get-config-dictation/${idConfig}?tipo=${tipo}`;
 
     const params = {
         method: 'GET',
@@ -861,8 +861,8 @@ export function editModuleApi(data, idCourse, idUser, idModule) {
         });
 }
 
-export function editConfigDictationApi(data, idCourse, idUser, idConfigDictation) {
-    const url = `${basePath}/edit-config-dictation/${idCourse}?idUser=${idUser}&idConfigDictation=${idConfigDictation}`;
+export function editConfigDictationApi(data, idCourse, idUser, idConfigDictation, tipoConfigToEdit) {
+    const url = `${basePath}/edit-config-dictation/${idCourse}?idUser=${idUser}&idConfigDictation=${idConfigDictation}&tipo=${tipoConfigToEdit}`;
 
     const params = {
         method: 'PUT',

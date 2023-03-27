@@ -15,6 +15,9 @@ import {
 import ConfigAcordesJazz from '../screens/Student/ConfigAcordesJazz';
 import AcordesPlay from '../screens/Student/AcordesPlay';
 import SolutionAcorde from '../screens/Student/SolutionAcorde';
+import ConfigIntervalo from '../screens/Student/ConfigIntervalo';
+import IntervalosPlay from '../screens/Student/IntervalosPlay';
+import SolutionIntervalo from '../screens/Student/SolutionIntervalo';
 
 const Stack = createStackNavigator();
 
@@ -72,6 +75,17 @@ export default function () {
                 }}
             />
             <Stack.Screen
+                name="config_intervalos"
+                component={ConfigIntervalo}
+                options={{
+                    title: 'Intervalos',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                    },
+                }}
+            />
+            <Stack.Screen
                 name="acordes_play"
                 component={AcordesPlay}
                 options={{
@@ -80,6 +94,17 @@ export default function () {
                     //     backgroundColor: TOPSCREENHOME,
                     // },
                     // headerTintColor: TEXTHOME,
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="intervalos_play"
+                component={IntervalosPlay}
+                options={{
+                    title: 'Intervalo',
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,
@@ -125,6 +150,17 @@ export default function () {
                     //     backgroundColor: TOPSCREENHOME,
                     // },
                     // headerTintColor: TEXTHOME,
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="solution_intervalo"
+                component={SolutionIntervalo}
+                options={{
+                    title: 'Solución',
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,

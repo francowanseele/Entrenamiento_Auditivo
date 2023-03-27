@@ -34,3 +34,7 @@ export function atLeastOneTonality(tonalities) {
 
     return ok;
 }
+
+export function atLeastOneInterval(intervalos) {
+    return intervalos.find((x) => x.Prioridad > 0) != null;
+}

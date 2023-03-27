@@ -45,6 +45,7 @@ import EditModuleConfig from '../../components/BottomSheetOptions/EditModuleConf
 import { DELAY_LONG_PRESS } from '../../../utils/constants';
 import NewCourse from '../../components/BottomSheetOptions/NewCourse';
 import { getConfigAcordeJazzApi } from '../../api/acordes';
+import { getConfigIntervaloApi } from '../../api/intervalos';
 
 export default function Home() {
     const navigation = useNavigation();
@@ -74,6 +75,7 @@ export default function Home() {
     const [descriptionToEdit, setDescriptionToEdit] = useState('');
     const [idCourseToEdit, setIdCourseToEdit] = useState(null);
     const [permissionToEdit, setPermissionToEdit] = useState(true);
+    const [tipoConfigToEdit, setTipoConfigToEdit] = useState('');
 
     // UseRef
     const refRBSheet_SelectCourse = useRef();
@@ -265,6 +267,14 @@ export default function Home() {
                     idCAJ: config.id,
                 });
             }
+        } else if (config.Tipo == 'ConfiguracionIntervalo') {
+            const result = await getConfigIntervaloApi(config.id);
+            if (result.ok) {
+                navigation.navigate('config_intervalos', {
+                    configIntervalo: result.configIntervalo,
+                    module: module,
+                });
+            }
         }
     };
     const addStudentToCourse = (idCourse) => {
@@ -420,6 +430,7 @@ export default function Home() {
     }
 
     const openEditConfigDictationOptions = async (config) => {
+        setTipoConfigToEdit(config.Tipo);
         const idCourse = cursoSeleccionado;
         const idUser = await getStorageItem(ID_USER);
         await setLoading(true);
@@ -656,6 +667,7 @@ export default function Home() {
                     updateAllModules={updateAllModules}
                     setUpdateAllModules={setUpdateAllModules}
                     permissionToEdit={permissionToEdit}
+                    tipoConfigToEdit={tipoConfigToEdit}
                 />
             </View>
         </View>

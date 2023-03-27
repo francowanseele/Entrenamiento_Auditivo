@@ -1,18 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
     StyleSheet,
-    ScrollView,
-    Text,
     View,
-    Image,
-    TouchableOpacity,
 } from 'react-native';
 import {
     ListItem,
     Icon,
-    Switch,
-    CheckBox,
-    Button,
 } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 

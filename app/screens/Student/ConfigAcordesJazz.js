@@ -4,27 +4,16 @@ import {
     StyleSheet,
     Text,
     ScrollView,
-    TouchableOpacity,
     Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ListItem, Icon, FAB } from 'react-native-elements';
-import { BACKGROUNDHOME, ITEMSHOME, TEXTHOME } from '../../styles/styleValues';
+import { ListItem, FAB } from 'react-native-elements';
+import { ITEMSHOME, TEXTHOME } from '../../styles/styleValues';
 import Loading from '../../components/Loading';
-import { generateDictationApi, getDictationApi } from '../../api/user';
-import { generateAcordeJazzFileApi, generateDictationFileApi } from '../../api/sound';
-import { Ionicons } from '@expo/vector-icons';
-import {
-    getParams,
-    getStorageItem,
-    ID_CURRENT_CURSE,
-    ID_USER,
-} from '../../../utils/asyncStorageManagement';
-import { set } from 'react-native-reanimated';
+import { generateAcordeJazzFileApi } from '../../api/sound';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import { generateAcordeJazzApi, getAcordesJazzApi } from '../../api/acordes';
 import { acordeType } from '../../../enums/camposArmonicosEnum';
-// import { getNativeSourceAndFullInitialStatusForLoadAsync } from 'expo-av/build/AV';
 
 
 export default function ConfigAcordesJazz({ route }) {

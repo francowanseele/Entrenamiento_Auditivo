@@ -47,6 +47,8 @@ import { DELAY_LONG_PRESS } from '../../../utils/constants';
 import EditModuleConfig from '../../components/BottomSheetOptions/EditModuleConfig';
 import NewCourse from '../../components/BottomSheetOptions/NewCourse';
 import { getInstituteByUserApi } from '../../api/institute';
+import { tipoConfiguracion } from '../../../enums/tipoConfiguracion';
+import { dictationType } from '../../../enums/dictationType';
 
 export default function DictationProf() {
     const Tab = createMaterialTopTabNavigator();
@@ -81,6 +83,7 @@ export default function DictationProf() {
     const [descriptionToEdit, setDescriptionToEdit] = useState('');
     const [idCourseToEdit, setIdCourseToEdit] = useState(null);
     const [permissionToEdit, setPermissionToEdit] = useState(true);
+    const [tipoConfigToEdit, setTipoConfigToEdit] = useState('');
 
     // new coruse
     const [institutes, setInstitutes] = useState([]);
@@ -99,29 +102,63 @@ export default function DictationProf() {
     const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
 
     const open_summaryCreateDictation = async (config, module) => {
-        const configResut = await getConfigDictationApi(config.id);
+        const configResut = await getConfigDictationApi(config.id, config.Tipo);
 
-        navigation.navigate('summaryDictaction', {
-            dictationRhythmic: null,
-            institute: 'falta',
-            course: { name: getNombreCurso(cursoSeleccionado).name },
-            module: { name: module.Nombre },
-            nameConfig: configResut.config.nombre,
-            descriptionConfig: configResut.config.descripcion,
-            giro_melodico_regla: configResut.config.giro_melodico_regla,
-            notas_inicio: configResut.config.notas_inicio,
-            notas_fin: configResut.config.notas_fin,
-            clave_prioridad: configResut.config.clave_prioridad,
-            escala_diatonica_regla: configResut.config.escala_diatonica_regla,
-            nota_base: configResut.config.nota_base,
-            nro_compases: configResut.config.nro_compases,
-            simple: configResut.config.simple,
-            compas_regla: configResut.config.compas_regla,
-            celula_ritmica_regla: configResut.config.celula_ritmica_regla,
-            BPM: 128,
-            tesitura: null,
-            isOnlyView: true,
-        });
+        if (config.Tipo == tipoConfiguracion.ConfiguracionIntervalo || config.Tipo == tipoConfiguracion.ConfiguracionAcordeJazz) {
+            navigation.navigate('summaryDictaction', {
+                course: { name: getNombreCurso(cursoSeleccionado).name },
+                module: { name: module.Nombre },
+                isOnlyView: true,
+                generatorType:
+                    config.Tipo == tipoConfiguracion.ConfiguracionAcordeJazz
+                        ? dictationType.jazzChrods
+                        : config.Tipo == tipoConfiguracion.ConfiguracionIntervalo
+                        ? dictationType.interval
+                        : config.Tipo == tipoConfiguracion.ConfiguracionDictado &&
+                            configResut.config.dictado_ritmico
+                        ? dictationType.rhythmic
+                        : config.Tipo == tipoConfiguracion.ConfiguracionDictado &&
+                            !configResut.config.dictado_ritmico
+                        ? dictationType.melodic
+                        : null,
+                dataConfig: configResut.config,
+            });
+        } else {
+            navigation.navigate('summaryDictaction', {
+                dictationRhythmic: null,
+                institute: 'falta',
+                course: { name: getNombreCurso(cursoSeleccionado).name },
+                module: { name: module.Nombre },
+                nameConfig: configResut.config.nombre,
+                descriptionConfig: configResut.config.descripcion,
+                giro_melodico_regla: configResut.config.giro_melodico_regla,
+                notas_inicio: configResut.config.notas_inicio,
+                notas_fin: configResut.config.notas_fin,
+                clave_prioridad: configResut.config.clave_prioridad,
+                escala_diatonica_regla: configResut.config.escala_diatonica_regla,
+                nota_base: configResut.config.nota_base,
+                nro_compases: configResut.config.nro_compases,
+                simple: configResut.config.simple,
+                compas_regla: configResut.config.compas_regla,
+                celula_ritmica_regla: configResut.config.celula_ritmica_regla,
+                BPM: 128,
+                tesitura: null,
+                isOnlyView: true,
+                generatorType:
+                    config.Tipo == tipoConfiguracion.ConfiguracionAcordeJazz
+                        ? dictationType.jazzChrods
+                        : config.Tipo == tipoConfiguracion.ConfiguracionIntervalo
+                        ? dictationType.interval
+                        : config.Tipo == tipoConfiguracion.ConfiguracionDictado &&
+                            configResut.config.dictado_ritmico
+                        ? dictationType.rhythmic
+                        : config.Tipo == tipoConfiguracion.ConfiguracionDictado &&
+                            !configResut.config.dictado_ritmico
+                        ? dictationType.melodic
+                        : null,
+                dataConfig: configResut.config,
+            });
+        }
     };
 
     // useEffect(() => {
@@ -476,6 +513,7 @@ export default function DictationProf() {
     }
 
     const openEditConfigDictationOptions = async (config) => {
+        setTipoConfigToEdit(config.Tipo);
         const idCourse = cursoSeleccionado;
         const idUser = await getStorageItem(ID_USER);
         await setLoading(true);
@@ -690,6 +728,7 @@ export default function DictationProf() {
                     updateAllModules={updateAllModules}
                     setUpdateAllModules={setUpdateAllModules}
                     permissionToEdit={permissionToEdit}
+                    tipoConfigToEdit={tipoConfigToEdit}
                 />
             </View>
         </View>

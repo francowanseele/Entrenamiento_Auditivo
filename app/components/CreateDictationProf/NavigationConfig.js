@@ -1,10 +1,12 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Text } from 'react-native';
 
 import ConfigMelodic from './ConfigMelodic';
 import ConfigRhythmic from './ConfigRhythmic';
 import { dictationType } from '../../../enums/dictationType';
 import ConfigJazzChords from './ConfigJazzChords';
+import ConfigIntervals from './ConfigIntervals';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -38,6 +40,7 @@ export default function NavigationConfig(props) {
         setEditLigaduraFirstCR,
         refRBSheet_Clave,
         refRBSheet_Tonalidad,
+        refRBSheet_Intervals,
         refRBSheet_NotesStartEnd,
         refRBSheet_Reference,
         refRBSheet_Compas,
@@ -53,6 +56,11 @@ export default function NavigationConfig(props) {
         refRBSheet_Ligaduras,
         camposArmonicosToSend,
         setCamposArmonicosToSend,
+        intervalType,
+        setIntervalType,
+        directionInterval,
+        setDirectionInterval,
+        okIntervals,
     } = props;
 
     return (
@@ -121,16 +129,36 @@ export default function NavigationConfig(props) {
 
             {generatorType == dictationType.jazzChrods && (
                 <Tab.Screen
-                name="Config. Acorde"
-                children={() => (
-                    <ConfigJazzChords
-                        refRBSheet_Tonalidad={refRBSheet_Tonalidad}
-                        okTonality={okTonality}
-                        camposArmonicosToSend={camposArmonicosToSend}
-                        setCamposArmonicosToSend={setCamposArmonicosToSend}
-                    />
-                )}
-            />
+                    name="Configuración"
+                    children={() => (
+                        <ConfigJazzChords
+                            refRBSheet_Tonalidad={refRBSheet_Tonalidad}
+                            okTonality={okTonality}
+                            camposArmonicosToSend={camposArmonicosToSend}
+                            setCamposArmonicosToSend={setCamposArmonicosToSend}
+                        />
+                    )}
+                />
+            )}
+
+            {generatorType == dictationType.interval && (
+                <Tab.Screen
+                    name="Configuración"
+                    children={() => (
+                        <ConfigIntervals
+                            refRBSheet_Intervals={refRBSheet_Intervals}
+                            intervalType={intervalType}
+                            setIntervalType={setIntervalType}
+                            directionInterval={directionInterval}
+                            setDirectionInterval={setDirectionInterval}
+                            okClefs={okClefs}
+                            clave_prioridad={clave_prioridad}
+                            setClaveEdit={setClaveEdit}
+                            refRBSheet_Clave={refRBSheet_Clave}
+                            okIntervals={okIntervals}
+                        />
+                    )}
+                />
             )}
         </Tab.Navigator>
     );
