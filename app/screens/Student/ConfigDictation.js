@@ -6,7 +6,7 @@ import {
     ScrollView,
     TouchableOpacity,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { ListItem, Icon, FAB } from 'react-native-elements';
 import { BACKGROUNDHOME, ITEMSHOME, TEXTHOME } from '../../styles/styleValues';
 import Loading from '../../components/Loading';
@@ -21,10 +21,13 @@ import {
 } from '../../../utils/asyncStorageManagement';
 import { set } from 'react-native-reanimated';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
+
 // import { getNativeSourceAndFullInitialStatusForLoadAsync } from 'expo-av/build/AV';
 
 export default function ConfigDictation({ route }) {
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
+
     const { configDictation, module } = route.params;
     const [dictations, setDictations] = useState([]);
     const [stateDict, setStateDict] = useState('nuevo');
@@ -191,100 +194,102 @@ export default function ConfigDictation({ route }) {
     };
 
     useEffect(() => {
-        getParams().then((d) => {
-            const idUser = parseInt(d.id);
-            const logged = d.logged;
-            const email = d.email;
-            const isStudent = d.isStudent;
-            const idCourse = parseInt(d.id_course);
-            getDictationApi(idUser, configDictation.id).then((result) => {
-                if (result.ok) {
-                    if (result.dictations.length == 0) {
-                        // Generar nuevos
-                        const resGirosMelodicos = getGirosMelodicos(
-                            configDictation.giro_melodico_regla
-                        );
-                        const data = {
-                            tarjetas: getTarjetas(
-                                configDictation.celula_ritmica_regla
-                            ),
-                            nroCompases: configDictation.nro_compases,
-                            compas: getCompas(configDictation.compas_regla),
-                            simple: configDictation.simple
-                                ? 'simples'
-                                : 'compuestas',
-                            notasRegla: resGirosMelodicos[0],
-                            nivelPrioridadRegla: resGirosMelodicos[1],
-                            intervaloNotas: getTesitura(
-                                configDictation.tesitura
-                            ),
-                            notasBase: configDictation.notas_inicio,
-                            notasFin: configDictation.notas_fin,
-                            nivelPrioridadClave: getPrioridadClave(
-                                configDictation.clave_prioridad
-                            ),
-                            escalaDiatonicaRegla: getEscalasDiatonicas(
-                                configDictation.escala_diatonica_regla
-                            ),
-                            notaBase: configDictation.nota_base,
-                            bpm:
-                                configDictation.bpm.menor &&
-                                configDictation.bpm.mayor
-                                    ? configDictation.bpm
-                                    : { menor: 128, mayor: 128 },
-                            dictado_ritmico: configDictation.dictado_ritmico
-                                ? configDictation.dictado_ritmico
-                                : false,
-                            ligaduraRegla: configDictation.ligaduraRegla,
-                        };
-                        generateDictationApi(
-                            idUser,
-                            idCourse,
-                            module.id,
-                            configDictation.id,
-                            5,
-                            data,
-                            false
-                        ).then((resultDictation) => {
-                            if (resultDictation.ok) {
-                                getDictationApi(
-                                    idUser,
-                                    configDictation.id
-                                ).then((resultNewDictation) => {
-                                    if (resultNewDictation.ok) {
-                                        setDictations(
-                                            resultNewDictation.dictations
+        if (isFocused) {
+            getParams().then((d) => {
+                const idUser = parseInt(d.id);
+                const logged = d.logged;
+                const email = d.email;
+                const isStudent = d.isStudent;
+                const idCourse = parseInt(d.id_course);
+                getDictationApi(idUser, configDictation.id).then((result) => {
+                    if (result.ok) {
+                        if (result.dictations.length == 0) {
+                            // Generar nuevos
+                            const resGirosMelodicos = getGirosMelodicos(
+                                configDictation.giro_melodico_regla
+                            );
+                            const data = {
+                                tarjetas: getTarjetas(
+                                    configDictation.celula_ritmica_regla
+                                ),
+                                nroCompases: configDictation.nro_compases,
+                                compas: getCompas(configDictation.compas_regla),
+                                simple: configDictation.simple
+                                    ? 'simples'
+                                    : 'compuestas',
+                                notasRegla: resGirosMelodicos[0],
+                                nivelPrioridadRegla: resGirosMelodicos[1],
+                                intervaloNotas: getTesitura(
+                                    configDictation.tesitura
+                                ),
+                                notasBase: configDictation.notas_inicio,
+                                notasFin: configDictation.notas_fin,
+                                nivelPrioridadClave: getPrioridadClave(
+                                    configDictation.clave_prioridad
+                                ),
+                                escalaDiatonicaRegla: getEscalasDiatonicas(
+                                    configDictation.escala_diatonica_regla
+                                ),
+                                notaBase: configDictation.nota_base,
+                                bpm:
+                                    configDictation.bpm.menor &&
+                                    configDictation.bpm.mayor
+                                        ? configDictation.bpm
+                                        : { menor: 128, mayor: 128 },
+                                dictado_ritmico: configDictation.dictado_ritmico
+                                    ? configDictation.dictado_ritmico
+                                    : false,
+                                ligaduraRegla: configDictation.ligaduraRegla,
+                            };
+                            generateDictationApi(
+                                idUser,
+                                idCourse,
+                                module.id,
+                                configDictation.id,
+                                5,
+                                data,
+                                false
+                            ).then((resultDictation) => {
+                                if (resultDictation.ok) {
+                                    getDictationApi(
+                                        idUser,
+                                        configDictation.id
+                                    ).then((resultNewDictation) => {
+                                        if (resultNewDictation.ok) {
+                                            setDictations(
+                                                resultNewDictation.dictations
+                                            );
+                                        } else {
+                                            // TODO ERROR
+                                            setDictations([]);
+                                        }
+                                    });
+                                } else {
+                                    // TODO Error
+                                    // Mostrar cartel de que no se pudo generar ningún dictado si viene error 400
+                                    if (resultDictation.issueConfig) {
+                                        // Error de la configuración
+                                        console.log(
+                                            'Error de la configuración....'
                                         );
                                     } else {
-                                        // TODO ERROR
-                                        setDictations([]);
+                                        // Error del servidor
+                                        console.log('Error del servidor.');
                                     }
-                                });
-                            } else {
-                                // TODO Error
-                                // Mostrar cartel de que no se pudo generar ningún dictado si viene error 400
-                                if (resultDictation.issueConfig) {
-                                    // Error de la configuración
-                                    console.log(
-                                        'Error de la configuración....'
-                                    );
-                                } else {
-                                    // Error del servidor
-                                    console.log('Error del servidor.');
+                                    console.log('ERROR');
                                 }
-                                console.log('ERROR');
-                            }
-                        });
+                            });
+                        } else {
+                            setDictations(result.dictations);
+                        }
                     } else {
-                        setDictations(result.dictations);
+                        // TODO Error
+                        setDictations([]);
                     }
-                } else {
-                    // TODO Error
-                    setDictations([]);
-                }
+                });
             });
-        });
-    }, []);
+        }
+    }, [isFocused]);
 
     const dictationIn = async (dictation) => {
         // Generar midi y mp3
@@ -320,11 +325,33 @@ export default function ConfigDictation({ route }) {
             console.log(message);
         }
     };
+
+    const getLastCalification = (califications) => {
+        // califications: [ {"Correcto": null, "DictadoId": 175, "Nota": 8, "UsuarioId": 1, "created_at": "2023-03-29T21:18:13.732Z", "id": 1} ]
+        const newCalifications = califications.map((c) => {
+            return {
+                ...c,
+                created_at: new Date(c.created_at)
+            }
+        });
+
+        let result = newCalifications[0];
+        for (let i = 1; i < newCalifications.length; i++) {
+            const c = newCalifications[i];
+            if (c.created_at > result.created_at) {
+                result = c;
+            }
+        }
+        return result;
+    }
+
     const getStyleByState = (stateDict) => {
-        if (stateDict) {
-            if (stateDict.nota <= 2) {
+        if (stateDict.length > 0) {
+            const calification = getLastCalification(stateDict);
+
+            if (calification.Nota <= 2) {
                 return styles.notaRed;
-            } else if (stateDict.nota >= 3 && stateDict.nota <= 8) {
+            } else if (calification.Nota >= 3 && calification.Nota <= 8) {
                 return styles.notaOrange;
             } else {
                 return styles.notaGreen;
@@ -360,17 +387,11 @@ export default function ConfigDictation({ route }) {
                                 <View style={styles.contentNota}>
                                     <Text>
                                         <Text
-                                            style={getStyleByState(
-                                                dict.resuelto[
-                                                    dict.resuelto.length - 1
-                                                ]
-                                            )}
+                                            style={getStyleByState(dict.resuelto)}
                                         >
                                             Última Calificación:{' '}
                                             {
-                                                dict.resuelto[
-                                                    dict.resuelto.length - 1
-                                                ].nota
+                                                getLastCalification(dict.resuelto).Nota
                                             }
                                         </Text>
                                     </Text>
@@ -424,13 +445,13 @@ const styles = StyleSheet.create({
     },
     content: {
         marginTop: 10,
-        backgroundColor: ITEMSHOME,
+        backgroundColor: 'white',
         flexDirection: 'row',
         width: '96%',
         alignSelf: 'center',
         borderRadius: 10,
         shadowColor: '#470000',
-        shadowOffset: { width: 10, height: 10 },
+        shadowOffset: { width: 0, height: 0 },
         shadowOpacity: 0.2,
         elevation: 13,
     },

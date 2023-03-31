@@ -1,12 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Modal, Text } from 'react-native';
+import { tipoConfiguracion } from '../../../enums/tipoConfiguracion';
 import {
     PRIMARY_COLOR,
     QUARTER_COLOR,
 } from '../../../utils/colorPalette';
+import CalificationOptions from '../../components/Calification/CalificationOptions';
+import { useNavigation } from '@react-navigation/native';
+import { addCalification } from '../../api/calification';
 
 export default function SolutionIntervalo({ route }) {
     const { intervalo } = route.params;
+
+    const navigation = useNavigation();
+
+    const [optionsCalification, setOptionsCalification] = useState(initializeOptionsCalification());
+
+    const confirmFunction = async (option) => {
+        // Save calification
+        const data = {
+            note: null,
+            correct: option.correct,
+            typeConfig: tipoConfiguracion.ConfiguracionIntervalo,
+        };
+        const result = await addCalification(data, intervalo.id);
+
+        if (result.ok) {
+            navigation.goBack();
+        } else {
+            Alert.alert('No se ha podido guardar la calificación.');
+        }
+    }
+
     return (
         <>
             <View style={styles.container}>
@@ -17,8 +42,28 @@ export default function SolutionIntervalo({ route }) {
                 <Text style={styles.title}>Intervalo escuchado:</Text>
                 <Text style={styles.nameAcorde}>{intervalo.Intervalo}</Text>
             </View>
+
+            <View style={{marginTop: 30}}>
+                <CalificationOptions
+                    confirmFunction={confirmFunction}
+                    optionsCalification={optionsCalification} 
+                />
+            </View>
         </>
     );
+}
+
+function initializeOptionsCalification(){
+    return [
+        {
+            label: "Bien",
+            correct: true,
+        },
+        {
+            label: "Con errores",
+            correct: false,
+        },
+    ]
 }
 
 const styles = StyleSheet.create({

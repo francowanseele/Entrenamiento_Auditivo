@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         marginTop:'5%',
         borderRadius:10,
         shadowColor: '#470000',
-        shadowOffset: {width: 10, height: 10},
+        shadowOffset: {width: 0, height: 0},
         shadowOpacity: 0.2,
     },
     calificacionesLine:{

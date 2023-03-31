@@ -495,6 +495,7 @@ export default function Home() {
                     {modules != null && modules.length > 0 ? (
                         modules.map((module, i) => (
                             <ListItem.Accordion
+                                // contentContainerStyle={styles.itemsContainer}
                                 containerStyle={styles.itemsContainer}
                                 content={
                                     <>
@@ -699,11 +700,11 @@ const styles = StyleSheet.create({
         paddingRight: 5,
         fontSize: 32,
     },
-    container: {
-        flexDirection: 'column',
-        backgroundColor: BACKGROUNDHOME,
-        marginTop: 10,
-    },
+    // container: {
+    //     flexDirection: 'column',
+    //     backgroundColor: BACKGROUNDHOME,
+    //     marginTop: 10,
+    // },
     coursesToAdd: {
         padding: 5,
         height: '6%',
@@ -744,7 +745,7 @@ const styles = StyleSheet.create({
     //   },
     container: {
         flex: 1,
-        flexDirection: 'column',
+        // flexDirection: 'column',
         backgroundColor: BACKGROUNDHOME,
         marginTop: 10,
     },
@@ -758,13 +759,13 @@ const styles = StyleSheet.create({
     itemsContainer: {
         flex: 1,
         marginTop: 15,
-        backgroundColor: ITEMSHOME,
-        flexDirection: 'row',
+        backgroundColor: 'white',
+        // flexDirection: 'row',
         width: '97%',
         alignSelf: 'center',
         borderRadius: 10,
         shadowColor: '#470000',
-        shadowOffset: { width: 10, height: 10 },
+        shadowOffset: { width: 0, height: 0 },
         shadowOpacity: 0.2,
         elevation: 13,
     },

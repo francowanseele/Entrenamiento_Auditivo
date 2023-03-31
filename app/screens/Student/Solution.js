@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Modal, Text } from 'react-native';
+import { View, StyleSheet, Modal, Text, Alert } from 'react-native';
 import Graphic from '../../components/Graphic';
 import { setAutoevaluacion } from '../../api/user';
 import {BACKGROUNDHOME,BACKGROUNDHOME2,ITEMSHOME, TEXTHOME, TOPSCREENHOME} from '../../styles/styleValues';
@@ -8,8 +8,10 @@ import CheckBox from 'react-native-check-box';
 import { Button, Overlay } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { getStorageItem } from '../../../utils/asyncStorageManagement';
-import { ScrollView } from 'react-native-gesture-handler';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
+import CalificationOptions from '../../components/Calification/CalificationOptions';
+import { addCalification } from '../../api/calification';
+import { tipoConfiguracion } from '../../../enums/tipoConfiguracion';
 
 export default function Solution({ route }) {
     const { dictation } = route.params;
@@ -17,6 +19,7 @@ export default function Solution({ route }) {
     const [evaluacionNota, setevaluacionNota] = useState(-1);
     const [currentUserMail, setCurrentUserEmail] = useState();
     const [modalVisible, setModalVisible] = useState(false);
+    const [optionsCalification, setOptionsCalification] = useState(initializeOptionsCalification(dictation.notas));
 
     const navigation = useNavigation();
 
@@ -63,11 +66,27 @@ export default function Solution({ route }) {
             navigation.goBack();
         });
     };
+
+    const confirmFunction = async  (option) => {
+        // Save calification
+        const data = {
+            note: option.note,
+            correct: null,
+            typeConfig: tipoConfiguracion.ConfiguracionDictado,
+        };
+        const result = await addCalification(data, dictation.id);
+
+        if (result.ok) {
+            navigation.goBack();
+        } else {
+            Alert.alert('No se ha podido guardar la calificación.');
+        }
+    }
     
     return (
         <View style={styles.container}>
             <View style={styles.graficoContainer}>
-                {console.log('original',dictation.figuras)}
+                {/* {console.log('original',dictation.figuras)} */}
                 <Graphic
                     figurasSeparadasPorLigaudra={dictation.figurasSeparadasPorLigaudra}
                     figurasConCompas={dictation.figurasSeparadasPorLigaudra}
@@ -80,6 +99,11 @@ export default function Solution({ route }) {
                     isNotaReferencia={false}
                 />
             </View>
+
+            <CalificationOptions 
+                confirmFunction={confirmFunction}
+                optionsCalification={optionsCalification} 
+            />
             {/* <ScrollView style={styles.checkboxContainer}>
                 <Button
                     title={'Ningún error'}
@@ -225,6 +249,98 @@ export default function Solution({ route }) {
     );
 }
 
+function initializeOptionsCalification(notas) {
+    if (notas.length >= 10) {
+        const interval = Math.trunc(notas.length / 5);
+        return [
+            {
+                label: "Todas bien",
+                note: 12,
+            },
+            {
+                label: "De 1 a " + interval.toString() + " errores",
+                note: 10,
+            },
+            {
+                label: "De " + (interval + 1).toString() +" a " + (interval * 2).toString() + " errores",
+                note: 8,
+            },
+            {
+                label: "De " + ((2 * interval) + 1).toString() +" a " + (interval * 3).toString() + " errores",
+                note: 6,
+            },
+            {
+                label: "De " + ((3 * interval) + 1).toString() +" a " + (interval * 4).toString() + " errores",
+                note: 4,
+            },
+            {
+                label: "Más de " + ((4 * interval) + 1).toString() +" errores",
+                note: 2,
+            },
+        ]
+    } else if (notas.length >= 8) {
+        const interval = Math.trunc(notas.length / 4);
+        return [
+            {
+                label: "Todas bien",
+                note: 12,
+            },
+            {
+                label: "De 1 a " + interval.toString() + " errores",
+                note: 9,
+            },
+            {
+                label: "De " + (interval + 1).toString() +" a " + (interval * 2).toString() + " errores",
+                note: 6,
+            },
+            {
+                label: "De " + ((2 * interval) + 1).toString() +" a " + (interval * 3).toString() + " errores",
+                note: 3,
+            },
+            {
+                label: "Más de " + ((3 * interval) + 1).toString() +" errores",
+                note: 1,
+            },
+        ]
+    } else if (notas.length >= 6) {
+        const interval = Math.trunc(notas.length / 3);
+        return [
+            {
+                label: "Todas bien",
+                note: 12,
+            },
+            {
+                label: "De 1 a " + interval.toString() + " errores",
+                note: 8,
+            },
+            {
+                label: "De " + (interval + 1).toString() +" a " + (interval * 2).toString() + " errores",
+                note: 4,
+            },
+            {
+                label: "Más de " + ((2 * interval) + 1).toString() +" errores",
+                note: 1,
+            },
+        ]
+    } else {
+        const interval = Math.trunc(notas.length / 2);
+        return [
+            {
+                label: "Todas bien",
+                note: 12,
+            },
+            {
+                label: "De 1 a " + interval.toString() + " errores",
+                note: 8,
+            },
+            {
+                label: "Más de " + (interval + 1).toString() +" errores",
+                note: 4,
+            },
+        ]
+    }
+}
+
 const styles = StyleSheet.create({
     container: {
         backgroundColor: BACKGROUNDHOME,
@@ -269,6 +385,7 @@ const styles = StyleSheet.create({
     graficoContainer: {
         paddingHorizontal: 5,
         height: '30%',
+        marginBottom: 20,
     },
     checkboxContainer: {
         paddingTop: 70,

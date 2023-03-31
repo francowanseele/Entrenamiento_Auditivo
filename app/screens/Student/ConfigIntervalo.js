@@ -4,8 +4,9 @@ import {
     StyleSheet,
     ScrollView,
     Alert,
+    Text,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { ListItem, FAB } from 'react-native-elements';
 import { ITEMSHOME, TEXTHOME } from '../../styles/styleValues';
 import Loading from '../../components/Loading';
@@ -21,37 +22,40 @@ export default function ConfigIntervalo({ route }) {
     const [intervalos, setIntervalos] = useState([]);
 
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
 
     useEffect(() => {
-        setLoading(true);
-        getIntervaloApi(configIntervalo.id).then((result) => {
-            if (result.ok) {
-                if (result.intervalos.length == 0) {
-                    // Generate news
-                    const data = {
-                        dataIntervalos: configIntervalo.dataIntervalos,
-                        intervaloRegla: configIntervalo.intervaloRegla,
-                    }
-                    generateIntervaloApi(data, configIntervalo.id, 5, false).then((resultGenerateIntervalos) => {
-                        if (resultGenerateIntervalos.ok) {
-                            setIntervalos(resultGenerateIntervalos.intervalos.sort((a, b) => a.id - b.id));
-                        } else {
-                            Alert.alert('No se pudo generar ningún Intervalo :(');
+        if (isFocused) {
+            setLoading(true);
+            getIntervaloApi(configIntervalo.id).then((result) => {
+                if (result.ok) {
+                    if (result.intervalos.length == 0) {
+                        // Generate news
+                        const data = {
+                            dataIntervalos: configIntervalo.dataIntervalos,
+                            intervaloRegla: configIntervalo.intervaloRegla,
                         }
+                        generateIntervaloApi(data, configIntervalo.id, 5, false).then((resultGenerateIntervalos) => {
+                            if (resultGenerateIntervalos.ok) {
+                                setIntervalos(resultGenerateIntervalos.intervalos.sort((a, b) => a.id - b.id));
+                            } else {
+                                Alert.alert('No se pudo generar ningún Intervalo :(');
+                            }
 
+                            setLoading(false);
+                        })
+                        
+                    } else {
+                        setIntervalos(result.intervalos.sort((a, b) => a.id - b.id));
                         setLoading(false);
-                    })
-                    
+                    }
                 } else {
-                    setIntervalos(result.intervalos.sort((a, b) => a.id - b.id));
+                    setIntervalos([]);
                     setLoading(false);
                 }
-            } else {
-                setIntervalos([]);
-                setLoading(false);
-            }
-        })
-    }, []);
+            })
+        }
+    }, [isFocused]);
 
     const generateNewIntervalo = async () => {
         setLoading(true);
@@ -81,7 +85,6 @@ export default function ConfigIntervalo({ route }) {
         const result = await generateIntervaloFileApi(data);
         
         if (result.ok) {
-            console.log(result);
             navigation.navigate('intervalos_play', {
                 intervalo: interval,
             });
@@ -89,6 +92,37 @@ export default function ConfigIntervalo({ route }) {
             Alert.alert('No se puede acceder al Intervalo :(');
         }
     }
+
+    const getLastCalification = (califications) => {
+        // califications: [ {"Correcto": null, "DictadoId": 175, "Nota": 8, "UsuarioId": 1, "created_at": "2023-03-29T21:18:13.732Z", "id": 1} ]
+        const newCalifications = califications.map((c) => {
+            return {
+                ...c,
+                created_at: new Date(c.created_at)
+            }
+        });
+
+        let result = newCalifications[0];
+        for (let i = 1; i < newCalifications.length; i++) {
+            const c = newCalifications[i];
+            if (c.created_at > result.created_at) {
+                result = c;
+            }
+        }
+        return result;
+    }
+
+    const getStyleByState = (stateDict) => {
+        if (stateDict.length > 0) {
+            const calification = getLastCalification(stateDict);
+
+            if (calification.Correcto) {
+                return styles.notaGreen;
+            } else {
+                return styles.notaRed;
+            }
+        } else return styles.content;
+    };
 
     return (
         <View style={styles.container}>
@@ -110,6 +144,19 @@ export default function ConfigIntervalo({ route }) {
                                 Tipo: {tipoIntervalo.getTipoIntervaloDescription(interval.Tipo)} |
                                 Clave: {interval.Clave}
                             </ListItem.Subtitle>
+                            {interval.Resuelto[0] ? (
+                                <View style={styles.contentNota}>
+                                    <Text>
+                                        <Text
+                                            style={getStyleByState(interval.Resuelto)}
+                                        >
+                                            Última Calificación: {getLastCalification(interval.Resuelto).Correcto ? 'Correcto' : 'Mal'}
+                                        </Text>
+                                    </Text>
+                                </View>
+                            ) : (
+                                <Text></Text>
+                            )}
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>
@@ -143,20 +190,20 @@ const styles = StyleSheet.create({
     },
     content: {
         marginTop: 10,
-        backgroundColor: ITEMSHOME,
+        backgroundColor: 'white',
         flexDirection: 'row',
         width: '96%',
         alignSelf: 'center',
         borderRadius: 10,
         shadowColor: '#470000',
-        shadowOffset: { width: 10, height: 10 },
+        shadowOffset: { width: 0, height: 0 },
         shadowOpacity: 0.2,
         elevation: 13,
     },
     contentNota: {
         borderRadius: 100,
         alignSelf: 'flex-start',
-        width: '60%',
+        width: '80%',
     },
     nota: {
         alignSelf: 'flex-start',
