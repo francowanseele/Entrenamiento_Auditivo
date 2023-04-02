@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Alert } from 'react-native';
 import { Input, Button, Icon } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { getParams, setStorageCurrentCourse } from '../../../utils/asyncStorageManagement';
-import { PRIMARY_COLOR, QUARTER_COLOR } from '../../../utils/colorPalette';
+import { getParams, getStorageIsAdmin, setStorageCurrentCourse } from '../../../utils/asyncStorageManagement';
+import { BACKGROUND_COLOR_WRONG, BORDER_COLOR_WRONG, PRIMARY_COLOR, QUARTER_COLOR, TEXT_COLOR_WRONG } from '../../../utils/colorPalette';
 import { CLOSE_BOTTOM_SHEET } from '../../../utils/constants';
-import { editCourseApi, unregisterStudentFromCourseApi, unregisterTeacherFromCourseApi } from '../../api/course';
+import { editCourseApi, removeCourseApi, unregisterStudentFromCourseApi, unregisterTeacherFromCourseApi } from '../../api/course';
 
 export default function SelectCourse(props) {
     const {
@@ -23,6 +23,7 @@ export default function SelectCourse(props) {
 
     const [bootomSheetType, setBootomSheetType] = useState('');
     const [showUnregisterOption, setShowUnregisterOption] = useState(true);
+    const [showDeleteOption, setShowDeleteOption] = useState(false);
 
     // Bootom sheet - Confirmation
     const [confirmationTitle, setConfirmationTitle] = useState('');
@@ -40,8 +41,10 @@ export default function SelectCourse(props) {
         setHeight(0.5);
 
         const {idPersonalCourse, isStudent } = await getParams();
+        const isAdmin = await getStorageIsAdmin();
         await setIsStudentLocal(isStudent == '1');
         await setShowUnregisterOption(idPersonalCourse != idCourse);
+        await setShowDeleteOption(idPersonalCourse != idCourse && isAdmin);
         await setCourseNameLocal(courseName);
         await setCourseDescriptionLocal(courseDescription);
     };
@@ -89,6 +92,26 @@ export default function SelectCourse(props) {
         setConfirmationTitle('Desmatricularse');
         setConfirmationText('¿Está seguro que desea desmatricularse del curso ' + courseName + '?');
         setBootomSheetType('unregister');
+    }
+
+    const deleteCourseOption = () => {
+        setConfirmationTitle('Eliminar');
+        setConfirmationText('¿Está seguro que desea eliminar el curso ' + courseName + '? Los estudiantes que estén inscriptos a este curso serán desmatriculados automáticamente.');
+        setBootomSheetType('delete');
+    }
+
+    const deleteCourse = async () => {
+        const { idPersonalCourse } = await getParams();
+        const result = await removeCourseApi(idCourse);
+        if (result.ok) {
+            Alert.alert('Curso eliminado correctamente.')
+        } else {
+            Alert.alert('Algo sucedió mal, no se pudo eliminar el curso :(')
+        }
+
+        refRBSheet.current.close();
+        await setStorageCurrentCourse(idPersonalCourse);
+        await setUpdateCoursesStudent(!updateCoursesStudent);
     }
 
     const editCourse = async () => {
@@ -196,6 +219,27 @@ export default function SelectCourse(props) {
                         />
                     </View>
                 </View>
+            ) : bootomSheetType == 'delete' ? (
+                <View style={styles.containerConfirmation}>
+                    <Text style={styles.confirmationTitle}>
+                        {confirmationTitle}
+                    </Text>
+                    <Text style={styles.confirmationText}>
+                        {confirmationText}
+                    </Text>
+                    <View style={styles.containerButtons}>
+                        <Button
+                            buttonStyle={styles.containerButtonOkDelete}
+                            title="Eliminar"
+                            onPress={deleteCourse}
+                        />
+                        <Button
+                            buttonStyle={styles.containerButtonOk}
+                            title="Cancelar"
+                            onPress={() => setBootomSheetType('')}
+                        />
+                    </View>
+                </View>
             ) : (
                 <View>
                     <TouchableOpacity
@@ -237,6 +281,21 @@ export default function SelectCourse(props) {
                             </Text>
                         </TouchableOpacity>
                     )}
+                    {showDeleteOption && (
+                        <TouchableOpacity
+                        style={styles.container}
+                        onPress={deleteCourseOption}
+                        >
+                            <Icon
+                                name="delete-alert"
+                                type="material-community"
+                                iconStyle={styles.iconOptionDelete}
+                            />
+                            <Text style={styles.optionsDelete}>
+                                Eliminar curso PERMANENTEMENTE
+                            </Text>
+                        </TouchableOpacity>
+                    )}
                 </View>
             )}
         </RBSheet>
@@ -255,10 +314,23 @@ const styles = StyleSheet.create({
         paddingRight: 5,
         color: PRIMARY_COLOR,
     },
+    iconOptionDelete: {
+        fontSize: 20,
+        paddingVertical: 10,
+        paddingLeft: 25,
+        paddingRight: 5,
+        color: TEXT_COLOR_WRONG,
+    },
     options: {
         fontSize: 18,
         paddingRight: 15,
         paddingVertical: 10,
+    },
+    optionsDelete: {
+        fontSize: 18,
+        paddingRight: 15,
+        paddingVertical: 10,
+        color: TEXT_COLOR_WRONG,
     },
     confirmationTitle: {
         fontSize: 22,
@@ -290,6 +362,11 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         marginTop: 5,
         backgroundColor: PRIMARY_COLOR,
+    },
+    containerButtonOkDelete: {
+        marginHorizontal: 10,
+        marginTop: 5,
+        backgroundColor: TEXT_COLOR_WRONG,
     },
     containerButtonCancel: {
         marginHorizontal: 10,

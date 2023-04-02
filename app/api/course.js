@@ -959,3 +959,147 @@ export function hasPermissionEditCourseApi(idUser, idCourse) {
             };
         });
 }
+
+export function removeCourseApi(idCourse) {
+    const url = `${basePath}/remove-course/${idCourse}`;
+
+    const params = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+
+    return fetch(url, params)
+        .then((response) => {
+            if (response.status === 501) {
+                return null;
+            } else {
+                return response.json();
+            }
+        })
+        .then((result) => {
+            if (!result) {
+                return {
+                    ok: false,
+                    message: 'Error interno del servidor.',
+                };
+            } else {
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        course: result.course,
+                        message: result.message,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        message: result.message,
+                    };
+                }
+            }
+        })
+        .catch((err) => {
+            return {
+                ok: false,
+                message: 'Error de servidor, vuelva a intentarlo más tarde',
+            };
+        });
+}
+
+export function removeModuleApi(idModule) {
+    const url = `${basePath}/remove-module/${idModule}`;
+
+    const params = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+
+    return fetch(url, params)
+        .then((response) => {
+            if (response.status === 501) {
+                return null;
+            } else {
+                return response.json();
+            }
+        })
+        .then((result) => {
+            if (!result) {
+                return {
+                    ok: false,
+                    message: 'Error interno del servidor.',
+                };
+            } else {
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        course: result.course,
+                        message: result.message,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        message: result.message,
+                    };
+                }
+            }
+        })
+        .catch((err) => {
+            return {
+                ok: false,
+                message: 'Error de servidor, vuelva a intentarlo más tarde',
+            };
+        });
+}
+
+export function removeConfigurationApi(idConfig, tipo) {
+    const url = `${basePath}/remove-configuration/${idConfig}?tipo=${tipo}`;
+
+    const params = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+
+    return fetch(url, params)
+        .then((response) => {
+            if (response.status === 501) {
+                return null;
+            } else {
+                return response.json();
+            }
+        })
+        .then((result) => {
+            if (!result) {
+                return {
+                    ok: false,
+                    message: 'Error interno del servidor.',
+                };
+            } else {
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        course: result.course,
+                        message: result.message,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        message: result.message,
+                    };
+                }
+            }
+        })
+        .catch((err) => {
+            return {
+                ok: false,
+                message: 'Error de servidor, vuelva a intentarlo más tarde',
+            };
+        });
+}

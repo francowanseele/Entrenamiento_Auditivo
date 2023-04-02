@@ -8,7 +8,7 @@ import {
     Alert,
 } from 'react-native';
 import { ListItem, Icon, Input, Button } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import {
     BACKGROUNDHOME,
     TEXTHOME,
@@ -53,6 +53,8 @@ import { dictationType } from '../../../enums/dictationType';
 export default function DictationProf() {
     const Tab = createMaterialTopTabNavigator();
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
+
     const [modules, setModules] = useState(null);
     const [loading, setLoading] = useState(true);
     const [courses, setCourses] = useState([]);
@@ -65,6 +67,7 @@ export default function DictationProf() {
     const [pressed, setPressed] = useState(-3);
     const [idCourseSelectedHistory, setIdCourseSelectedHistory] = useState(null);
     const [updateAllModules, setUpdateAllModules] = useState(false);
+    const [updateScreen, setUpdateScreen] = useState(false);
 
     // Select course - bottom sheet SelectCourse
     const [courseName, setCourseName] = useState('');
@@ -183,75 +186,81 @@ export default function DictationProf() {
     // }, [currentCourse]);
 
     useEffect(() => {
-        setLoading(true);
+        if (isFocused) {
+            setLoading(true);
 
-        getStorageItem(ID_USER).then((userId) => {
-            getAllCourse().then((result) => {
-                if (result.ok) {
-                    var publicCourses = [];
-                    result.cursos.forEach((curso) => {
-                        if (curso.Personal == false) {
-                            publicCourses.push({
-                                id: curso.id,
-                                Descripcion: curso.Descripcion,
-                                Nombre: curso.Nombre,
-                                Personal: curso.Personal,
-                            });
-                        }
-                    });
-    
-                    setAllCourses(publicCourses);
-                }
-            });
-
-            getCursoPersonal(userId).then((res) => {
-                if(res.ok) {
-                    setPersonalCourseData({
-                        name: res.curso_objeto.Nombre,
-                        description: res.curso_objeto.Descripcion,
-                    });
-                }
-            })
-
-            // Get institutes of the current user
-            getInstituteByUserApi().then((institutesResult) => {
-                if(institutesResult.ok){
-                    var res = [];
-                    res.push({
-                        id: null,
-                        name: 'SIN INSTITUTO'
-                    })
-                    institutesResult.institutes.forEach(i => {
-                        res.push({
-                            id: i.InstitutoId,
-                            name: i.Nombre,
+            getStorageItem(ID_USER).then((userId) => {
+                getAllCourse().then((result) => {
+                    if (result.ok) {
+                        var publicCourses = [];
+                        result.cursos.forEach((curso) => {
+                            if (curso.Personal == false) {
+                                publicCourses.push({
+                                    id: curso.id,
+                                    Descripcion: curso.Descripcion,
+                                    Nombre: curso.Nombre,
+                                    Personal: curso.Personal,
+                                });
+                            }
                         });
-                    });
-                    setInstitutes(res);
-                    // setInstituteLocal(res[0]);
-                }
-            })
-        })
-
-        getStorageItem(ID_CURRENT_CURSE).then((idCurrentCurseResult) => {
-            if (idCurrentCurseResult) {
-                setCursoSeleccionado(idCurrentCurseResult);
-
-                getModulesApi(idCurrentCurseResult).then((modulesResponse) => {
-                    if (modulesResponse.ok) {
-                        var modulesRes = [];
-                        modulesResponse.modules.forEach((m) => {
-                            modulesRes.push({ module: m, open: false });
-                        });
-                        setModules(modulesRes);
-                    } else {
-                        setModules([]);
+        
+                        setAllCourses(publicCourses);
                     }
                 });
-            }
-        });
-        setLoading(false);
-    }, []);
+
+                getCursoPersonal(userId).then((res) => {
+                    if(res.ok) {
+                        setPersonalCourseData({
+                            name: res.curso_objeto.Nombre,
+                            description: res.curso_objeto.Descripcion,
+                        });
+                    }
+                })
+
+                // Get institutes of the current user
+                getInstituteByUserApi().then((institutesResult) => {
+                    if(institutesResult.ok){
+                        var res = [];
+                        res.push({
+                            id: null,
+                            name: 'SIN INSTITUTO'
+                        })
+                        institutesResult.institutes.forEach(i => {
+                            res.push({
+                                id: i.InstitutoId,
+                                name: i.Nombre,
+                            });
+                        });
+                        setInstitutes(res);
+                        // setInstituteLocal(res[0]);
+                    }
+                })
+            })
+
+            getStorageItem(ID_CURRENT_CURSE).then((idCurrentCurseResult) => {
+                if (idCurrentCurseResult) {
+                    setCursoSeleccionado(idCurrentCurseResult);
+
+                    getModulesApi(idCurrentCurseResult).then((modulesResponse) => {
+                        if (modulesResponse.ok) {
+                            var modulesRes = [];
+                            modulesResponse.modules.forEach((m) => {
+                                modulesRes.push({ module: m, open: false });
+                            });
+                            setModules(modulesRes);
+                        } else {
+                            setModules([]);
+                        }
+                    });
+                }
+            });
+            setLoading(false);
+        }
+    }, [isFocused, updateScreen]);
+
+    const updateScreenFunction = () => {
+        setUpdateScreen(!updateScreen);
+    }
 
     useEffect(() => {
         setLoading(true);
@@ -382,7 +391,7 @@ export default function DictationProf() {
             }
         });
         setLoading(false);
-    }, [updateCoursesStudent]);
+    }, [updateCoursesStudent, isFocused]);
 
     const open_closeModulePress = (module) => {
         var modRes = [];
@@ -729,6 +738,7 @@ export default function DictationProf() {
                     setUpdateAllModules={setUpdateAllModules}
                     permissionToEdit={permissionToEdit}
                     tipoConfigToEdit={tipoConfigToEdit}
+                    updateScreenFunction={updateScreenFunction}
                 />
             </View>
         </View>

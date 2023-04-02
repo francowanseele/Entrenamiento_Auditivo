@@ -8,7 +8,7 @@ import {
     Alert,
 } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import {
     BACKGROUNDHOME,
     TEXTHOME,
@@ -49,6 +49,8 @@ import { getConfigIntervaloApi } from '../../api/intervalos';
 
 export default function Home() {
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
+
     const [modules, setModules] = useState(null);
     const [loading, setLoading] = useState(true);
     const [courses, setCourses] = useState([]);
@@ -76,6 +78,7 @@ export default function Home() {
     const [idCourseToEdit, setIdCourseToEdit] = useState(null);
     const [permissionToEdit, setPermissionToEdit] = useState(true);
     const [tipoConfigToEdit, setTipoConfigToEdit] = useState('');
+    const [updateScreen, setUpdateScreen] = useState(false);
 
     // UseRef
     const refRBSheet_SelectCourse = useRef();
@@ -85,63 +88,51 @@ export default function Home() {
     const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
 
     useEffect(() => {
-        setLoading(true);
+        if (isFocused) {
+            setLoading(true);
 
-        getAllCourseRegardlessInstituteUserApi().then((result) => {
-            if (result.ok) {
-                var publicCourses = [];
-                result.cursos.forEach((curso) => {
-                    if (curso.Personal == false) {
-                        publicCourses.push({
-                            id: curso.id,
-                            Descripcion: curso.Descripcion,
-                            Nombre: curso.Nombre,
-                            Personal: curso.Personal,
-                        });
-                    }
-                });
+            getAllCourseRegardlessInstituteUserApi().then((result) => {
+                if (result.ok) {
+                    var publicCourses = [];
+                    result.cursos.forEach((curso) => {
+                        if (curso.Personal == false) {
+                            publicCourses.push({
+                                id: curso.id,
+                                Descripcion: curso.Descripcion,
+                                Nombre: curso.Nombre,
+                                Personal: curso.Personal,
+                            });
+                        }
+                    });
 
-                setAllCourses(publicCourses);
-            }
-        });
+                    setAllCourses(publicCourses);
+                }
+            });
 
-        getStorageItem(ID_CURRENT_CURSE).then((idCurrentCurseResult) => {
-            // getAllCourse(idCurrentCurseResult).then((result) => {
-            //     if (result.ok) {
-            //         var publicCourses = [];
-            //         result.cursos.forEach((curso) => {
-            //             if (curso.Personal == false) {
-            //                 publicCourses.push({
-            //                     id: curso.id,
-            //                     Descripcion: curso.Descripcion,
-            //                     Nombre: curso.Nombre,
-            //                     Personal: curso.Personal,
-            //                 });
-            //             }
-            //         });
-    
-            //         setAllCourses(publicCourses);
-            //     }
-            // });
+            getStorageItem(ID_CURRENT_CURSE).then((idCurrentCurseResult) => {
+                if (idCurrentCurseResult) {
+                    setCursoSeleccionado(idCurrentCurseResult);
 
-            if (idCurrentCurseResult) {
-                setCursoSeleccionado(idCurrentCurseResult);
+                    getModulesApi(idCurrentCurseResult).then((modulesResponse) => {
+                        if (modulesResponse.ok) {
+                            var modulesRes = [];
+                            modulesResponse.modules.forEach((m) => {
+                                modulesRes.push({ module: m, open: false });
+                            });
+                            setModules(modulesRes);
+                        } else {
+                            setModules([]);
+                        }
+                    });
+                }
+            });
+            setLoading(false);
+        }
+    }, [isFocused, updateScreen]);
 
-                getModulesApi(idCurrentCurseResult).then((modulesResponse) => {
-                    if (modulesResponse.ok) {
-                        var modulesRes = [];
-                        modulesResponse.modules.forEach((m) => {
-                            modulesRes.push({ module: m, open: false });
-                        });
-                        setModules(modulesRes);
-                    } else {
-                        setModules([]);
-                    }
-                });
-            }
-        });
-        setLoading(false);
-    }, []);
+    const updateScreenFunction = () => {
+        setUpdateScreen(!updateScreen);
+    }
 
     const getNombreCurso = (idCourse) => {
         if (idCourse == personalCourse) {
@@ -211,7 +202,7 @@ export default function Home() {
             }
         });
         setLoading(false);
-    }, [updateCoursesStudent]);
+    }, [updateCoursesStudent, isFocused]);
 
     useEffect(() => {
         setLoading(true);
@@ -352,7 +343,7 @@ export default function Home() {
                     style={[
                         styles.contentHistIG,
                         {
-                            borderColor: getColor(j.id),
+                            borderColor: getColor(j.id), 
                             borderWidth: getBorderWith(j.id),
                         },
                     ]}
@@ -645,7 +636,7 @@ export default function Home() {
                     setUpdateCoursesStudent={setUpdateCoursesStudent}
                 />
 
-                <SelectCourse
+                <SelectCourse 
                     refRBSheet={refRBSheet_SelectCourse}
                     goToCourse={goToCourse}
                     idCourse={idCourseSelectedHistory}
@@ -669,6 +660,7 @@ export default function Home() {
                     setUpdateAllModules={setUpdateAllModules}
                     permissionToEdit={permissionToEdit}
                     tipoConfigToEdit={tipoConfigToEdit}
+                    updateScreenFunction={updateScreenFunction}
                 />
             </View>
         </View>
