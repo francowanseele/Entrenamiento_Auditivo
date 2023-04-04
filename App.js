@@ -3,6 +3,7 @@ import { refreshAccessTokenApi, willExpireToken } from './app/api/auth';
 
 import Start from './app/screens/Login/Start';
 import { getToeknAndRefreshToken } from './utils/asyncStorageManagement';
+import { basePath } from './app/api/config';
 
 function AppWrapper({ children }) {
     let refreshRequest = null;
@@ -15,16 +16,20 @@ function AppWrapper({ children }) {
         return urlSplited[urlSplited.length - 1] == 'refresh-access-token';
     };
 
+    const isCallToADA_API = (url) => {
+        return url.includes(basePath);
+    }
+
     useEffect(() => {
         const { fetch: originalFetch } = window;
 
         window.fetch = async (...args) => {
             let [resource, config] = args;
-
+            
             // REQUEST INTERCEPTOR
 
             // Only intercept endpoints which are not refresh token
-            if (!isRefreshToken(resource)) {
+            if (!isRefreshToken(resource) && isCallToADA_API(resource)) {
                 if (!accessRequestAssigned) {
                     accessRequestAssigned = true;
                     accessRequest = getToeknAndRefreshToken();
