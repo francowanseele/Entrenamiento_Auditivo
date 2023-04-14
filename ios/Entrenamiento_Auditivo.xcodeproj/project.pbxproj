@@ -500,6 +500,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = T8CU53X35J;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Entrenamiento_Auditivo/Info.plist;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -537,6 +538,7 @@
 				DEVELOPMENT_TEAM = T8CU53X35J;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = T8CU53X35J;
 				INFOPLIST_FILE = Entrenamiento_Auditivo/Info.plist;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
