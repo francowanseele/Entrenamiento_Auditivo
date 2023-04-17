@@ -19,7 +19,8 @@ import { getStorageItem, ID_USER } from '../../../utils/asyncStorageManagement';
 import Graphic from '../../components/Graphic';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import ScreenPlaying from '../../components/ScreenPlaying';
-import TrackPlayer, { Event, Capability } from 'react-native-track-player';
+import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
+import { addTrack, setupPlayer } from '../../../services/trackPlayerServices';
 
 export default function Dictation({ route }) {
     // ---------------------
@@ -31,6 +32,8 @@ export default function Dictation({ route }) {
     const [playingNoteRef, setPlayingNoteRef] = useState(false);
     const [sound, setSound] = useState();
 
+    const playerState = usePlaybackState();
+
     useEffect(() => {
         return sound
             ? () => {
@@ -40,71 +43,38 @@ export default function Dictation({ route }) {
             : undefined;
     }, [sound]);
 
-    const playWithoutSticks = async (tran) => {
-        setReproduciendo(true);
+    useEffect(() => {
+        if (playerState === State.Paused || playerState === State.Stopped) {
+            if (reproduciendo) {
+                setReproduciendo(false);
+            }
+            if (playingNoteRef) {
+                setPlayingNoteRef(false);
+            }
+        }
+    }, [playerState])
 
-        await TrackPlayer.destroy();
-        await TrackPlayer.setupPlayer();
+    useEffect(() => {
+        setupPlayer();
+    }, [])
 
-        await TrackPlayer.updateOptions({
-            stopWithApp: false,
-            alwaysPauseOnInterruption: true,
-            capabilities: [
-                Capability.Play,
-                Capability.Pause,
-                Capability.SkipToNext,
-                Capability.SkipToPrevious,
-            ],
-        });
-
-        await TrackPlayer.add({
-            id: 'trackId',
-            url: tran,
-            title: 'Track Title',
-            artist: 'Track Artist',
-        });
-
-        TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async (e) => {
-            setReproduciendo(false);
-            await TrackPlayer.destroy();
-        });
-
-        await TrackPlayer.play();
+    const play = async (tran) => {
+        await addTrack(tran);
+        TrackPlayer.play();
     };
 
     const playNoteRef = async () => {
-        setPlayingNoteRef(true);
-        const id = await getStorageItem(ID_USER);
-        const tran = await tramsitNoteReferenceApi(id);
-        console.log(tran);
-
-        await TrackPlayer.setupPlayer();
-
-        await TrackPlayer.updateOptions({
-            stopWithApp: false,
-            alwaysPauseOnInterruption: true,
-            capabilities: [
-                Capability.Play,
-                Capability.Pause,
-                Capability.SkipToNext,
-                Capability.SkipToPrevious,
-            ],
-        });
-
-        await TrackPlayer.add({
-            id: 'trackReferenceId',
-            url: tran,
-            title: 'TrackReference Title',
-            artist: 'TrackReference Artist',
-        });
-
-        TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async (e) => {
-            // setReproduciendo(false);
+        try {
+            setPlayingNoteRef(true);
+            const id = await getStorageItem(ID_USER);
+            const tran = await tramsitNoteReferenceApi(id);
+            console.log(tran);
+    
+            await play(tran);
+        } catch (error) {
             setPlayingNoteRef(false);
-            await TrackPlayer.destroy();
-        });
-
-        await TrackPlayer.play();
+            console.log(error);
+        }
     };
 
     const playDictado = async () => {
@@ -114,9 +84,8 @@ export default function Dictation({ route }) {
             const tran = await tramsitDictationApi(id);
             console.log(tran);
 
-            await playWithoutSticks(tran);
+            await play(tran);
         } catch (error) {
-            // await soundObject.unloadAsync();
             setReproduciendo(false);
             console.log(error);
         }

@@ -128,12 +128,12 @@ def nativeArchitectures = project.getProperties().get("reactNativeDebugArchitect
 android {
     ndkVersion rootProject.ext.ndkVersion
 
-    compileSdkVersion rootProject.ext.compileSdkVersion // 31
+    compileSdkVersion 33 // rootProject.ext.compileSdkVersion // 31
 
     defaultConfig {
         applicationId "com.entrenamiento_auditivo"
         minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion // 31
+        targetSdkVersion 33 // rootProject.ext.targetSdkVersion // 31
         versionCode 15
         versionName "1.15.1"
     }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     StyleSheet,
@@ -13,81 +13,52 @@ import { tramsitDictationApi, tramsitNoteReferenceApi } from '../../api/sound';
 import { getStorageItem, ID_USER } from '../../../utils/asyncStorageManagement';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import ScreenPlaying from '../../components/ScreenPlaying';
-import TrackPlayer, { Event, Capability } from 'react-native-track-player';
+import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
+import { addTrack, setupPlayer } from '../../../services/trackPlayerServices';
 
 export default function AcordesPlay({ route }) {
     const [reproduciendo, setReproduciendo] = useState(false);
     const [playingNoteRef, setPlayingNoteRef] = useState(false);
 
+    const playerState = usePlaybackState();
+
     const { acorde } = route.params;
 
     const navigation = useNavigation();
 
+    useEffect(() => {
+        if (playerState === State.Paused || playerState === State.Stopped) {
+            if (reproduciendo) {
+                setReproduciendo(false);
+            }
+            if (playingNoteRef) {
+                setPlayingNoteRef(false);
+            }
+        }
+    }, [playerState])
+    
+
+    useEffect(() => {
+        setupPlayer();
+    }, [])
+
     const play = async (tran) => {
-        setReproduciendo(true);
-
-        await TrackPlayer.destroy();
-        await TrackPlayer.setupPlayer();
-
-        await TrackPlayer.updateOptions({
-            stopWithApp: false,
-            alwaysPauseOnInterruption: true,
-            capabilities: [
-                Capability.Play,
-                Capability.Pause,
-                Capability.SkipToNext,
-                Capability.SkipToPrevious,
-            ],
-        });
-
-        await TrackPlayer.add({
-            id: 'trackId',
-            url: tran,
-            title: 'Track Title',
-            artist: 'Track Artist',
-        });
-
-        TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async (e) => {
-            setReproduciendo(false);
-            await TrackPlayer.destroy();
-        });
-
-        await TrackPlayer.play();
+        await addTrack(tran);
+        TrackPlayer.play();
     };
 
     const playNoteRef = async () => {
-        setPlayingNoteRef(true);
-        const id = await getStorageItem(ID_USER);
-        const tran = await tramsitNoteReferenceApi(id);
-        console.log(tran);
-
-        await TrackPlayer.setupPlayer();
-
-        await TrackPlayer.updateOptions({
-            stopWithApp: false,
-            alwaysPauseOnInterruption: true,
-            capabilities: [
-                Capability.Play,
-                Capability.Pause,
-                Capability.SkipToNext,
-                Capability.SkipToPrevious,
-            ],
-        });
-
-        await TrackPlayer.add({
-            id: 'trackReferenceId',
-            url: tran,
-            title: 'TrackReference Title',
-            artist: 'TrackReference Artist',
-        });
-
-        TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async (e) => {
-            // setReproduciendo(false);
+        try {
+            setPlayingNoteRef(true);
+            const id = await getStorageItem(ID_USER);
+            const tran = await tramsitNoteReferenceApi(id);
+            console.log(tran);
+    
+            await play(tran);
+        } catch (error) {
             setPlayingNoteRef(false);
-            await TrackPlayer.destroy();
-        });
-
-        await TrackPlayer.play();
+            console.log(error);
+        }
     };
 
     const playAcorde = async () => {
@@ -101,7 +72,6 @@ export default function AcordesPlay({ route }) {
                 await play(tran);
             }, 1000);
         } catch (error) {
-            // await soundObject.unloadAsync();
             setReproduciendo(false);
             console.log(error);
         }
