@@ -14,6 +14,7 @@ import { getStorageItem, ID_USER } from '../../../utils/asyncStorageManagement';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import ScreenPlaying from '../../components/ScreenPlaying';
 import TrackPlayer, { Event, Capability } from 'react-native-track-player';
+import { addTrack, setupPlayer } from '../../../services/audioExternalService';
 
 export default function AcordesPlay({ route }) {
     const [reproduciendo, setReproduciendo] = useState(false);
@@ -24,35 +25,16 @@ export default function AcordesPlay({ route }) {
     const navigation = useNavigation();
 
     const play = async (tran) => {
-        setReproduciendo(true);
+        const ok = await setupPlayer()
+        if (ok) {
+            await addTrack(tran);
+            await TrackPlayer.play();
+        }
 
-        await TrackPlayer.destroy();
-        await TrackPlayer.setupPlayer();
-
-        await TrackPlayer.updateOptions({
-            stopWithApp: false,
-            alwaysPauseOnInterruption: true,
-            capabilities: [
-                Capability.Play,
-                Capability.Pause,
-                Capability.SkipToNext,
-                Capability.SkipToPrevious,
-            ],
-        });
-
-        await TrackPlayer.add({
-            id: 'trackId',
-            url: tran,
-            title: 'Track Title',
-            artist: 'Track Artist',
-        });
-
-        TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async (e) => {
+        TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async () => {
+            setPlayingNoteRef(false);
             setReproduciendo(false);
-            await TrackPlayer.destroy();
         });
-
-        await TrackPlayer.play();
     };
 
     const playNoteRef = async () => {
@@ -61,33 +43,7 @@ export default function AcordesPlay({ route }) {
         const tran = await tramsitNoteReferenceApi(id);
         console.log(tran);
 
-        await TrackPlayer.setupPlayer();
-
-        await TrackPlayer.updateOptions({
-            stopWithApp: false,
-            alwaysPauseOnInterruption: true,
-            capabilities: [
-                Capability.Play,
-                Capability.Pause,
-                Capability.SkipToNext,
-                Capability.SkipToPrevious,
-            ],
-        });
-
-        await TrackPlayer.add({
-            id: 'trackReferenceId',
-            url: tran,
-            title: 'TrackReference Title',
-            artist: 'TrackReference Artist',
-        });
-
-        TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async (e) => {
-            // setReproduciendo(false);
-            setPlayingNoteRef(false);
-            await TrackPlayer.destroy();
-        });
-
-        await TrackPlayer.play();
+        await play(tran);
     };
 
     const playAcorde = async () => {

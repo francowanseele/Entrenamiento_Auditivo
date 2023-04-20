@@ -20,6 +20,7 @@ import Graphic from '../../components/Graphic';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import ScreenPlaying from '../../components/ScreenPlaying';
 import TrackPlayer, { Event, Capability } from 'react-native-track-player';
+import { addTrack, setupPlayer } from '../../../services/audioExternalService';
 
 export default function Dictation({ route }) {
     // ---------------------
@@ -40,36 +41,17 @@ export default function Dictation({ route }) {
             : undefined;
     }, [sound]);
 
-    const playWithoutSticks = async (tran) => {
-        setReproduciendo(true);
+    const play = async (tran) => {
+        const ok = await setupPlayer()
+        if (ok) {
+            await addTrack(tran);
+            await TrackPlayer.play();
+        }
 
-        await TrackPlayer.destroy();
-        await TrackPlayer.setupPlayer();
-
-        await TrackPlayer.updateOptions({
-            stopWithApp: false,
-            alwaysPauseOnInterruption: true,
-            capabilities: [
-                Capability.Play,
-                Capability.Pause,
-                Capability.SkipToNext,
-                Capability.SkipToPrevious,
-            ],
-        });
-
-        await TrackPlayer.add({
-            id: 'trackId',
-            url: tran,
-            title: 'Track Title',
-            artist: 'Track Artist',
-        });
-
-        TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async (e) => {
+        TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async () => {
+            setPlayingNoteRef(false);
             setReproduciendo(false);
-            await TrackPlayer.destroy();
         });
-
-        await TrackPlayer.play();
     };
 
     const playNoteRef = async () => {
@@ -78,33 +60,7 @@ export default function Dictation({ route }) {
         const tran = await tramsitNoteReferenceApi(id);
         console.log(tran);
 
-        await TrackPlayer.setupPlayer();
-
-        await TrackPlayer.updateOptions({
-            stopWithApp: false,
-            alwaysPauseOnInterruption: true,
-            capabilities: [
-                Capability.Play,
-                Capability.Pause,
-                Capability.SkipToNext,
-                Capability.SkipToPrevious,
-            ],
-        });
-
-        await TrackPlayer.add({
-            id: 'trackReferenceId',
-            url: tran,
-            title: 'TrackReference Title',
-            artist: 'TrackReference Artist',
-        });
-
-        TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async (e) => {
-            // setReproduciendo(false);
-            setPlayingNoteRef(false);
-            await TrackPlayer.destroy();
-        });
-
-        await TrackPlayer.play();
+        await play(tran);
     };
 
     const playDictado = async () => {
@@ -114,7 +70,7 @@ export default function Dictation({ route }) {
             const tran = await tramsitDictationApi(id);
             console.log(tran);
 
-            await playWithoutSticks(tran);
+            await play(tran);
         } catch (error) {
             // await soundObject.unloadAsync();
             setReproduciendo(false);

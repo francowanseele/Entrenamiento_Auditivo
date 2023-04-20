@@ -13,7 +13,6 @@ target 'Entrenamiento_Auditivo' do
   )
 
 
-  pod 'react-native-version-check', :path => '../node_modules/react-native-version-check'
 
 
   target 'Entrenamiento_AuditivoTests' do
