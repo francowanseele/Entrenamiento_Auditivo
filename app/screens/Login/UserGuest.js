@@ -100,7 +100,7 @@ export default function UserGuest(props) {
 
     const updateInputVal = (val, prop) => {
         if (prop === 'Email') {
-            setEmail(val);
+            setEmail(val.replace(' ', ''));
         } else if (prop === 'Password') {
             setPassword(val);
         } else if (prop === 'repeatPassword') {
