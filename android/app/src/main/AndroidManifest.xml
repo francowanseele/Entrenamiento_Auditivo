@@ -12,6 +12,7 @@
       android:allowBackup="false"
       android:theme="@style/AppTheme"
       android:largeHeap="true">
+      <meta-data android:name="com.bugsnag.android.API_KEY" android:value="b0d1952ab81f0d3fb7116fca100ccfe1"/>
       <activity
         android:name=".MainActivity"
         android:exported="true"

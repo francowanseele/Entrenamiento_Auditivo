@@ -77,5 +77,10 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>bugsnag</key>
+	<dict>
+		<key>apiKey</key>
+		<string>b0d1952ab81f0d3fb7116fca100ccfe1</string>
+	</dict>
 </dict>
 </plist>

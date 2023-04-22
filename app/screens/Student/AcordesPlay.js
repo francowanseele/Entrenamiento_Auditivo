@@ -15,6 +15,7 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import ScreenPlaying from '../../components/ScreenPlaying';
 import TrackPlayer, { Event, Capability } from 'react-native-track-player';
 import { addTrack, setupPlayer } from '../../../services/audioExternalService';
+import Bugsnag from '@bugsnag/react-native';
 
 export default function AcordesPlay({ route }) {
     const [reproduciendo, setReproduciendo] = useState(false);
@@ -25,25 +26,35 @@ export default function AcordesPlay({ route }) {
     const navigation = useNavigation();
 
     const play = async (tran) => {
-        const ok = await setupPlayer()
-        if (ok) {
-            await addTrack(tran);
-            await TrackPlayer.play();
-        }
+        try {
+            const ok = await setupPlayer()
+            if (ok) {
+                await addTrack(tran);
+                await TrackPlayer.play();
+            }
 
-        TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async () => {
+            TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async () => {
+                setPlayingNoteRef(false);
+                setReproduciendo(false);
+            });
+        } catch (e) {
+            Bugsnag.notify(e);
             setPlayingNoteRef(false);
             setReproduciendo(false);
-        });
+        }
     };
 
     const playNoteRef = async () => {
-        setPlayingNoteRef(true);
-        const id = await getStorageItem(ID_USER);
-        const tran = await tramsitNoteReferenceApi(id);
-        console.log(tran);
-
-        await play(tran);
+        try {
+            setPlayingNoteRef(true);
+            const id = await getStorageItem(ID_USER);
+            const tran = await tramsitNoteReferenceApi(id);
+            console.log(tran);
+    
+            await play(tran);
+        } catch (e) {
+            Bugsnag.notify(e);
+        }
     };
 
     const playAcorde = async () => {
@@ -56,10 +67,9 @@ export default function AcordesPlay({ route }) {
             setTimeout(async () => {
                 await play(tran);
             }, 1000);
-        } catch (error) {
-            // await soundObject.unloadAsync();
+        } catch (e) {
+            Bugsnag.notify(e);
             setReproduciendo(false);
-            console.log(error);
         }
     };
 
