@@ -29,8 +29,8 @@ export default function Start() {
             const resVersionCheck = values[0];
             const resVersionCheckLocal = values[1];
 
-            if (resVersionCheckLocal.ok && resVersionCheckLocal.isNeeded) {
-                if (resVersionCheck.isNeeded) {
+            if (resVersionCheckLocal && resVersionCheckLocal.ok && resVersionCheckLocal.isNeeded) {
+                if (resVersionCheck && resVersionCheck.isNeeded) {
                     setNeedUpdate(true);
                 }
             }
