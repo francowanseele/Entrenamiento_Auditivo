@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView, View, Text, Dimensions, Alert } from 'react-native';
 import {
-    ListItem,
-    Icon,
     Slider,
     Button,
     Divider,
     CheckBox,
 } from 'react-native-elements';
+import { ListItem, Icon } from '@rneui/themed';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import SwitchSelector from 'react-native-switch-selector';
 import { getStorageIsAdmin } from '../../../utils/asyncStorageManagement';

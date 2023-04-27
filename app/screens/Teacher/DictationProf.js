@@ -7,7 +7,7 @@ import {
     Text,
     Alert,
 } from 'react-native';
-import { ListItem, Icon, Input, Button } from 'react-native-elements';
+import { ListItem, Icon } from '@rneui/themed';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import {
     BACKGROUNDHOME,

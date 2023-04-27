@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, ScrollView, View, Text, Animated, Dimensions } from 'react-native';
-import { ListItem, Icon, Slider, Button, Divider } from 'react-native-elements';
+import { Button, Divider } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Toast from 'react-native-easy-toast';
 

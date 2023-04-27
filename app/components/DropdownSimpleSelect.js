@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Icon } from '@rneui/themed';
 import { Dropdown } from 'react-native-element-dropdown';
 import { PRIMARY_COLOR } from '../../utils/colorPalette';
 

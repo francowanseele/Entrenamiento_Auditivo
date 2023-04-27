@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, ScrollView, View, Text, Image, Dimensions } from 'react-native';
 import {
-    ListItem,
     Icon,
     Slider,
     Button,

@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import { ListItem, Icon, FAB } from 'react-native-elements';
+import { FAB } from 'react-native-elements';
+import { ListItem, Icon } from '@rneui/themed';
 import { BACKGROUNDHOME, ITEMSHOME, TEXTHOME } from '../../styles/styleValues';
 import Loading from '../../components/Loading';
 import { generateDictationApi, getDictationApi } from '../../api/user';

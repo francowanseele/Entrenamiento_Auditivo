@@ -1,12 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
-import {
-    ListItem,
-    Icon,
-    Switch,
-    CheckBox,
-    Button,
-} from 'react-native-elements';
+import { Button } from 'react-native-elements';
+import { ListItem, Icon } from '@rneui/themed';
 import SwitchSelector from 'react-native-switch-selector';
 import SelectPicker from 'react-native-form-select-picker';
 

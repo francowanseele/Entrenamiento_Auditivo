@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import { View, Text, StyleSheet,ScrollView } from 'react-native';
 import { TEXTHOME,TOPSCREENHOME, ITEMSHOME } from '../../styles/styleValues';
 import {getClasificaciones} from '../../api/user';
-import { ListItem, Icon } from 'react-native-elements';
+import { ListItem, Icon } from '@rneui/themed';
 import Loading from '../../components/Loading';
 import {getStorageItem,ID_USER} from '../../../utils/asyncStorageManagement';
 import { Modal, Portal,Provider } from 'react-native-paper';

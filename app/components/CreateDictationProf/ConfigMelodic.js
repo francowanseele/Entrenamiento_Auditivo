@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView, Text, View } from 'react-native';
-import { ListItem, Icon, Button } from 'react-native-elements';
+import { Button } from 'react-native-elements';
+import { ListItem, Icon } from '@rneui/themed';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import SwitchSelector from 'react-native-switch-selector';
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, ScrollView, View, Text, Animated, Dimensions } from 'react-native';
-import { ListItem, Icon, Slider, Button, Divider } from 'react-native-elements';
+import { Icon, Slider, Button } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { PRIMARY_COLOR } from '../../../utils/colorPalette';
 

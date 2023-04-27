@@ -6,7 +6,7 @@ import {
 import {
     ListItem,
     Icon,
-} from 'react-native-elements';
+} from '@rneui/themed';
 
 import AlertValidator from './AlertValidator';
 import OverlayInfo from './OverlayInfo';

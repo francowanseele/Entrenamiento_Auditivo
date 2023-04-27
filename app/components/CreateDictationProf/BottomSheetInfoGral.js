@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, ScrollView, View, Text, Dimensions } from 'react-native';
-import { ListItem, Icon, Overlay, Input, Button } from 'react-native-elements';
+import { Overlay, Input, Button } from 'react-native-elements';
+import { ListItem, Icon } from '@rneui/themed';
 import RBSheet from 'react-native-raw-bottom-sheet';
 
 import OverlayPicker from './OverlayPicker';

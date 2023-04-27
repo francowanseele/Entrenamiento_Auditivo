@@ -8,7 +8,8 @@ import {
     Text,
     Alert,
 } from 'react-native';
-import { ListItem, Icon, Overlay, Input, Button } from 'react-native-elements';
+import { Input, Button } from 'react-native-elements';
+import { ListItem, Icon } from '@rneui/themed';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { PRIMARY_COLOR, QUARTER_COLOR } from '../../../utils/colorPalette';
 import { CLOSE_BOTTOM_SHEET } from '../../../utils/constants';

@@ -4,6 +4,7 @@ import { Button, Overlay } from 'react-native-elements';
 import { getParams, setStorageUserLogout } from '../../../utils/asyncStorageManagement';
 import { PRIMARY_COLOR } from '../../../utils/colorPalette';
 import { softDeleteUserApi } from '../../api/user';
+import AppIsUpdated from '../../components/Profile/AppIsUpdated';
 
 export default function Profile(props) {
     const setLogin = props.setLogin;
@@ -34,11 +35,13 @@ export default function Profile(props) {
     return (
         <View
             style={{
-                flex: 1,
-                flexDirection: 'column-reverse',
-                alignContent: 'center',
+                flexGrow: 1, 
+                flexDirection: 'column', 
+                justifyContent: 'space-between',
+                height: '100%',
             }}
         >
+            <AppIsUpdated />
             <Button
                 buttonStyle={styles.mainButton}
                 title="Cerrar sesión"
@@ -50,7 +53,7 @@ export default function Profile(props) {
                 onPress={deleteAccountConfirmation}
             /> */}
 
-            <Overlay
+            {/* <Overlay
                 isVisible={deleteConfirmation}
                 onBackdropPress={toggleOverlay}
                 overlayStyle={styles.overlaySelectPicker}
@@ -73,7 +76,7 @@ export default function Profile(props) {
                     onPress={toggleOverlay}
                     buttonStyle={styles.mainButton}
                 />
-            </Overlay>
+            </Overlay> */}
         </View>
     );
 }

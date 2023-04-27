@@ -7,7 +7,8 @@ import {
     Platform,
     Linking,
 } from 'react-native';
-import { Button, Icon, ListItem } from 'react-native-elements';
+import { Button } from 'react-native-elements';
+import { ListItem, Icon } from '@rneui/themed';
 import { ScrollView } from 'react-native-gesture-handler';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {

@@ -7,7 +7,8 @@ import {
     Alert,
 } from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import { ListItem, FAB } from 'react-native-elements';
+import { FAB } from 'react-native-elements';
+import { ListItem } from '@rneui/themed';
 import { ITEMSHOME, TEXTHOME } from '../../styles/styleValues';
 import Loading from '../../components/Loading';
 import { generateAcordeJazzFileApi } from '../../api/sound';

@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView, View, Text, Dimensions, Alert } from 'react-native';
-import {
-    ListItem,
-    Icon,
-    Button,
-} from 'react-native-elements';
+import { Button } from 'react-native-elements';
+import { ListItem, Icon } from '@rneui/themed';
 import RBSheet from 'react-native-raw-bottom-sheet';
 
 import {
