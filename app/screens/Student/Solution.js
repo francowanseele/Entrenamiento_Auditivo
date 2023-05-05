@@ -12,6 +12,7 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import CalificationOptions from '../../components/Calification/CalificationOptions';
 import { addCalification } from '../../api/calification';
 import { tipoConfiguracion } from '../../../enums/tipoConfiguracion';
+// import MusicSheet from '../../components/MusicSheet';
 
 export default function Solution({ route }) {
     const { dictation } = route.params;
@@ -99,6 +100,7 @@ export default function Solution({ route }) {
                     isNotaReferencia={false}
                 />
             </View>
+            {/* <MusicSheet dictation={dictation} /> */}
 
             <CalificationOptions 
                 confirmFunction={confirmFunction}

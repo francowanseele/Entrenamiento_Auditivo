@@ -56,6 +56,8 @@ export default function NavigationConfig(props) {
         refRBSheet_Ligaduras,
         camposArmonicosToSend,
         setCamposArmonicosToSend,
+        referenceRule,
+        setReferenceRule,
         intervalType,
         setIntervalType,
         directionInterval,
@@ -136,6 +138,8 @@ export default function NavigationConfig(props) {
                             okTonality={okTonality}
                             camposArmonicosToSend={camposArmonicosToSend}
                             setCamposArmonicosToSend={setCamposArmonicosToSend}
+                            referenceRule={referenceRule}
+                            setReferenceRule={setReferenceRule}
                         />
                     )}
                 />

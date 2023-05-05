@@ -42,6 +42,16 @@ export default function DropdownSimpleSelect(props) {
                     name="music"
                 />
             );
+        } if (label == 'Nota referencia') {
+            return (
+                <Icon
+                    style={styles.icon}
+                    color={isFocus ? PRIMARY_COLOR : 'black'}
+                    type="material-community"
+                    name="music-box-outline"
+                    size={20}
+                />
+            );
         } else {
             return (
                 <Icon

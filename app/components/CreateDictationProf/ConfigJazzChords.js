@@ -11,9 +11,18 @@ import { useNavigation } from '@react-navigation/native';
 
 import AlertValidator from './AlertValidator';
 import OverlayInfo from './OverlayInfo';
+import DropdownSimpleSelect from '../DropdownSimpleSelect';
+import { referenciaReglaAcorde } from '../../../enums/referenciaReglaAcorde';
 
 export default function ConfigJazzChords(props) {
-    const { refRBSheet_Tonalidad, okTonality, camposArmonicosToSend, setCamposArmonicosToSend } = props;
+    const {
+        refRBSheet_Tonalidad,
+        okTonality,
+        camposArmonicosToSend,
+        setCamposArmonicosToSend,
+        referenceRule,
+        setReferenceRule,
+    } = props;
 
     const [visibleInfo, setVisibleInfo] = useState(false);
     const [textInfo, setTextInfo] = useState('');
@@ -95,6 +104,19 @@ export default function ConfigJazzChords(props) {
                     </View>
                 </ListItem.Content>
             </ListItem>
+
+            {/* Nota referencia */}
+            <View style={{marginTop: 15}}>
+                <DropdownSimpleSelect
+                    label={'Nota referencia'}
+                    data={[
+                        { label: 'Fundamental', value: referenciaReglaAcorde.fundamental},
+                        { label: 'Bajo', value: referenciaReglaAcorde.bajo},
+                    ]}
+                    value={referenceRule}
+                    setValue={setReferenceRule}
+                />
+            </View>
 
             <OverlayInfo
                 visible={visibleInfo}

@@ -134,8 +134,8 @@ android {
         applicationId "com.entrenamiento_auditivo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion // 31
-        versionCode 18
-        versionName "1.15.4"
+        versionCode 19
+        versionName "1.15.5"
     }
     signingConfigs {
         release {

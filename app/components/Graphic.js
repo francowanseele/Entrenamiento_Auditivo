@@ -94,6 +94,11 @@ export default ({
     //     useState(figurasConCompas);
     const [dictadoGeneradoTraducido, setdictadoGeneradoTraducido] = useState(
         dictadoGeneradoTraducidoParam
+        // [
+        //     'C3',  'G#3', 'C3',
+        //     'E3', 'C4', 'G3',
+        //     'E3', 'C4'
+        //   ]
     );
     const [denominador, setDenominador] = useState(denominadorParam);
     const [numerador, setNumerador] = useState(numeradorParam);
@@ -170,12 +175,12 @@ export default ({
             if (figuras[actualPara][0].includes('b')) {
                 resTarjeta = resTarjeta.replace(
                     'MODIFICACION',
-                    '.addAccidental(0, new   Accidental("b")),'
+                    '.addModifier(new   Accidental("b")),'
                 );
             } else if (figuras[actualPara][0].includes('#')) {
                 resTarjeta = resTarjeta.replace(
                     'MODIFICACION',
-                    '.addAccidental(0, new   Accidental("#")),'
+                    '.addModifier(new   Accidental("#")),'
                 );
             } else if (figuras[actualPara][0].includes('d')) {
                 resTarjeta = resTarjeta.replace(
@@ -233,6 +238,7 @@ export default ({
         for (let actual of dictadoGeneradoTraducido) {
             ultimoChar = actual.slice(-1);
             actual = actual.slice(0, actual.length - 1) + '/' + ultimoChar;
+            // actual = actual.slice(0, 1) + '/' + ultimoChar;
             resDictado.push(actual);
         }
         // console.log('NOTAS:==>',resDictado)
@@ -421,8 +427,8 @@ export default ({
         translateToGraphic(arrayIndicesLigaduras);
         let res = '';
         let compasActual = 1;
-        let sostenido = false;
-        let bemol = false;
+        let sostenido = 0;
+        let bemol = 0;
         let punto = false;
         let esTarjeta = false;
         let huboTarjeta = false;
@@ -434,16 +440,16 @@ export default ({
                     esTarjeta = true;
                 }
                 if (figuras[actual][1].includes('d')) {
-                    figuras[actual][1].replace('d', '');
+                    figuras[actual][1] = figuras[actual][1].replace('d', '');
                     punto = true;
                 }
                 if (figuras[actual][0].includes('#')) {
-                    figuras[actual][0].replace('#', '');
-                    sostenido = true;
+                    sostenido = figuras[actual][0].split('#').length - 1
+                    figuras[actual][0] = figuras[actual][0].replace('#', '');
                 }
                 if (figuras[actual][0].includes('b')) {
-                    figuras[actual][0].replace('b', '');
-                    bemol = true;
+                    bemol = figuras[actual][0].split('b').length - 1
+                    figuras[actual][0] = figuras[actual][0].replace('b', '');
                 }
                 if (!sostenido && !bemol && !punto && !esTarjeta) {
                     res = res.concat(
@@ -457,6 +463,7 @@ export default ({
                             '\n'
                     );
                 } else if (sostenido && !esTarjeta) {
+                    const alteraciones = '#'.repeat(sostenido);
                     res = res.concat(
                         'new  StaveNote({clef: "' +
                             clave +
@@ -464,10 +471,11 @@ export default ({
                             figuras[actual][0] +
                             '"], duration: "' +
                             figuras[actual][1] +
-                            '" }).addAccidental(0, new   Accidental("#")),' +
+                            '" }).addModifier(new   Accidental("' + alteraciones + '")),' +
                             '\n'
                     );
                 } else if (bemol && !esTarjeta) {
+                    const alteraciones = 'b'.repeat(bemol);
                     res = res.concat(
                         'new  StaveNote({clef: "' +
                             clave +
@@ -475,7 +483,7 @@ export default ({
                             figuras[actual][0] +
                             '"], duration: "' +
                             figuras[actual][1] +
-                            '" }).addAccidental(0, new   Accidental("b")),' +
+                            '" }).addModifier(new   Accidental("' + alteraciones + '")),' +
                             '\n'
                     );
                 } else if (punto && !esTarjeta) {
@@ -597,8 +605,8 @@ export default ({
                 );
             }
 
-            sostenido = false;
-            bemol = false;
+            sostenido = 0;
+            bemol = 0;
             punto = false;
             esTarjeta = false;
         } //endFOR
@@ -636,6 +644,7 @@ export default ({
         if (existLigadura(figurasLigaduras)){
             res = res.concat(getLigadurasToGraphic(arrayIndicesLigaduras));
         }
+
         return res;
     };
 
@@ -649,6 +658,13 @@ export default ({
     }
 
     const [Html, setHtml] = useState('');
+    /**
+     * vexflow: en la url del script antes estaba https://cdn.jsdelivr.net/npm/vexflow/build/cjs/vexflow.js
+     * si se va a https://cdn.jsdelivr.net/npm/vexflow/build/cjs/
+     * en la web se puede seleccionar la versión específica 
+     * y despues copiar a url del archivo vexflow.js 
+     * Y así siempre se usa una versión específica
+     */
     
     useEffect(() => {
         traducirEscala(escalaDiatonica);
@@ -661,7 +677,7 @@ export default ({
           height: 1px;
       }
       </style>
-      <script src="https://cdn.jsdelivr.net/npm/vexflow/build/cjs/vexflow.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vexflow@4.1.0/build/cjs/vexflow.js"></script>
 
       </script>
       <script>

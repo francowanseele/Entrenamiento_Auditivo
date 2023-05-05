@@ -49,6 +49,7 @@ import BottomSheetInterval from '../../components/CreateIntervalProf/BottomSheet
 import { tipoIntervalo } from '../../../enums/tipoIntervalo';
 import { direccionIntervalo } from '../../../enums/direccionIntervalo';
 import { generateIntervaloApi } from '../../api/intervalos';
+import { referenciaReglaAcorde } from '../../../enums/referenciaReglaAcorde';
 
 export default function CreateDictationProf({ route }) {
     var cleanAll = route.params ? route.params.cleanAll : false;
@@ -824,6 +825,7 @@ export default function CreateDictationProf({ route }) {
 
     // Harmony
     const [camposArmonicosToSend, setCamposArmonicosToSend] = useState(initializeDataCamposArmonicosToSend());
+    const [referenceRule, setReferenceRule] = useState(referenciaReglaAcorde.fundamental);
 
     // Melodic
     // const [dictationRhythmic, setDictationhythmic] = useState(false);
@@ -1084,6 +1086,7 @@ export default function CreateDictationProf({ route }) {
 
     const clearFieldsHarmonic = () => {
         setCamposArmonicosToSend(initializeDataCamposArmonicosToSend());
+        setReferenceRule(referenciaReglaAcorde.fundamental);
     }
 
     const clearFieldsMelodic = () => {
@@ -1459,6 +1462,7 @@ export default function CreateDictationProf({ route }) {
                     description: descriptionConfig, 
                     dataCamposArmonicos: getCamposArmonicosChecked(camposArmonicosToSend), 
                     escalaDiatonicaRegla: getEscalasDiatonicas(escala_diatonica_regla),
+                    referenciaRegla: referenceRule,
                 };
 
                 if (result.ok) {
@@ -1659,6 +1663,8 @@ export default function CreateDictationProf({ route }) {
                     refRBSheet_Ligaduras={refRBSheet_Ligaduras}
                     camposArmonicosToSend={camposArmonicosToSend}
                     setCamposArmonicosToSend={setCamposArmonicosToSend}
+                    referenceRule={referenceRule}
+                    setReferenceRule={setReferenceRule}
                     intervalType={intervalType}
                     setIntervalType={setIntervalType}
                     directionInterval={directionInterval}
