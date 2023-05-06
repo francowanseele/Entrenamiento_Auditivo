@@ -36,6 +36,7 @@ export const intervaloTensiones = {
 
 export const escalaCampoArmonico = {
     mayor: 'Mayor',
+    menorArmonica: 'Menor Armónica',
 };
 
 export const acordeType = {

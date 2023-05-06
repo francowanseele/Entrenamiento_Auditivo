@@ -454,6 +454,10 @@ export default function DictationProf() {
         }
     };
 
+    const cutName = (str) => {
+        return str ? str.slice(0, 15) + (str.length > 15 ? '...' : '') : '';
+    }
+
     const iconHistory = (index, j) => {
         return (
             <>
@@ -468,7 +472,7 @@ export default function DictationProf() {
                 >
                     {renderLetterCourse(getNombreCurso(j.id).name)}
                 </View>
-                <Text style={styles.nameHistIG}>{getNombreCurso(j.id).name}</Text>
+                <Text style={styles.nameHistIG}>{cutName(getNombreCurso(j.id).name)}</Text>
             </>
         );
     };

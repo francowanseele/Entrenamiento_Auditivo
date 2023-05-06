@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Alert } from 'rea
 import { Input, Button, Icon } from 'react-native-elements';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { getParams, getStorageIsAdmin, setStorageCurrentCourse } from '../../../utils/asyncStorageManagement';
-import { BACKGROUND_COLOR_WRONG, BORDER_COLOR_WRONG, PRIMARY_COLOR, QUARTER_COLOR, TEXT_COLOR_WRONG } from '../../../utils/colorPalette';
+import { BACKGROUND_COLOR_WRONG, BORDER_COLOR_WRONG, FIFTH_COLOR, PRIMARY_COLOR, QUARTER_COLOR, TERTIARY_COLOR, TEXT_COLOR_WRONG } from '../../../utils/colorPalette';
 import { CLOSE_BOTTOM_SHEET } from '../../../utils/constants';
 import { editCourseApi, removeCourseApi, unregisterStudentFromCourseApi, unregisterTeacherFromCourseApi } from '../../api/course';
 
@@ -242,6 +242,10 @@ export default function SelectCourse(props) {
                 </View>
             ) : (
                 <View>
+                    <View style={styles.containerCourseInfo}>
+                        <Text style={styles.textCourseName}>{courseName}</Text>
+                        <Text style={styles.textCourseDescription}>{courseDescription}</Text>
+                    </View>
                     <TouchableOpacity
                         style={styles.container}
                         onPress={goToCourseOption}
@@ -303,6 +307,27 @@ export default function SelectCourse(props) {
 }
 
 const styles = StyleSheet.create({
+    textCourseName: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 5,
+        color: PRIMARY_COLOR
+    },
+    textCourseDescription: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: 'gray',
+    },
+    containerCourseInfo: {
+        marginHorizontal: 10,
+        marginTop: 10,
+        borderLeftWidth: 2,
+        borderStyle: 'solid',
+        borderColor: PRIMARY_COLOR,
+        backgroundColor: FIFTH_COLOR,
+        padding: 10,
+        borderRadius: 5,
+    }, 
     container: {
         marginTop: 10,
         flexDirection: 'row',

@@ -17,6 +17,8 @@ export default function BottomSheetAcordeOptions(props) {
         typeElem,
         estadosAcorde,
         setEstadoAcordeEscala,
+        hasMoreOptions,
+        escalaForMoreOptions,
     } = props;
 
     const [height, setHeight] = useState(0.5);
@@ -41,7 +43,7 @@ export default function BottomSheetAcordeOptions(props) {
         setEstadoTerceraInversion(estados.indexOf(estadoAcorde.terceraInversion) != -1);
 
         setPriority(priorityElem);
-        if (typeElem == 'acorde' && elem == 'B' || typeElem == 'escala') {
+        if (typeElem == 'escala') {
             await setState('priority');
         } else {
             await setState('options');
@@ -71,7 +73,7 @@ export default function BottomSheetAcordeOptions(props) {
     }
 
     const selectMoreOptions = (acorde) => {
-        moreOptions(acorde);
+        moreOptions(acorde, escalaForMoreOptions);
         refRBSheet.current.close();
     }
 
@@ -85,13 +87,13 @@ export default function BottomSheetAcordeOptions(props) {
 
             if (estadosAcordeStr != '') {
                 estadosAcordeStr = estadosAcordeStr.slice(0, -1);
-                setEstadoAcordeEscala(elem, estadosAcordeStr);
+                setEstadoAcordeEscala(elem, estadosAcordeStr, escalaForMoreOptions);
                 refRBSheet.current.close();
             } else {
                 Alert.alert('Debes seleccionar al menos un estado.');
             }
         } else { 
-            setPriorityAcordeEscala(elem, typeElem, priority);
+            setPriorityAcordeEscala(elem, typeElem, priority, escalaForMoreOptions);
             refRBSheet.current.close();
         }
 
@@ -122,19 +124,21 @@ export default function BottomSheetAcordeOptions(props) {
         >
             {state == 'options' ? (
                 <View>
-                    <TouchableOpacity
-                        style={styles.container}
-                        onPress={() => selectMoreOptions(elem)}
-                    >
-                        <Icon
-                            name="format-list-text"
-                            type="material-community"
-                            iconStyle={styles.iconOption}
-                        />
-                        <Text style={styles.options}>
-                            Mostrar/Ocultar opciones para '{elem}'
-                        </Text>
-                    </TouchableOpacity>
+                    {hasMoreOptions && (
+                        <TouchableOpacity
+                            style={styles.container}
+                            onPress={() => selectMoreOptions(elem)}
+                        >
+                            <Icon
+                                name="format-list-text"
+                                type="material-community"
+                                iconStyle={styles.iconOption}
+                            />
+                            <Text style={styles.options}>
+                                Mostrar/Ocultar opciones para '{elem}'
+                            </Text>
+                        </TouchableOpacity>
+                    )}
 
                     <TouchableOpacity
                         style={styles.container}

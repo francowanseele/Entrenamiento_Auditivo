@@ -16,6 +16,14 @@ export default function SolutionIntervalo({ route }) {
 
     const [optionsCalification, setOptionsCalification] = useState(initializeOptionsCalification());
 
+    const showInterval = (intervalInput) => {
+        let interval = intervalInput;
+        interval = interval.split("A").join("+");
+        interval = interval.split("d").join("-");
+        interval = interval.split("P").join("J");
+        return interval
+    }
+
     const confirmFunction = async (option) => {
         // Save calification
         const data = {
@@ -40,7 +48,7 @@ export default function SolutionIntervalo({ route }) {
             </View>
             <View style={styles.container}>
                 <Text style={styles.title}>Intervalo escuchado:</Text>
-                <Text style={styles.nameAcorde}>{intervalo.Intervalo}</Text>
+                <Text style={styles.nameAcorde}>{showInterval(intervalo.Intervalo)}</Text>
             </View>
 
             <View style={{marginTop: 30}}>

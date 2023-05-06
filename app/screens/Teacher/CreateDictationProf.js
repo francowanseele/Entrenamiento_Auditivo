@@ -56,6 +56,9 @@ export default function CreateDictationProf({ route }) {
 
     const initializeDataCamposArmonicosToSend = () => {
         return [
+            // ---------------------------------------
+            // ESCALA MAYOR
+            // ---------------------------------------
             // C
             {
                 Escala: escalaCampoArmonico.mayor,
@@ -778,6 +781,435 @@ export default function CreateDictationProf({ route }) {
                     intervaloTensiones.novenaMayor +
                     ', ' +
                     intervaloTensiones.tercenaMenor,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // ---------------------------------------
+            // ESCALA MENOR ARMÓNICA
+            // ---------------------------------------
+            // C
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'C',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_AugMaj7,
+                Tension: intervaloTensiones.novenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,  
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'C',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Aumentado,
+                Tension: 'add ' + intervaloTensiones.novenaMayor,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // D
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
+                Tension:
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaAumentada + 
+                    ', ' +
+                    intervaloTensiones.tercenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                Tension: intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                Tension: 
+                    intervaloTensiones.oncenaAumentada +
+                    ', ' +
+                    intervaloTensiones.tercenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m6,
+                Tension: 
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                Tension:
+                    'add ' +
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'D',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                Tension: 
+                    'add ' +
+                    intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // E
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'E',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
+                Tension: 
+                    intervaloTensiones.novenaMenor +
+                    ', ' +
+                    intervaloTensiones.tercenaMenor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'E',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                Tension: 
+                    intervaloTensiones.novenaMenor +
+                    ', ' +
+                    intervaloTensiones.tercenaMenor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'E',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                Tension: 'add ' + intervaloTensiones.novenaMenor,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'E',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                Tension: 'add ' + 
+                    intervaloTensiones.novenaMenor +
+                    intervaloTensiones.tercenaMenor,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // F
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'F',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_Maj7,
+                Tension:
+                    intervaloTensiones.novenaAumentada +
+                    ', ' +
+                    intervaloTensiones.oncenaAumentada +
+                    ', ' +
+                    intervaloTensiones.tercenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'F',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                Tension: 
+                    intervaloTensiones.novenaAumentada +
+                    ', ' +
+                    intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'F',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                Tension:
+                    'add ' +
+                    intervaloTensiones.novenaAumentada +
+                    ', ' +
+                    intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // G
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'G#',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_07,
+                Tension: intervaloTensiones.tercenaMenor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'G#',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Disminuido,
+                Tension: '',
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // A
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'A',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_mMaj7,
+                Tension: 
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaJusta,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'A',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus2,
+                Tension: intervaloTensiones.oncenaJusta,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'A',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus4,
+                Tension: intervaloTensiones.novenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'A',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                Tension:
+                    'add ' +
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaJusta,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'A',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                Tension: 'add ' + intervaloTensiones.oncenaJusta,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'A',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                Tension: 'add ' + intervaloTensiones.novenaMayor,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // B
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'B',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7b5,
+                Tension: intervaloTensiones.oncenaJusta,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.menorArmonica,
+                EscalaPrioridad: 1,
+                KeyNote: 'B',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Disminuido,
+                Tension: 'add ' + intervaloTensiones.oncenaJusta,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
                 CheckKeyNote: true,

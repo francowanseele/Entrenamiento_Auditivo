@@ -67,6 +67,7 @@ export default function Home() {
     const [idCourseSelectedHistory, setIdCourseSelectedHistory] = useState(null);
 
     const [courseName, setCourseName] = useState('');
+    const [courseDescription, setCourseDescription] = useState('');
 
     // Edit Module or Config 
     const [idModuleToEdit, setIdModuleToEdit] = useState(null);
@@ -147,6 +148,20 @@ export default function Home() {
             }
         }
     };
+
+    const getDescripcionCurso = (idCourse) => {
+        if (idCourse == personalCourse) {
+            return 'Solo tu tienes acceso';
+        }
+        if (idCourse == 'Nuevo Curso') {
+            return 'Nuevo Curso';
+        }
+        for (let e in allCourses) {
+            if (idCourse == allCourses[e].id) {
+                return allCourses[e].Descripcion;
+            }
+        }
+    }
 
     const selectCoursePressed = async (courseSelect, courses) => {
         const idCurrent = await getStorageItem(ID_CURRENT_CURSE);
@@ -336,6 +351,10 @@ export default function Home() {
         }
     };
 
+    const cutName = (str) => {
+        return str ? str.slice(0, 15) + (str.length > 15 ? '...' : '') : '';
+    }
+
     const iconHistory = (index, j) => {
         return (
             <>
@@ -351,7 +370,7 @@ export default function Home() {
                     {/* <Text>CP</Text> */}
                     {renderLetterCourse(getNombreCurso(j.id))}
                 </View>
-                <Text style={styles.nameHistIG}>{getNombreCurso(j.id)}</Text>
+                <Text style={styles.nameHistIG}>{cutName(getNombreCurso(j.id))}</Text>
             </>
         );
     };
@@ -380,7 +399,7 @@ export default function Home() {
     const selectCourseHistory = async (idCurso) => {
         await setIdCourseSelectedHistory(idCurso);
         await setCourseName(getNombreCurso(idCurso));
-        // await setCourseDescription(getNombreCurso(idCurso).description);
+        await setCourseDescription(getDescripcionCurso(idCurso));
         refRBSheet_SelectCourse.current.open();
     };
 
@@ -641,6 +660,7 @@ export default function Home() {
                     goToCourse={goToCourse}
                     idCourse={idCourseSelectedHistory}
                     courseName={courseName}
+                    courseDescription={courseDescription}
                     setUpdateCoursesStudent={setUpdateCoursesStudent}
                     updateCoursesStudent={updateCoursesStudent}
                 />
