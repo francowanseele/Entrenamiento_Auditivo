@@ -7,6 +7,7 @@ import ConfigRhythmic from './ConfigRhythmic';
 import { dictationType } from '../../../enums/dictationType';
 import ConfigJazzChords from './ConfigJazzChords';
 import ConfigIntervals from './ConfigIntervals';
+import ConfigHarmonicDictation from './ConfigHarmonicDictation';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -22,6 +23,7 @@ export default function NavigationConfig(props) {
         nota_base,
         nro_compases,
         refRBSheet_Picker,
+        refRBSheet_PickerDictationLength,
         simple,
         setSimple,
         compas_regla,
@@ -63,6 +65,13 @@ export default function NavigationConfig(props) {
         directionInterval,
         setDirectionInterval,
         okIntervals,
+        camposArmonicosInicioToSend,
+        setCamposArmonicosInicioToSend,
+        camposArmonicosFinToSend,
+        setCamposArmonicosFinToSend,
+        camposArmonicosReferenciaToSend,
+        setCamposArmonicosReferenciaToSend,
+        dictationLength,
     } = props;
 
     return (
@@ -140,6 +149,30 @@ export default function NavigationConfig(props) {
                             setCamposArmonicosToSend={setCamposArmonicosToSend}
                             referenceRule={referenceRule}
                             setReferenceRule={setReferenceRule}
+                        />
+                    )}
+                />
+            )}
+
+            {generatorType == dictationType.harmonicDictation && (
+                <Tab.Screen
+                    name="Configuración"
+                    children={() => (
+                        <ConfigHarmonicDictation
+                            refRBSheet_Tonalidad={refRBSheet_Tonalidad}
+                            okTonality={okTonality}
+                            camposArmonicosToSend={camposArmonicosToSend}
+                            setCamposArmonicosToSend={setCamposArmonicosToSend}
+                            referenceRule={referenceRule}
+                            setReferenceRule={setReferenceRule}
+                            camposArmonicosInicioToSend={camposArmonicosInicioToSend}
+                            setCamposArmonicosInicioToSend={setCamposArmonicosInicioToSend}
+                            camposArmonicosFinToSend={camposArmonicosFinToSend}
+                            setCamposArmonicosFinToSend={setCamposArmonicosFinToSend}
+                            camposArmonicosReferenciaToSend={camposArmonicosReferenciaToSend}
+                            setCamposArmonicosReferenciaToSend={setCamposArmonicosReferenciaToSend}
+                            dictationLength={dictationLength}
+                            refRBSheet_PickerDictationLength={refRBSheet_PickerDictationLength}
                         />
                     )}
                 />

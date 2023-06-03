@@ -95,10 +95,23 @@ export default ({
     const [dictadoGeneradoTraducido, setdictadoGeneradoTraducido] = useState(
         dictadoGeneradoTraducidoParam
         // [
-        //     'C3',  'G#3', 'C3',
-        //     'E3', 'C4', 'G3',
-        //     'E3', 'C4'
-        //   ]
+        //     "Fb3",
+        //     "G3",
+        //     "F3",
+        //     "G3",
+        //     "F3",
+        //     "A3",
+        //     "F3",
+        //     "G3",
+        //     "F3",
+        //     "A3",
+        //     "C4",
+        //     "F4",
+        //     "C4",
+        //     "F4",
+        //     "C4",
+        //     "F4"
+        //  ]
     );
     const [denominador, setDenominador] = useState(denominadorParam);
     const [numerador, setNumerador] = useState(numeradorParam);
@@ -440,16 +453,16 @@ export default ({
                     esTarjeta = true;
                 }
                 if (figuras[actual][1].includes('d')) {
-                    figuras[actual][1] = figuras[actual][1].replace('d', '');
+                    figuras[actual][1].replace('d', '');
                     punto = true;
                 }
                 if (figuras[actual][0].includes('#')) {
                     sostenido = figuras[actual][0].split('#').length - 1
-                    figuras[actual][0] = figuras[actual][0].replace('#', '');
+                    figuras[actual][0].replace('#', '');
                 }
                 if (figuras[actual][0].includes('b')) {
                     bemol = figuras[actual][0].split('b').length - 1
-                    figuras[actual][0] = figuras[actual][0].replace('b', '');
+                    figuras[actual][0].replace('b', '');
                 }
                 if (!sostenido && !bemol && !punto && !esTarjeta) {
                     res = res.concat(

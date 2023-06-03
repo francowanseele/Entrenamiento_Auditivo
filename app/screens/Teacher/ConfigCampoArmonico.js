@@ -17,6 +17,7 @@ import { acordeType, escalaCampoArmonico, intervaloTensiones, nombreCifrado_Tetr
 import { BACKGROUND_COLOR_RIGHT, BORDER_COLOR_RIGHT, FIFTH_COLOR, PRIMARY_COLOR, QUARTER_COLOR, SECONDARY_COLOR, TEXT_COLOR_RIGHT } from '../../../utils/colorPalette';
 import { DELAY_LONG_PRESS } from '../../../utils/constants';
 import BottomSheetAcordeOptions from '../../components/CreateAcordeProf/BottomSheetAcordeOptions';
+import { estadoAcorde } from '../../../enums/estadoAcorde';
 
 export default function ConfigCampoArmonico({ route }) {
     const { camposArmonicosToSend, setCamposArmonicosToSend } = route.params;

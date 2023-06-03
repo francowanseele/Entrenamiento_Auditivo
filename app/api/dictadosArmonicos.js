@@ -1,14 +1,13 @@
 import { basePath } from './config';
 
-export function generateDictationFileApi(data, idUser) {
-    const url = `${basePath}/generate-dictation-file/${idUser}`;
-
+export function generateDictadoArmonicoApi(data, idDA, dictationLength, nroDic, onlyValidation) {
+    const url = `${basePath}/generate-dictado-armonico?idDA=${idDA}&dictationLength=${dictationLength}&nroDic=${nroDic}&onlyValidation=${onlyValidation}`;
     const params = {
         method: 'POST',
-        body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json',
         },
+        body: JSON.stringify(data),
     };
 
     return fetch(url, params)
@@ -26,11 +25,19 @@ export function generateDictationFileApi(data, idUser) {
                     message: 'Error interno del servidor.',
                 };
             } else {
-                return {
-                    ok: result.ok,
-                    dictadoTransformado: result.dictadoTransformado,
-                    message: result.message,
-                };
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        dictadosArmonicos: result.dictadosArmonicos,
+                        acordes: result.acordes,
+                        message: result.message,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        message: result.message,
+                    };
+                }
             }
         })
         .catch((err) => {
@@ -41,9 +48,55 @@ export function generateDictationFileApi(data, idUser) {
         });
 }
 
-export function tramsitDictationApi(idUser) {
-    const url = `${basePath}/get-dictation-sound/${idUser}`;
+export function addConfigDictadoArmonicoApi(data, idModule) {
+    const url = `${basePath}/add-configuracion-dictado-armonico?idModule=${idModule}`;
+    const params = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    };
 
+    return fetch(url, params)
+        .then((response) => {
+            if (response.status === 501) {
+                return null;
+            } else {
+                return response.json();
+            }
+        })
+        .then((result) => {
+            if (!result) {
+                return {
+                    ok: false,
+                    message: 'Error interno del servidor.',
+                };
+            } else {
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        configAcordeJazz: result.configAcordeJazz,
+                        message: result.message,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        message: result.message,
+                    };
+                }
+            }
+        })
+        .catch((err) => {
+            return {
+                ok: false,
+                message: 'Error de servidor, vuelva a intentarlo más tarde',
+            };
+        });
+}
+
+export function getConfigDictadoArmonicoApi(id) {
+    const url = `${basePath}/get-configuracion-dictado-armonico/${id}`;
     const params = {
         method: 'GET',
         headers: {
@@ -53,16 +106,43 @@ export function tramsitDictationApi(idUser) {
 
     return fetch(url, params)
         .then((response) => {
-            return response.url;
+            if (response.status === 501) {
+                return null;
+            } else {
+                return response.json();
+            }
+        })
+        .then((result) => {
+            if (!result) {
+                return {
+                    ok: false,
+                    message: 'Error interno del servidor.',
+                };
+            } else {
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        configDictadoArmonico: result.configDictadoArmonico,
+                        message: result.message,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        message: result.message,
+                    };
+                }
+            }
         })
         .catch((err) => {
-            return err.message;
+            return {
+                ok: false,
+                message: 'Error de servidor, vuelva a intentarlo más tarde',
+            };
         });
 }
 
-export function tramsitNoteReferenceApi(idUser) {
-    const url = `${basePath}/get-note-reference-sound/${idUser}`;
-
+export function getDictadoArmonicoApi(idCDA) {
+    const url = `${basePath}/get-dictado-armonico?idCDA=${idCDA}`;
     const params = {
         method: 'GET',
         headers: {
@@ -72,26 +152,6 @@ export function tramsitNoteReferenceApi(idUser) {
 
     return fetch(url, params)
         .then((response) => {
-            return response.url;
-        })
-        .catch((err) => {
-            return err.message;
-        });
-}
-
-export function generateAcordeJazzFileApi(data) {
-    const url = `${basePath}/generate-acorde-jazz-file`;
-
-    const params = {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
-
-    return fetch(url, params)
-        .then((response) => {
             if (response.status === 501) {
                 return null;
             } else {
@@ -105,90 +165,19 @@ export function generateAcordeJazzFileApi(data) {
                     message: 'Error interno del servidor.',
                 };
             } else {
-                return {
-                    ok: result.ok,
-                    message: result.message,
-                };
-            }
-        })
-        .catch((err) => {
-            return {
-                ok: false,
-                message: 'Error de servidor, vuelva a intentarlo más tarde',
-            };
-        });
-}
-
-export function generateDictadoArmonicoFileApi(data) {
-    const url = `${basePath}/generate-dictado-armonico-file`;
-
-    const params = {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
-
-    return fetch(url, params)
-        .then((response) => {
-            if (response.status === 501) {
-                return null;
-            } else {
-                return response.json();
-            }
-        })
-        .then((result) => {
-            if (!result) {
-                return {
-                    ok: false,
-                    message: 'Error interno del servidor.',
-                };
-            } else {
-                return {
-                    ok: result.ok,
-                    message: result.message,
-                };
-            }
-        })
-        .catch((err) => {
-            return {
-                ok: false,
-                message: 'Error de servidor, vuelva a intentarlo más tarde',
-            };
-        });
-}
-
-export function generateIntervaloFileApi(data) {
-    const url = `${basePath}/generate-intervalo-file`;
-
-    const params = {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
-
-    return fetch(url, params)
-        .then((response) => {
-            if (response.status === 501) {
-                return null;
-            } else {
-                return response.json();
-            }
-        })
-        .then((result) => {
-            if (!result) {
-                return {
-                    ok: false,
-                    message: 'Error interno del servidor.',
-                };
-            } else {
-                return {
-                    ok: result.ok,
-                    message: result.message,
-                };
+                if (result.ok) {
+                    return {
+                        ok: true,
+                        dictadosArmonicos: result.dictadosArmonicos,
+                        acordes: result.acordes,
+                        message: result.message,
+                    };
+                } else {
+                    return {
+                        ok: false,
+                        message: result.message,
+                    };
+                }
             }
         })
         .catch((err) => {

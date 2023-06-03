@@ -46,6 +46,8 @@ import { DELAY_LONG_PRESS } from '../../../utils/constants';
 import NewCourse from '../../components/BottomSheetOptions/NewCourse';
 import { getConfigAcordeJazzApi } from '../../api/acordes';
 import { getConfigIntervaloApi } from '../../api/intervalos';
+import { tipoConfiguracion } from '../../../enums/tipoConfiguracion';
+import { getConfigDictadoArmonicoApi } from '../../api/dictadosArmonicos';
 
 export default function Home() {
     const navigation = useNavigation();
@@ -279,6 +281,16 @@ export default function Home() {
                 navigation.navigate('config_intervalos', {
                     configIntervalo: result.configIntervalo,
                     module: module,
+                });
+            }
+        } else if (config.Tipo == tipoConfiguracion.ConfiguracionDictadoArmonico){
+            const result = await getConfigDictadoArmonicoApi(config.id);
+            
+            if (result.ok) {
+                navigation.navigate('config_dictados_armonicos', {
+                    configDictadoArmonico: result.configDictadoArmonico,
+                    module: module,
+                    idCDA: config.id,
                 });
             }
         }

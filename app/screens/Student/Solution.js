@@ -12,7 +12,6 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import CalificationOptions from '../../components/Calification/CalificationOptions';
 import { addCalification } from '../../api/calification';
 import { tipoConfiguracion } from '../../../enums/tipoConfiguracion';
-// import MusicSheet from '../../components/MusicSheet';
 
 export default function Solution({ route }) {
     const { dictation } = route.params;
@@ -22,6 +21,7 @@ export default function Solution({ route }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [optionsCalification, setOptionsCalification] = useState(initializeOptionsCalification(dictation.notas));
 
+    // console.log(dictation);
     const navigation = useNavigation();
 
     const traducirClave = (claveParamFunc) => {
@@ -106,147 +106,6 @@ export default function Solution({ route }) {
                 confirmFunction={confirmFunction}
                 optionsCalification={optionsCalification} 
             />
-            {/* <ScrollView style={styles.checkboxContainer}>
-                <Button
-                    title={'Ningún error'}
-                    type="outline"
-                    titleStyle={{ color: SECONDARY_COLOR }}
-                    containerStyle={styles.button}
-                    onPress={() => {
-                        calcularResultado('ninguno')
-                        navigation.goBack();
-                    }}
-                    buttonStyle={{ borderColor: PRIMARY_COLOR, borderWidth: 1 }}
-                />
-                <Button
-                    title={
-                        'De 1 a ' +
-                        calcularPorcentaje(10).toString() +
-                        ' de errores'
-                    }
-                    type="outline"
-                    titleStyle={{ color: TEXTHOME }}
-                    containerStyle={styles.button}
-                    onPress={() => {
-                        setevaluacionNota(10);
-                        setModalVisible(true);
-                    }}
-                    buttonStyle={{ borderColor: PRIMARY_COLOR, borderWidth: 1 }}
-                />
-                <Button
-                    title={
-                        'De ' +
-                        (calcularPorcentaje(10) + 1).toString() +
-                        ' a ' +
-                        calcularPorcentaje(20).toString() +
-                        ' de errores'
-                    }
-                    type="outline"
-                    titleStyle={{ color: TEXTHOME }}
-                    containerStyle={styles.button}
-                    onPress={() => {
-                        setevaluacionNota(8);
-                        setModalVisible(true);
-                    }}
-                    buttonStyle={{ borderColor: PRIMARY_COLOR, borderWidth: 1 }}
-                />
-                <Button
-                    title={
-                        'De ' +
-                        (calcularPorcentaje(20) + 1).toString() +
-                        ' a ' +
-                        calcularPorcentaje(40).toString() +
-                        ' de errores'
-                    }
-                    type="outline"
-                    titleStyle={{ color: TEXTHOME }}
-                    containerStyle={styles.button}
-                    onPress={() => {
-                        setevaluacionNota(6);
-                        setModalVisible(true);
-                    }}
-                    buttonStyle={{ borderColor: PRIMARY_COLOR, borderWidth: 1 }}
-                />
-                <Button
-                    title={
-                        'De ' +
-                        (calcularPorcentaje(40) + 1).toString() +
-                        ' a ' +
-                        calcularPorcentaje(65).toString() +
-                        ' de errores'
-                    }
-                    type="outline"
-                    titleStyle={{ color: TEXTHOME }}
-                    containerStyle={styles.button}
-                    onPress={() => {
-                        setevaluacionNota(2);
-                        setModalVisible(true);
-                    }}
-                    buttonStyle={{ borderColor: PRIMARY_COLOR, borderWidth: 1 }}
-                />
-                <Button
-                    title={
-                        'Más de ' +
-                        (calcularPorcentaje(65) + 1).toString() +
-                        ' de errores'
-                    }
-                    titleStyle={{ color: TEXTHOME }}
-                    type="outline"
-                    containerStyle={styles.button}
-                    onPress={() => {
-                        setevaluacionNota(1);
-                        setModalVisible(true);
-                    }}
-                    buttonStyle={{ borderColor: PRIMARY_COLOR, borderWidth: 1 }}
-                />
-
-                <Overlay
-                    animationType="slide"
-                    visible={modalVisible}
-                    onBackdropPress={() => {
-                        setModalVisible(!modalVisible);
-                    }}
-                    // onRequestClose={() => {
-                    //     setModalVisible(!modalVisible);
-                    // }}
-                >
-                    <View style={styles.modalView}>
-                        <Text style={{ marginBottom: 10 }}>
-                            Qué tipos de errores tuviste?
-                        </Text>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Button
-                                title={'Ritmicos'}
-                                titleStyle={{ color: TEXTHOME }}
-                                type="outline"
-                                containerStyle={styles.buttonModal}
-                                onPress={() => {``
-                                    calcularResultado('ritmico');
-                                }}
-                            />
-                            <Button
-                                title={'Melodicos'}
-                                titleStyle={{ color: TEXTHOME }}
-                                type="outline"
-                                containerStyle={styles.buttonModal}
-                                onPress={() => {
-                                    calcularResultado('melodico');
-                                }}
-                            />
-                            <Button
-                                title={'Ambos'}
-                                titleStyle={{ color: TEXTHOME }}
-                                type="outline"
-                                containerStyle={styles.buttonModal}
-                                onPress={() => {
-                                    calcularResultado('ambos');
-                                }}
-                            />
-                        </View>
-                    </View>
-                </Overlay>
-                <Text style={styles.textoDatos} >Al  realizar la autoevaluación  estas de acuerdo de que estos datos serán usados con fines estadísticos.</Text>
-            </ScrollView> */}
         </View>
     );
 }

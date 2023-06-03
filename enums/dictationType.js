@@ -3,4 +3,5 @@ export const dictationType = {
     rhythmic: 1,
     jazzChrods: 2,
     interval: 3,
+    harmonicDictation: 4,
 };

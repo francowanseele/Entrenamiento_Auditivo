@@ -5,7 +5,7 @@ import { Platform, View, StyleSheet, Dimensions } from 'react-native';
 import { FIFTH_COLOR } from '../../../utils/colorPalette';
 
 export default function BottomSheetPicker(props) {
-    const { refRBSheet, values, setNro_compases, nro_compases } = props;
+    const { refRBSheet, values, setNro_compases, nro_compases, type } = props;
 
     const pickerRef = useRef();
 
@@ -50,7 +50,9 @@ export default function BottomSheetPicker(props) {
                         <Picker.Item
                             key={i}
                             label={value.concat(
-                                value == 1 ? ' compás' : ' compases'
+                                value == 1 ? 
+                                    type == 'compas' ? ' compás' : ' acorde' 
+                                : type == 'compas' ? ' compases' : ' acordes'
                             )}
                             value={value}
                         />

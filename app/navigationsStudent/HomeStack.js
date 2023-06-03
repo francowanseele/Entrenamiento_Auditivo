@@ -18,6 +18,9 @@ import SolutionAcorde from '../screens/Student/SolutionAcorde';
 import ConfigIntervalo from '../screens/Student/ConfigIntervalo';
 import IntervalosPlay from '../screens/Student/IntervalosPlay';
 import SolutionIntervalo from '../screens/Student/SolutionIntervalo';
+import ConfigDictadoArmonico from '../screens/Student/ConfigDictadoArmonico';
+import DictaroArmonicoPlay from '../screens/Student/DictaroArmonicoPlay';
+import SolutionDictadoArmonico from '../screens/Student/SolutionDictadoArmonico';
 
 const Stack = createStackNavigator();
 
@@ -86,14 +89,32 @@ export default function () {
                 }}
             />
             <Stack.Screen
+                name="config_dictados_armonicos"
+                component={ConfigDictadoArmonico}
+                options={{
+                    title: 'Dictados',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                    },
+                }}
+            />
+            <Stack.Screen
                 name="acordes_play"
                 component={AcordesPlay}
                 options={{
                     title: 'Acorde',
-                    // headerStyle: {
-                    //     backgroundColor: TOPSCREENHOME,
-                    // },
-                    // headerTintColor: TEXTHOME,
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="dictado_armonico_play"
+                component={DictaroArmonicoPlay}
+                options={{
+                    title: 'Dictado',
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,
@@ -150,6 +171,17 @@ export default function () {
                     //     backgroundColor: TOPSCREENHOME,
                     // },
                     // headerTintColor: TEXTHOME,
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="solution_dictado_armonico"
+                component={SolutionDictadoArmonico}
+                options={{
+                    title: 'Solución',
                     headerTitleStyle: {
                         fontWeight: 'bold',
                         fontSize: 20,

@@ -50,6 +50,7 @@ import { tipoIntervalo } from '../../../enums/tipoIntervalo';
 import { direccionIntervalo } from '../../../enums/direccionIntervalo';
 import { generateIntervaloApi } from '../../api/intervalos';
 import { referenciaReglaAcorde } from '../../../enums/referenciaReglaAcorde';
+import { generateDictadoArmonicoApi } from '../../api/dictadosArmonicos';
 
 export default function CreateDictationProf({ route }) {
     var cleanAll = route.params ? route.params.cleanAll : false;
@@ -1228,6 +1229,7 @@ export default function CreateDictationProf({ route }) {
     const refRBSheet_GiroMelodico_Admin = useRef();
     const refRBSheet_GiroMelodicoGrupo_Admin = useRef();
     const refRBSheet_Picker = useRef();
+    const refRBSheet_PickerDictationLength = useRef();
     const refRBSheet_NotesStartEnd = useRef();
     const refRBSheet_Clave = useRef();
     const refRBSheet_Reference = useRef();
@@ -1257,7 +1259,11 @@ export default function CreateDictationProf({ route }) {
 
     // Harmony
     const [camposArmonicosToSend, setCamposArmonicosToSend] = useState(initializeDataCamposArmonicosToSend());
+    const [camposArmonicosInicioToSend, setCamposArmonicosInicioToSend] = useState(initializeDataCamposArmonicosToSend());
+    const [camposArmonicosFinToSend, setCamposArmonicosFinToSend] = useState(initializeDataCamposArmonicosToSend());
+    const [camposArmonicosReferenciaToSend, setCamposArmonicosReferenciaToSend] = useState(initializeDataCamposArmonicosToSend());
     const [referenceRule, setReferenceRule] = useState(referenciaReglaAcorde.fundamental);
+    const [dictationLength, setDictationLength] = useState(3);
 
     // Melodic
     // const [dictationRhythmic, setDictationhythmic] = useState(false);
@@ -1330,8 +1336,9 @@ export default function CreateDictationProf({ route }) {
     const dataGeneratorType = [
         { label: 'Dictados Melódicos', value: dictationType.melodic },
         { label: 'Dictados Rítmicos', value: dictationType.rhythmic },
-        { label: 'Acordes', value: dictationType.jazzChrods },
         { label: 'Intervalos', value: dictationType.interval },
+        { label: 'Acordes', value: dictationType.jazzChrods },
+        { label: 'Dictados armónicos', value: dictationType.harmonicDictation },
       ];
 
     useEffect(() => {
@@ -1374,6 +1381,9 @@ export default function CreateDictationProf({ route }) {
             setOkClefs(atLeastOneClef(clave_prioridad));
             // At least one interval
             setOkIntervals(atLeastOneInterval(intervaloRegla))
+        } else if (generatorType == dictationType.harmonicDictation){
+            // TODO: validar que haya al menos algo seleccionado en caompos armonicos, acordes inicio y fin
+            setOkTonality(atLeastOneTonality(escala_diatonica_regla));
         } else {
             setOkStartNotes(true)
             setOkEndNotes(true)
@@ -1426,6 +1436,8 @@ export default function CreateDictationProf({ route }) {
             clearFieldsHarmonic();
         } else if (generatorType == dictationType.interval) {
             clearFieldsInvervals();
+        } else if (generatorType == dictationType.harmonicDictation) {
+            clearFieldsHarmonicDictation()
         }
     }, [generatorType]);
 
@@ -1519,6 +1531,15 @@ export default function CreateDictationProf({ route }) {
     const clearFieldsHarmonic = () => {
         setCamposArmonicosToSend(initializeDataCamposArmonicosToSend());
         setReferenceRule(referenciaReglaAcorde.fundamental);
+    }
+
+    const clearFieldsHarmonicDictation = () => {
+        setCamposArmonicosInicioToSend(initializeDataCamposArmonicosToSend());
+        setCamposArmonicosFinToSend(initializeDataCamposArmonicosToSend());
+        setCamposArmonicosReferenciaToSend(initializeDataCamposArmonicosToSend());
+        setCamposArmonicosToSend(initializeDataCamposArmonicosToSend());
+        setReferenceRule(referenciaReglaAcorde.fundamental);
+        setDictationLength(3);
     }
 
     const clearFieldsMelodic = () => {
@@ -1702,6 +1723,8 @@ export default function CreateDictationProf({ route }) {
         let okCompas = true;
         let okCelula = true;
         let okBPM = true;
+        let okAcordeJazz = true
+        let okDictadoArmonico = true
         
         if (generatorType == dictationType.melodic) {
             okGiroMelodico = giro_melodico_regla.length > 0;
@@ -1722,8 +1745,22 @@ export default function CreateDictationProf({ route }) {
             okBPM = BPM.menor > 0 && BPM.mayor > 0;
         }
 
-        if (generatorType == dictationType.melodic || generatorType.jazzChrods) {
-            
+        if (generatorType == dictationType.jazzChrods) {
+            let okCampoArmonico = camposArmonicosToSend.filter((ca) => ca.CheckNombreCifrado == true).length > 0
+            okAcordeJazz = okCampoArmonico
+        }
+
+        let okCampoArmonico = true
+        let okCampoArmonicoInicio = true
+        let okCampoArmonicoFin = true
+        let okCampoArmonicoReferencia = true
+        if (generatorType == dictationType.harmonicDictation) {
+            okCampoArmonico = camposArmonicosToSend.filter((ca) => ca.CheckNombreCifrado == true).length > 0
+            okCampoArmonicoInicio = camposArmonicosInicioToSend.filter((ca) => ca.CheckNombreCifrado == true).length > 0
+            okCampoArmonicoFin = camposArmonicosFinToSend.filter((ca) => ca.CheckNombreCifrado == true).length > 0
+            okCampoArmonicoReferencia = camposArmonicosReferenciaToSend.filter((ca) => ca.CheckNombreCifrado == true).length > 0
+
+            okDictadoArmonico = okDictadoArmonico && okCampoArmonico && okCampoArmonicoInicio && okCampoArmonicoFin && okCampoArmonicoReferencia
         }
 
         if (
@@ -1733,7 +1770,9 @@ export default function CreateDictationProf({ route }) {
                 !okStartEndNotes ||
                 !okCompas ||
                 !okCelula ||
-                !okBPM)
+                !okBPM ||
+                !okDictadoArmonico ||
+                !okAcordeJazz)
         ) {
             allOk = false;
 
@@ -1751,7 +1790,10 @@ export default function CreateDictationProf({ route }) {
                         : ''
                 }${!okCompas ? '\n- Asignar compáses' : ''}${
                     !okCelula ? '\n- Asignar células rítmicas' : ''
-                }${!okBPM ? '\n- Asignar rango de bpm' : ''}
+                }${!okBPM ? '\n- Asignar rango de bpm' : ''
+                }${!okDictadoArmonico ? '\n- Asignar Campos armónicos, Acordes de inicio, Acordes de fin y Acordes de referencias (TODOS)' : ''
+                }${!okAcordeJazz ? '\n- Asignar Campos armónicos' : ''
+            }
                 `
             );
             setVisibleErrorConfig(true);
@@ -1790,6 +1832,19 @@ export default function CreateDictationProf({ route }) {
         }
 
         if (generatorType == dictationType.jazzChrods) {
+            if (allOk && !okTonality) {
+                allOk = false;
+                setTitleErrorConfig(
+                    'Existen algunas advertencias que debe revisar.'
+                );
+                setTextErrorConfig(
+                    `Revise sobe la izquierda de cada configuración si aparece alguna alerta. Para más información puede presionar sobre dicha alerta.`
+                );
+                setVisibleErrorConfig(true);
+            }
+        }
+
+        if (generatorType == dictationType.harmonicDictation) {
             if (allOk && !okTonality) {
                 allOk = false;
                 setTitleErrorConfig(
@@ -1950,6 +2005,44 @@ export default function CreateDictationProf({ route }) {
                     );
                     setVisibleErrorConfig(true);
                 }
+            } else if (generatorType == dictationType.harmonicDictation) {
+                const data = {
+                    dataCamposArmonicos: getCamposArmonicosChecked(camposArmonicosToSend), 
+                    dataCamposArmonicosInicio: getCamposArmonicosChecked(camposArmonicosInicioToSend),
+                    dataCamposArmonicosFin: getCamposArmonicosChecked(camposArmonicosFinToSend),
+                    dataCamposArmonicosReferencia: getCamposArmonicosChecked(camposArmonicosReferenciaToSend),
+                    escalaDiatonicaRegla: getEscalasDiatonicas(escala_diatonica_regla),
+                };
+
+                const result = await generateDictadoArmonicoApi(data, null, dictationLength, null, true);
+
+                const dataCDA = {
+                    name: nameConfig, 
+                    description: descriptionConfig, 
+                    dataCamposArmonicos: getCamposArmonicosChecked(camposArmonicosToSend),
+                    dataCamposArmonicosInicio: getCamposArmonicosChecked(camposArmonicosInicioToSend),
+                    dataCamposArmonicosFin: getCamposArmonicosChecked(camposArmonicosFinToSend),
+                    dataCamposArmonicosReferencia: getCamposArmonicosChecked(camposArmonicosReferenciaToSend),
+                    escalaDiatonicaRegla: getEscalasDiatonicas(escala_diatonica_regla),
+                    dictationLength: dictationLength,
+                    
+                };
+
+                if (result.ok) {
+                    navigation.navigate('summaryCreateDictation', {
+                        module,
+                        dataCDA,
+                        generatorType,
+                    });
+                } else {
+                    setTitleErrorConfig(
+                        'No es posible crear ningún dictado armónico a partir de la configuración'
+                    );
+                    setTextErrorConfig(
+                        `Por favor revise los parámetros en la configuración establecida y pruebe establecer nuevos parámetros.`
+                    );
+                    setVisibleErrorConfig(true);
+                }
             }
         }
         setLoading(false);
@@ -2070,6 +2163,7 @@ export default function CreateDictationProf({ route }) {
                     mayor={mayor}
                     setEditLigaduraFirstCR={setEditLigaduraFirstCR}
                     refRBSheet_Picker={refRBSheet_Picker}
+                    refRBSheet_PickerDictationLength={refRBSheet_PickerDictationLength}
                     refRBSheet_GiroMelodico={refRBSheet_GiroMelodico}
                     refRBSheet_GiroMelodico_Admin={
                         refRBSheet_GiroMelodico_Admin
@@ -2102,6 +2196,13 @@ export default function CreateDictationProf({ route }) {
                     directionInterval={directionInterval}
                     setDirectionInterval={setDirectionInterval}
                     okIntervals={okIntervals}
+                    camposArmonicosInicioToSend={camposArmonicosInicioToSend}
+                    setCamposArmonicosInicioToSend={setCamposArmonicosInicioToSend}
+                    camposArmonicosFinToSend={camposArmonicosFinToSend}
+                    setCamposArmonicosFinToSend={setCamposArmonicosFinToSend}
+                    camposArmonicosReferenciaToSend={camposArmonicosReferenciaToSend}
+                    setCamposArmonicosReferenciaToSend={setCamposArmonicosReferenciaToSend}
+                    dictationLength={dictationLength}
                 />
             </ScrollView>
             <Button
@@ -2235,6 +2336,30 @@ export default function CreateDictationProf({ route }) {
                 setNro_compases={setNro_compases}
                 nro_compases={nro_compases}
                 refRBSheet={refRBSheet_Picker}
+                type={'compas'}
+            />
+
+            <BottomSheetPicker
+                values={[
+                    '3',
+                    '4',
+                    '5',
+                    '6',
+                    '7',
+                    '8',
+                    '9',
+                    '10',
+                    '11',
+                    '12',
+                    '13',
+                    '14',
+                    '15',
+                    '16',
+                ]}
+                setNro_compases={setDictationLength}
+                nro_compases={dictationLength}
+                refRBSheet={refRBSheet_PickerDictationLength}
+                type={'acorde'}
             />
 
             {/* Rhythmic */}

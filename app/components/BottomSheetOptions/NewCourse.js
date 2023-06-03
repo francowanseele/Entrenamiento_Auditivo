@@ -13,7 +13,6 @@ import { ListItem, Icon } from '@rneui/themed';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { PRIMARY_COLOR, QUARTER_COLOR } from '../../../utils/colorPalette';
 import { CLOSE_BOTTOM_SHEET } from '../../../utils/constants';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import OverlayPicker from '../CreateDictationProf/OverlayPicker';
 import { addCourseApi, addStudentCourse, addTeacherCourse } from '../../api/course';
 import { getStorageItem, ID_USER } from '../../../utils/asyncStorageManagement';

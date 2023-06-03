@@ -19,6 +19,7 @@ import OverlayInfo from '../../components/CreateDictationProf/OverlayInfo';
 import { dictationType } from '../../../enums/dictationType';
 import { addConfigAcordeJazzApi } from '../../api/acordes';
 import { addConfigIntervaloApi } from '../../api/intervalos';
+import { addConfigDictadoArmonicoApi } from '../../api/dictadosArmonicos';
 
 export default function SummaryCreateDictation({ route }) {
     const {
@@ -46,6 +47,7 @@ export default function SummaryCreateDictation({ route }) {
         dataCAJ,
         dataIntervalo,
         dataConfig,
+        dataCDA,
     } = route.params;
 
     const [visibleEndCreate, setVisibleEndCreate] = useState(false);
@@ -157,6 +159,18 @@ export default function SummaryCreateDictation({ route }) {
                     setTextEndCreate('Por favor intentelo más tarde.');
                     setVisibleEndCreate(true);
                 }
+            } else if (generatorType == dictationType.harmonicDictation) {
+                const result = await addConfigDictadoArmonicoApi(dataCDA, module.id);
+
+                if (result.ok) {
+                    setTitleEndCreate('Configuración exitosa!!');
+                    setTextEndCreate('Su configuración fue creada con éxito.');
+                    setVisibleEndCreate(true);
+                } else {
+                    setTitleEndCreate('Lo sentimos, algo salio mal..');
+                    setTextEndCreate('Por favor intentelo más tarde.');
+                    setVisibleEndCreate(true);
+                }
             }
         } else {
             // TODO: user no logged
@@ -171,6 +185,47 @@ export default function SummaryCreateDictation({ route }) {
                         <View style={styles.contentInfoGral}>
                             <Text style={styles.titleSection}>
                                 Crear generador de Acorde
+                            </Text>
+                        </View>
+                    ) : (
+                        <View style={styles.contentInfoGral}>
+                            <View style={styles.contentTitleSection}>
+                                <Text style={styles.titleSection}>
+                                    Configuración general
+                                </Text>
+                            </View>
+                            <View style={styles.contentTexts}>
+                                <Text style={styles.textSubtitle}>Curso: </Text>
+                                <Text style={styles.textInfo}>{course?.name}</Text>
+                            </View>
+
+                            <View style={styles.contentTexts}>
+                                <Text style={styles.textSubtitle}>Módulo: </Text>
+                                <Text style={styles.textInfo}>{module?.name}</Text>
+                            </View>
+
+                            <View style={styles.contentTexts}>
+                                <Text style={styles.textSubtitle}>
+                                    Nombre Nueva configuración:{' '}
+                                </Text>
+                                <Text style={styles.textInfo}>{dataConfig.configAcorde.Nombre}</Text>
+                            </View>
+
+                            <View style={styles.contentTexts}>
+                                <Text style={styles.textSubtitle}>
+                                    Descripción Nueva configuración:{' '}
+                                </Text>
+                                <Text style={styles.textInfo}>{dataConfig.configAcorde.Descripcion}</Text>
+                            </View>
+                        </View>
+                    )}
+                </View>
+            ) : generatorType == dictationType.harmonicDictation ? (
+                <View style={styles.contentAll}>
+                    {!isOnlyView ? (
+                        <View style={styles.contentInfoGral}>
+                            <Text style={styles.titleSection}>
+                                Crear generador de Dictados Armónicos
                             </Text>
                         </View>
                     ) : (
