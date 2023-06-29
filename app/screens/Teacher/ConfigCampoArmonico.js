@@ -1850,7 +1850,7 @@ export default function ConfigCampoArmonico({ route }) {
                             <Text>Escala</Text>
                         </View>
                         <View style={[styles.viewContainerItemTableAcorde, styles.viewContainerItemTableHeader]}>
-                            <Text style={{fontSize: 13}}>Acorde</Text>
+                            <Text style={{fontSize: 13}}>Fundamental</Text>
                         </View>
                         <View style={[styles.viewContainerItemTable, styles.viewContainerItemTableHeader]}>
                             <Text>Tétrada</Text>
@@ -2626,7 +2626,7 @@ export default function ConfigCampoArmonico({ route }) {
                             <Text>Escala</Text>
                         </View>
                         <View style={[styles.viewContainerItemTableAcorde, styles.viewContainerItemTableHeader]}>
-                            <Text style={{fontSize: 13}}>Acorde</Text>
+                            <Text style={{fontSize: 13}}>Fundamental</Text>
                         </View>
                         <View style={[styles.viewContainerItemTable, styles.viewContainerItemTableHeader]}>
                             <Text>Tétrada</Text>

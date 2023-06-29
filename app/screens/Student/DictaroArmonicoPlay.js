@@ -118,7 +118,7 @@ export default function DictaroArmonicoPlay({ route }) {
                         <Image
                             style={styles.musicSheetImage}
                             source={{
-                                uri: urlMusicSheetReference,
+                                uri: urlMusicSheetReference + '?' + (Math.random() * 10000 + 1).toString(),
                             }}
                         />
                     )}

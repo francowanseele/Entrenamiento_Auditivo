@@ -1263,7 +1263,7 @@ export default function CreateDictationProf({ route }) {
     const [camposArmonicosFinToSend, setCamposArmonicosFinToSend] = useState(initializeDataCamposArmonicosToSend());
     const [camposArmonicosReferenciaToSend, setCamposArmonicosReferenciaToSend] = useState(initializeDataCamposArmonicosToSend());
     const [referenceRule, setReferenceRule] = useState(referenciaReglaAcorde.fundamental);
-    const [dictationLength, setDictationLength] = useState(3);
+    const [dictationLength, setDictationLength] = useState(2);
 
     // Melodic
     // const [dictationRhythmic, setDictationhythmic] = useState(false);
@@ -1539,7 +1539,7 @@ export default function CreateDictationProf({ route }) {
         setCamposArmonicosReferenciaToSend(initializeDataCamposArmonicosToSend());
         setCamposArmonicosToSend(initializeDataCamposArmonicosToSend());
         setReferenceRule(referenciaReglaAcorde.fundamental);
-        setDictationLength(3);
+        setDictationLength(2);
     }
 
     const clearFieldsMelodic = () => {
@@ -2341,6 +2341,7 @@ export default function CreateDictationProf({ route }) {
 
             <BottomSheetPicker
                 values={[
+                    '2',
                     '3',
                     '4',
                     '5',

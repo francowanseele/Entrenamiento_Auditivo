@@ -30,7 +30,7 @@ export default function SolutionDictadoArmonico({ route }) {
 
     useEffect(() => {
         if (acordes) {
-            setLengthImage((acordes.length * 200) + 40) 
+            setLengthImage((acordes.length * 200) + 100) 
         } 
     }, [acordes])
 
@@ -55,9 +55,9 @@ export default function SolutionDictadoArmonico({ route }) {
             <ScrollView horizontal style={{backgroundColor: 'white'}}>
                 {urlMusicSheetReference != '' && (
                     <Image
-                        style={{height: 200, width: lengthImage}}
+                        style={{height: 200, width: lengthImage, marginLeft: 80}}
                         source={{
-                            uri: urlMusicSheetReference,
+                            uri: urlMusicSheetReference + '?' + (Math.random() * 10000 + 1).toString(),
                         }}
                     />
                 )}
@@ -95,7 +95,7 @@ export default function SolutionDictadoArmonico({ route }) {
 
 const styles = StyleSheet.create({
     container: {
-        
+        width: '100%'
     },
     textoDatos:{
         width:'90%',
