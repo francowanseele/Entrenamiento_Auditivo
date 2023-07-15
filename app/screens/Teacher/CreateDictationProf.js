@@ -1219,6 +1219,198 @@ export default function CreateDictationProf({ route }) {
                 ByDefault: true,
                 EstadosAcorde: estadoAcorde.fundamental.toString(),
             },
+            // ---------------------------------------
+            // ESCALA OTROS
+            // ---------------------------------------
+            // G
+            {
+                Escala: escalaCampoArmonico.otros,
+                EscalaPrioridad: 1,
+                KeyNote: 'G',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7b5,
+                Tension: 
+                    intervaloTensiones.novenaMenor +
+                    ', ' +
+                    intervaloTensiones.novenaAumentada +
+                    ', ' + 
+                    intervaloTensiones.tercenaMenor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.otros,
+                EscalaPrioridad: 1,
+                KeyNote: 'G',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7hash5,
+                Tension: 
+                    intervaloTensiones.novenaMenor +
+                    ', ' +
+                    intervaloTensiones.novenaAumentada +
+                    ', ' + 
+                    intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // G2
+            {
+                Escala: escalaCampoArmonico.otros,
+                EscalaPrioridad: 1,
+                KeyNote: 'G2',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
+                Tension: 
+                    intervaloTensiones.novenaMenor +
+                    ', ' +
+                    intervaloTensiones.novenaAumentada +
+                    ', ' + 
+                    intervaloTensiones.oncenaAumentada +
+                    ', ' + 
+                    intervaloTensiones.tercenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // G3
+            {
+                Escala: escalaCampoArmonico.otros,
+                EscalaPrioridad: 1,
+                KeyNote: 'G3',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_aug7,
+                Tension: 
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            // A
+            {
+                Escala: escalaCampoArmonico.otros,
+                EscalaPrioridad: 1,
+                KeyNote: 'Ab',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
+                Tension: 
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaAumentada +
+                    ', ' +
+                    intervaloTensiones.tercenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.otros,
+                EscalaPrioridad: 1,
+                KeyNote: 'Ab',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                Tension: intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.otros,
+                EscalaPrioridad: 1,
+                KeyNote: 'Ab',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                Tension: 
+                    intervaloTensiones.oncenaAumentada +
+                    ', ' +
+                    intervaloTensiones.tercenaMayor,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.otros,
+                EscalaPrioridad: 1,
+                KeyNote: 'Ab',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                Tension: 
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.tetrada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.otros,
+                EscalaPrioridad: 1,
+                KeyNote: 'Ab',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                Tension:
+                    'add ' +
+                    intervaloTensiones.novenaMayor +
+                    ', ' +
+                    intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: true,
+                CheckTension: true,
+                ByDefault: true,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
+            {
+                Escala: escalaCampoArmonico.otros,
+                EscalaPrioridad: 1,
+                KeyNote: 'Ab',
+                KeyNotePrioridad: 1,
+                NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                Tension: 'add ' + intervaloTensiones.oncenaAumentada,
+                Tipo: acordeType.triada,
+                CheckEscala: true,
+                CheckKeyNote: true,
+                CheckNombreCifrado: false,
+                CheckTension: false,
+                ByDefault: false,
+                EstadosAcorde: estadoAcorde.fundamental.toString(),
+            },
         ];
     }
 
@@ -2051,9 +2243,12 @@ export default function CreateDictationProf({ route }) {
     const getCamposArmonicosChecked = (dataCA) => {
         let result = dataCA.filter((x) => x.CheckEscala && x.CheckKeyNote && x.CheckNombreCifrado);
 
-        return result.map(({ByDefault, CheckEscala, CheckKeyNote, CheckNombreCifrado, CheckTension, ...x}) => {
+        result = result.map(({KeyNote, CheckTension, ...x}) => {
             if (CheckTension) {
-                return x;
+                return {
+                    ...x,
+                    KeyNote: KeyNote?.replace(/[0-9]/g, '')
+                };
             } else {
                 return {
                     ...x,
@@ -2062,6 +2257,7 @@ export default function CreateDictationProf({ route }) {
             }
         })
 
+        return result;
     }
 
     const loadConfigDictation = () => {

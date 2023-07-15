@@ -135,7 +135,7 @@ export default function BottomSheetAcordeOptions(props) {
                                 iconStyle={styles.iconOption}
                             />
                             <Text style={styles.options}>
-                                Mostrar/Ocultar opciones para '{elem}'
+                                Mostrar/Ocultar opciones para '{elem?.replace(/[0-9]/g, '')}'
                             </Text>
                         </TouchableOpacity>
                     )}
@@ -150,7 +150,7 @@ export default function BottomSheetAcordeOptions(props) {
                             iconStyle={styles.iconOption}
                         />
                         <Text style={styles.options}>
-                            Editar prioridad para '{elem}' ({priorityElem})
+                            Editar prioridad para '{elem?.replace(/[0-9]/g, '')}' ({priorityElem})
                         </Text>
                     </TouchableOpacity>
 
@@ -164,7 +164,7 @@ export default function BottomSheetAcordeOptions(props) {
                             iconStyle={styles.iconOption}
                         />
                         <Text style={styles.options}>
-                            Estado para '{elem}'
+                            Estado para '{elem?.replace(/[0-9]/g, '')}'
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -172,7 +172,7 @@ export default function BottomSheetAcordeOptions(props) {
                 <View>
                     <View style={styles.containerTitle}>
                         <Text style={styles.title}>
-                            Editar prioridad a {typeElem} {elem}
+                            Editar prioridad a {typeElem} {elem?.replace(/[0-9]/g, '')}
                         </Text>
                     </View>
                     <Text style={styles.textPrioridad}>
@@ -220,7 +220,7 @@ export default function BottomSheetAcordeOptions(props) {
                 <ScrollView>
                     <View style={styles.containerTitle}>
                         <Text style={styles.title}>
-                            Estado para '{elem}'
+                            Estado para '{elem?.replace(/[0-9]/g, '')}'
                         </Text>
                     </View>
 
