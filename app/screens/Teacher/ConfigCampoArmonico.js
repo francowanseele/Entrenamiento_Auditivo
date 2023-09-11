@@ -18,6 +18,7 @@ import { BACKGROUND_COLOR_RIGHT, BORDER_COLOR_RIGHT, FIFTH_COLOR, PRIMARY_COLOR,
 import { DELAY_LONG_PRESS } from '../../../utils/constants';
 import BottomSheetAcordeOptions from '../../components/CreateAcordeProf/BottomSheetAcordeOptions';
 import { estadoAcorde } from '../../../enums/estadoAcorde';
+import BottomSheetAcordeTensiones from '../../components/CreateAcordeProf/BottomSheetAcordeTensiones';
 
 export default function ConfigCampoArmonico({ route }) {
     const { camposArmonicosToSend, setCamposArmonicosToSend } = route.params;
@@ -37,6 +38,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_Maj7,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.tercenaMayor],
                     Tension:
                         intervaloTensiones.novenaMayor +
                         ', ' +
@@ -55,6 +57,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.novenaMayor,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -70,6 +73,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                    SpecificTensions: [],
                     Tension: '',
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -85,6 +89,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus2,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.tercenaMayor,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -100,6 +105,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus4,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.novenaMayor,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -115,6 +121,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus4,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.novenaMayor,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -130,6 +137,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                    SpecificTensions: [intervaloTensiones.novenaMayor],
                     Tension: 'add ' + intervaloTensiones.novenaMayor,
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -145,6 +153,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                    SpecificTensions: [],
                     Tension: '',
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -160,6 +169,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                    SpecificTensions: [],
                     Tension: 'add ' + intervaloTensiones.novenaMayor,
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -176,6 +186,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
                     Tension:
                         intervaloTensiones.novenaMayor +
                         ', ' +
@@ -194,6 +205,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m6,
+                    SpecificTensions: [],
                     Tension:
                         intervaloTensiones.novenaMayor +
                         ', ' +
@@ -212,6 +224,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                    SpecificTensions: [],
                     Tension: '',
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -227,6 +240,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                    SpecificTensions: [],
                     Tension: '',
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -242,6 +256,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus4,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.novenaMayor,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -257,6 +272,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.novenaMayor,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -272,6 +288,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
                     Tension:
                         'add ' +
                         intervaloTensiones.novenaMayor +
@@ -291,6 +308,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                    SpecificTensions: [],
                     Tension: '',
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -306,6 +324,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                    SpecificTensions: [],
                     Tension: 'add ' + intervaloTensiones.novenaMayor,
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -322,6 +341,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
+                    SpecificTensions: [intervaloTensiones.oncenaJusta],
                     Tension: intervaloTensiones.oncenaJusta,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -337,6 +357,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                    SpecificTensions: [],
                     Tension: '',
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -352,6 +373,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                    SpecificTensions: [intervaloTensiones.oncenaJusta],
                     Tension: 'add ' + intervaloTensiones.oncenaJusta,
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -367,6 +389,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                    SpecificTensions: [],
                     Tension: '',
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -383,6 +406,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_Maj7,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
                     Tension:
                         intervaloTensiones.novenaMayor +
                         ', ' +
@@ -403,6 +427,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.oncenaAumentada,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -418,6 +443,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus2,
+                    SpecificTensions: [],
                     Tension:
                         intervaloTensiones.oncenaAumentada +
                         ', ' +
@@ -436,6 +462,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                    SpecificTensions: [],
                     Tension:
                         intervaloTensiones.novenaMayor +
                         ', ' +
@@ -454,6 +481,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada],
                     Tension:
                         'add ' +
                         intervaloTensiones.novenaMayor +
@@ -473,6 +501,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                    SpecificTensions: [],
                     Tension: 'add ' + intervaloTensiones.oncenaAumentada,
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -489,6 +518,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.tercenaMayor],
                     Tension:
                         intervaloTensiones.novenaMayor +
                         ', ' +
@@ -507,6 +537,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.novenaMayor,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -522,6 +553,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                    SpecificTensions: [],
                     Tension: '',
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -537,6 +569,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.tercenaMayor,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -552,6 +585,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus4,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.novenaMayor,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -567,6 +601,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                    SpecificTensions: [],
                     Tension:
                         intervaloTensiones.novenaMayor +
                         ', ' +
@@ -585,6 +620,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                    SpecificTensions: [intervaloTensiones.novenaMayor],
                     Tension: 'add ' + intervaloTensiones.novenaMayor,
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -600,6 +636,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                    SpecificTensions: [],
                     Tension: '',
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -615,6 +652,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                    SpecificTensions: [],
                     Tension: 'add ' + intervaloTensiones.novenaMayor,
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -631,6 +669,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
                     Tension:
                         intervaloTensiones.novenaMayor +
                         ', ' +
@@ -649,6 +688,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.oncenaJusta,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -664,6 +704,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.novenaMayor,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -679,6 +720,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
                     Tension:
                         'add ' +
                         intervaloTensiones.novenaMayor +
@@ -698,6 +740,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                    SpecificTensions: [],
                     Tension: '',
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -713,6 +756,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                    SpecificTensions: [],
                     Tension: 'add ' + intervaloTensiones.novenaMayor,
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -729,6 +773,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'B',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7b5,
+                    SpecificTensions: [intervaloTensiones.oncenaJusta,intervaloTensiones.tercenaMenor],
                     Tension:
                         intervaloTensiones.oncenaJusta +
                         ', ' +
@@ -747,6 +792,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'B',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Disminuido,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.tercenaMenor],
                     Tension:
                         'add ' +
                         intervaloTensiones.novenaMayor +
@@ -770,6 +816,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_AugMaj7,
+                    SpecificTensions: [intervaloTensiones.novenaMayor],
                     Tension: intervaloTensiones.novenaMayor,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -785,6 +832,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Aumentado,
+                    SpecificTensions: [intervaloTensiones.novenaMayor],
                     Tension: 'add ' + intervaloTensiones.novenaMayor,
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -801,6 +849,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
                     Tension:
                         intervaloTensiones.novenaMayor +
                         ', ' +
@@ -821,6 +870,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.oncenaAumentada,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -836,6 +886,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                    SpecificTensions: [],
                     Tension: 
                         intervaloTensiones.oncenaAumentada +
                         ', ' +
@@ -854,6 +905,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m6,
+                    SpecificTensions: [],
                     Tension: 
                         intervaloTensiones.novenaMayor +
                         ', ' +
@@ -872,6 +924,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada],
                     Tension:
                         'add ' +
                         intervaloTensiones.novenaMayor +
@@ -891,6 +944,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                    SpecificTensions: [],
                     Tension: 
                         'add ' +
                         intervaloTensiones.oncenaAumentada,
@@ -909,6 +963,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
+                    SpecificTensions: [intervaloTensiones.novenaMenor,intervaloTensiones.tercenaMenor],
                     Tension: 
                         intervaloTensiones.novenaMenor +
                         ', ' +
@@ -927,6 +982,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                    SpecificTensions: [],
                     Tension: 
                         intervaloTensiones.novenaMenor +
                         ', ' +
@@ -945,6 +1001,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                    SpecificTensions: [intervaloTensiones.novenaMenor],
                     Tension: 'add ' + intervaloTensiones.novenaMenor,
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -960,6 +1017,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                    SpecificTensions: [],
                     Tension: 'add ' + 
                         intervaloTensiones.novenaMenor +
                         intervaloTensiones.tercenaMenor,
@@ -978,6 +1036,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_Maj7,
+                    SpecificTensions: [intervaloTensiones.novenaAumentada,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
                     Tension:
                         intervaloTensiones.novenaAumentada +
                         ', ' +
@@ -998,6 +1057,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                    SpecificTensions: [],
                     Tension: 
                         intervaloTensiones.novenaAumentada +
                         ', ' +
@@ -1016,6 +1076,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                    SpecificTensions: [intervaloTensiones.novenaAumentada,intervaloTensiones.oncenaAumentada],
                     Tension:
                         'add ' +
                         intervaloTensiones.novenaAumentada +
@@ -1036,6 +1097,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G#',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_07,
+                    SpecificTensions: [intervaloTensiones.tercenaMenor],
                     Tension: intervaloTensiones.tercenaMenor,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -1051,6 +1113,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G#',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Disminuido,
+                    SpecificTensions: [],
                     Tension: '',
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -1067,6 +1130,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_mMaj7,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
                     Tension: 
                         intervaloTensiones.novenaMayor +
                         ', ' +
@@ -1085,6 +1149,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus2,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.oncenaJusta,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -1100,6 +1165,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus4,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.novenaMayor,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -1115,6 +1181,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
                     Tension:
                         'add ' +
                         intervaloTensiones.novenaMayor +
@@ -1134,6 +1201,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                    SpecificTensions: [],
                     Tension: 'add ' + intervaloTensiones.oncenaJusta,
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -1149,6 +1217,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                    SpecificTensions: [],
                     Tension: 'add ' + intervaloTensiones.novenaMayor,
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -1165,6 +1234,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'B',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7b5,
+                    SpecificTensions: [intervaloTensiones.oncenaJusta],
                     Tension: intervaloTensiones.oncenaJusta,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -1180,6 +1250,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'B',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Disminuido,
+                    SpecificTensions: [intervaloTensiones.oncenaJusta],
                     Tension: 'add ' + intervaloTensiones.oncenaJusta,
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -1199,6 +1270,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7b5,
+                    SpecificTensions: [intervaloTensiones.novenaMenor,intervaloTensiones.novenaAumentada,intervaloTensiones.tercenaMenor],
                     Tension: 
                         intervaloTensiones.novenaMenor +
                         ', ' +
@@ -1219,6 +1291,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7hash5,
+                    SpecificTensions: [],
                     Tension: 
                         intervaloTensiones.novenaMenor +
                         ', ' +
@@ -1240,6 +1313,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G2',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
+                    SpecificTensions: [intervaloTensiones.novenaMenor,intervaloTensiones.novenaAumentada,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
                     Tension: 
                         intervaloTensiones.novenaMenor +
                         ', ' +
@@ -1263,6 +1337,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'G3',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_aug7,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada],
                     Tension: 
                         intervaloTensiones.novenaMayor +
                         ', ' +
@@ -1282,6 +1357,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'Ab',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
                     Tension: 
                         intervaloTensiones.novenaMayor +
                         ', ' +
@@ -1302,6 +1378,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'Ab',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                    SpecificTensions: [],
                     Tension: intervaloTensiones.oncenaAumentada,
                     Tipo: acordeType.tetrada,
                     CheckEscala: true,
@@ -1317,6 +1394,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'Ab',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                    SpecificTensions: [],
                     Tension: 
                         intervaloTensiones.oncenaAumentada +
                         ', ' +
@@ -1335,6 +1413,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'Ab',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                    SpecificTensions: [],
                     Tension: 
                         intervaloTensiones.novenaMayor +
                         ', ' +
@@ -1353,6 +1432,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'Ab',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                    SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada],
                     Tension:
                         'add ' +
                         intervaloTensiones.novenaMayor +
@@ -1372,6 +1452,7 @@ export default function ConfigCampoArmonico({ route }) {
                     KeyNote: 'Ab',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                    SpecificTensions: [],
                     Tension: 'add ' + intervaloTensiones.oncenaAumentada,
                     Tipo: acordeType.triada,
                     CheckEscala: true,
@@ -1392,6 +1473,15 @@ export default function ConfigCampoArmonico({ route }) {
     const [estadosAcorde, setEstadosAcorde] = useState('');
     const [hasAcordeMoreOptions, setHasAcordeMoreOptions] = useState(false);
     const [escalaForMoreOptions, setEscalaForMoreOptions] = useState(null);
+
+    // States for specific tensions
+    const [listOptionsTensiones, setListOptionsTensiones] = useState([]);
+    const [escalaForSpecificTensions, setEscalaForSpecificTensions] = useState(null);
+    const [acordeForSpecificTensions, setAcordeForSpecificTensions] = useState(null);
+    const [tetradaForSpecificTensions, setTetradaForSpecificTensions] = useState(null);
+    const [tensionForSpecificTensions, setTensionForSpecificTensions] = useState(null);
+    const [triadaForSpecificTensions, setTriadaForSpecificTensions] = useState(null);
+    const [isTetradaForSpecificTensions, setIsTetradaForSpecificTensions] = useState(false);
     
     // ---------------------------------------
     // ESCALA MAYOR
@@ -1472,6 +1562,7 @@ export default function ConfigCampoArmonico({ route }) {
 
     const navigation = useNavigation();
     const refRBSheet_AcordeOptions = useRef();
+    const refRBSheet_AcordeTensiones = useRef();
 
     const showBottomSheetEscala = (escala) => {
         setElemForMoreOptions(escala);
@@ -1783,7 +1874,33 @@ export default function ConfigCampoArmonico({ route }) {
     }
 
     const selectTensionTriada = (escala, acorde, triada, tension) => {
-        const checkTension = !dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tension == tension && x.Tipo == acordeType.triada)?.CheckTension;
+        const tensiones = getDifferentsTensiones(tension);
+
+        const specificTensions = dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tipo == acordeType.triada)?.SpecificTensions;
+
+        let listOptionsAux = []
+        tensiones.forEach(tension => {
+            listOptionsAux.push({
+                tension: tension,
+                selected: specificTensions.indexOf(tension) > -1
+            })
+        });
+
+        setListOptionsTensiones(listOptionsAux)
+        setEscalaForSpecificTensions(escala)
+        setAcordeForSpecificTensions(acorde)
+        setTriadaForSpecificTensions(triada)
+        setTensionForSpecificTensions(tension)
+        setIsTetradaForSpecificTensions(false)
+
+        refRBSheet_AcordeTensiones.current.open();
+    }
+
+    const selectSpecificTensionTriada = (escala, acorde, triada, tension, specificsTensions) => {
+        // const checkTension = !dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tension == tension && x.Tipo == acordeType.triada)?.CheckTension;
+        const checkTension = specificsTensions.findIndex(x => x.selected) > -1
+        const specificTensionsForDataCamposArmonicos = specificsTensions.filter(x => x.selected).map(x => x.tension)
+
         let result = dataCamposArmonicos;
         result =
             result.map((x) => {
@@ -1792,6 +1909,7 @@ export default function ConfigCampoArmonico({ route }) {
                         ...x,
                         CheckTension: checkTension,
                         CheckNombreCifrado: checkTension ? true : x.CheckNombreCifrado,
+                        SpecificTensions: specificTensionsForDataCamposArmonicos,
                     }
                 } else {
                     return x;
@@ -1827,9 +1945,47 @@ export default function ConfigCampoArmonico({ route }) {
         setDataCamposArmonicos(result);
     }
 
+    const getDifferentsTensiones = (tensiones) => {
+        if (tensiones == '') {
+            return [];
+        }
+    
+        let tensionesStr = tensiones.replace('add','');
+        tensionesStr = tensionesStr.replaceAll(' ', '');
+    
+        return tensionesStr.split(',');
+    }
+
     const selectTensionTetrada = (escala, acorde, tetrada, tension) => {
-        const checkTension = !dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tension == tension && x.Tipo == acordeType.tetrada)?.CheckTension;
+        const tensiones = getDifferentsTensiones(tension);
+
+        const specificTensions = dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tipo == acordeType.tetrada)?.SpecificTensions;
+
+        let listOptionsAux = []
+        tensiones.forEach(tension => {
+            listOptionsAux.push({
+                tension: tension,
+                selected: specificTensions.indexOf(tension) > -1
+            })
+        });
+
+        setListOptionsTensiones(listOptionsAux)
+        setEscalaForSpecificTensions(escala)
+        setAcordeForSpecificTensions(acorde)
+        setTetradaForSpecificTensions(tetrada)
+        setTensionForSpecificTensions(tension)
+        setIsTetradaForSpecificTensions(true)
+
+        refRBSheet_AcordeTensiones.current.open();
+    }
+
+    const selectSpecificTensionTetrada = (escala, acorde, tetrada, tension, specificsTensions) => {
+        // const checkTension = !dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tension == tension && x.Tipo == acordeType.tetrada)?.CheckTension;
+        const checkTension = specificsTensions.findIndex(x => x.selected) > -1
+        const specificTensionsForDataCamposArmonicos = specificsTensions.filter(x => x.selected).map(x => x.tension)
+
         let result = dataCamposArmonicos;
+
         result =
             result.map((x) => {
                 if (x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tension == tension && x.Tipo == acordeType.tetrada) {
@@ -1837,6 +1993,7 @@ export default function ConfigCampoArmonico({ route }) {
                         ...x,
                         CheckTension: checkTension,
                         CheckNombreCifrado: checkTension ? true : x.CheckNombreCifrado,
+                        SpecificTensions: specificTensionsForDataCamposArmonicos,
                     }
                 } else {
                     return x;
@@ -3694,6 +3851,20 @@ export default function ConfigCampoArmonico({ route }) {
                 setEstadoAcordeEscala={setEstadoAcordeEscala}
                 hasMoreOptions={hasAcordeMoreOptions}
                 escalaForMoreOptions={escalaForMoreOptions}
+            />
+
+            <BottomSheetAcordeTensiones
+                refRBSheet={refRBSheet_AcordeTensiones}
+                listOptionsTensiones={listOptionsTensiones}
+                setListOptionsTensiones={setListOptionsTensiones}
+                escalaForSpecificTensions={escalaForSpecificTensions}
+                acordeForSpecificTensions={acordeForSpecificTensions}
+                tetradaForSpecificTensions={tetradaForSpecificTensions}
+                tensionForSpecificTensions={tensionForSpecificTensions}
+                triadaForSpecificTensions={triadaForSpecificTensions}
+                selectSpecificTensionTetrada={selectSpecificTensionTetrada}
+                isTetradaForSpecificTensions={isTetradaForSpecificTensions}
+                selectSpecificTensionTriada={selectSpecificTensionTriada}
             />
         </>
     );

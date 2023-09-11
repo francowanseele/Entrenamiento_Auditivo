@@ -14,7 +14,7 @@ import {
     ITEMSHOME,
     TOPSCREENHOME,
 } from '../../styles/styleValues';
-import { tramsitDictationApi, tramsitNoteReferenceApi } from '../../api/sound';
+import { saveListenDictationApi, tramsitDictationApi, tramsitNoteReferenceApi } from '../../api/sound';
 import { getStorageItem, ID_USER } from '../../../utils/asyncStorageManagement';
 import Graphic from '../../components/Graphic';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
@@ -77,6 +77,13 @@ export default function Dictation({ route }) {
     const playDictado = async () => {
         try {
             setReproduciendo(true);
+            const data = {
+                dictadoId: dictation.id, 
+                acordeJazzId: null, 
+                dictadoArmonicoId: null, 
+                intervaloId: null,
+            };
+            saveListenDictationApi(data);
             const id = await getStorageItem(ID_USER);
             const tran = await tramsitDictationApi(id);
             console.log(tran);

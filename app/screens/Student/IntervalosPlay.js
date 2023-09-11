@@ -9,7 +9,7 @@ import { Icon, Button } from 'react-native-elements';
 import {
     TEXTHOME,
 } from '../../styles/styleValues';
-import { tramsitDictationApi, tramsitNoteReferenceApi } from '../../api/sound';
+import { saveListenDictationApi, tramsitDictationApi, tramsitNoteReferenceApi } from '../../api/sound';
 import { getStorageItem, ID_USER } from '../../../utils/asyncStorageManagement';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import ScreenPlaying from '../../components/ScreenPlaying';
@@ -60,6 +60,14 @@ export default function IntervalosPlay({ route }) {
     const playIntervalo = async () => {
         try {
             setReproduciendo(true);
+            const data = {
+                dictadoId: null, 
+                acordeJazzId: null, 
+                dictadoArmonicoId: null, 
+                intervaloId: intervalo.id,
+            };
+            saveListenDictationApi(data);
+
             const id = await getStorageItem(ID_USER);
             const tran = await tramsitDictationApi(id);
             console.log(tran);

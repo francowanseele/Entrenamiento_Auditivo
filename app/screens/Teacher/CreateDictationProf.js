@@ -67,6 +67,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'C',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_Maj7,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.tercenaMayor],
                 Tension:
                     intervaloTensiones.novenaMayor +
                     ', ' +
@@ -85,6 +86,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'C',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.novenaMayor,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -100,6 +102,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'C',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                SpecificTensions: [],
                 Tension: '',
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -115,6 +118,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'C',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus2,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.tercenaMayor,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -130,6 +134,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'C',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus4,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.novenaMayor,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -145,6 +150,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'C',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus4,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.novenaMayor,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -160,6 +166,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'C',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                SpecificTensions: [intervaloTensiones.novenaMayor],
                 Tension: 'add ' + intervaloTensiones.novenaMayor,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -175,6 +182,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'C',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                SpecificTensions: [],
                 Tension: '',
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -190,6 +198,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'C',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                SpecificTensions: [],
                 Tension: 'add ' + intervaloTensiones.novenaMayor,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -206,6 +215,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
                 Tension:
                     intervaloTensiones.novenaMayor +
                     ', ' +
@@ -224,6 +234,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m6,
+                SpecificTensions: [],
                 Tension:
                     intervaloTensiones.novenaMayor +
                     ', ' +
@@ -242,6 +253,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                SpecificTensions: [],
                 Tension: '',
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -257,6 +269,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                SpecificTensions: [],
                 Tension: '',
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -272,6 +285,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus4,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.novenaMayor,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -287,6 +301,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.novenaMayor,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -302,6 +317,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
                 Tension:
                     'add ' +
                     intervaloTensiones.novenaMayor +
@@ -321,6 +337,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                SpecificTensions: [],
                 Tension: '',
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -336,6 +353,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                SpecificTensions: [],
                 Tension: 'add ' + intervaloTensiones.novenaMayor,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -352,6 +370,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'E',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
+                SpecificTensions: [intervaloTensiones.oncenaJusta],
                 Tension: intervaloTensiones.oncenaJusta,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -367,6 +386,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'E',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                SpecificTensions: [],
                 Tension: '',
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -382,6 +402,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'E',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                SpecificTensions: [intervaloTensiones.oncenaJusta],
                 Tension: 'add ' + intervaloTensiones.oncenaJusta,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -397,6 +418,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'E',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                SpecificTensions: [],
                 Tension: '',
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -413,6 +435,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'F',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_Maj7,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
                 Tension:
                     intervaloTensiones.novenaMayor +
                     ', ' +
@@ -433,6 +456,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'F',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.oncenaAumentada,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -448,6 +472,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'F',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus2,
+                SpecificTensions: [],
                 Tension:
                     intervaloTensiones.oncenaAumentada +
                     ', ' +
@@ -466,6 +491,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'F',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                SpecificTensions: [],
                 Tension:
                     intervaloTensiones.novenaMayor +
                     ', ' +
@@ -484,6 +510,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'F',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada],
                 Tension:
                     'add ' +
                     intervaloTensiones.novenaMayor +
@@ -503,6 +530,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'F',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                SpecificTensions: [],
                 Tension: 'add ' + intervaloTensiones.oncenaAumentada,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -519,6 +547,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.tercenaMayor],
                 Tension:
                     intervaloTensiones.novenaMayor +
                     ', ' +
@@ -537,6 +566,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.novenaMayor,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -552,6 +582,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                SpecificTensions: [],
                 Tension: '',
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -567,6 +598,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.tercenaMayor,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -582,6 +614,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus4,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.novenaMayor,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -597,6 +630,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                SpecificTensions: [],
                 Tension:
                     intervaloTensiones.novenaMayor +
                     ', ' +
@@ -615,6 +649,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                SpecificTensions: [intervaloTensiones.novenaMayor],
                 Tension: 'add ' + intervaloTensiones.novenaMayor,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -630,6 +665,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                SpecificTensions: [],
                 Tension: '',
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -645,6 +681,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                SpecificTensions: [],
                 Tension: 'add ' + intervaloTensiones.novenaMayor,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -661,6 +698,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'A',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
                 Tension:
                     intervaloTensiones.novenaMayor +
                     ', ' +
@@ -679,6 +717,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'A',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.oncenaJusta,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -694,6 +733,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'A',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.novenaMayor,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -709,6 +749,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'A',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
                 Tension:
                     'add ' +
                     intervaloTensiones.novenaMayor +
@@ -728,6 +769,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'A',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                SpecificTensions: [],
                 Tension: '',
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -743,6 +785,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'A',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                SpecificTensions: [],
                 Tension: 'add ' + intervaloTensiones.novenaMayor,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -759,6 +802,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'B',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7b5,
+                SpecificTensions: [intervaloTensiones.oncenaJusta,intervaloTensiones.tercenaMenor],
                 Tension:
                     intervaloTensiones.oncenaJusta +
                     ', ' +
@@ -777,6 +821,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'B',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Disminuido,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.tercenaMenor],
                 Tension:
                     'add ' +
                     intervaloTensiones.novenaMayor +
@@ -800,6 +845,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'C',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_AugMaj7,
+                SpecificTensions: [intervaloTensiones.novenaMayor],
                 Tension: intervaloTensiones.novenaMayor,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -815,6 +861,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'C',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Aumentado,
+                SpecificTensions: [intervaloTensiones.novenaMayor],
                 Tension: 'add ' + intervaloTensiones.novenaMayor,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -831,6 +878,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
                 Tension:
                     intervaloTensiones.novenaMayor +
                     ', ' +
@@ -851,6 +899,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.oncenaAumentada,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -866,6 +915,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                SpecificTensions: [],
                 Tension: 
                     intervaloTensiones.oncenaAumentada +
                     ', ' +
@@ -884,6 +934,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m6,
+                SpecificTensions: [],
                 Tension: 
                     intervaloTensiones.novenaMayor +
                     ', ' +
@@ -902,6 +953,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada],
                 Tension:
                     'add ' +
                     intervaloTensiones.novenaMayor +
@@ -921,6 +973,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'D',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                SpecificTensions: [],
                 Tension: 
                     'add ' +
                     intervaloTensiones.oncenaAumentada,
@@ -939,6 +992,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'E',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
+                SpecificTensions: [intervaloTensiones.novenaMenor,intervaloTensiones.tercenaMenor],
                 Tension: 
                     intervaloTensiones.novenaMenor +
                     ', ' +
@@ -957,6 +1011,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'E',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
+                SpecificTensions: [],
                 Tension: 
                     intervaloTensiones.novenaMenor +
                     ', ' +
@@ -975,6 +1030,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'E',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                SpecificTensions: [intervaloTensiones.novenaMenor],
                 Tension: 'add ' + intervaloTensiones.novenaMenor,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -990,6 +1046,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'E',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                SpecificTensions: [],
                 Tension: 'add ' + 
                     intervaloTensiones.novenaMenor +
                     intervaloTensiones.tercenaMenor,
@@ -1008,6 +1065,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'F',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_Maj7,
+                SpecificTensions: [intervaloTensiones.novenaAumentada,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
                 Tension:
                     intervaloTensiones.novenaAumentada +
                     ', ' +
@@ -1028,6 +1086,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'F',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                SpecificTensions: [],
                 Tension: 
                     intervaloTensiones.novenaAumentada +
                     ', ' +
@@ -1046,6 +1105,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'F',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                SpecificTensions: [intervaloTensiones.novenaAumentada,intervaloTensiones.oncenaAumentada],
                 Tension:
                     'add ' +
                     intervaloTensiones.novenaAumentada +
@@ -1066,6 +1126,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G#',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_07,
+                SpecificTensions: [intervaloTensiones.tercenaMenor],
                 Tension: intervaloTensiones.tercenaMenor,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -1081,6 +1142,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G#',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Disminuido,
+                SpecificTensions: [],
                 Tension: '',
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -1097,6 +1159,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'A',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_mMaj7,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
                 Tension: 
                     intervaloTensiones.novenaMayor +
                     ', ' +
@@ -1115,6 +1178,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'A',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus2,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.oncenaJusta,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -1130,6 +1194,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'A',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus4,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.novenaMayor,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -1145,6 +1210,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'A',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
                 Tension:
                     'add ' +
                     intervaloTensiones.novenaMayor +
@@ -1164,6 +1230,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'A',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                SpecificTensions: [],
                 Tension: 'add ' + intervaloTensiones.oncenaJusta,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -1179,6 +1246,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'A',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
+                SpecificTensions: [],
                 Tension: 'add ' + intervaloTensiones.novenaMayor,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -1195,6 +1263,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'B',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7b5,
+                SpecificTensions: [intervaloTensiones.oncenaJusta],
                 Tension: intervaloTensiones.oncenaJusta,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -1210,6 +1279,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'B',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Disminuido,
+                SpecificTensions: [intervaloTensiones.oncenaJusta],
                 Tension: 'add ' + intervaloTensiones.oncenaJusta,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -1229,6 +1299,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7b5,
+                SpecificTensions: [intervaloTensiones.novenaMenor,intervaloTensiones.novenaAumentada,intervaloTensiones.tercenaMenor],
                 Tension: 
                     intervaloTensiones.novenaMenor +
                     ', ' +
@@ -1249,6 +1320,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7hash5,
+                SpecificTensions: [],
                 Tension: 
                     intervaloTensiones.novenaMenor +
                     ', ' +
@@ -1270,6 +1342,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G2',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
+                SpecificTensions: [intervaloTensiones.novenaMenor,intervaloTensiones.novenaAumentada,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
                 Tension: 
                     intervaloTensiones.novenaMenor +
                     ', ' +
@@ -1293,6 +1366,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'G3',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_aug7,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada],
                 Tension: 
                     intervaloTensiones.novenaMayor +
                     ', ' +
@@ -1312,6 +1386,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'Ab',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
                 Tension: 
                     intervaloTensiones.novenaMayor +
                     ', ' +
@@ -1332,6 +1407,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'Ab',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
+                SpecificTensions: [],
                 Tension: intervaloTensiones.oncenaAumentada,
                 Tipo: acordeType.tetrada,
                 CheckEscala: true,
@@ -1347,6 +1423,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'Ab',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
+                SpecificTensions: [],
                 Tension: 
                     intervaloTensiones.oncenaAumentada +
                     ', ' +
@@ -1365,6 +1442,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'Ab',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
+                SpecificTensions: [],
                 Tension: 
                     intervaloTensiones.novenaMayor +
                     ', ' +
@@ -1383,6 +1461,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'Ab',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
+                SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada],
                 Tension:
                     'add ' +
                     intervaloTensiones.novenaMayor +
@@ -1402,6 +1481,7 @@ export default function CreateDictationProf({ route }) {
                 KeyNote: 'Ab',
                 KeyNotePrioridad: 1,
                 NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
+                SpecificTensions: [],
                 Tension: 'add ' + intervaloTensiones.oncenaAumentada,
                 Tipo: acordeType.triada,
                 CheckEscala: true,
@@ -2240,19 +2320,40 @@ export default function CreateDictationProf({ route }) {
         setLoading(false);
     };
 
+    const getTensionFromSpecificTensions = (specificTensions, tipo) => {
+        let tensionToReturn = '';
+
+        if (specificTensions.length > 0) {
+            if (tipo == acordeType.triada) tensionToReturn = 'add ';
+
+            for (let i = 0; i < specificTensions.length - 1; i++) {
+                const t = specificTensions[i];
+                
+                tensionToReturn = tensionToReturn + t + ', ';
+            }
+            tensionToReturn = tensionToReturn + specificTensions[specificTensions.length - 1]
+        }
+
+        return tensionToReturn;
+    }
+
     const getCamposArmonicosChecked = (dataCA) => {
         let result = dataCA.filter((x) => x.CheckEscala && x.CheckKeyNote && x.CheckNombreCifrado);
 
-        result = result.map(({KeyNote, CheckTension, ...x}) => {
+        result = result.map(({KeyNote, CheckTension, SpecificTensions, Tipo, ...x}) => {
             if (CheckTension) {
                 return {
                     ...x,
-                    KeyNote: KeyNote?.replace(/[0-9]/g, '')
+                    KeyNote: KeyNote?.replace(/[0-9]/g, ''),
+                    Tension: getTensionFromSpecificTensions(SpecificTensions, Tipo),
+                    Tipo: Tipo,
                 };
             } else {
                 return {
                     ...x,
-                    Tension: ''
+                    KeyNote: KeyNote,
+                    Tension: '',
+                    Tipo: Tipo,
                 }
             }
         })
