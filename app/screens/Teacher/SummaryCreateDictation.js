@@ -137,7 +137,6 @@ export default function SummaryCreateDictation({ route }) {
                 }
             } else if (generatorType == dictationType.jazzChrods) {
                 const result = await addConfigAcordeJazzApi(dataCAJ, module.id);
-
                 if (result.ok) {
                     setTitleEndCreate('Configuración exitosa!!');
                     setTextEndCreate('Su configuración fue creada con éxito.');

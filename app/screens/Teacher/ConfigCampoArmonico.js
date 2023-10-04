@@ -21,7 +21,7 @@ import { estadoAcorde } from '../../../enums/estadoAcorde';
 import BottomSheetAcordeTensiones from '../../components/CreateAcordeProf/BottomSheetAcordeTensiones';
 
 export default function ConfigCampoArmonico({ route }) {
-    const { camposArmonicosToSend, setCamposArmonicosToSend } = route.params;
+    const { camposArmonicosToSend, setCamposArmonicosToSend, tonalidadCompasArmonico } = route.params;
     
     const initializeDataCamposArmonicos = () => {
         if (camposArmonicosToSend?.length) {
@@ -36,6 +36,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'C',
+                    RealKeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_Maj7,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.tercenaMayor],
@@ -55,6 +56,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'C',
+                    RealKeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
                     SpecificTensions: [],
@@ -71,6 +73,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'C',
+                    RealKeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
                     SpecificTensions: [],
@@ -87,6 +90,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'C',
+                    RealKeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus2,
                     SpecificTensions: [],
@@ -103,6 +107,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'C',
+                    RealKeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus4,
                     SpecificTensions: [],
@@ -119,6 +124,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'C',
+                    RealKeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus4,
                     SpecificTensions: [],
@@ -135,6 +141,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'C',
+                    RealKeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
                     SpecificTensions: [intervaloTensiones.novenaMayor],
@@ -151,6 +158,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'C',
+                    RealKeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
                     SpecificTensions: [],
@@ -167,6 +175,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'C',
+                    RealKeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
                     SpecificTensions: [],
@@ -184,6 +193,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
@@ -203,6 +213,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m6,
                     SpecificTensions: [],
@@ -222,6 +233,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
                     SpecificTensions: [],
@@ -238,6 +250,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
                     SpecificTensions: [],
@@ -254,6 +267,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus4,
                     SpecificTensions: [],
@@ -270,6 +284,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
                     SpecificTensions: [],
@@ -286,6 +301,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
@@ -306,6 +322,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
                     SpecificTensions: [],
@@ -322,6 +339,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
                     SpecificTensions: [],
@@ -339,6 +357,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'E',
+                    RealKeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
                     SpecificTensions: [intervaloTensiones.oncenaJusta],
@@ -355,6 +374,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'E',
+                    RealKeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
                     SpecificTensions: [],
@@ -371,6 +391,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'E',
+                    RealKeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
                     SpecificTensions: [intervaloTensiones.oncenaJusta],
@@ -387,6 +408,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'E',
+                    RealKeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
                     SpecificTensions: [],
@@ -404,6 +426,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'F',
+                    RealKeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_Maj7,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
@@ -425,6 +448,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'F',
+                    RealKeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
                     SpecificTensions: [],
@@ -441,6 +465,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'F',
+                    RealKeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus2,
                     SpecificTensions: [],
@@ -460,6 +485,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'F',
+                    RealKeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
                     SpecificTensions: [],
@@ -479,6 +505,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'F',
+                    RealKeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada],
@@ -499,6 +526,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'F',
+                    RealKeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
                     SpecificTensions: [],
@@ -516,6 +544,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'G',
+                    RealKeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.tercenaMayor],
@@ -535,6 +564,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'G',
+                    RealKeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
                     SpecificTensions: [],
@@ -551,6 +581,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'G',
+                    RealKeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
                     SpecificTensions: [],
@@ -567,6 +598,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'G',
+                    RealKeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
                     SpecificTensions: [],
@@ -583,6 +615,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'G',
+                    RealKeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus4,
                     SpecificTensions: [],
@@ -599,6 +632,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'G',
+                    RealKeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
                     SpecificTensions: [],
@@ -618,6 +652,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'G',
+                    RealKeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
                     SpecificTensions: [intervaloTensiones.novenaMayor],
@@ -634,6 +669,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'G',
+                    RealKeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
                     SpecificTensions: [],
@@ -650,6 +686,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'G',
+                    RealKeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
                     SpecificTensions: [],
@@ -667,6 +704,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'A',
+                    RealKeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
@@ -686,6 +724,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'A',
+                    RealKeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
                     SpecificTensions: [],
@@ -702,6 +741,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'A',
+                    RealKeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
                     SpecificTensions: [],
@@ -718,6 +758,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'A',
+                    RealKeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
@@ -738,6 +779,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'A',
+                    RealKeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
                     SpecificTensions: [],
@@ -754,6 +796,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'A',
+                    RealKeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
                     SpecificTensions: [],
@@ -771,6 +814,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'B',
+                    RealKeyNote: 'B',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7b5,
                     SpecificTensions: [intervaloTensiones.oncenaJusta,intervaloTensiones.tercenaMenor],
@@ -790,6 +834,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.mayor,
                     EscalaPrioridad: 1,
                     KeyNote: 'B',
+                    RealKeyNote: 'B',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Disminuido,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.tercenaMenor],
@@ -814,6 +859,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'C',
+                    RealKeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_AugMaj7,
                     SpecificTensions: [intervaloTensiones.novenaMayor],
@@ -830,6 +876,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'C',
+                    RealKeyNote: 'C',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Aumentado,
                     SpecificTensions: [intervaloTensiones.novenaMayor],
@@ -847,6 +894,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
@@ -868,6 +916,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
                     SpecificTensions: [],
@@ -884,6 +933,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
                     SpecificTensions: [],
@@ -903,6 +953,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m6,
                     SpecificTensions: [],
@@ -922,6 +973,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada],
@@ -942,6 +994,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'D',
+                    RealKeyNote: 'D',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
                     SpecificTensions: [],
@@ -961,6 +1014,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'E',
+                    RealKeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
                     SpecificTensions: [intervaloTensiones.novenaMenor,intervaloTensiones.tercenaMenor],
@@ -980,6 +1034,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'E',
+                    RealKeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus4,
                     SpecificTensions: [],
@@ -999,6 +1054,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'E',
+                    RealKeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
                     SpecificTensions: [intervaloTensiones.novenaMenor],
@@ -1015,6 +1071,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'E',
+                    RealKeyNote: 'E',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
                     SpecificTensions: [],
@@ -1034,6 +1091,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'F',
+                    RealKeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_Maj7,
                     SpecificTensions: [intervaloTensiones.novenaAumentada,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
@@ -1055,6 +1113,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'F',
+                    RealKeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
                     SpecificTensions: [],
@@ -1074,6 +1133,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'F',
+                    RealKeyNote: 'F',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
                     SpecificTensions: [intervaloTensiones.novenaAumentada,intervaloTensiones.oncenaAumentada],
@@ -1095,6 +1155,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'G#',
+                    RealKeyNote: 'G#',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_07,
                     SpecificTensions: [intervaloTensiones.tercenaMenor],
@@ -1111,6 +1172,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'G#',
+                    RealKeyNote: 'G#',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Disminuido,
                     SpecificTensions: [],
@@ -1128,6 +1190,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'A',
+                    RealKeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_mMaj7,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
@@ -1147,6 +1210,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'A',
+                    RealKeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus2,
                     SpecificTensions: [],
@@ -1163,6 +1227,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'A',
+                    RealKeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_maj7sus4,
                     SpecificTensions: [],
@@ -1179,6 +1244,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'A',
+                    RealKeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Menor,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaJusta],
@@ -1199,6 +1265,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'A',
+                    RealKeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
                     SpecificTensions: [],
@@ -1215,6 +1282,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'A',
+                    RealKeyNote: 'A',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus4,
                     SpecificTensions: [],
@@ -1232,6 +1300,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'B',
+                    RealKeyNote: 'B',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_m7b5,
                     SpecificTensions: [intervaloTensiones.oncenaJusta],
@@ -1248,6 +1317,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.menorArmonica,
                     EscalaPrioridad: 1,
                     KeyNote: 'B',
+                    RealKeyNote: 'B',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Disminuido,
                     SpecificTensions: [intervaloTensiones.oncenaJusta],
@@ -1268,6 +1338,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.otros,
                     EscalaPrioridad: 1,
                     KeyNote: 'G',
+                    RealKeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7b5,
                     SpecificTensions: [intervaloTensiones.novenaMenor,intervaloTensiones.novenaAumentada,intervaloTensiones.tercenaMenor],
@@ -1289,6 +1360,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.otros,
                     EscalaPrioridad: 1,
                     KeyNote: 'G',
+                    RealKeyNote: 'G',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7hash5,
                     SpecificTensions: [],
@@ -1311,6 +1383,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.otros,
                     EscalaPrioridad: 1,
                     KeyNote: 'G2',
+                    RealKeyNote: 'G2',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
                     SpecificTensions: [intervaloTensiones.novenaMenor,intervaloTensiones.novenaAumentada,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
@@ -1335,6 +1408,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.otros,
                     EscalaPrioridad: 1,
                     KeyNote: 'G3',
+                    RealKeyNote: 'G3',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_aug7,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada],
@@ -1355,6 +1429,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.otros,
                     EscalaPrioridad: 1,
                     KeyNote: 'Ab',
+                    RealKeyNote: 'Ab',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada,intervaloTensiones.tercenaMayor],
@@ -1376,6 +1451,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.otros,
                     EscalaPrioridad: 1,
                     KeyNote: 'Ab',
+                    RealKeyNote: 'Ab',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6sus2,
                     SpecificTensions: [],
@@ -1392,6 +1468,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.otros,
                     EscalaPrioridad: 1,
                     KeyNote: 'Ab',
+                    RealKeyNote: 'Ab',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_7sus2,
                     SpecificTensions: [],
@@ -1411,6 +1488,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.otros,
                     EscalaPrioridad: 1,
                     KeyNote: 'Ab',
+                    RealKeyNote: 'Ab',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.tetrada_6,
                     SpecificTensions: [],
@@ -1430,6 +1508,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.otros,
                     EscalaPrioridad: 1,
                     KeyNote: 'Ab',
+                    RealKeyNote: 'Ab',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_Mayor,
                     SpecificTensions: [intervaloTensiones.novenaMayor,intervaloTensiones.oncenaAumentada],
@@ -1450,6 +1529,7 @@ export default function ConfigCampoArmonico({ route }) {
                     Escala: escalaCampoArmonico.otros,
                     EscalaPrioridad: 1,
                     KeyNote: 'Ab',
+                    RealKeyNote: 'Ab',
                     KeyNotePrioridad: 1,
                     NombreCifrado: nombreCifrado_TetradaTriada.triada_sus2,
                     SpecificTensions: [],
@@ -1601,7 +1681,11 @@ export default function ConfigCampoArmonico({ route }) {
             case escalaCampoArmonico.mayor:
                 switch (acorde) {
                     case 'C':
-                        moreOptionsForC();
+                        if (tonalidadCompasArmonico == 'menor') {
+                            moreOptionsForCOtros()
+                        } else {
+                            moreOptionsForC();
+                        }
                         break;
                     case 'D':
                         moreOptionsForD();
@@ -1819,6 +1903,17 @@ export default function ConfigCampoArmonico({ route }) {
         }
         setShowMoreDetailsForGOtros(!showMoreDetailsForGOtros);
     }
+
+    const moreOptionsForCOtros = () => {
+        if (!showMoreDetailsForC) {
+            setNumberOfRowsForEscalaOtros(numberOfRowsForEscalaOtros + 5);
+            setNumberOfRowsForC(numberOfRowsForC + 5);
+        } else {
+            setNumberOfRowsForEscalaOtros(numberOfRowsForEscalaOtros - 5);
+            setNumberOfRowsForC(numberOfRowsForC - 5);
+        }
+        setShowMoreDetailsForC(!showMoreDetailsForC);
+    }
     
     // {
     //     Escala: escalaCampoArmonico.mayor,
@@ -1951,7 +2046,8 @@ export default function ConfigCampoArmonico({ route }) {
         }
     
         let tensionesStr = tensiones.replace('add','');
-        tensionesStr = tensionesStr.replaceAll(' ', '');
+
+        tensionesStr = tensionesStr.split(' ').join('');
     
         return tensionesStr.split(',');
     }
@@ -2228,6 +2324,10 @@ export default function ConfigCampoArmonico({ route }) {
         Alert.alert('Configuración de campos armónicos guardada con éxito.');
     }
 
+    const getRealKeyNote = (escala, keyNote) => {
+        return dataCamposArmonicos.find((x) => x.Escala == escala && x.KeyNote == keyNote).RealKeyNote;
+    }
+
     return (
         <>
             <View style={styles.generalContainer}>
@@ -2241,778 +2341,781 @@ export default function ConfigCampoArmonico({ route }) {
                                 />}para ver mas opciones.
                         </Text>
                     </View>
-                    {/* HEADER */}
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={[styles.viewContainerItemTable, styles.viewContainerItemTableHeader]}>
-                            <Text>Escala</Text>
-                        </View>
-                        <View style={[styles.viewContainerItemTableAcorde, styles.viewContainerItemTableHeader]}>
-                            <Text style={{fontSize: 13}}>Fundamental</Text>
-                        </View>
-                        <View style={[styles.viewContainerItemTable, styles.viewContainerItemTableHeader]}>
-                            <Text>Tétrada</Text>
-                        </View>
-                        <View style={[styles.viewContainerItemTable, styles.viewContainerItemTableHeader]}>
-                            <Text>Tensión</Text>
-                        </View>
-                        <View style={[styles.viewContainerItemTableTriadas, styles.viewContainerItemTableHeader]}>
-                            <Text>Tríada</Text>
-                        </View>
-                        <View style={[styles.viewContainerItemTableTensionesTriadas, styles.viewContainerItemTableHeader]}>
-                            <Text>Tensión</Text>
-                        </View>
-                    </View>
+                    {tonalidadCompasArmonico == 'mayor' && (
+                        <>
+                            {/* HEADER */}
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={[styles.viewContainerItemTable, styles.viewContainerItemTableHeader]}>
+                                    <Text>Escala</Text>
+                                </View>
+                                <View style={[styles.viewContainerItemTableAcorde, styles.viewContainerItemTableHeader]}>
+                                    <Text style={{fontSize: 13}}>Fundamental</Text>
+                                </View>
+                                <View style={[styles.viewContainerItemTable, styles.viewContainerItemTableHeader]}>
+                                    <Text>Tétrada</Text>
+                                </View>
+                                <View style={[styles.viewContainerItemTable, styles.viewContainerItemTableHeader]}>
+                                    <Text>Tensión</Text>
+                                </View>
+                                <View style={[styles.viewContainerItemTableTriadas, styles.viewContainerItemTableHeader]}>
+                                    <Text>Tríada</Text>
+                                </View>
+                                <View style={[styles.viewContainerItemTableTensionesTriadas, styles.viewContainerItemTableHeader]}>
+                                    <Text>Tensión</Text>
+                                </View>
+                            </View>
+                            {/* // ---------------------------------------
+                            // ESCALA MAYOR
+                            // --------------------------------------- */}
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.viewContainerItemTable}>
+                                    <TouchableOpacity 
+                                        onPress={() => selectEscala(escalaCampoArmonico.mayor)}
+                                        onLongPress={() => showBottomSheetEscala(escalaCampoArmonico.mayor)}
+                                        style={[styles.containerItemTable, {height: 350 + (50 * numberOfRowsForEscala)}, isEscalaChecked(escalaCampoArmonico.mayor) && styles.itemSelected]}
+                                    >
+                                        <Icon
+                                            type="material-community"
+                                            name="gesture-tap"
+                                            containerStyle={styles.keepPressContainerIcon}
+                                            iconStyle={styles.keepPressIcon}
+                                        />
+                                        <Text style={styles.textItemTable}>{escalaCampoArmonico.mayor}</Text>
+                                    </TouchableOpacity>
+                                </View>
 
-                    {/* // ---------------------------------------
-                    // ESCALA MAYOR
-                    // --------------------------------------- */}
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.viewContainerItemTable}>
-                            <TouchableOpacity 
-                                onPress={() => selectEscala(escalaCampoArmonico.mayor)}
-                                onLongPress={() => showBottomSheetEscala(escalaCampoArmonico.mayor)}
-                                style={[styles.containerItemTable, {height: 350 + (50 * numberOfRowsForEscala)}, isEscalaChecked(escalaCampoArmonico.mayor) && styles.itemSelected]}
-                            >
-                                <Icon
-                                    type="material-community"
-                                    name="gesture-tap"
-                                    containerStyle={styles.keepPressContainerIcon}
-                                    iconStyle={styles.keepPressIcon}
-                                />
-                                <Text style={styles.textItemTable}>{escalaCampoArmonico.mayor}</Text>
-                            </TouchableOpacity>
-                        </View>
+                                {/* ACORDES */}
+                                <View style={styles.viewContainerItemTableAcorde}>
+                                    <TouchableOpacity 
+                                        onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'C')}
+                                        style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForC)}, isAcordeChecked(escalaCampoArmonico.mayor, 'C') && styles.itemSelected]}
+                                        onLongPress={() => showBottomSheetAcorde('C', escalaCampoArmonico.mayor)}
+                                        delayLongPress={DELAY_LONG_PRESS}
+                                    >
+                                        <Icon
+                                            type="material-community"
+                                            name="gesture-tap"
+                                            containerStyle={styles.keepPressContainerIcon}
+                                            iconStyle={styles.keepPressIcon}
+                                        />
+                                        <Text>{getRealKeyNote(escalaCampoArmonico.mayor, 'C')}</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity 
+                                        onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'D')}
+                                        style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForD)}, isAcordeChecked(escalaCampoArmonico.mayor, 'D') && styles.itemSelected]}
+                                        onLongPress={() => showBottomSheetAcorde('D', escalaCampoArmonico.mayor)}
+                                        delayLongPress={DELAY_LONG_PRESS}
+                                    >
+                                        <Icon
+                                            type="material-community"
+                                            name="gesture-tap"
+                                            containerStyle={styles.keepPressContainerIcon}
+                                            iconStyle={styles.keepPressIcon}
+                                        />
+                                        <Text>{getRealKeyNote(escalaCampoArmonico.mayor, 'D')}</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity 
+                                        onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'E')}
+                                        style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForE)}, isAcordeChecked(escalaCampoArmonico.mayor, 'E') && styles.itemSelected]}
+                                        onLongPress={() => showBottomSheetAcorde('E', escalaCampoArmonico.mayor)}
+                                        delayLongPress={DELAY_LONG_PRESS}
+                                    >
+                                        <Icon
+                                            type="material-community"
+                                            name="gesture-tap"
+                                            containerStyle={styles.keepPressContainerIcon}
+                                            iconStyle={styles.keepPressIcon}
+                                        />
+                                        <Text>{getRealKeyNote(escalaCampoArmonico.mayor, 'E')}</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity 
+                                        onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'F')}
+                                        style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForF)}, isAcordeChecked(escalaCampoArmonico.mayor, 'F') && styles.itemSelected]}
+                                        onLongPress={() => showBottomSheetAcorde('F', escalaCampoArmonico.mayor)}
+                                        delayLongPress={DELAY_LONG_PRESS}
+                                    >
+                                        <Icon
+                                            type="material-community"
+                                            name="gesture-tap"
+                                            containerStyle={styles.keepPressContainerIcon}
+                                            iconStyle={styles.keepPressIcon}
+                                        />
+                                        <Text>{getRealKeyNote(escalaCampoArmonico.mayor, 'F')}</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity 
+                                        onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'G')}
+                                        style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForG)}, isAcordeChecked(escalaCampoArmonico.mayor, 'G') && styles.itemSelected]}
+                                        onLongPress={() => showBottomSheetAcorde('G', escalaCampoArmonico.mayor)}
+                                        delayLongPress={DELAY_LONG_PRESS}
+                                    >
+                                        <Icon
+                                            type="material-community"
+                                            name="gesture-tap"
+                                            containerStyle={styles.keepPressContainerIcon}
+                                            iconStyle={styles.keepPressIcon}
+                                        />
+                                        <Text>{getRealKeyNote(escalaCampoArmonico.mayor, 'G')}</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity 
+                                        onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'A')}
+                                        style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForA)}, isAcordeChecked(escalaCampoArmonico.mayor, 'A') && styles.itemSelected]}
+                                        onLongPress={() => showBottomSheetAcorde('A', escalaCampoArmonico.mayor)}
+                                        delayLongPress={DELAY_LONG_PRESS}
+                                    >
+                                        <Icon
+                                            type="material-community"
+                                            name="gesture-tap"
+                                            containerStyle={styles.keepPressContainerIcon}
+                                            iconStyle={styles.keepPressIcon}
+                                        />
+                                        <Text>{getRealKeyNote(escalaCampoArmonico.mayor, 'A')}</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity 
+                                        onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'B')}
+                                        style={[styles.containerItemsTable, isAcordeChecked(escalaCampoArmonico.mayor, 'B') && styles.itemSelected]}
+                                        onLongPress={() => showBottomSheetAcorde('B', escalaCampoArmonico.mayor)}
+                                        delayLongPress={DELAY_LONG_PRESS}
+                                    >
+                                        <Icon
+                                            type="material-community"
+                                            name="gesture-tap"
+                                            containerStyle={styles.keepPressContainerIcon}
+                                            iconStyle={styles.keepPressIcon}
+                                        />
+                                        <Text>{getRealKeyNote(escalaCampoArmonico.mayor, 'B')}</Text>
+                                    </TouchableOpacity>
+                                </View>
 
-                        {/* ACORDES */}
-                        <View style={styles.viewContainerItemTableAcorde}>
-                            <TouchableOpacity 
-                                onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'C')}
-                                style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForC)}, isAcordeChecked(escalaCampoArmonico.mayor, 'C') && styles.itemSelected]}
-                                onLongPress={() => showBottomSheetAcorde('C', escalaCampoArmonico.mayor)}
-                                delayLongPress={DELAY_LONG_PRESS}
-                            >
-                                <Icon
-                                    type="material-community"
-                                    name="gesture-tap"
-                                    containerStyle={styles.keepPressContainerIcon}
-                                    iconStyle={styles.keepPressIcon}
-                                />
-                                <Text>C</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'D')}
-                                style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForD)}, isAcordeChecked(escalaCampoArmonico.mayor, 'D') && styles.itemSelected]}
-                                onLongPress={() => showBottomSheetAcorde('D', escalaCampoArmonico.mayor)}
-                                delayLongPress={DELAY_LONG_PRESS}
-                            >
-                                <Icon
-                                    type="material-community"
-                                    name="gesture-tap"
-                                    containerStyle={styles.keepPressContainerIcon}
-                                    iconStyle={styles.keepPressIcon}
-                                />
-                                <Text>D</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'E')}
-                                style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForE)}, isAcordeChecked(escalaCampoArmonico.mayor, 'E') && styles.itemSelected]}
-                                onLongPress={() => showBottomSheetAcorde('E', escalaCampoArmonico.mayor)}
-                                delayLongPress={DELAY_LONG_PRESS}
-                            >
-                                <Icon
-                                    type="material-community"
-                                    name="gesture-tap"
-                                    containerStyle={styles.keepPressContainerIcon}
-                                    iconStyle={styles.keepPressIcon}
-                                />
-                                <Text>E</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'F')}
-                                style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForF)}, isAcordeChecked(escalaCampoArmonico.mayor, 'F') && styles.itemSelected]}
-                                onLongPress={() => showBottomSheetAcorde('F', escalaCampoArmonico.mayor)}
-                                delayLongPress={DELAY_LONG_PRESS}
-                            >
-                                <Icon
-                                    type="material-community"
-                                    name="gesture-tap"
-                                    containerStyle={styles.keepPressContainerIcon}
-                                    iconStyle={styles.keepPressIcon}
-                                />
-                                <Text>F</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'G')}
-                                style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForG)}, isAcordeChecked(escalaCampoArmonico.mayor, 'G') && styles.itemSelected]}
-                                onLongPress={() => showBottomSheetAcorde('G', escalaCampoArmonico.mayor)}
-                                delayLongPress={DELAY_LONG_PRESS}
-                            >
-                                <Icon
-                                    type="material-community"
-                                    name="gesture-tap"
-                                    containerStyle={styles.keepPressContainerIcon}
-                                    iconStyle={styles.keepPressIcon}
-                                />
-                                <Text>G</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'A')}
-                                style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForA)}, isAcordeChecked(escalaCampoArmonico.mayor, 'A') && styles.itemSelected]}
-                                onLongPress={() => showBottomSheetAcorde('A', escalaCampoArmonico.mayor)}
-                                delayLongPress={DELAY_LONG_PRESS}
-                            >
-                                <Icon
-                                    type="material-community"
-                                    name="gesture-tap"
-                                    containerStyle={styles.keepPressContainerIcon}
-                                    iconStyle={styles.keepPressIcon}
-                                />
-                                <Text>A</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'B')}
-                                style={[styles.containerItemsTable, isAcordeChecked(escalaCampoArmonico.mayor, 'B') && styles.itemSelected]}
-                                onLongPress={() => showBottomSheetAcorde('B', escalaCampoArmonico.mayor)}
-                                delayLongPress={DELAY_LONG_PRESS}
-                            >
-                                <Icon
-                                    type="material-community"
-                                    name="gesture-tap"
-                                    containerStyle={styles.keepPressContainerIcon}
-                                    iconStyle={styles.keepPressIcon}
-                                />
-                                <Text>B</Text>
-                            </TouchableOpacity>
-                        </View>
+                                {/* TÉTRADAS */}
+                                <View style={styles.viewContainerItemTable}>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_Maj7)}
+                                        style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_Maj7) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_Maj7}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for C */}
+                                    <View style={!showMoreDetailsForC && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus2)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus2)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_maj7sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus4)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus4}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus4)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_maj7sus4}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m7)}
+                                        style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m7) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_m7}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for D */}
+                                    <View style={!showMoreDetailsForD && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m6)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m6) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_m6}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus2)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus2)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus4)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus4}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus4)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7sus4}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_m7)}
+                                        style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_m7) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_m7}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for E */}
+                                    <View style={!showMoreDetailsForE && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_7sus4)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_7sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7sus4}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_Maj7)}
+                                        style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_Maj7) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_Maj7}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for F */}
+                                    <View style={!showMoreDetailsForF && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6sus2)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_maj7sus2)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_maj7sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_maj7sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity   
+                                        onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7)}
+                                        style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for G */}
+                                    <View style={!showMoreDetailsForG && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus2)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus2)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus4)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus4}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus4)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7sus4}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_m7)}
+                                        style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_m7) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_m7}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for A */}
+                                    <View style={!showMoreDetailsForA && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus2)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus4)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7sus4}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5)}
+                                        style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_m7b5}</Text>
+                                    </TouchableOpacity>
+                                </View>
 
-                        {/* TÉTRADAS */}
-                        <View style={styles.viewContainerItemTable}>
-                            <TouchableOpacity 
-                                onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_Maj7)}
-                                style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_Maj7) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_Maj7}</Text>
-                            </TouchableOpacity>
-                            {/* More options for C */}
-                            <View style={!showMoreDetailsForC && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus2)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus2)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_maj7sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus4)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus4}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus4)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_maj7sus4}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m7)}
-                                style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m7) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_m7}</Text>
-                            </TouchableOpacity>
-                            {/* More options for D */}
-                            <View style={!showMoreDetailsForD && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m6)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m6) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_m6}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus2)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus2)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus4)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus4}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus4)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7sus4}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_m7)}
-                                style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_m7) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_m7}</Text>
-                            </TouchableOpacity>
-                            {/* More options for E */}
-                            <View style={!showMoreDetailsForE && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_7sus4)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_7sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7sus4}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_Maj7)}
-                                style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_Maj7) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_Maj7}</Text>
-                            </TouchableOpacity>
-                            {/* More options for F */}
-                            <View style={!showMoreDetailsForF && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6sus2)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_maj7sus2)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_maj7sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_maj7sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity   
-                                onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7)}
-                                style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7}</Text>
-                            </TouchableOpacity>
-                            {/* More options for G */}
-                            <View style={!showMoreDetailsForG && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus2)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus2)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus4)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus4}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus4)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7sus4}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_m7)}
-                                style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_m7) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_m7}</Text>
-                            </TouchableOpacity>
-                            {/* More options for A */}
-                            <View style={!showMoreDetailsForA && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus2)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus4)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_7sus4}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5)}
-                                style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_m7b5}</Text>
-                            </TouchableOpacity>
-                        </View>
+                                {/* TENSIONES */}
+                                <View style={styles.viewContainerItemTable}>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_Maj7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMayor)}
+                                        style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_Maj7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMayor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.tercenaMayor}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for C */}
+                                    <View style={!showMoreDetailsForC && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6, intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6, intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus2, '')}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus2, '') && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>ninguna</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus2, intervaloTensiones.tercenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus2, intervaloTensiones.tercenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.tercenaMayor}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus4, intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus4, intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta)}
+                                        style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaJusta}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for D */}
+                                    <View style={!showMoreDetailsForD && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m6, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m6, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaJusta}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus2, '')}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus2, '') && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>ninguna</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus2, '')}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus2, '') && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>ninguna</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus4, intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus4, intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_m7, intervaloTensiones.oncenaJusta)}
+                                        style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_m7, intervaloTensiones.oncenaJusta) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.oncenaJusta}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for E */}
+                                    <View style={!showMoreDetailsForE && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_7sus4, '')}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_7sus4, '') && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>ninguna</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_Maj7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaAumentada + ', ' + intervaloTensiones.tercenaMayor)}
+                                        style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_Maj7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaAumentada + ', ' + intervaloTensiones.tercenaMayor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaAumentada}, {intervaloTensiones.tercenaMayor}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for F */}
+                                    <View style={!showMoreDetailsForF && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6sus2, intervaloTensiones.oncenaAumentada)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6sus2, intervaloTensiones.oncenaAumentada) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.oncenaAumentada}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_maj7sus2, intervaloTensiones.oncenaAumentada + ', ' + intervaloTensiones.tercenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_maj7sus2, intervaloTensiones.oncenaAumentada + ', ' + intervaloTensiones.tercenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.oncenaAumentada}, {intervaloTensiones.tercenaMayor}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaAumentada)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaAumentada) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaAumentada}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMayor)}
+                                        style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMayor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.tercenaMayor}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for G */}
+                                    <View style={!showMoreDetailsForG && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6, intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6, intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus2, '')}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus2, '') && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>ninguna</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus2, intervaloTensiones.tercenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus2, intervaloTensiones.tercenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.tercenaMayor}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus4, intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus4, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus4, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.tercenaMayor}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_m7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta)}
+                                        style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_m7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaJusta}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for A */}
+                                    <View style={!showMoreDetailsForA && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus2, intervaloTensiones.oncenaJusta)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus2, intervaloTensiones.oncenaJusta) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.oncenaJusta}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus4, intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5, intervaloTensiones.oncenaJusta + ', ' + intervaloTensiones.tercenaMenor)}
+                                        style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5, intervaloTensiones.oncenaJusta + ', ' + intervaloTensiones.tercenaMenor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.oncenaJusta}, {intervaloTensiones.tercenaMenor}</Text>
+                                    </TouchableOpacity>
+                                </View>
 
-                        {/* TENSIONES */}
-                        <View style={styles.viewContainerItemTable}>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_Maj7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMayor)}
-                                style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_Maj7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMayor) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.tercenaMayor}</Text>
-                            </TouchableOpacity>
-                            {/* More options for C */}
-                            <View style={!showMoreDetailsForC && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6, intervaloTensiones.novenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6, intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus2, '')}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus2, '') && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>ninguna</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus2, intervaloTensiones.tercenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus2, intervaloTensiones.tercenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.tercenaMayor}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus4, intervaloTensiones.novenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus4, intervaloTensiones.novenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta)}
-                                style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaJusta}</Text>
-                            </TouchableOpacity>
-                            {/* More options for D */}
-                            <View style={!showMoreDetailsForD && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m6, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_m6, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaJusta}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus2, '')}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus2, '') && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>ninguna</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus2, '')}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus2, '') && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>ninguna</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus4, intervaloTensiones.novenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_6sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus4, intervaloTensiones.novenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.tetrada_7sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_m7, intervaloTensiones.oncenaJusta)}
-                                style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_m7, intervaloTensiones.oncenaJusta) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.oncenaJusta}</Text>
-                            </TouchableOpacity>
-                            {/* More options for E */}
-                            <View style={!showMoreDetailsForE && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_7sus4, '')}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.tetrada_7sus4, '') && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>ninguna</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_Maj7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaAumentada + ', ' + intervaloTensiones.tercenaMayor)}
-                                style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_Maj7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaAumentada + ', ' + intervaloTensiones.tercenaMayor) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaAumentada}, {intervaloTensiones.tercenaMayor}</Text>
-                            </TouchableOpacity>
-                            {/* More options for F */}
-                            <View style={!showMoreDetailsForF && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6sus2, intervaloTensiones.oncenaAumentada)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6sus2, intervaloTensiones.oncenaAumentada) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.oncenaAumentada}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_maj7sus2, intervaloTensiones.oncenaAumentada + ', ' + intervaloTensiones.tercenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_maj7sus2, intervaloTensiones.oncenaAumentada + ', ' + intervaloTensiones.tercenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.oncenaAumentada}, {intervaloTensiones.tercenaMayor}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaAumentada)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.tetrada_6, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaAumentada) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaAumentada}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMayor)}
-                                style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMayor) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.tercenaMayor}</Text>
-                            </TouchableOpacity>
-                            {/* More options for G */}
-                            <View style={!showMoreDetailsForG && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6, intervaloTensiones.novenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6, intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus2, '')}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus2, '') && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>ninguna</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus2, intervaloTensiones.tercenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus2, intervaloTensiones.tercenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.tercenaMayor}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus4, intervaloTensiones.novenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_6sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus4, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.tetrada_7sus4, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.tercenaMayor}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_m7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta)}
-                                style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_m7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaJusta}</Text>
-                            </TouchableOpacity>
-                            {/* More options for A */}
-                            <View style={!showMoreDetailsForA && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus2, intervaloTensiones.oncenaJusta)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus2, intervaloTensiones.oncenaJusta) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.oncenaJusta}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus4, intervaloTensiones.novenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.tetrada_7sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5, intervaloTensiones.oncenaJusta + ', ' + intervaloTensiones.tercenaMenor)}
-                                style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5, intervaloTensiones.oncenaJusta + ', ' + intervaloTensiones.tercenaMenor) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.oncenaJusta}, {intervaloTensiones.tercenaMenor}</Text>
-                            </TouchableOpacity>
-                        </View>
+                                {/* TRÍADAS */}
+                                <View style={styles.viewContainerItemTableTriadas}>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_Mayor)}
+                                        style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_Mayor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Mayor}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for C */}
+                                    <View style={!showMoreDetailsForC && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus2)}
+                                            style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus4)}
+                                            style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus4}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTriada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_Menor)}
+                                        style={[styles.containerItemsTable, showMoreDetailsForD && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_Menor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Menor}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for D */}
+                                    <View style={!showMoreDetailsForD && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTriada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus2)}
+                                            style={[styles.containerItemsTable, showMoreDetailsForD && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTriada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus4)}
+                                            style={[styles.containerItemsTable, showMoreDetailsForD && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus4}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTriada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_Menor)}
+                                        style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_Menor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Menor}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for E */}
+                                    <View style={!showMoreDetailsForE && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTriada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_sus4)}
+                                            style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus4}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTriada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_Mayor)}
+                                        style={[styles.containerItemsTable, showMoreDetailsForF && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_Mayor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Mayor}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for F */}
+                                    <View style={!showMoreDetailsForF && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTriada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_sus2)}
+                                            style={[styles.containerItemsTable, showMoreDetailsForF && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus2}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTriada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_Mayor)}
+                                        style={[styles.containerItemsTable, showMoreDetailsForG && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_Mayor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Mayor}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for G */}
+                                    <View style={!showMoreDetailsForG && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTriada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus2)}
+                                            style={[styles.containerItemsTable, showMoreDetailsForG && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTriada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus4)}
+                                            style={[styles.containerItemsTable, showMoreDetailsForG && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus4}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTriada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_Menor)}
+                                        style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_Menor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Menor}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for A */}
+                                    <View style={!showMoreDetailsForA && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTriada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus2)}
+                                            style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTriada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus4)}
+                                            style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus4}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTriada(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.triada_Disminuido)}
+                                        style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.triada_Disminuido) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Disminuido}</Text>
+                                    </TouchableOpacity>
+                                </View>
 
-                        {/* TRÍADAS */}
-                        <View style={styles.viewContainerItemTableTriadas}>
-                            <TouchableOpacity 
-                                onPress={() => selectTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_Mayor)}
-                                style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_Mayor) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Mayor}</Text>
-                            </TouchableOpacity>
-                            {/* More options for C */}
-                            <View style={!showMoreDetailsForC && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus2)}
-                                    style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus4)}
-                                    style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus4}</Text>
-                                </TouchableOpacity>
+                                {/* TENSIONES */}
+                                <View style={styles.viewContainerItemTableTensionesTriadas}>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_Mayor, 'add ' + intervaloTensiones.novenaMayor)}
+                                        style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_Mayor, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for C */}
+                                    <View style={!showMoreDetailsForC && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus2, '')}
+                                            style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus2, '') && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensiones}>ninguna</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta)}
+                                        style={[styles.containerItemsTable, showMoreDetailsForD && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaJusta}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for D */}
+                                    <View style={!showMoreDetailsForD && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus2, '')}
+                                            style={[styles.containerItemsTable, showMoreDetailsForD && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus2, '') && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensiones}>ninguna</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, showMoreDetailsForD && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.oncenaJusta)}
+                                        style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.oncenaJusta}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for E */}
+                                    <View style={!showMoreDetailsForE && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_sus4, '')}
+                                            style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_sus4, '') && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensiones}>ninguna</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_Mayor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaAumentada)}
+                                        style={[styles.containerItemsTable, showMoreDetailsForF && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_Mayor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaAumentada) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaAumentada}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for F */}
+                                    <View style={!showMoreDetailsForF && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_sus2, 'add ' + intervaloTensiones.oncenaAumentada)}
+                                            style={[styles.containerItemsTable, showMoreDetailsForF && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_sus2, 'add ' + intervaloTensiones.oncenaAumentada) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.oncenaAumentada}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_Mayor, 'add ' + intervaloTensiones.novenaMayor)}
+                                        style={[styles.containerItemsTable, showMoreDetailsForG && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_Mayor, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for G */}
+                                    <View style={!showMoreDetailsForG && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus2, '')}
+                                            style={[styles.containerItemsTable, showMoreDetailsForG && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus2, '') && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensiones}>ninguna</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, showMoreDetailsForG && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta)}
+                                        style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaJusta}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for A */}
+                                    <View style={!showMoreDetailsForA && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus2, '')}
+                                            style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus2, '') && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensiones}>ninguna</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.triada_Disminuido, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMenor)}
+                                        style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.triada_Disminuido, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMenor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}, {intervaloTensiones.tercenaMenor}</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTriada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_Menor)}
-                                style={[styles.containerItemsTable, showMoreDetailsForD && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_Menor) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Menor}</Text>
-                            </TouchableOpacity>
-                            {/* More options for D */}
-                            <View style={!showMoreDetailsForD && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTriada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus2)}
-                                    style={[styles.containerItemsTable, showMoreDetailsForD && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTriada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus4)}
-                                    style={[styles.containerItemsTable, showMoreDetailsForD && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus4}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTriada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_Menor)}
-                                style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_Menor) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Menor}</Text>
-                            </TouchableOpacity>
-                            {/* More options for E */}
-                            <View style={!showMoreDetailsForE && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTriada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_sus4)}
-                                    style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus4}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTriada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_Mayor)}
-                                style={[styles.containerItemsTable, showMoreDetailsForF && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_Mayor) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Mayor}</Text>
-                            </TouchableOpacity>
-                            {/* More options for F */}
-                            <View style={!showMoreDetailsForF && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTriada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_sus2)}
-                                    style={[styles.containerItemsTable, showMoreDetailsForF && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus2}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTriada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_Mayor)}
-                                style={[styles.containerItemsTable, showMoreDetailsForG && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_Mayor) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Mayor}</Text>
-                            </TouchableOpacity>
-                            {/* More options for G */}
-                            <View style={!showMoreDetailsForG && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTriada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus2)}
-                                    style={[styles.containerItemsTable, showMoreDetailsForG && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTriada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus4)}
-                                    style={[styles.containerItemsTable, showMoreDetailsForG && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus4}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTriada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_Menor)}
-                                style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_Menor) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Menor}</Text>
-                            </TouchableOpacity>
-                            {/* More options for A */}
-                            <View style={!showMoreDetailsForA && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTriada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus2)}
-                                    style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTriada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus4)}
-                                    style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus4}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTriada(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.triada_Disminuido)}
-                                style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.triada_Disminuido) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Disminuido}</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                        {/* TENSIONES */}
-                        <View style={styles.viewContainerItemTableTensionesTriadas}>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_Mayor, 'add ' + intervaloTensiones.novenaMayor)}
-                                style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_Mayor, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
-                            </TouchableOpacity>
-                            {/* More options for C */}
-                            <View style={!showMoreDetailsForC && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus2, '')}
-                                    style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus2, '') && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensiones}>ninguna</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor)}
-                                    style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta)}
-                                style={[styles.containerItemsTable, showMoreDetailsForD && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaJusta}</Text>
-                            </TouchableOpacity>
-                            {/* More options for D */}
-                            <View style={!showMoreDetailsForD && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus2, '')}
-                                    style={[styles.containerItemsTable, showMoreDetailsForD && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus2, '') && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensiones}>ninguna</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor)}
-                                    style={[styles.containerItemsTable, showMoreDetailsForD && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'D', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.oncenaJusta)}
-                                style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.oncenaJusta}</Text>
-                            </TouchableOpacity>
-                            {/* More options for E */}
-                            <View style={!showMoreDetailsForE && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_sus4, '')}
-                                    style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'E', nombreCifrado_TetradaTriada.triada_sus4, '') && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensiones}>ninguna</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_Mayor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaAumentada)}
-                                style={[styles.containerItemsTable, showMoreDetailsForF && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_Mayor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaAumentada) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaAumentada}</Text>
-                            </TouchableOpacity>
-                            {/* More options for F */}
-                            <View style={!showMoreDetailsForF && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_sus2, 'add ' + intervaloTensiones.oncenaAumentada)}
-                                    style={[styles.containerItemsTable, showMoreDetailsForF && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'F', nombreCifrado_TetradaTriada.triada_sus2, 'add ' + intervaloTensiones.oncenaAumentada) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.oncenaAumentada}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_Mayor, 'add ' + intervaloTensiones.novenaMayor)}
-                                style={[styles.containerItemsTable, showMoreDetailsForG && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_Mayor, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
-                            </TouchableOpacity>
-                            {/* More options for G */}
-                            <View style={!showMoreDetailsForG && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus2, '')}
-                                    style={[styles.containerItemsTable, showMoreDetailsForG && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus2, '') && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensiones}>ninguna</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor)}
-                                    style={[styles.containerItemsTable, showMoreDetailsForG && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'G', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta)}
-                                style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaJusta}</Text>
-                            </TouchableOpacity>
-                            {/* More options for A */}
-                            <View style={!showMoreDetailsForA && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus2, '')}
-                                    style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus2, '') && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensiones}>ninguna</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'A', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.triada_Disminuido, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMenor)}
-                                style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'B', nombreCifrado_TetradaTriada.triada_Disminuido, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMenor) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}, {intervaloTensiones.tercenaMenor}</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
+                        </>
+                    )}
 
                     {/* // ---------------------------------------
                     // ESCALA MENOR ARMÓNICA
@@ -3058,76 +3161,6 @@ export default function ConfigCampoArmonico({ route }) {
                         {/* ACORDES */}
                         <View style={styles.viewContainerItemTableAcorde}>
                             <TouchableOpacity 
-                                onPress={() => selectAcorde(escalaCampoArmonico.menorArmonica, 'C')}
-                                style={[styles.containerItemsTable, isAcordeChecked(escalaCampoArmonico.menorArmonica, 'C') && styles.itemSelected]}
-                                onLongPress={() => showBottomSheetAcorde('C', escalaCampoArmonico.menorArmonica)}
-                                delayLongPress={DELAY_LONG_PRESS}
-                            >
-                                <Icon
-                                    type="material-community"
-                                    name="gesture-tap"
-                                    containerStyle={styles.keepPressContainerIcon}
-                                    iconStyle={styles.keepPressIcon}
-                                />
-                                <Text>C</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={() => selectAcorde(escalaCampoArmonico.menorArmonica, 'D')}
-                                style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForDMenorArm)}, isAcordeChecked(escalaCampoArmonico.menorArmonica, 'D') && styles.itemSelected]}
-                                onLongPress={() => showBottomSheetAcorde('D', escalaCampoArmonico.menorArmonica)}
-                                delayLongPress={DELAY_LONG_PRESS}
-                            >
-                                <Icon
-                                    type="material-community"
-                                    name="gesture-tap"
-                                    containerStyle={styles.keepPressContainerIcon}
-                                    iconStyle={styles.keepPressIcon}
-                                />
-                                <Text>D</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={() => selectAcorde(escalaCampoArmonico.menorArmonica, 'E')}
-                                style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForEMenorArm)}, isAcordeChecked(escalaCampoArmonico.menorArmonica, 'E') && styles.itemSelected]}
-                                onLongPress={() => showBottomSheetAcorde('E', escalaCampoArmonico.menorArmonica)}
-                                delayLongPress={DELAY_LONG_PRESS}
-                            >
-                                <Icon
-                                    type="material-community"
-                                    name="gesture-tap"
-                                    containerStyle={styles.keepPressContainerIcon}
-                                    iconStyle={styles.keepPressIcon}
-                                />
-                                <Text>E</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={() => selectAcorde(escalaCampoArmonico.menorArmonica, 'F')}
-                                style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForFMenorArm)}, isAcordeChecked(escalaCampoArmonico.menorArmonica, 'F') && styles.itemSelected]}
-                                onLongPress={() => showBottomSheetAcorde('F', escalaCampoArmonico.menorArmonica)}
-                                delayLongPress={DELAY_LONG_PRESS}
-                            >
-                                <Icon
-                                    type="material-community"
-                                    name="gesture-tap"
-                                    containerStyle={styles.keepPressContainerIcon}
-                                    iconStyle={styles.keepPressIcon}
-                                />
-                                <Text>F</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={() => selectAcorde(escalaCampoArmonico.menorArmonica, 'G#')}
-                                style={[styles.containerItemsTable, isAcordeChecked(escalaCampoArmonico.menorArmonica, 'G#') && styles.itemSelected]}
-                                onLongPress={() => showBottomSheetAcorde('G#', escalaCampoArmonico.menorArmonica)}
-                                delayLongPress={DELAY_LONG_PRESS}
-                            >
-                                <Icon
-                                    type="material-community"
-                                    name="gesture-tap"
-                                    containerStyle={styles.keepPressContainerIcon}
-                                    iconStyle={styles.keepPressIcon}
-                                />
-                                <Text>G#</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity 
                                 onPress={() => selectAcorde(escalaCampoArmonico.menorArmonica, 'A')}
                                 style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForAMenorArm)}, isAcordeChecked(escalaCampoArmonico.menorArmonica, 'A') && styles.itemSelected]}
                                 onLongPress={() => showBottomSheetAcorde('A', escalaCampoArmonico.menorArmonica)}
@@ -3139,7 +3172,7 @@ export default function ConfigCampoArmonico({ route }) {
                                     containerStyle={styles.keepPressContainerIcon}
                                     iconStyle={styles.keepPressIcon}
                                 />
-                                <Text>A</Text>
+                                <Text>{getRealKeyNote(escalaCampoArmonico.menorArmonica, 'A')}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity 
                                 onPress={() => selectAcorde(escalaCampoArmonico.menorArmonica, 'B')}
@@ -3153,12 +3186,110 @@ export default function ConfigCampoArmonico({ route }) {
                                     containerStyle={styles.keepPressContainerIcon}
                                     iconStyle={styles.keepPressIcon}
                                 />
-                                <Text>B</Text>
+                                <Text>{getRealKeyNote(escalaCampoArmonico.menorArmonica, 'B')}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={() => selectAcorde(escalaCampoArmonico.menorArmonica, 'C')}
+                                style={[styles.containerItemsTable, isAcordeChecked(escalaCampoArmonico.menorArmonica, 'C') && styles.itemSelected]}
+                                onLongPress={() => showBottomSheetAcorde('C', escalaCampoArmonico.menorArmonica)}
+                                delayLongPress={DELAY_LONG_PRESS}
+                            >
+                                <Icon
+                                    type="material-community"
+                                    name="gesture-tap"
+                                    containerStyle={styles.keepPressContainerIcon}
+                                    iconStyle={styles.keepPressIcon}
+                                />
+                                <Text>{getRealKeyNote(escalaCampoArmonico.menorArmonica, 'C')}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={() => selectAcorde(escalaCampoArmonico.menorArmonica, 'D')}
+                                style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForDMenorArm)}, isAcordeChecked(escalaCampoArmonico.menorArmonica, 'D') && styles.itemSelected]}
+                                onLongPress={() => showBottomSheetAcorde('D', escalaCampoArmonico.menorArmonica)}
+                                delayLongPress={DELAY_LONG_PRESS}
+                            >
+                                <Icon
+                                    type="material-community"
+                                    name="gesture-tap"
+                                    containerStyle={styles.keepPressContainerIcon}
+                                    iconStyle={styles.keepPressIcon}
+                                />
+                                <Text>{getRealKeyNote(escalaCampoArmonico.menorArmonica, 'D')}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={() => selectAcorde(escalaCampoArmonico.menorArmonica, 'E')}
+                                style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForEMenorArm)}, isAcordeChecked(escalaCampoArmonico.menorArmonica, 'E') && styles.itemSelected]}
+                                onLongPress={() => showBottomSheetAcorde('E', escalaCampoArmonico.menorArmonica)}
+                                delayLongPress={DELAY_LONG_PRESS}
+                            >
+                                <Icon
+                                    type="material-community"
+                                    name="gesture-tap"
+                                    containerStyle={styles.keepPressContainerIcon}
+                                    iconStyle={styles.keepPressIcon}
+                                />
+                                <Text>{getRealKeyNote(escalaCampoArmonico.menorArmonica, 'E')}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={() => selectAcorde(escalaCampoArmonico.menorArmonica, 'F')}
+                                style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForFMenorArm)}, isAcordeChecked(escalaCampoArmonico.menorArmonica, 'F') && styles.itemSelected]}
+                                onLongPress={() => showBottomSheetAcorde('F', escalaCampoArmonico.menorArmonica)}
+                                delayLongPress={DELAY_LONG_PRESS}
+                            >
+                                <Icon
+                                    type="material-community"
+                                    name="gesture-tap"
+                                    containerStyle={styles.keepPressContainerIcon}
+                                    iconStyle={styles.keepPressIcon}
+                                />
+                                <Text>{getRealKeyNote(escalaCampoArmonico.menorArmonica, 'F')}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={() => selectAcorde(escalaCampoArmonico.menorArmonica, 'G#')}
+                                style={[styles.containerItemsTable, isAcordeChecked(escalaCampoArmonico.menorArmonica, 'G#') && styles.itemSelected]}
+                                onLongPress={() => showBottomSheetAcorde('G#', escalaCampoArmonico.menorArmonica)}
+                                delayLongPress={DELAY_LONG_PRESS}
+                            >
+                                <Icon
+                                    type="material-community"
+                                    name="gesture-tap"
+                                    containerStyle={styles.keepPressContainerIcon}
+                                    iconStyle={styles.keepPressIcon}
+                                />
+                                <Text>{getRealKeyNote(escalaCampoArmonico.menorArmonica, 'G#')}</Text>
                             </TouchableOpacity>
                         </View>
 
                         {/* TÉTRADAS */}
                         <View style={styles.viewContainerItemTable}>
+                            <TouchableOpacity 
+                                onPress={() => selectTetrada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_mMaj7)}
+                                style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_mMaj7) && styles.itemSelected]}
+                            >
+                                <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_mMaj7}</Text>
+                            </TouchableOpacity>
+                            {/* More options for A */}
+                            <View style={!showMoreDetailsForAMenorArm && {display: 'none'}}>
+                                <TouchableOpacity 
+                                    onPress={() => selectTetrada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus2)}
+                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus2) && styles.itemSelected]}
+                                >
+                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_maj7sus2}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={() => selectTetrada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus4)}
+                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus4) && styles.itemSelected]}
+                                >
+                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_maj7sus4}</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <TouchableOpacity 
+                                onPress={() => selectTetrada(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5)}
+                                style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5) && styles.itemSelected]}
+                            >
+                                <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_m7b5}</Text>
+                            </TouchableOpacity>
+
                             <TouchableOpacity 
                                 onPress={() => selectTetrada(escalaCampoArmonico.menorArmonica, 'C', nombreCifrado_TetradaTriada.tetrada_AugMaj7)}
                                 style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.menorArmonica, 'C', nombreCifrado_TetradaTriada.tetrada_AugMaj7) && styles.itemSelected]}
@@ -3228,38 +3359,39 @@ export default function ConfigCampoArmonico({ route }) {
                             >
                                 <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_07}</Text>
                             </TouchableOpacity>
-                            
-                            <TouchableOpacity 
-                                onPress={() => selectTetrada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_mMaj7)}
-                                style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_mMaj7) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_mMaj7}</Text>
-                            </TouchableOpacity>
-                            {/* More options for A */}
-                            <View style={!showMoreDetailsForAMenorArm && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus2)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_maj7sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTetrada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus4)}
-                                    style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_maj7sus4}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTetrada(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5)}
-                                style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_m7b5}</Text>
-                            </TouchableOpacity>
                         </View>
 
                         {/* TENSIONES */}
                         <View style={styles.viewContainerItemTable}>
+                            <TouchableOpacity 
+                                onPress={() => selectTensionTetrada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_mMaj7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta)}
+                                style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_mMaj7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
+                            >
+                                <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaJusta}</Text>
+                            </TouchableOpacity>
+                            {/* More options for A */}
+                            <View style={!showMoreDetailsForAMenorArm && {display: 'none'}}>
+                                <TouchableOpacity 
+                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus2, intervaloTensiones.oncenaJusta)}
+                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus2, intervaloTensiones.oncenaJusta) && styles.itemSelected]}
+                                >
+                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.oncenaJusta}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus4, intervaloTensiones.novenaMayor)}
+                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                >
+                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            <TouchableOpacity 
+                                onPress={() => selectTensionTetrada(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5, intervaloTensiones.oncenaJusta)}
+                                style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5, intervaloTensiones.oncenaJusta) && styles.itemSelected]}
+                            >
+                                <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.oncenaJusta}</Text>
+                            </TouchableOpacity>
+
                             <TouchableOpacity 
                                 onPress={() => selectTensionTetrada(escalaCampoArmonico.menorArmonica, 'C', nombreCifrado_TetradaTriada.tetrada_AugMaj7, intervaloTensiones.novenaMayor)}
                                 style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.menorArmonica, 'C', nombreCifrado_TetradaTriada.tetrada_AugMaj7, intervaloTensiones.novenaMayor) && styles.itemSelected]}
@@ -3332,39 +3464,38 @@ export default function ConfigCampoArmonico({ route }) {
                             >
                                 <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.tercenaMenor}</Text>
                             </TouchableOpacity>
-                            
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTetrada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_mMaj7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta)}
-                                style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_mMaj7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaJusta}</Text>
-                            </TouchableOpacity>
-                            {/* More options for A */}
-                            <View style={!showMoreDetailsForAMenorArm && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus2, intervaloTensiones.oncenaJusta)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus2, intervaloTensiones.oncenaJusta) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.oncenaJusta}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTetrada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus4, intervaloTensiones.novenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.tetrada_maj7sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTetrada(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5, intervaloTensiones.oncenaJusta)}
-                                style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.tetrada_m7b5, intervaloTensiones.oncenaJusta) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.oncenaJusta}</Text>
-                            </TouchableOpacity>
                         </View>
 
                         {/* TRÍADAS */}
                         <View style={styles.viewContainerItemTableTriadas}>
+                            <TouchableOpacity 
+                                onPress={() => selectTriada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_Menor)}
+                                style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_Menor) && styles.itemSelected]}
+                            >
+                                <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Menor}</Text>
+                            </TouchableOpacity>
+                            {/* More options for A */}
+                            <View style={!showMoreDetailsForAMenorArm && {display: 'none'}}>
+                                <TouchableOpacity 
+                                    onPress={() => selectTriada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus2)}
+                                    style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus2) && styles.itemSelected]}
+                                >
+                                    <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus2}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={() => selectTriada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus4)}
+                                    style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus4) && styles.itemSelected]}
+                                >
+                                    <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus4}</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <TouchableOpacity 
+                                onPress={() => selectTriada(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.triada_Disminuido)}
+                                style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.triada_Disminuido) && styles.itemSelected]}
+                            >
+                                <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Disminuido}</Text>
+                            </TouchableOpacity>
+
                             <TouchableOpacity 
                                 onPress={() => selectTriada(escalaCampoArmonico.menorArmonica, 'C', nombreCifrado_TetradaTriada.triada_Aumentado)}
                                 style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.menorArmonica, 'C', nombreCifrado_TetradaTriada.triada_Aumentado) && styles.itemSelected]}
@@ -3417,38 +3548,38 @@ export default function ConfigCampoArmonico({ route }) {
                             >
                                 <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Disminuido}</Text>
                             </TouchableOpacity>
-
-                            <TouchableOpacity 
-                                onPress={() => selectTriada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_Menor)}
-                                style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_Menor) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Menor}</Text>
-                            </TouchableOpacity>
-                            {/* More options for A */}
-                            <View style={!showMoreDetailsForAMenorArm && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTriada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus2)}
-                                    style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus2) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus2}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTriada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus4)}
-                                    style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus4) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus4}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTriada(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.triada_Disminuido)}
-                                style={[styles.containerItemsTable, isTriadaChecked(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.triada_Disminuido) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Disminuido}</Text>
-                            </TouchableOpacity>
                         </View>
 
                         {/* TENSIONES */}
                         <View style={styles.viewContainerItemTableTensionesTriadas}>
+                            <TouchableOpacity 
+                                onPress={() => selectTensionTriada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta)}
+                                style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
+                            >
+                                <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaJusta}</Text>
+                            </TouchableOpacity>
+                            {/* More options for A */}
+                            <View style={!showMoreDetailsForAMenorArm && {display: 'none'}}>
+                                <TouchableOpacity 
+                                    onPress={() => selectTensionTriada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus2, 'add ' + intervaloTensiones.oncenaJusta)}
+                                    style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus2, 'add ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
+                                >
+                                    <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.oncenaJusta}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={() => selectTensionTriada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor)}
+                                    style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                >
+                                    <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <TouchableOpacity 
+                                onPress={() => selectTensionTriada(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.triada_Disminuido, 'add ' + intervaloTensiones.oncenaJusta)}
+                                style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.triada_Disminuido, 'add ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
+                            >
+                                <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.oncenaJusta}</Text>
+                            </TouchableOpacity>
+
                             <TouchableOpacity 
                                 onPress={() => selectTensionTriada(escalaCampoArmonico.menorArmonica, 'C', nombreCifrado_TetradaTriada.triada_Aumentado, 'add ' + intervaloTensiones.novenaMayor)}
                                 style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.menorArmonica, 'C', nombreCifrado_TetradaTriada.triada_Aumentado, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
@@ -3501,34 +3632,6 @@ export default function ConfigCampoArmonico({ route }) {
                             >
                                 <Text style={styles.textItemTableTensiones}>ninguna</Text>
                             </TouchableOpacity>
-
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTriada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta)}
-                                style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_Menor, 'add ' + intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}, {intervaloTensiones.oncenaJusta}</Text>
-                            </TouchableOpacity>
-                            {/* More options for A */}
-                            <View style={!showMoreDetailsForAMenorArm && {display: 'none'}}>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTriada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus2, 'add ' + intervaloTensiones.oncenaJusta)}
-                                    style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus2, 'add ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.oncenaJusta}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity 
-                                    onPress={() => selectTensionTriada(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor)}
-                                    style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.menorArmonica, 'A', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
-                                >
-                                    <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={() => selectTensionTriada(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.triada_Disminuido, 'add ' + intervaloTensiones.oncenaJusta)}
-                                style={[styles.containerItemsTable, isTensionTriadaChecked(escalaCampoArmonico.menorArmonica, 'B', nombreCifrado_TetradaTriada.triada_Disminuido, 'add ' + intervaloTensiones.oncenaJusta) && styles.itemSelected]}
-                            >
-                                <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.oncenaJusta}</Text>
-                            </TouchableOpacity>
                         </View>
                     </View>
 
@@ -3561,7 +3664,7 @@ export default function ConfigCampoArmonico({ route }) {
                             <TouchableOpacity 
                                 onPress={() => selectEscala(escalaCampoArmonico.otros)}
                                 onLongPress={() => showBottomSheetEscala(escalaCampoArmonico.otros)}
-                                style={[styles.containerItemTable, {height: 200 + (50 * numberOfRowsForEscalaOtros)}, isEscalaChecked(escalaCampoArmonico.otros) && styles.itemSelected]}
+                                style={[styles.containerItemTable, {height: (tonalidadCompasArmonico == 'menor' ? 250 : 200) + (50 * numberOfRowsForEscalaOtros)}, isEscalaChecked(escalaCampoArmonico.otros) && styles.itemSelected]}
                             >
                                 <Icon
                                     type="material-community"
@@ -3575,6 +3678,23 @@ export default function ConfigCampoArmonico({ route }) {
 
                         {/* ACORDES */}
                         <View style={styles.viewContainerItemTableAcorde}>
+                            {tonalidadCompasArmonico == 'menor' && (
+                                // ESCALA MAYOR
+                                <TouchableOpacity 
+                                    onPress={() => selectAcorde(escalaCampoArmonico.mayor, 'C')}
+                                    style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForC)}, isAcordeChecked(escalaCampoArmonico.mayor, 'C') && styles.itemSelected]}
+                                    onLongPress={() => showBottomSheetAcorde('C', escalaCampoArmonico.mayor)}
+                                    delayLongPress={DELAY_LONG_PRESS}
+                                >
+                                    <Icon
+                                        type="material-community"
+                                        name="gesture-tap"
+                                        containerStyle={styles.keepPressContainerIcon}
+                                        iconStyle={styles.keepPressIcon}
+                                    />
+                                    <Text>{getRealKeyNote(escalaCampoArmonico.mayor, 'C')}</Text>
+                                </TouchableOpacity>
+                            )}
                             <TouchableOpacity 
                                 onPress={() => selectAcorde(escalaCampoArmonico.otros, 'G')}
                                 style={[styles.containerItemsTable, {height: 50 + (50 * numberOfRowsForGOtros)}, isAcordeChecked(escalaCampoArmonico.otros, 'G') && styles.itemSelected]}
@@ -3635,6 +3755,50 @@ export default function ConfigCampoArmonico({ route }) {
 
                         {/* TÉTRADAS */}
                         <View style={styles.viewContainerItemTable}>
+                            {tonalidadCompasArmonico == 'menor' && (
+                                // ESCALA MAYOR
+                                <>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_Maj7)}
+                                        style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_Maj7) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_Maj7}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for C */}
+                                    <View style={!showMoreDetailsForC && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus2)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus2)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_maj7sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus4)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_6sus4}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus4)}
+                                            style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTetrada}>{nombreCifrado_TetradaTriada.tetrada_maj7sus4}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </>
+                            )}
                             <TouchableOpacity 
                                 onPress={() => selectTetrada(escalaCampoArmonico.otros, 'G', nombreCifrado_TetradaTriada.tetrada_7b5)}
                                 style={[styles.containerItemsTable, isTetradaChecked(escalaCampoArmonico.otros, 'G', nombreCifrado_TetradaTriada.tetrada_7b5) && styles.itemSelected]}
@@ -3696,6 +3860,50 @@ export default function ConfigCampoArmonico({ route }) {
 
                         {/* TENSIONES */}
                         <View style={styles.viewContainerItemTable}>
+                            {tonalidadCompasArmonico == 'menor' && (
+                                // ESCALA MAYOR
+                                <>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_Maj7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMayor)}
+                                        style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_Maj7, intervaloTensiones.novenaMayor + ', ' + intervaloTensiones.tercenaMayor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}, {intervaloTensiones.tercenaMayor}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for C */}
+                                    <View style={!showMoreDetailsForC && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6, intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6, intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus2, '')}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus2, '') && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>ninguna</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus2, intervaloTensiones.tercenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus2, intervaloTensiones.tercenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.tercenaMayor}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus4, intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_6sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTetrada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus4, intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.tetrada_maj7sus4, intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensionesTetradas}>{intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </>
+                            )}
                             <TouchableOpacity 
                                 onPress={() => selectTensionTetrada(escalaCampoArmonico.otros, 'G', nombreCifrado_TetradaTriada.tetrada_7b5, intervaloTensiones.novenaMenor + ', ' + intervaloTensiones.novenaAumentada + ', ' + intervaloTensiones.tercenaMenor)}
                                 style={[styles.containerItemsTable, isTensionTetradaChecked(escalaCampoArmonico.otros, 'G', nombreCifrado_TetradaTriada.tetrada_7b5, intervaloTensiones.novenaMenor + ', ' + intervaloTensiones.novenaAumentada + ', ' + intervaloTensiones.tercenaMenor) && styles.itemSelected]}
@@ -3757,6 +3965,32 @@ export default function ConfigCampoArmonico({ route }) {
 
                         {/* TRÍADAS */}
                         <View style={styles.viewContainerItemTableTriadas}>
+                            {tonalidadCompasArmonico == 'menor' && (
+                                // ESCALA MAYOR
+                                <>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_Mayor)}
+                                        style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_Mayor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_Mayor}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for C */}
+                                    <View style={!showMoreDetailsForC && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus2)}
+                                            style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus2) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus2}</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus4)}
+                                            style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus4) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTriadas}>{nombreCifrado_TetradaTriada.triada_sus4}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </>
+                            )}
                             <View 
                                 style={[styles.containerItemsTableNoButton, showMoreDetailsForGOtros && {height: 100}]}
                             >
@@ -3791,6 +4025,32 @@ export default function ConfigCampoArmonico({ route }) {
 
                         {/* TENSIONES */}
                         <View style={styles.viewContainerItemTableTensionesTriadas}>
+                            {tonalidadCompasArmonico == 'menor' && (
+                                // ESCALA MAYOR
+                                <>
+                                    <TouchableOpacity 
+                                        onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_Mayor, 'add ' + intervaloTensiones.novenaMayor)}
+                                        style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_Mayor, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                    >
+                                        <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
+                                    </TouchableOpacity>
+                                    {/* More options for C */}
+                                    <View style={!showMoreDetailsForC && {display: 'none'}}>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus2, '')}
+                                            style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus2, '') && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensiones}>ninguna</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity 
+                                            onPress={() => selectTensionTriada(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor)}
+                                            style={[styles.containerItemsTable, showMoreDetailsForC && {height: 100}, isTensionTriadaChecked(escalaCampoArmonico.mayor, 'C', nombreCifrado_TetradaTriada.triada_sus4, 'add ' + intervaloTensiones.novenaMayor) && styles.itemSelected]}
+                                        >
+                                            <Text style={styles.textItemTableTensiones}>add {intervaloTensiones.novenaMayor}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </>
+                            )}
                             <View 
                                 style={[styles.containerItemsTableNoButton, showMoreDetailsForGOtros && {height: 100}]}
                             >

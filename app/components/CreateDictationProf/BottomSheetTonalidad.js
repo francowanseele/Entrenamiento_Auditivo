@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView, View, Text, Animated, Dimensions } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Animated, Dimensions, Image } from 'react-native';
 import {
     Icon,
     Slider,
@@ -360,6 +360,55 @@ export default function BottomSheetTonalidad(props) {
         }
     };
 
+    const getTonalidadTitle = (tonalidad) => {
+        switch (tonalidad) {
+            case 'Do':
+                return 'Do(M)/La(m)'
+            case 'Sol':
+                return 'Sol(M)/Mi(m)'
+            case 'Re':
+                return 'Re(M)/Si(m)'
+            case 'La':
+                return 'La(M)/Fa#(m)'
+            case 'Mi':
+                return 'Mi(M)/Do#(m)'
+            case 'Si':
+                return 'Si(M)/Sol#(m)'
+            case 'Fa#':
+                return 'Fa#(M)/Re#(m)'
+            case 'Solb':
+                return 'Solb(M)/Mib(m)'
+            case 'Reb':
+                return 'Reb(M)/Sib(m)'
+            case 'Lab':
+                return 'Lab(M)/Fa(m)'
+            case 'Mib':
+                return 'Mib(M)/Do(m)'
+            case 'Sib':
+                return 'Sib(M)/Sol(m)'
+            case 'Fa':
+                return 'Fa(M)/Re(m)'
+            default:
+                return tonalidad;
+        }
+    }
+
+    var imageMap = {
+        'Do': require('../../../assets/tonalidades/Do.png'),
+        'Fa': require('../../../assets/tonalidades/Fa.png'),
+        'Fa#': require('../../../assets/tonalidades/FaSOS.png'),
+        'La': require('../../../assets/tonalidades/La.png'),
+        'Lab': require('../../../assets/tonalidades/Lab.png'),
+        'Mi': require('../../../assets/tonalidades/Mi.png'),
+        'Mib': require('../../../assets/tonalidades/Mib.png'),
+        'Re': require('../../../assets/tonalidades/Re.png'),
+        'Reb': require('../../../assets/tonalidades/Reb.png'),
+        'Si': require('../../../assets/tonalidades/Si.png'),
+        'Sib': require('../../../assets/tonalidades/Sib.png'),
+        'Sol': require('../../../assets/tonalidades/Sol.png'),
+        'Solb': require('../../../assets/tonalidades/Solb.png'),
+    };
+
     return (
         <RBSheet
             ref={refRBSheet}
@@ -409,44 +458,56 @@ export default function BottomSheetTonalidad(props) {
                                 //     <ListItem.Content>
                                 <View key={i}>
                                     {/* <ListItem.Title> */}
-                                    <CheckBox
-                                        title={escala.escala_diatonica}
-                                        containerStyle={
-                                            styles.containerCheckbox
-                                        }
-                                        textStyle={styles.textCheckbox}
-                                        iconRight
-                                        onPress={() =>
-                                            checkedEscala(
-                                                escala.escala_diatonica
-                                            )
-                                        }
-                                        checked={
-                                            getPriority(
-                                                escala.escala_diatonica
-                                            ) != 0
-                                        }
-                                        checkedIcon={
-                                            <Icon
-                                                name="check-circle"
-                                                type="material-community"
-                                                color={TEXT_COLOR_RIGHT}
-                                                containerStyle={
-                                                    styles.containerCheckChecked
-                                                }
-                                            />
-                                        }
-                                        uncheckedIcon={
-                                            <Icon
-                                                name="check-circle"
-                                                type="material-community"
-                                                color={'grey'}
-                                                containerStyle={
-                                                    styles.containerCheckUnchecked
-                                                }
-                                            />
-                                        }
-                                    />
+                                    <View style={{flexDirection: 'row', paddingLeft: 25}}>
+                                        <Image
+                                            source={imageMap[escala.escala_diatonica]}
+                                            style={{
+                                                resizeMode: 'contain',
+                                                height: 70,
+                                                width: 70,
+                                            }}
+
+                                        />
+                                        <CheckBox
+                                            // title={escala.escala_diatonica}
+                                            title={getTonalidadTitle(escala.escala_diatonica)}
+                                            containerStyle={
+                                                styles.containerCheckbox
+                                            }
+                                            textStyle={styles.textCheckbox}
+                                            iconRight
+                                            onPress={() =>
+                                                checkedEscala(
+                                                    escala.escala_diatonica
+                                                )
+                                            }
+                                            checked={
+                                                getPriority(
+                                                    escala.escala_diatonica
+                                                ) != 0
+                                            }
+                                            checkedIcon={
+                                                <Icon
+                                                    name="check-circle"
+                                                    type="material-community"
+                                                    color={TEXT_COLOR_RIGHT}
+                                                    containerStyle={
+                                                        styles.containerCheckChecked
+                                                    }
+                                                />
+                                            }
+                                            uncheckedIcon={
+                                                <Icon
+                                                    name="check-circle"
+                                                    type="material-community"
+                                                    color={'grey'}
+                                                    containerStyle={
+                                                        styles.containerCheckUnchecked
+                                                    }
+                                                />
+                                            }
+                                        />
+                                    </View>
                                     <Text style={styles.textPrioridad}>
                                         Prioridad:{' '}
                                         {getPriority(escala.escala_diatonica)}
@@ -572,7 +633,8 @@ const styles = StyleSheet.create({
     },
     containerCheckChecked: {
         backgroundColor: BACKGROUND_COLOR_RIGHT,
-        padding: 5,
+        padding: 2,
+        marginLeft: 0,
         marginHorizontal: 10,
         borderStyle: 'solid',
         borderColor: BORDER_COLOR_RIGHT,
@@ -581,7 +643,8 @@ const styles = StyleSheet.create({
     },
     containerCheckUnchecked: {
         backgroundColor: FIFTH_COLOR,
-        padding: 5,
+        padding: 2,
+        marginLeft: 0,
         marginHorizontal: 10,
         borderStyle: 'solid',
         borderColor: 'lightgrey',
@@ -591,9 +654,11 @@ const styles = StyleSheet.create({
     containerCheckbox: {
         backgroundColor: 'transparent',
         borderWidth: 0,
+        marginLeft: 0,
+        paddingHorizontal: 0,
     },
     textCheckbox: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
     },
     divider: {

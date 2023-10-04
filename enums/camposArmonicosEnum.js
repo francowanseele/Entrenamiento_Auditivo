@@ -38,6 +38,8 @@ export const intervaloTensiones = {
 export const escalaCampoArmonico = {
     mayor: 'Mayor',
     menorArmonica: 'Menor Armónica',
+    menorMelodica: 'Menor Melódica',
+    menorNatural: 'Menor Natural',
     otros: 'Otros',
 };
 

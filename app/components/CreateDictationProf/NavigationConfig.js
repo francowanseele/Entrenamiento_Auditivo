@@ -72,6 +72,8 @@ export default function NavigationConfig(props) {
         camposArmonicosReferenciaToSend,
         setCamposArmonicosReferenciaToSend,
         dictationLength,
+        tonalidadCompasArmonico,
+        setTonalidadCompasArmonico,
     } = props;
 
     return (
@@ -149,6 +151,8 @@ export default function NavigationConfig(props) {
                             setCamposArmonicosToSend={setCamposArmonicosToSend}
                             referenceRule={referenceRule}
                             setReferenceRule={setReferenceRule}
+                            tonalidadCompasArmonico={tonalidadCompasArmonico}
+                            setTonalidadCompasArmonico={setTonalidadCompasArmonico}
                         />
                     )}
                 />
@@ -173,6 +177,8 @@ export default function NavigationConfig(props) {
                             setCamposArmonicosReferenciaToSend={setCamposArmonicosReferenciaToSend}
                             dictationLength={dictationLength}
                             refRBSheet_PickerDictationLength={refRBSheet_PickerDictationLength}
+                            tonalidadCompasArmonico={tonalidadCompasArmonico}
+                            setTonalidadCompasArmonico={setTonalidadCompasArmonico}
                         />
                     )}
                 />

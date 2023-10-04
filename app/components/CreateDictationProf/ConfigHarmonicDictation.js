@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import AlertValidator from './AlertValidator';
 import OverlayInfo from './OverlayInfo';
 import { PRIMARY_COLOR } from '../../../utils/colorPalette';
+import SelectTonalidad from '../CampoArmonico/SelectTonalidad';
 
 export default function ConfigHarmonicDictation(props) {
     const {
@@ -30,7 +31,9 @@ export default function ConfigHarmonicDictation(props) {
         camposArmonicosReferenciaToSend,
         setCamposArmonicosReferenciaToSend,
         dictationLength,
-        refRBSheet_PickerDictationLength
+        refRBSheet_PickerDictationLength,
+        tonalidadCompasArmonico,
+        setTonalidadCompasArmonico,
     } = props;
 
     const [visibleInfo, setVisibleInfo] = useState(false);
@@ -52,6 +55,7 @@ export default function ConfigHarmonicDictation(props) {
         navigation.navigate('configCampoArmonico', { 
             camposArmonicosToSend,
             setCamposArmonicosToSend,
+            tonalidadCompasArmonico,
         });
     }
 
@@ -59,6 +63,7 @@ export default function ConfigHarmonicDictation(props) {
         navigation.navigate('configCampoArmonico', { 
             camposArmonicosToSend: camposArmonicosInicioToSend,
             setCamposArmonicosToSend: setCamposArmonicosInicioToSend,
+            tonalidadCompasArmonico,
         });
     }
 
@@ -66,6 +71,7 @@ export default function ConfigHarmonicDictation(props) {
         navigation.navigate('configCampoArmonico', { 
             camposArmonicosToSend: camposArmonicosFinToSend,
             setCamposArmonicosToSend: setCamposArmonicosFinToSend,
+            tonalidadCompasArmonico,
         });
     }
 
@@ -73,6 +79,7 @@ export default function ConfigHarmonicDictation(props) {
         navigation.navigate('configCampoArmonico', { 
             camposArmonicosToSend: camposArmonicosReferenciaToSend,
             setCamposArmonicosToSend: setCamposArmonicosReferenciaToSend,
+            tonalidadCompasArmonico,
         });
     }
 
@@ -82,6 +89,20 @@ export default function ConfigHarmonicDictation(props) {
 
     return (
         <View>
+            <View style={styles.containerSelectTonalidad}>
+                <SelectTonalidad
+                    tonalidadCompasArmonico={tonalidadCompasArmonico}
+                    setTonalidadCompasArmonico={setTonalidadCompasArmonico}
+                    camposArmonicosToSend={camposArmonicosToSend}
+                    setCamposArmonicosToSend={setCamposArmonicosToSend}
+                    camposArmonicosInicioToSend={camposArmonicosInicioToSend}
+                    setCamposArmonicosInicioToSend={setCamposArmonicosInicioToSend}
+                    camposArmonicosFinToSend={camposArmonicosFinToSend}
+                    setCamposArmonicosFinToSend={setCamposArmonicosFinToSend}
+                    camposArmonicosReferenciaToSend={camposArmonicosReferenciaToSend}
+                    setCamposArmonicosReferenciaToSend={setCamposArmonicosReferenciaToSend}
+                />
+            </View>
             {/* Nro acordes */}
             <View style={styles.contentTitle}>
                 <Text style={styles.title}>Nro. Acordes</Text>
@@ -247,4 +268,8 @@ const styles = StyleSheet.create({
         margin: 10,
         textAlign: 'left',
     },
+    containerSelectTonalidad: {
+        marginTop: 15,
+        marginHorizontal: 15,
+    }
 });

@@ -13,6 +13,7 @@ import AlertValidator from './AlertValidator';
 import OverlayInfo from './OverlayInfo';
 import DropdownSimpleSelect from '../DropdownSimpleSelect';
 import { referenciaReglaAcorde } from '../../../enums/referenciaReglaAcorde';
+import SelectTonalidad from '../CampoArmonico/SelectTonalidad';
 
 export default function ConfigJazzChords(props) {
     const {
@@ -22,6 +23,8 @@ export default function ConfigJazzChords(props) {
         setCamposArmonicosToSend,
         referenceRule,
         setReferenceRule,
+        tonalidadCompasArmonico,
+        setTonalidadCompasArmonico,
     } = props;
 
     const [visibleInfo, setVisibleInfo] = useState(false);
@@ -43,11 +46,26 @@ export default function ConfigJazzChords(props) {
         navigation.navigate('configCampoArmonico', { 
             camposArmonicosToSend,
             setCamposArmonicosToSend,
+            tonalidadCompasArmonico,
         });
     }
 
     return (
         <View>
+            <View style={styles.containerSelectTonalidad}>
+                <SelectTonalidad
+                    tonalidadCompasArmonico={tonalidadCompasArmonico}
+                    setTonalidadCompasArmonico={setTonalidadCompasArmonico}
+                    camposArmonicosToSend={camposArmonicosToSend}
+                    setCamposArmonicosToSend={setCamposArmonicosToSend}
+                    camposArmonicosInicioToSend={null}
+                    setCamposArmonicosInicioToSend={null}
+                    camposArmonicosFinToSend={null}
+                    setCamposArmonicosFinToSend={null}
+                    camposArmonicosReferenciaToSend={null}
+                    setCamposArmonicosReferenciaToSend={null}
+                />
+            </View>
             <ListItem
                 key={0}
                 style={styles.listOne}
@@ -150,4 +168,8 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         width: '20%',
     },
+    containerSelectTonalidad: {
+        marginTop: 15,
+        marginHorizontal: 15,
+    }
 });
