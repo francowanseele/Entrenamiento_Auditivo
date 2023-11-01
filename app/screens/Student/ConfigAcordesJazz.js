@@ -5,6 +5,7 @@ import {
     Text,
     ScrollView,
     Alert,
+    Image
 } from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { FAB } from 'react-native-elements';
@@ -15,6 +16,7 @@ import { generateAcordeJazzFileApi } from '../../api/sound';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../utils/colorPalette';
 import { generateAcordeJazzApi, getAcordesJazzApi } from '../../api/acordes';
 import { acordeType } from '../../../enums/camposArmonicosEnum';
+import { imageMap } from '../../../utils/images';
 
 
 export default function ConfigAcordesJazz({ route }) {
@@ -137,27 +139,37 @@ export default function ConfigAcordesJazz({ route }) {
                             acordeIn(ac);
                         }}
                     >
-                        <ListItem.Content>
-                            <ListItem.Title style={styles.subtitle}>
-                                Acorde #{i + 1}
-                            </ListItem.Title>
-                            <ListItem.Subtitle style={{ color: 'black' }}>
-                                Tipo: {acordeType.getTypeDescription(ac.Tipo)} | Escala diatónica:{' '}
-                                {ac.Tonalidad}
-                            </ListItem.Subtitle>
-                            {ac.Resuelto[0] ? (
-                                <View style={styles.contentNota}>
-                                    <Text>
-                                        <Text
-                                            style={getStyleByState(ac.Resuelto)}
-                                        >
-                                            Última Calificación: {getLastCalification(ac.Resuelto).Correcto ? 'Correcto' : 'Mal'}
+                        <ListItem.Content style={{flexDirection: 'row', display: 'flex', justifyContent: 'flex-start'}}>
+                            <Image
+                                source={imageMap[ac.Tonalidad]}
+                                style={{
+                                    resizeMode: 'contain',
+                                    height: 55,
+                                    width: 55,
+                                    marginRight: 10
+                                }}
+                            />
+                            <View>
+                                <ListItem.Title style={styles.subtitle}>
+                                    Acorde #{i + 1}
+                                </ListItem.Title>
+                                <ListItem.Subtitle style={{ color: 'black' }}>
+                                    Tipo: {acordeType.getTypeDescription(ac.Tipo)}
+                                </ListItem.Subtitle>
+                                {ac.Resuelto[0] ? (
+                                    <View style={styles.contentNota}>
+                                        <Text>
+                                            <Text
+                                                style={getStyleByState(ac.Resuelto)}
+                                            >
+                                                Última Calificación: {getLastCalification(ac.Resuelto).Correcto ? 'Correcto' : 'Mal'}
+                                            </Text>
                                         </Text>
-                                    </Text>
-                                </View>
-                            ) : (
-                                <Text></Text>
-                            )}
+                                    </View>
+                                ) : (
+                                    <Text></Text>
+                                )}
+                            </View>
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>

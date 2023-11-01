@@ -34,6 +34,8 @@ export default function ConfigHarmonicDictation(props) {
         refRBSheet_PickerDictationLength,
         tonalidadCompasArmonico,
         setTonalidadCompasArmonico,
+        initializeDataCamposArmonicosToSend,
+        initializeDataCamposArmonicosToSendREFERENCIA,
     } = props;
 
     const [visibleInfo, setVisibleInfo] = useState(false);
@@ -80,6 +82,8 @@ export default function ConfigHarmonicDictation(props) {
             camposArmonicosToSend: camposArmonicosReferenciaToSend,
             setCamposArmonicosToSend: setCamposArmonicosReferenciaToSend,
             tonalidadCompasArmonico,
+            isRef: true,
+            initializeDataCamposArmonicosToSendREFERENCIA,
         });
     }
 
@@ -101,6 +105,8 @@ export default function ConfigHarmonicDictation(props) {
                     setCamposArmonicosFinToSend={setCamposArmonicosFinToSend}
                     camposArmonicosReferenciaToSend={camposArmonicosReferenciaToSend}
                     setCamposArmonicosReferenciaToSend={setCamposArmonicosReferenciaToSend}
+                    initializeDataCamposArmonicosToSend={initializeDataCamposArmonicosToSend}
+                    initializeDataCamposArmonicosToSendREFERENCIA={initializeDataCamposArmonicosToSendREFERENCIA}
                 />
             </View>
             {/* Nro acordes */}

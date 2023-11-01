@@ -25,6 +25,8 @@ export default function ConfigJazzChords(props) {
         setReferenceRule,
         tonalidadCompasArmonico,
         setTonalidadCompasArmonico,
+        initializeDataCamposArmonicosToSend,
+        initializeDataCamposArmonicosToSendREFERENCIA,
     } = props;
 
     const [visibleInfo, setVisibleInfo] = useState(false);
@@ -64,6 +66,8 @@ export default function ConfigJazzChords(props) {
                     setCamposArmonicosFinToSend={null}
                     camposArmonicosReferenciaToSend={null}
                     setCamposArmonicosReferenciaToSend={null}
+                    initializeDataCamposArmonicosToSend={initializeDataCamposArmonicosToSend}
+                    initializeDataCamposArmonicosToSendREFERENCIA={initializeDataCamposArmonicosToSendREFERENCIA}
                 />
             </View>
             <ListItem

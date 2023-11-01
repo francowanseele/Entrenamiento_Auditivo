@@ -5,16 +5,18 @@ import {
     Text,
     ScrollView,
     Alert,
+    Image
 } from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { FAB } from 'react-native-elements';
-import { ListItem } from '@rneui/themed';
+import { ListItem, Avatar } from '@rneui/themed';
 import { TEXTHOME } from '../../styles/styleValues';
 import Loading from '../../components/Loading';
 import { generateDictadoArmonicoFileApi } from '../../api/sound';
 import { PRIMARY_COLOR } from '../../../utils/colorPalette';
 import { generateDictadoArmonicoApi, getDictadoArmonicoApi } from '../../api/dictadosArmonicos';
 import { generateMusicSheetReferenceImageApi } from '../../api/musicSheet';
+import { imageMap } from '../../../utils/images';
 
 export default function ConfigDictadoArmonico({ route }) {
     const { configDictadoArmonico, module, idCDA } = route.params;
@@ -158,27 +160,38 @@ export default function ConfigDictadoArmonico({ route }) {
                             dictadoIn(dictado);
                         }}
                     >
-                        <ListItem.Content>
-                            <ListItem.Title style={styles.subtitle}>
-                                Dictado #{i + 1}
-                            </ListItem.Title>
-                            <ListItem.Subtitle style={{ color: 'black' }}>
-                                Tonalidad: {dictado.Tonalidad}
-                            </ListItem.Subtitle>
-                            {dictado.Resuelto && dictado.Resuelto[0] ? (
-                                <View style={styles.contentNota}>
-                                    <Text>
-                                        <Text
-                                            style={getStyleByState(dictado.Resuelto)}
-                                        >
-                                            Última Calificación:{' '}
-                                            {getLastCalification(dictado.Resuelto).Nota}
+                        <ListItem.Content style={{flexDirection: 'row', display: 'flex', justifyContent: 'flex-start'}}>
+                            <Image
+                                source={imageMap[dictado.Tonalidad]}
+                                style={{
+                                    resizeMode: 'contain',
+                                    height: 55,
+                                    width: 55,
+                                    marginRight: 10
+                                }}
+                            />
+                            <View>
+                                <ListItem.Title style={styles.subtitle}>
+                                    Dictado #{i + 1}
+                                </ListItem.Title>
+                                {/* <ListItem.Subtitle style={{ color: 'black' }}>
+                                    Tonalidad: {dictado.Tonalidad}
+                                </ListItem.Subtitle> */}
+                                {dictado.Resuelto && dictado.Resuelto[0] ? (
+                                    <View style={styles.contentNota}>
+                                        <Text>
+                                            <Text
+                                                style={getStyleByState(dictado.Resuelto)}
+                                            >
+                                                Última Calificación:{' '}
+                                                {getLastCalification(dictado.Resuelto).Nota}
+                                            </Text>
                                         </Text>
-                                    </Text>
-                                </View>
-                            ) : (
-                                <Text></Text>
-                            )}
+                                    </View>
+                                ) : (
+                                    <Text></Text>
+                                )}
+                            </View>
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>

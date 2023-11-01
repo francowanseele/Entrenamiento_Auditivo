@@ -15,6 +15,8 @@ export default function SelectTonalidad(props) {
         setCamposArmonicosFinToSend,
         camposArmonicosReferenciaToSend,
         setCamposArmonicosReferenciaToSend,
+        initializeDataCamposArmonicosToSend,
+        initializeDataCamposArmonicosToSendREFERENCIA,
     } = props;
 
     const getRealKeyNote = (escala, keyNote, tonalidad) => {
@@ -85,41 +87,78 @@ export default function SelectTonalidad(props) {
 
     const changeTonalidad = (value) => {
         setTonalidadCompasArmonico(value)
+        var camposArmonicosAux = initializeDataCamposArmonicosToSend();
+
+        if (value == 'menor') {
+            camposArmonicosAux = camposArmonicosAux.map((x) => {
+                if (x.Escala == escalaCampoArmonico.mayor || x.Escala == escalaCampoArmonico.mayorArmonica) {
+                    return {
+                        ...x,
+                        CheckEscala: false,
+                        CheckKeyNote: false,
+                        CheckNombreCifrado: false,
+                        CheckTension: false,
+                    }
+                } else {
+                    return x;
+                }
+            })
+
+            camposArmonicosAux = camposArmonicosAux.map((x) => {
+                if (x.Escala == escalaCampoArmonico.mayor && x.KeyNote == 'C' && x.ByDefault) {
+                    return {
+                        ...x,
+                        CheckKeyNote: true,
+                        CheckNombreCifrado: true,
+                        CheckTension: true,
+                    }
+                } else {
+                    return x;
+                }
+            })
+        }
 
         if (camposArmonicosToSend != null) {
-            setCamposArmonicosToSend(camposArmonicosToSend.map((x) => {
-                return {
-                    ...x,
-                    RealKeyNote: getRealKeyNote(x.Escala, x.KeyNote, value)
-                }
-            }))
+            setCamposArmonicosToSend(camposArmonicosAux)
+            // setCamposArmonicosToSend(camposArmonicosToSend.map((x) => {
+            //     return {
+            //         ...x,
+            //         RealKeyNote: getRealKeyNote(x.Escala, x.KeyNote, value)
+            //     }
+            // }))
         }
 
         if (camposArmonicosInicioToSend != null) {
-            setCamposArmonicosInicioToSend(camposArmonicosInicioToSend.map((x) => {
-                return {
-                    ...x,
-                    RealKeyNote: getRealKeyNote(x.Escala, x.KeyNote, value)
-                }
-            }))
+            setCamposArmonicosInicioToSend(camposArmonicosAux)
+
+            // setCamposArmonicosInicioToSend(camposArmonicosInicioToSend.map((x) => {
+            //     return {
+            //         ...x,
+            //         RealKeyNote: getRealKeyNote(x.Escala, x.KeyNote, value)
+            //     }
+            // }))
         }
 
         if (camposArmonicosFinToSend != null) {
-            setCamposArmonicosFinToSend(camposArmonicosFinToSend.map((x) => {
-                return {
-                    ...x,
-                    RealKeyNote: getRealKeyNote(x.Escala, x.KeyNote, value)
-                }
-            }))
+            setCamposArmonicosFinToSend(camposArmonicosAux)
+
+            // setCamposArmonicosFinToSend(camposArmonicosFinToSend.map((x) => {
+            //     return {
+            //         ...x,
+            //         RealKeyNote: getRealKeyNote(x.Escala, x.KeyNote, value)
+            //     }
+            // }))
         }
 
         if (camposArmonicosReferenciaToSend != null) {
-            setCamposArmonicosReferenciaToSend(camposArmonicosReferenciaToSend.map((x) => {
-                return {
-                    ...x,
-                    RealKeyNote: getRealKeyNote(x.Escala, x.KeyNote, value)
-                }
-            }))
+            setCamposArmonicosReferenciaToSend(initializeDataCamposArmonicosToSendREFERENCIA(value))
+
+            // setCamposArmonicosReferenciaToSend(camposArmonicosReferenciaToSend.map((x) => {
+            //     return {
+            //         ...x,
+            //         RealKeyNote: getRealKeyNote(x.Escala, x.KeyNote, value)
+            //     }
+            // }))
         }
     }
 
