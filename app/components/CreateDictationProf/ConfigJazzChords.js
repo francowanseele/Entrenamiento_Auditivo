@@ -49,6 +49,8 @@ export default function ConfigJazzChords(props) {
             camposArmonicosToSend,
             setCamposArmonicosToSend,
             tonalidadCompasArmonico,
+            nivel: 0,
+            fromLocal: '',
         });
     }
 

@@ -159,6 +159,9 @@ export default function SummaryCreateDictation({ route }) {
                     setVisibleEndCreate(true);
                 }
             } else if (generatorType == dictationType.harmonicDictation) {
+                // console.log(dataCDA.dataCamposArmonicos.filter(x => x.Nivel == 1 && x.CheckEscala &&
+                //     x.CheckKeyNote &&
+                //     x.CheckNombreCifrado));
                 const result = await addConfigDictadoArmonicoApi(dataCDA, module.id);
 
                 if (result.ok) {

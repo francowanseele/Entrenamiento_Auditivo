@@ -58,6 +58,8 @@ export default function ConfigHarmonicDictation(props) {
             camposArmonicosToSend,
             setCamposArmonicosToSend,
             tonalidadCompasArmonico,
+            nivel: 0,
+            fromLocal: '',
         });
     }
 
@@ -66,6 +68,8 @@ export default function ConfigHarmonicDictation(props) {
             camposArmonicosToSend: camposArmonicosInicioToSend,
             setCamposArmonicosToSend: setCamposArmonicosInicioToSend,
             tonalidadCompasArmonico,
+            nivel: 0,
+            fromLocal: '',
         });
     }
 
@@ -74,6 +78,8 @@ export default function ConfigHarmonicDictation(props) {
             camposArmonicosToSend: camposArmonicosFinToSend,
             setCamposArmonicosToSend: setCamposArmonicosFinToSend,
             tonalidadCompasArmonico,
+            nivel: 0,
+            fromLocal: '',
         });
     }
 
@@ -84,6 +90,8 @@ export default function ConfigHarmonicDictation(props) {
             tonalidadCompasArmonico,
             isRef: true,
             initializeDataCamposArmonicosToSendREFERENCIA,
+            nivel: 0,
+            fromLocal: '',
         });
     }
 

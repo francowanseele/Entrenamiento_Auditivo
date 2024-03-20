@@ -19,6 +19,8 @@ import { DELAY_LONG_PRESS } from '../../../utils/constants';
 import BottomSheetAcordeOptions from '../../components/CreateAcordeProf/BottomSheetAcordeOptions';
 import { estadoAcorde } from '../../../enums/estadoAcorde';
 import BottomSheetAcordeTensiones from '../../components/CreateAcordeProf/BottomSheetAcordeTensiones';
+import { funcionCampoArmonico } from '../../../enums/funcionCampoArmonico';
+import { transformarAEscalaDiatonica } from '../../../utils/musicalFunctions';
 
 export default function ConfigCampoArmonico({ route }) {
     const { 
@@ -27,6 +29,8 @@ export default function ConfigCampoArmonico({ route }) {
         tonalidadCompasArmonico, 
         isRef,
         initializeDataCamposArmonicosToSendREFERENCIA,
+        nivel,
+        fromLocal,
     } = route.params;
     
     const initializeDataCamposArmonicos = () => {
@@ -42,6 +46,9 @@ export default function ConfigCampoArmonico({ route }) {
                     // ---------------------------------------
                     // C
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -60,8 +67,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,  
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -77,8 +88,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -94,8 +109,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -111,8 +130,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -128,8 +151,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -145,8 +172,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -162,8 +193,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -179,8 +214,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -196,9 +235,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // D
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -217,8 +260,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -237,8 +284,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -254,8 +305,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -271,8 +326,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -288,8 +347,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -305,8 +368,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -326,8 +393,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -343,8 +414,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante, 
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -360,9 +435,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // E
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaDominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'E',
@@ -378,8 +457,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaDominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'E',
@@ -395,8 +478,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaDominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'E',
@@ -412,8 +499,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaDominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'E',
@@ -429,9 +520,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // F
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -452,8 +547,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -469,8 +568,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -489,8 +592,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -509,8 +616,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -530,8 +641,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -547,9 +662,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // G
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -568,8 +687,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -585,8 +708,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -602,8 +729,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -619,8 +750,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -636,8 +771,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -656,8 +795,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -673,8 +816,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -690,8 +837,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -707,9 +858,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // A
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'A',
@@ -728,8 +883,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'A',
@@ -745,8 +904,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'A',
@@ -762,8 +925,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'A',
@@ -783,8 +950,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'A',
@@ -800,8 +971,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'A',
@@ -817,9 +992,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // B
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominanteNoTonizar,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'B',
@@ -838,8 +1017,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominanteNoTonizar,
                         Escala: escalaCampoArmonico.mayor,
                         EscalaPrioridad: 1,
                         KeyNote: 'B',
@@ -859,12 +1042,16 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // ---------------------------------------
                     // ESCALA MAYOR ARMÓNICA
                     // ---------------------------------------
                     // C
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -880,8 +1067,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,  
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -897,8 +1088,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -914,8 +1109,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -931,8 +1130,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -948,8 +1151,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -965,9 +1172,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // D
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -986,8 +1197,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -1007,9 +1222,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // E
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaDominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'E',
@@ -1025,8 +1244,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaDominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'E',
@@ -1042,9 +1265,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // F
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1063,8 +1290,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1080,8 +1311,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1097,8 +1332,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1117,8 +1356,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1138,8 +1381,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1155,9 +1402,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // G
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -1176,8 +1427,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -1193,8 +1448,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -1210,8 +1469,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -1230,8 +1493,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -1247,8 +1514,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -1264,9 +1535,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // Ab
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'Ab',
@@ -1285,8 +1560,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'Ab',
@@ -1306,9 +1585,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // B
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominanteNoTonizar,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'B',
@@ -1324,8 +1607,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominanteNoTonizar,
                         Escala: escalaCampoArmonico.mayorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'B',
@@ -1341,12 +1628,16 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // ---------------------------------------
                     // ESCALA MENOR NATURAL
                     // ---------------------------------------
                     // Eb
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Eb',
@@ -1365,8 +1656,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,  
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Eb',
@@ -1382,8 +1677,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Eb',
@@ -1399,8 +1698,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Eb',
@@ -1416,8 +1719,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Eb',
@@ -1433,8 +1740,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Eb',
@@ -1450,8 +1761,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Eb',
@@ -1467,8 +1782,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Eb',
@@ -1484,8 +1803,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonica,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Eb',
@@ -1501,9 +1824,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // F
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1522,8 +1849,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1542,8 +1873,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1559,8 +1894,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1576,8 +1915,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1593,8 +1936,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1610,8 +1957,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1631,8 +1982,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1648,8 +2003,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -1665,9 +2024,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // G
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -1683,8 +2046,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -1700,8 +2067,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -1717,8 +2088,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -1734,9 +2109,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // Ab
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Ab',
@@ -1757,8 +2136,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Ab',
@@ -1774,8 +2157,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Ab',
@@ -1794,8 +2181,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Ab',
@@ -1814,8 +2205,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Ab',
@@ -1835,8 +2230,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Ab',
@@ -1852,9 +2251,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // Bb
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Bb',
@@ -1873,8 +2276,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Bb',
@@ -1890,8 +2297,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Bb',
@@ -1907,8 +2318,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Bb',
@@ -1924,8 +2339,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Bb',
@@ -1941,8 +2360,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Bb',
@@ -1961,8 +2384,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Bb',
@@ -1978,8 +2405,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Bb',
@@ -1995,8 +2426,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'Bb',
@@ -2012,9 +2447,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // C
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2033,8 +2472,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2050,8 +2493,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2067,8 +2514,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2088,8 +2539,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2105,8 +2560,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2122,9 +2581,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // D
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominanteNoTonizar,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -2143,8 +2606,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominanteNoTonizar,
                         Escala: escalaCampoArmonico.menorNatural,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -2164,12 +2631,16 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // ---------------------------------------
                     // ESCALA MENOR ARMÓNICA
                     // ---------------------------------------
                     // C
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2185,8 +2656,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,  
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2202,9 +2677,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // D
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -2225,8 +2704,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -2242,8 +2725,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -2262,8 +2749,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -2282,8 +2773,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -2303,8 +2798,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -2322,9 +2821,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // E
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'E',
@@ -2343,8 +2846,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'E',
@@ -2363,8 +2870,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'E',
@@ -2380,8 +2891,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'E',
@@ -2399,9 +2914,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // F
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -2422,8 +2941,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -2442,8 +2965,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -2463,9 +2990,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // G
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominanteNoTonizar,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'G#',
@@ -2481,8 +3012,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominanteNoTonizar,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'G#',
@@ -2498,9 +3033,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // A
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'A',
@@ -2519,8 +3058,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'A',
@@ -2536,8 +3079,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'A',
@@ -2553,8 +3100,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'A',
@@ -2574,8 +3125,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'A',
@@ -2591,8 +3146,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'A',
@@ -2608,9 +3167,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // B
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominanteNoTonizar,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'B',
@@ -2626,8 +3189,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominanteNoTonizar,
                         Escala: escalaCampoArmonico.menorArmonica,
                         EscalaPrioridad: 1,
                         KeyNote: 'B',
@@ -2643,12 +3210,16 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // ---------------------------------------
                     // ESCALA MENOR MELÓDICA
                     // ---------------------------------------
                     // C
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2667,8 +3238,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,  
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2684,8 +3259,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2701,8 +3280,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2720,8 +3303,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2737,8 +3324,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2757,8 +3348,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2774,8 +3369,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.tonicaNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'C',
@@ -2791,9 +3390,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // D
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominanteNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -2809,8 +3412,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominanteNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -2826,8 +3433,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominanteNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -2843,8 +3454,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominanteNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -2860,8 +3475,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominanteNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'D',
@@ -2877,9 +3496,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // Eb
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'Eb',
@@ -2898,8 +3521,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'Eb',
@@ -2919,9 +3546,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // F
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -2942,8 +3573,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -2959,8 +3594,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -2979,8 +3618,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -2999,8 +3642,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -3020,8 +3667,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'F',
@@ -3037,9 +3688,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // G
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -3058,8 +3713,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -3075,8 +3734,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -3095,8 +3758,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -3112,8 +3779,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -3133,9 +3804,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // A
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'A',
@@ -3154,8 +3829,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'A',
@@ -3175,9 +3854,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // B
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominanteNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'B',
@@ -3193,8 +3876,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominanteNoTonizar,
                         Escala: escalaCampoArmonico.menorMelodica,
                         EscalaPrioridad: 1,
                         KeyNote: 'B',
@@ -3210,12 +3897,16 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // ---------------------------------------
                     // ESCALA OTROS
                     // ---------------------------------------
                     // G
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -3236,8 +3927,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'G',
@@ -3258,9 +3953,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // G2
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'G2',
@@ -3283,9 +3982,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // G3
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'G3',
@@ -3304,9 +4007,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // A
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'Ab',
@@ -3327,8 +4034,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'Ab',
@@ -3344,8 +4055,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'Ab',
@@ -3364,8 +4079,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'Ab',
@@ -3384,8 +4103,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'Ab',
@@ -3405,8 +4128,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.dominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'Ab',
@@ -3422,9 +4149,13 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     // Db
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'Db',
@@ -3445,8 +4176,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'Db',
@@ -3462,8 +4197,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'Db',
@@ -3482,8 +4221,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'Db',
@@ -3502,8 +4245,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'Db',
@@ -3523,8 +4270,12 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: true,
                         ByDefault: true,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                     {
+                        Nivel: 0,
+                        From: '', 
+                        Funcion: funcionCampoArmonico.subdominante,
                         Escala: escalaCampoArmonico.otros,
                         EscalaPrioridad: 1,
                         KeyNote: 'Db',
@@ -3540,6 +4291,7 @@ export default function ConfigCampoArmonico({ route }) {
                         CheckTension: false,
                         ByDefault: false,
                         EstadosAcorde: estadoAcorde.fundamental.toString(),
+                        Tonicalizado: false,
                     },
                 ];
             }
@@ -3553,6 +4305,8 @@ export default function ConfigCampoArmonico({ route }) {
     const [estadosAcorde, setEstadosAcorde] = useState('');
     const [hasAcordeMoreOptions, setHasAcordeMoreOptions] = useState(false);
     const [escalaForMoreOptions, setEscalaForMoreOptions] = useState(null);
+    const [tonicalizado, setTonicalizado] = useState(false);
+    const [realKeyNoteToSend, setRealKeyNoteToSend] = useState('');
 
     // States for specific tensions
     const [listOptionsTensiones, setListOptionsTensiones] = useState([]);
@@ -3756,10 +4510,176 @@ export default function ConfigCampoArmonico({ route }) {
     const refRBSheet_AcordeOptions = useRef();
     const refRBSheet_AcordeTensiones = useRef();
 
+    // ---------------------------------------
+    // TONICALIZACIÓN
+    // ---------------------------------------
+
+    const enableTonicalizacion = (escala, acorde, realKeyNote) => {
+        let dataCAToOperate = dataCamposArmonicos.map((x) => {
+            if (
+                x.Nivel == (nivel == null ? 0 : nivel) 
+                && x.From == (fromLocal == null ? '' : fromLocal) 
+                && x.Escala == escala 
+                && x.RealKeyNote == realKeyNote
+            ) {
+                return {
+                    ...x,
+                    Tonicalizado: !tonicalizado,
+                }
+            } else {
+                return x;
+            }
+        })
+
+        let newNivel = nivel + 1;
+        let newFrom = escala + '|' + realKeyNote;
+        let dataCANewLevel = null;
+
+        if (!tonicalizado) {
+            if (dataCAToOperate.findIndex(x => x.Nivel == newNivel && x.From == newFrom) > -1) {
+                // Not add new elements to dataCamposArmonicos, set the existing registers as a defoult
+                setDataCamposArmonicos(dataCAToOperate.map((x) => {
+                    if (x.Nivel == newNivel && x.From == newFrom) {
+                        if ((x.Escala == escalaCampoArmonico.mayor || x.Escala == escalaCampoArmonico.menorArmonica) && (x.RealKeyNote == 'D' || x.RealKeyNote == 'G') && x.Tipo == acordeType.triada && (x.NombreCifrado == nombreCifrado_TetradaTriada.triada_Menor || x.NombreCifrado == nombreCifrado_TetradaTriada.triada_Mayor || x.NombreCifrado == nombreCifrado_TetradaTriada.triada_Disminuido)) {
+                            return {
+                                ...x,
+                                Nivel: newNivel,
+                                From: newFrom,
+                                CheckEscala: true,
+                                CheckKeyNote: true,
+                                CheckNombreCifrado: true,
+                                CheckTension: false,
+                                SpecificTensions: [],
+                            }
+                        } else if ((x.Escala == escalaCampoArmonico.mayor || x.Escala == escalaCampoArmonico.menorArmonica) && (x.RealKeyNote == 'D' || x.RealKeyNote == 'G')) {
+                            return {
+                                ...x,
+                                Nivel: newNivel,
+                                From: newFrom,
+                                CheckEscala: true,
+                                CheckKeyNote: true,
+                                CheckNombreCifrado: false,
+                                CheckTension: false,
+                                SpecificTensions: [],
+                            }
+                        } else if (x.Escala == escalaCampoArmonico.mayor || x.Escala == escalaCampoArmonico.menorArmonica) {
+                            return {
+                                ...x,
+                                Nivel: newNivel,
+                                From: newFrom,
+                                CheckEscala: true,
+                                CheckKeyNote: false,
+                                CheckNombreCifrado: false,
+                                CheckTension: false,
+                                SpecificTensions: [],
+                            }
+                        } else {
+                            return {
+                                ...x,
+                                Nivel: newNivel,
+                                From: newFrom,
+                                CheckEscala: false,
+                                CheckKeyNote: false,
+                                CheckNombreCifrado: false,
+                                CheckTension: false,
+                                SpecificTensions: [],
+                            }
+                        }
+                    } else {
+                        return x;
+                    }
+                }))
+            } else {    
+                dataCANewLevel = dataCAToOperate.map((x) => {
+                    if ((x.Escala == escalaCampoArmonico.mayor || x.Escala == escalaCampoArmonico.menorArmonica) && (x.RealKeyNote == 'D' || x.RealKeyNote == 'G') && x.Tipo == acordeType.triada && (x.NombreCifrado == nombreCifrado_TetradaTriada.triada_Menor || x.NombreCifrado == nombreCifrado_TetradaTriada.triada_Mayor || x.NombreCifrado == nombreCifrado_TetradaTriada.triada_Disminuido)) {
+                        return {
+                            ...x,
+                            RealKeyNote: transformarAEscalaDiatonica([x.RealKeyNote], realKeyNote)[0],
+                            OriginalKeyNote: x.OriginalRealKeyNote ?? x.RealKeyNote,
+                            Nivel: newNivel,
+                            From: newFrom,
+                            Tonicalizado: false,
+                            CheckEscala: true,
+                            CheckKeyNote: true,
+                            CheckNombreCifrado: true,
+                            CheckTension: false,
+                            SpecificTensions: [],
+                        }
+                    } else if ((x.Escala == escalaCampoArmonico.mayor || x.Escala == escalaCampoArmonico.menorArmonica) && (x.RealKeyNote == 'D' || x.RealKeyNote == 'G')) {
+                        return {
+                            ...x,
+                            RealKeyNote: transformarAEscalaDiatonica([x.RealKeyNote], realKeyNote)[0],
+                            OriginalKeyNote: x.OriginalRealKeyNote ?? x.RealKeyNote,
+                            Nivel: newNivel,
+                            From: newFrom,
+                            Tonicalizado: false,
+                            CheckEscala: true,
+                            CheckKeyNote: true,
+                            CheckNombreCifrado: false,
+                            CheckTension: false,
+                            SpecificTensions: [],
+                        }
+                    } else if (x.Escala == escalaCampoArmonico.mayor || x.Escala == escalaCampoArmonico.menorArmonica) {
+                        return {
+                            ...x,
+                            RealKeyNote: transformarAEscalaDiatonica([x.RealKeyNote], realKeyNote)[0],
+                            OriginalKeyNote: x.OriginalRealKeyNote ?? x.RealKeyNote,
+                            Nivel: newNivel,
+                            From: newFrom,
+                            Tonicalizado: false,
+                            CheckEscala: true,
+                            CheckKeyNote: false,
+                            CheckNombreCifrado: false,
+                            CheckTension: false,
+                            SpecificTensions: [],
+                        }
+                    } else {
+                        return {
+                            ...x,
+                            RealKeyNote: transformarAEscalaDiatonica([x.RealKeyNote], realKeyNote)[0],
+                            OriginalKeyNote: x.OriginalRealKeyNote ?? x.RealKeyNote,
+                            Nivel: newNivel,
+                            From: newFrom,
+                            Tonicalizado: false,
+                            CheckEscala: false,
+                            CheckKeyNote: false,
+                            CheckNombreCifrado: false,
+                            CheckTension: false,
+                            SpecificTensions: [],
+                        }
+                    }
+                })
+
+                setDataCamposArmonicos(dataCAToOperate.concat(dataCANewLevel))
+            }
+        } else {
+            // Set table with check = false
+            setDataCamposArmonicos(dataCAToOperate.map((x) => {
+                if (x.Nivel == newNivel && x.From == newFrom) {
+                    return {
+                        ...x,
+                        CheckEscala: false,
+                        CheckKeyNote: false,
+                        CheckNombreCifrado: false,
+                        CheckTension: false,
+                        SpecificTensions: [],
+                    }
+                } else {
+                    return x;
+                }
+            }))
+        }
+
+        setTonicalizado(!tonicalizado)
+    }
+
+    // ---------------------------------------
+    // ---------------------------------------
+
     const showBottomSheetEscala = (escala) => {
         setElemForMoreOptions(escala);
         setTypeElem('escala');
-        setPriorityElem(dataCamposArmonicos.find((x) => x.Escala == escala).EscalaPrioridad);
+        setPriorityElem(dataCamposArmonicos.find((x) => x.Escala == escala && x.Nivel == nivel && x.From == fromLocal).EscalaPrioridad);
 
         refRBSheet_AcordeOptions.current.open();
     }
@@ -3767,17 +4687,28 @@ export default function ConfigCampoArmonico({ route }) {
     const showBottomSheetAcorde = (acorde, escala) => {
         setElemForMoreOptions(acorde);
         setEscalaForMoreOptions(escala);
+        let dataFound = dataCamposArmonicos.find(x => x.KeyNote == acorde && x.Escala == escala && x.Nivel == nivel && x.From == fromLocal);
+
+        if (
+            dataFound?.Funcion != funcionCampoArmonico.tonicaNoTonizar
+            && dataFound?.Funcion != funcionCampoArmonico.dominanteNoTonizar
+            && dataFound?.Funcion != funcionCampoArmonico.subdominanteNoTonizar) {
+            setTonicalizado(dataFound?.Tonicalizado);
+        } else {
+            setTonicalizado(null)
+        }
+        setRealKeyNoteToSend(dataFound?.RealKeyNote);
         setTypeElem('acorde');
-        setHasAcordeMoreOptions((dataCamposArmonicos.filter((x) => x.KeyNote == acorde && x.Escala == escala)?.length > 2) || (escala === escalaCampoArmonico.otros && acorde === 'G')); // mayor a 2 porque el que no tiene mas opciones es de largo 2 (tétrada más tríada)
-        setPriorityElem(dataCamposArmonicos.find((x) => x.KeyNote == acorde && x.Escala == escala).KeyNotePrioridad);
-        setEstadosAcorde(dataCamposArmonicos.find((x) => x.KeyNote == acorde && x.Escala == escala).EstadosAcorde);
+        setHasAcordeMoreOptions((dataCamposArmonicos.filter((x) => x.KeyNote == acorde && x.Escala == escala && x.Nivel == nivel && x.From == fromLocal)?.length > 2) || (escala === escalaCampoArmonico.otros && acorde === 'G')); // mayor a 2 porque el que no tiene mas opciones es de largo 2 (tétrada más tríada)
+        setPriorityElem(dataFound.KeyNotePrioridad);
+        setEstadosAcorde(dataFound.EstadosAcorde);
 
         refRBSheet_AcordeOptions.current.open();
     }
 
     const setEstadoAcordeEscala = (elem, estadosAcordeStr, escalaForElem) => {
         setDataCamposArmonicos(dataCamposArmonicos.map((x) => {
-            if (x.KeyNote == elem && x.Escala == escalaForElem) {
+            if (x.KeyNote == elem && x.Escala == escalaForElem && x.Nivel == nivel && x.From == fromLocal) {
                 return {
                     ...x,
                     EstadosAcorde: estadosAcordeStr,
@@ -3939,7 +4870,7 @@ export default function ConfigCampoArmonico({ route }) {
     const setPriorityAcordeEscala = (elem, type, priority, escalaForAcorde) => {
         if (type == 'acorde') {
             setDataCamposArmonicos(dataCamposArmonicos.map((x) => {
-                if (x.KeyNote == elem && x.Escala == escalaForAcorde) {
+                if (x.KeyNote == elem && x.Escala == escalaForAcorde && x.Nivel == nivel && x.From == fromLocal) {
                     return {
                         ...x,
                         KeyNotePrioridad: priority,
@@ -3950,7 +4881,7 @@ export default function ConfigCampoArmonico({ route }) {
             }))
         } else if (type = 'escala') {
             setDataCamposArmonicos(dataCamposArmonicos.map((x) => {
-                if (x.Escala == elem) {
+                if (x.Escala == elem && x.Nivel == nivel && x.From == fromLocal) {
                     return {
                         ...x,
                         EscalaPrioridad: priority,
@@ -4386,27 +5317,27 @@ export default function ConfigCampoArmonico({ route }) {
     // Handle table
     // --------------------------------------------------
     const isEscalaChecked = (escala) => {
-        return dataCamposArmonicos.find(x => x.Escala == escala)?.CheckEscala;
+        return dataCamposArmonicos.find(x => x.Escala == escala && x.Nivel == nivel && x.From == fromLocal)?.CheckEscala;
     }
 
     const isAcordeChecked = (escala, acorde) => {
-        return dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde)?.CheckKeyNote;
+        return dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.Nivel == nivel && x.From == fromLocal)?.CheckKeyNote;
     }
 
     const isTetradaChecked = (escala, acorde, tetrada) => {
-        return dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tipo == acordeType.tetrada)?.CheckNombreCifrado;
+        return dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tipo == acordeType.tetrada && x.Nivel == nivel && x.From == fromLocal)?.CheckNombreCifrado;
     }
 
     const isTriadaChecked = (escala, acorde, triada) => {
-        return dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tipo == acordeType.triada)?.CheckNombreCifrado;
+        return dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tipo == acordeType.triada && x.Nivel == nivel && x.From == fromLocal)?.CheckNombreCifrado;
     }
 
     const isTensionTetradaChecked = (escala, acorde, tetrada, tension) => {
-        return dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tension == tension && x.Tipo == acordeType.tetrada)?.CheckTension;
+        return dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tension == tension && x.Tipo == acordeType.tetrada && x.Nivel == nivel && x.From == fromLocal)?.CheckTension;
     }
 
     const isTensionTriadaChecked = (escala, acorde, triada, tension) => {
-        return dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tension == tension && x.Tipo == acordeType.triada)?.CheckTension;
+        return dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tension == tension && x.Tipo == acordeType.triada && x.Nivel == nivel && x.From == fromLocal)?.CheckTension;
     }
 
     const existAcordeSelected = (data, escala) => {
@@ -4420,7 +5351,7 @@ export default function ConfigCampoArmonico({ route }) {
     const selectTensionTriada = (escala, acorde, triada, tension) => {
         const tensiones = getDifferentsTensiones(tension);
 
-        const specificTensions = dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tipo == acordeType.triada)?.SpecificTensions;
+        const specificTensions = dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tipo == acordeType.triada && x.Nivel == nivel && x.From == fromLocal)?.SpecificTensions;
 
         let listOptionsAux = []
         tensiones.forEach(tension => {
@@ -4448,7 +5379,7 @@ export default function ConfigCampoArmonico({ route }) {
         let result = dataCamposArmonicos;
         result =
             result.map((x) => {
-                if (x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tension == tension && x.Tipo == acordeType.triada) {
+                if (x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tension == tension && x.Tipo == acordeType.triada && x.Nivel == nivel && x.From == fromLocal) {
                     return {
                         ...x,
                         CheckTension: checkTension,
@@ -4463,7 +5394,7 @@ export default function ConfigCampoArmonico({ route }) {
         // if there are triada selected then CheckKeyNote = true
         // if there are not triada selected then CheckKeyNote = false
         result = result.map((x) => {
-            if (x.Escala == escala && x.KeyNote == acorde) {
+            if (x.Escala == escala && x.KeyNote == acorde && x.Nivel == nivel && x.From == fromLocal) {
                 return {
                     ...x,
                     CheckKeyNote: existTetradaTriadaSelected(result, escala, acorde),
@@ -4476,7 +5407,7 @@ export default function ConfigCampoArmonico({ route }) {
         // if there are acorde selected then ChecEscala = true
         // if there are not acorde selected then CheckEscala = false
         result = result.map((x) => {
-            if (x.Escala == escala) {
+            if (x.Escala == escala && x.Nivel == nivel && x.From == fromLocal) {
                 return {
                     ...x,
                     CheckEscala: existAcordeSelected(result, escala),
@@ -4504,7 +5435,7 @@ export default function ConfigCampoArmonico({ route }) {
     const selectTensionTetrada = (escala, acorde, tetrada, tension) => {
         const tensiones = getDifferentsTensiones(tension);
 
-        const specificTensions = dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tipo == acordeType.tetrada)?.SpecificTensions;
+        const specificTensions = dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tipo == acordeType.tetrada && x.Nivel == nivel && x.From == fromLocal)?.SpecificTensions;
 
         let listOptionsAux = []
         tensiones.forEach(tension => {
@@ -4533,7 +5464,7 @@ export default function ConfigCampoArmonico({ route }) {
 
         result =
             result.map((x) => {
-                if (x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tension == tension && x.Tipo == acordeType.tetrada) {
+                if (x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tension == tension && x.Tipo == acordeType.tetrada && x.Nivel == nivel && x.From == fromLocal) {
                     return {
                         ...x,
                         CheckTension: checkTension,
@@ -4548,7 +5479,7 @@ export default function ConfigCampoArmonico({ route }) {
         // if there are tetrada selected then CheckKeyNote = true
         // if there are not tetrada selected then CheckKeyNote = false
         result = result.map((x) => {
-            if (x.Escala == escala && x.KeyNote == acorde) {
+            if (x.Escala == escala && x.KeyNote == acorde && x.Nivel == nivel && x.From == fromLocal) {
                 return {
                     ...x,
                     CheckKeyNote: existTetradaTriadaSelected(result, escala, acorde),
@@ -4561,7 +5492,7 @@ export default function ConfigCampoArmonico({ route }) {
         // if there are acorde selected then ChecEscala = true
         // if there are not acorde selected then CheckEscala = false
         result = result.map((x) => {
-            if (x.Escala == escala) {
+            if (x.Escala == escala && x.Nivel == nivel && x.From == fromLocal) {
                 return {
                     ...x,
                     CheckEscala: existAcordeSelected(result, escala),
@@ -4575,11 +5506,11 @@ export default function ConfigCampoArmonico({ route }) {
     }
 
     const selectTriada = (escala, acorde, triada) => {
-        const checkTriada = !dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tipo == acordeType.triada)?.CheckNombreCifrado;
+        const checkTriada = !dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tipo == acordeType.triada && x.Nivel == nivel && x.From == fromLocal)?.CheckNombreCifrado;
         let result = dataCamposArmonicos;
         result =
             dataCamposArmonicos.map((x) => {
-                if (x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tipo == acordeType.triada) {
+                if (x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == triada && x.Tipo == acordeType.triada && x.Nivel == nivel && x.From == fromLocal) {
                     if (checkTriada) {
                         return {
                             ...x,
@@ -4600,7 +5531,7 @@ export default function ConfigCampoArmonico({ route }) {
         // if there are triada selected then CheckKeyNote = true
         // if there are not triada selected then CheckKeyNote = false
         result = result.map((x) => {
-            if (x.Escala == escala && x.KeyNote == acorde) {
+            if (x.Escala == escala && x.KeyNote == acorde && x.Nivel == nivel && x.From == fromLocal) {
                 return {
                     ...x,
                     CheckKeyNote: existTetradaTriadaSelected(result, escala, acorde),
@@ -4613,7 +5544,7 @@ export default function ConfigCampoArmonico({ route }) {
         // if there are acorde selected then ChecEscala = true
         // if there are not acorde selected then CheckEscala = false
         result = result.map((x) => {
-            if (x.Escala == escala) {
+            if (x.Escala == escala && x.Nivel == nivel && x.From == fromLocal) {
                 return {
                     ...x,
                     CheckEscala: existAcordeSelected(result, escala),
@@ -4627,11 +5558,11 @@ export default function ConfigCampoArmonico({ route }) {
     }
 
     const selectTetrada = (escala, acorde, tetrada) => {
-        const checkTetrada = !dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tipo == acordeType.tetrada)?.CheckNombreCifrado;
+        const checkTetrada = !dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tipo == acordeType.tetrada && x.Nivel == nivel && x.From == fromLocal)?.CheckNombreCifrado;
         let result = dataCamposArmonicos;
         result =
             result.map((x) => {
-                if (x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tipo == acordeType.tetrada) {
+                if (x.Escala == escala && x.KeyNote == acorde && x.NombreCifrado == tetrada && x.Tipo == acordeType.tetrada && x.Nivel == nivel && x.From == fromLocal) {
                     if (checkTetrada) {
                         return {
                             ...x,
@@ -4652,7 +5583,7 @@ export default function ConfigCampoArmonico({ route }) {
         // if there are tetrada selected then CheckKeyNote = true
         // if there are not tetrada selected then CheckKeyNote = false
         result = result.map((x) => {
-            if (x.Escala == escala && x.KeyNote == acorde) {
+            if (x.Escala == escala && x.KeyNote == acorde && x.Nivel == nivel && x.From == fromLocal) {
                 return {
                     ...x,
                     CheckKeyNote: existTetradaTriadaSelected(result, escala, acorde),
@@ -4665,7 +5596,7 @@ export default function ConfigCampoArmonico({ route }) {
         // if there are acorde selected then ChecEscala = true
         // if there are not acorde selected then CheckEscala = false
         result = result.map((x) => {
-            if (x.Escala == escala) {
+            if (x.Escala == escala && x.Nivel == nivel && x.From == fromLocal) {
                 return {
                     ...x,
                     CheckEscala: existAcordeSelected(result, escala),
@@ -4679,12 +5610,12 @@ export default function ConfigCampoArmonico({ route }) {
     }
 
     const selectAcorde = (escala, acorde) => {
-        const checkAcorde = !dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde)?.CheckKeyNote;
+        const checkAcorde = !dataCamposArmonicos.find(x => x.Escala == escala && x.KeyNote == acorde && x.Nivel == nivel && x.From == fromLocal)?.CheckKeyNote;
         let result = dataCamposArmonicos;
         if (!checkAcorde) {
             result =
                 result.map((x) => {
-                    if (x.Escala == escala && x.KeyNote == acorde) {
+                    if (x.Escala == escala && x.KeyNote == acorde && x.Nivel == nivel && x.From == fromLocal) {
                         return {
                             ...x,
                             CheckKeyNote: checkAcorde,
@@ -4698,7 +5629,7 @@ export default function ConfigCampoArmonico({ route }) {
         } else {
             result =
                 result.map((x) => {
-                    if (x.Escala == escala && x.KeyNote == acorde && x.ByDefault) {
+                    if (x.Escala == escala && x.KeyNote == acorde && x.ByDefault && x.Nivel == nivel && x.From == fromLocal) {
                         return {
                             ...x,
                             CheckKeyNote: true,
@@ -4714,7 +5645,7 @@ export default function ConfigCampoArmonico({ route }) {
         // if there are acorde selected then ChecEscala = true
         // if there are not acorde selected then CheckEscala = false
         result = result.map((x) => {
-            if (x.Escala == escala) {
+            if (x.Escala == escala && x.Nivel == nivel && x.From == fromLocal) {
                 return {
                     ...x,
                     CheckEscala: existAcordeSelected(result, escala),
@@ -4728,11 +5659,11 @@ export default function ConfigCampoArmonico({ route }) {
     }
 
     const selectEscala = async (escala) => {
-        const checkEscala = !dataCamposArmonicos.find((x) => x.Escala == escala)?.CheckEscala;
+        const checkEscala = !dataCamposArmonicos.find((x) => x.Escala == escala && x.Nivel == nivel && x.From == fromLocal)?.CheckEscala;
         if (!checkEscala) {
             await setDataCamposArmonicos(
                 dataCamposArmonicos.map((x) => {
-                    if (x.Escala == escala) {
+                    if (x.Escala == escala && x.Nivel == nivel && x.From == fromLocal) {
                         return { 
                             ...x, 
                             CheckEscala: checkEscala,
@@ -4748,7 +5679,7 @@ export default function ConfigCampoArmonico({ route }) {
         } else {
             await setDataCamposArmonicos(
                 dataCamposArmonicos.map((x) => {
-                    if (x.Escala == escala && x.ByDefault) {
+                    if (x.Escala == escala && x.ByDefault && x.Nivel == nivel && x.From == fromLocal) {
                         return {
                             ...x, 
                                 CheckEscala: true,
@@ -4768,13 +5699,20 @@ export default function ConfigCampoArmonico({ route }) {
     // --------------------------------------------------
 
     const saveConfig = () => {
+        // console.log(dataCamposArmonicos.filter(x => x.Nivel == 1 && x.CheckEscala &&
+        //     x.CheckKeyNote &&
+        //     x.CheckNombreCifrado));
+
+        // console.log(dataCamposArmonicos.filter(x => x.Nivel == 0 && x.Tonicalizado && 
+        //     x.CheckKeyNote && x.CheckNombreCifrado))
+
         setCamposArmonicosToSend(dataCamposArmonicos);
         navigation.goBack();
         Alert.alert('Configuración de campos armónicos guardada con éxito.');
     }
 
     const getRealKeyNote = (escala, keyNote) => {
-        const realKeyNote = dataCamposArmonicos.find((x) => x.Escala == escala && x.KeyNote == keyNote).RealKeyNote;
+        const realKeyNote = dataCamposArmonicos.find((x) => x.Escala == escala && x.KeyNote == keyNote && x.Nivel == nivel && x.From == fromLocal).RealKeyNote;
         let result = ''
         if (realKeyNote.includes('b')) result = result + 'b'
         if (realKeyNote.includes('#')) result = result + '#'
@@ -8544,6 +9482,9 @@ export default function ConfigCampoArmonico({ route }) {
                 setEstadoAcordeEscala={setEstadoAcordeEscala}
                 hasMoreOptions={hasAcordeMoreOptions}
                 escalaForMoreOptions={escalaForMoreOptions}
+                tonicalizado={tonicalizado}
+                enableTonicalizacion={enableTonicalizacion}
+                realKeyNoteToSend={realKeyNoteToSend}
             />
 
             <BottomSheetAcordeTensiones

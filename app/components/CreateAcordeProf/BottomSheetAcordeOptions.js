@@ -19,6 +19,9 @@ export default function BottomSheetAcordeOptions(props) {
         setEstadoAcordeEscala,
         hasMoreOptions,
         escalaForMoreOptions,
+        tonicalizado,
+        enableTonicalizacion,
+        realKeyNoteToSend
     } = props;
 
     const [height, setHeight] = useState(0.5);
@@ -99,6 +102,10 @@ export default function BottomSheetAcordeOptions(props) {
 
     }
 
+    const checkTonicalizada = () => {
+        enableTonicalizacion(escalaForMoreOptions, elem, realKeyNoteToSend)
+    }
+
     return (
         <RBSheet
             ref={refRBSheet}
@@ -167,6 +174,33 @@ export default function BottomSheetAcordeOptions(props) {
                             Estado para '{elem?.replace(/[0-9]/g, '')}'
                         </Text>
                     </TouchableOpacity>
+                    {tonicalizado !== null && (
+                        <CheckBox
+                            title='Tonicalizada'
+                            checked={tonicalizado}
+                            onPress={() => checkTonicalizada()}
+                            containerStyle={{backgroundColor: 'white', borderColor: 'white', marginLeft: 15}}
+                            checkedColor={PRIMARY_COLOR}
+                            size={25}
+                        />
+                    )}
+                    {/* TODO: Modificar tablas cuando una nota se TONICALIZA 
+                    Quedo para hacer en otro momento */}
+                    {/* {tonicalizado && (
+                        <TouchableOpacity
+                            style={styles.container}
+                            onPress={() => console.log('lskdjflksdj')}
+                        >
+                            <Icon
+                                name="music-box-multiple-outline"
+                                type="material-community"
+                                iconStyle={styles.iconOption}
+                            />
+                            <Text style={styles.options}>
+                                Editar tablas - Tonicalización de '{elem?.replace(/[0-9]/g, '')}'
+                            </Text>
+                        </TouchableOpacity>
+                    )} */}
                 </View>
             ) : state == 'priority' ? (
                 <View>
